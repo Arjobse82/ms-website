@@ -1,0 +1,14 @@
+{
+  "name": "monochrome-systems-website",
+  "private": true,
+  "type": "module",
+  "description": "Website for Monochrome Systems",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "images": "./scripts/build-images.sh"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.7"
+  }
+}

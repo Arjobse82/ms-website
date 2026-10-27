@@ -1,0 +1,23 @@
+{#- Horizontally scrolling cards with previous/next buttons, after apple.com's "Get to know" galleries. -#}
+<div class="gallery" data-gallery>
+  <ul class="gallery-track" data-gallery-track>
+    {%- for card in site.principles %}
+    <li class="gallery-card" style="--focus: {{ card.focus }}">
+      {% photo card.photo, { class: "gallery-card-photo", sizes: "372px" } %}
+      <div class="gallery-card-text">
+        <p class="gallery-card-eyebrow">{{ card.eyebrow }}</p>
+        <h3 class="gallery-card-title">{{ card.title }}</h3>
+        <p class="gallery-card-body">{{ card.text }}</p>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+  <div class="gallery-controls container container-wide">
+    <button class="gallery-button" type="button" data-gallery-prev>
+      <span class="visually-hidden">Previous</span>{% include "icons/chevron-left.svg" %}
+    </button>
+    <button class="gallery-button" type="button" data-gallery-next>
+      <span class="visually-hidden">Next</span>{% include "icons/chevron-right.svg" %}
+    </button>
+  </div>
+</div>

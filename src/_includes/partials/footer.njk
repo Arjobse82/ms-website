@@ -1,0 +1,43 @@
+<footer class="footer">
+  <div class="footer-content">
+    {%- if app or product or title %}
+    <nav class="footer-breadcrumbs" aria-label="Breadcrumbs">
+      <a class="footer-home" href="/">{% include "icons/mark.svg" %}<span class="visually-hidden">{{ site.name }}</span></a>
+      {%- if product %}
+      {% include "icons/chevron-right.svg" %}<a href="{{ product.appUrl }}">{{ product.appName }}</a>
+      {% include "icons/chevron-right.svg" %}<span aria-current="page">{{ product.name }}</span>
+      {%- elif app %}
+      {% include "icons/chevron-right.svg" %}<span aria-current="page">{{ app.name }}</span>
+      {%- else %}
+      {% include "icons/chevron-right.svg" %}<span aria-current="page">{{ title }}</span>
+      {%- endif %}
+    </nav>
+    {%- endif %}
+
+    <nav class="footer-directory" aria-label="Site map">
+      {%- for item in catalog.apps %}
+      <div class="footer-column">
+        <h3 class="footer-column-title">{{ item.name }}</h3>
+        <ul>
+          {%- if not item.standalone %}
+          <li><a href="{{ item.url }}">All {{ item.name }} plugins</a></li>
+          {%- endif %}
+          {%- for p in item.products %}
+          <li><a href="{{ p.url }}">{{ p.name }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+      <div class="footer-column">
+        <h3 class="footer-column-title">{{ site.name }}</h3>
+        <ul>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="footer-legal">
+      <p>Copyright © {{ build.year }} {{ site.name }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

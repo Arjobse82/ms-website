@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+---
+<section class="home-hero theme-dark">
+  {% photo "granite", { class: "home-hero-photo", sizes: "100vw", eager: true } %}
+  <div class="home-hero-content container">
+    <h1 class="t-hero">{{ site.name }}</h1>
+    <p class="t-subhead home-hero-subhead">{{ site.tagline }}</p>
+    <div class="cta-row">
+      <a class="button button-primary" href="#lineup">Explore the lineup</a>
+      <a class="button button-secondary" href="/about/">About us</a>
+    </div>
+  </div>
+</section>
+
+<section class="promos" aria-label="Apps">
+  {%- for app in catalog.apps %}
+  <article class="promo {{ 'theme-dark' if loop.index in [1, 4] else 'theme-gray' }}">
+    <h2 class="promo-title">{{ app.name }}</h2>
+    <p class="promo-subhead">{{ app.subhead }}</p>
+    <div class="cta-row">
+      <a class="button button-primary" href="{{ app.url }}">Learn more</a>
+      {%- if not app.standalone %}
+      <a class="button button-secondary" href="{{ app.url }}#lineup">View plugins</a>
+      {%- endif %}
+    </div>
+    <ul class="promo-visual{% if app.products.length == 1 %} promo-visual-single{% endif %}">
+      {%- for p in app.products %}
+      <li>
+        <a href="{{ p.url }}" class="promo-product">
+          <span class="promo-icon">{% include "icons/" + p.icon + ".svg" %}</span>
+          <span class="promo-product-name">{{ p.name }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </article>
+  {%- endfor %}
+</section>
+
+<section class="section theme-light" id="lineup">
+  <div class="container container-wide">
+    <h2 class="t-l section-title reveal">The lineup.</h2>
+    <div class="tile-grid">
+      {%- for p in catalog.allProducts %}
+      <div class="reveal">{% include "partials/tile.njk" %}</div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-statement theme-dark">
+  <div class="container">
+    <p class="t-xl statement reveal">{{ site.statement }}</p>
+    <p class="statement-link reveal"><a class="link-chevron" href="/about/">About {{ site.name }}{% include "icons/chevron-right.svg" %}</a></p>
+  </div>
+</section>

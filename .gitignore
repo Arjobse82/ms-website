@@ -1,0 +1,6 @@
+# Private briefs and original photos. Web versions live in src/assets/img.
+git-ignore/
+
+node_modules/
+_site/
+.DS_Store

@@ -1,0 +1,65 @@
+{#- Global nav, after apple.com: a bar of top-level links, each app with a flyout.
+    Desktop opens flyouts on hover (or with the chevron button from the keyboard);
+    mobile turns the bar into a full-screen menu with slide-in submenus. -#}
+<nav class="gn" aria-label="Global">
+  <div class="gn-bg" aria-hidden="true"></div>
+  <div class="gn-content">
+    <ul class="gn-list">
+      <li class="gn-item gn-item-logo">
+        <a class="gn-link gn-logo" href="/" aria-label="{{ site.name }}">{% include "icons/mark.svg" %}</a>
+      </li>
+      {%- for app in catalog.apps %}
+      <li class="gn-item" data-gn-menu style="--i: {{ loop.index }}">
+        <a class="gn-link" href="{{ app.url }}"{% if page.url.startsWith(app.url) %} aria-current="true"{% endif %}>{{ app.name }}</a>
+        <button class="gn-submenu-trigger" type="button" aria-expanded="false" aria-controls="gn-flyout-{{ app.slug }}">
+          <span class="visually-hidden">{{ app.name }} menu</span>{% include "icons/chevron-down.svg" %}
+        </button>
+        <div class="gn-flyout" id="gn-flyout-{{ app.slug }}">
+          <button class="gn-back" type="button">
+            <span class="visually-hidden">Back to main menu</span>{% include "icons/chevron-left.svg" %}
+          </button>
+          <div class="gn-flyout-content">
+            <div class="gn-group gn-group-elevated">
+              <h2 class="gn-group-title" style="--i: 0">Explore {{ app.name }}</h2>
+              <ul class="gn-group-list gn-group-list-elevated">
+                {%- for product in app.products %}
+                <li style="--i: {{ loop.index }}"><a href="{{ product.url }}">{{ product.name }}</a></li>
+                {%- endfor %}
+              </ul>
+              {%- if not app.standalone %}
+              <ul class="gn-group-list gn-group-list-secondary">
+                <li style="--i: {{ app.products.length + 1 }}"><a href="{{ app.url }}">All {{ app.name }} plugins</a></li>
+              </ul>
+              {%- endif %}
+            </div>
+            <div class="gn-group">
+              <h2 class="gn-group-title" style="--i: 1">Get started</h2>
+              <ul class="gn-group-list">
+                {%- for link in app.menuLinks %}
+                <li style="--i: {{ loop.index + 1 }}"><a href="{{ link.url }}">{{ link.label }}</a></li>
+                {%- endfor %}
+              </ul>
+            </div>
+            <div class="gn-group">
+              <h2 class="gn-group-title" style="--i: 2">More from Monochrome</h2>
+              <ul class="gn-group-list">
+                {%- for other in catalog.apps %}{% if other.slug != app.slug %}
+                <li style="--i: {{ loop.index + 2 }}"><a href="{{ other.url }}">{{ other.name }}</a></li>
+                {%- endif %}{% endfor %}
+                <li style="--i: {{ catalog.apps.length + 3 }}"><a href="/about/">About Monochrome Systems</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+      {%- endfor %}
+      <li class="gn-item" style="--i: {{ catalog.apps.length + 1 }}">
+        <a class="gn-link" href="/about/"{% if page.url == "/about/" %} aria-current="page"{% endif %}>About</a>
+      </li>
+    </ul>
+    <button class="gn-menu-trigger" type="button" aria-expanded="false">
+      <span class="visually-hidden">Menu</span>
+      <span class="gn-menu-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+</nav>

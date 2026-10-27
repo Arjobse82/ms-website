@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: catalog.apps
+  size: 1
+  alias: app
+permalink: "{{ app.url }}"
+eleventyComputed:
+  title: "{{ app.name }}"
+  description: "{{ app.subhead }} {{ app.intro }}"
+---
+{%- if app.standalone %}
+  {%- set product = app.products[0] %}
+  {% include "partials/product-page.njk" %}
+{%- else %}
+  {% include "partials/app-page.njk" %}
+{%- endif %}

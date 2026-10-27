@@ -1,0 +1,6 @@
+{#- The Get button for product `p`. Shows "Coming soon" until the product has a getUrl. Set `compact` for the small local nav size. -#}
+{%- if p.getUrl -%}
+<a class="button {{ 'button-small' if compact else 'button-primary' }}" href="{{ p.getUrl }}">Get{% if not compact %} {{ p.name }}{% endif %}</a>
+{%- else -%}
+<span class="button {{ 'button-small' if compact else 'button-primary' }} is-disabled" aria-disabled="true">Coming soon</span>
+{%- endif -%}

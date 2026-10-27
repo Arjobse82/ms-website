@@ -1,0 +1,99 @@
+{#- A product page, after apple.com product pages: sticky local nav, hero, statement, highlights, specs. -#}
+<nav class="localnav theme-dark" aria-label="{{ product.name }}">
+  <div class="localnav-content">
+    <a class="localnav-title" href="{{ product.url }}">{{ product.name }}</a>
+    <div class="localnav-menu">
+      <ul class="localnav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#features">Highlights</a></li>
+        <li><a href="#specs">Tech specs</a></li>
+      </ul>
+      {% set p = product %}{% set compact = true %}{% include "partials/get-button.njk" %}{% set compact = false %}
+    </div>
+  </div>
+</nav>
+
+<section class="product-hero theme-dark" id="overview">
+  <div class="container">
+    <p class="t-eyebrow product-hero-eyebrow">{{ product.kind }}</p>
+    <h1 class="t-hero">{{ product.name }}</h1>
+    <p class="t-subhead product-hero-subhead">{{ product.tagline }}</p>
+    <div class="cta-row">
+      {% set p = product %}{% include "partials/get-button.njk" %}
+      {%- if not product.standalone %}
+      <a class="button button-secondary" href="{{ product.appUrl }}">All {{ product.appName }} plugins</a>
+      {%- endif %}
+    </div>
+  </div>
+  <div class="container container-wide">
+    <div class="tile tile-hero reveal" style="--focus: {{ product.focus }}; --zoom: {{ product.zoom }}">
+      {% photo product.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 1260px", eager: true } %}
+      <span class="tile-body">
+        <span class="tile-icon">{% include "icons/" + product.icon + ".svg" %}</span>
+        <span class="tile-name">{{ product.name }}</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="section section-statement theme-dark">
+  <div class="container">
+    <p class="t-xl statement statement-muted reveal"><strong>{{ product.name }}.</strong> {{ product.description }}</p>
+  </div>
+</section>
+
+<section class="section theme-dark" id="features">
+  <div class="container container-wide">
+    <h2 class="t-l section-title reveal">Get the highlights.</h2>
+    <div class="bento">
+      <div class="bento-card bento-card-photo reveal" style="--focus: {{ product.focus }}; --zoom: {{ product.zoom }}">
+        {% photo product.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 820px" } %}
+        <span class="bento-photo-icon">{% include "icons/" + product.icon + ".svg" %}</span>
+        <p class="bento-title">{{ product.tagline }}</p>
+      </div>
+      {%- for f in product.features %}
+      <div class="bento-card reveal">
+        <span class="bento-index">{{ loop.index | pad }}</span>
+        <h3 class="bento-title">{{ f.title }}</h3>
+        <p class="bento-text">{{ f.text }}</p>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section theme-light" id="specs">
+  <div class="container">
+    <h2 class="t-l section-title reveal">Tech specs</h2>
+    <dl class="specs">
+      {%- for s in product.specs %}
+      <div class="specs-row">
+        <dt>{{ s.label }}</dt>
+        <dd>{{ s.value }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+  </div>
+</section>
+
+<section class="section section-cta theme-light">
+  <div class="container">
+    <h2 class="t-l reveal">Get {{ product.name }}.</h2>
+    <div class="cta-row reveal">
+      {% set p = product %}{% include "partials/get-button.njk" %}
+    </div>
+  </div>
+</section>
+
+{%- if product.related.length %}
+<section class="section theme-gray">
+  <div class="container container-wide">
+    <h2 class="t-l section-title reveal">{% if product.standalone %}More from Monochrome.{% else %}Keep exploring.{% endif %}</h2>
+    <div class="tile-grid">
+      {%- for p in product.related %}
+      <div class="reveal">{% include "partials/tile.njk" %}</div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}

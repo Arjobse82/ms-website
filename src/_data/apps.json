@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "figma",
+    "name": "Figma",
+    "kind": "Figma plugin",
+    "subhead": "Plugins that keep your design system in step.",
+    "intro": "Focused plugins that take the repetitive work out of Figma, so files stay tidy and teams stay in sync.",
+    "photo": "granite",
+    "focus": "50% 65%",
+    "install": [
+      { "title": "Find it in Figma Community.", "text": "Search for the plugin by name, or use the Get button on its page here." },
+      { "title": "Save it to your account.", "text": "Saved plugins are available in every file you open." },
+      { "title": "Run it from the Plugins menu.", "text": "In any file, open Plugins and pick it from your saved plugins." }
+    ],
+    "products": [
+      { "slug": "plugin-1", "name": "Plugin 1", "tagline": "A one-line description of Plugin 1.", "description": "A short paragraph about what Plugin 1 does and who it is for.", "icon": "circles", "photo": "granite", "focus": "40% 45%", "zoom": 1.2, "getUrl": "" },
+      { "slug": "plugin-2", "name": "Plugin 2", "tagline": "A one-line description of Plugin 2.", "description": "A short paragraph about what Plugin 2 does and who it is for.", "icon": "squares", "photo": "facade", "focus": "70% 40%", "zoom": 1.3, "getUrl": "" },
+      { "slug": "plugin-3", "name": "Plugin 3", "tagline": "A one-line description of Plugin 3.", "description": "A short paragraph about what Plugin 3 does and who it is for.", "icon": "grid", "photo": "granite-tall", "focus": "50% 45%", "zoom": 1, "getUrl": "" },
+      { "slug": "plugin-4", "name": "Plugin 4", "tagline": "A one-line description of Plugin 4.", "description": "A short paragraph about what Plugin 4 does and who it is for.", "icon": "rings", "photo": "facade", "focus": "15% 25%", "zoom": 1.6, "getUrl": "" }
+    ]
+  },
+  {
+    "slug": "indesign",
+    "name": "InDesign",
+    "kind": "InDesign plugin",
+    "subhead": "Layout automation for documents that run to hundreds of pages.",
+    "intro": "Set a document up once, then let InDesign do the heavy lifting on catalogs, reports and long-form layouts.",
+    "photo": "facade",
+    "focus": "50% 55%",
+    "install": [
+      { "title": "Download the plugin.", "text": "Use the Get button on the plugin's page to download its installer file." },
+      { "title": "Double-click to install.", "text": "Creative Cloud installs the plugin for you." },
+      { "title": "Open it from the Plugins menu.", "text": "Restart InDesign and find it in the Plugins menu." }
+    ],
+    "products": [
+      { "slug": "plugin-1", "name": "Plugin 1", "tagline": "A one-line description of Plugin 1.", "description": "A short paragraph about what Plugin 1 does and who it is for.", "icon": "columns", "photo": "granite", "focus": "85% 75%", "zoom": 1.5, "getUrl": "" },
+      { "slug": "plugin-2", "name": "Plugin 2", "tagline": "A one-line description of Plugin 2.", "description": "A short paragraph about what Plugin 2 does and who it is for.", "icon": "lines", "photo": "facade", "focus": "45% 75%", "zoom": 1.4, "getUrl": "" }
+    ]
+  },
+  {
+    "slug": "photoshop",
+    "name": "Photoshop",
+    "kind": "Photoshop plugin",
+    "subhead": "Batch work, without the batch work.",
+    "intro": "Repeatable image production in Photoshop, from one file to a thousand.",
+    "photo": "granite",
+    "focus": "70% 40%",
+    "install": [
+      { "title": "Download the plugin.", "text": "Use the Get button on the plugin's page to download its installer file." },
+      { "title": "Double-click to install.", "text": "Creative Cloud installs the plugin for you." },
+      { "title": "Open it from the Plugins menu.", "text": "Restart Photoshop and find it in the Plugins menu." }
+    ],
+    "products": [
+      { "slug": "plugin-1", "name": "Plugin 1", "tagline": "A one-line description of Plugin 1.", "description": "A short paragraph about what Plugin 1 does and who it is for.", "icon": "layers", "photo": "granite-tall", "focus": "50% 80%", "zoom": 1.3, "getUrl": "" }
+    ]
+  },
+  {
+    "slug": "ad-agent",
+    "name": "Ad Agent",
+    "kind": "Agent",
+    "standalone": true,
+    "subhead": "From brief to finished ad set.",
+    "intro": "A short paragraph about what Ad Agent does and who it is for.",
+    "photo": "facade",
+    "focus": "60% 20%",
+    "products": [
+      { "slug": "ad-agent", "name": "Ad Agent", "tagline": "From brief to finished ad set.", "description": "A short paragraph about what Ad Agent does and who it is for.", "icon": "orbit", "photo": "granite", "focus": "25% 30%", "zoom": 1.4, "getUrl": "" }
+    ]
+  }
+]

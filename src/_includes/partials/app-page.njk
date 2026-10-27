@@ -1,0 +1,77 @@
+{#- An app's overview page, after apple.com/mac: chapter nav, hero, lineup, gallery, install steps. -#}
+<nav class="chapternav" aria-label="{{ app.name }} plugins">
+  <ul class="chapternav-items">
+    {%- for p in app.products %}
+    <li>
+      <a href="{{ p.url }}">
+        <span class="chapternav-icon">{% include "icons/" + p.icon + ".svg" %}</span>
+        <span class="chapternav-label">{{ p.name }}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</nav>
+
+<section class="app-hero theme-light">
+  <div class="container">
+    <h1 class="t-hero app-hero-title">{{ app.name }}</h1>
+    <p class="t-subhead app-hero-subhead">{{ app.subhead }}</p>
+  </div>
+  <div class="container container-wide">
+    <div class="banner reveal" style="--focus: {{ app.focus }}">
+      {% photo app.photo, { class: "banner-photo", sizes: "(max-width: 734px) 88vw, 1260px", eager: true } %}
+      <ul class="banner-icons" aria-hidden="true">
+        {%- for p in app.products %}
+        <li>{% include "icons/" + p.icon + ".svg" %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <p class="t-body-l app-hero-intro reveal">{{ app.intro }}</p>
+  </div>
+</section>
+
+<section class="section theme-gray" id="lineup">
+  <div class="container container-wide">
+    <h2 class="t-l section-title reveal">Explore the lineup.</h2>
+    <div class="lineup">
+      {%- for p in app.products %}
+      <article class="lineup-card reveal">
+        {% include "partials/tile.njk" %}
+        <div class="lineup-card-body">
+          <h3 class="lineup-card-title">{{ p.name }}</h3>
+          <p class="lineup-card-tagline">{{ p.tagline }}</p>
+          <p class="lineup-card-text">{{ p.description }}</p>
+          <div class="cta-row">
+            <a class="button button-primary button-compact" href="{{ p.url }}">Learn more</a>
+            {% include "partials/get-button.njk" %}
+          </div>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section theme-light" id="why">
+  <div class="container container-wide">
+    <h2 class="t-l section-title reveal">Why Monochrome.</h2>
+  </div>
+  {% include "partials/gallery.njk" %}
+</section>
+
+{%- if app.install %}
+<section class="section theme-gray" id="install">
+  <div class="container container-wide">
+    <h2 class="t-l section-title reveal">How to install.</h2>
+    <ol class="steps">
+      {%- for step in app.install %}
+      <li class="step reveal">
+        <span class="step-number">{{ loop.index | pad }}</span>
+        <h3 class="step-title">{{ step.title }}</h3>
+        <p class="step-text">{{ step.text }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+{%- endif %}
