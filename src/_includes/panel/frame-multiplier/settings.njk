@@ -1,0 +1,12 @@
+{%- from "panel/ui.njk" import hot, box, btn %}
+<div class="pt-card fm">
+  <p class="fm-set-h">Options</p>
+  {%- call hot(1) %}<p class="fm-check">{{ box(true) }}System light/dark mode</p>{% endcall %}
+  <p class="fm-set-h">Advanced settings</p>
+  {%- call hot(2) %}<p class="fm-check">{{ box(true) }}Smart blending</p>{% endcall %}
+  {%- call hot(3) %}<p class="fm-check">{{ box(false) }}Show/hide freeze chips</p>{% endcall %}
+  {%- call hot(4) %}<p class="fm-check">{{ box(false) }}Show/hide Template mode option</p>{% endcall %}
+  <hr class="pt-rule">
+  {%- call hot(5) %}<div class="fm-btns">{{ btn("Import brief with AI") }}</div>{% endcall %}
+  {%- call hot(6) %}<div class="fm-btns">{{ btn("Clear frames on this page") }}</div>{% endcall %}
+</div>

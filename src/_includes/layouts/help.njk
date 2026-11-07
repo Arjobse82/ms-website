@@ -1,0 +1,35 @@
+<!doctype html>
+{#- A plugin's help page on its own (src/help/*.njk): its panel explained and its quick help, nothing that links to the
+    rest of the site, so it can be published on its own (scripts/export-help.mjs). Expects `panelKey`, a key of
+    panels.js, for the panel's look. -#}
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/main.css?v={{ build.version }}">
+  {%- if panels[panelKey].uses %}
+  <link rel="stylesheet" href="/assets/css/panels/{{ panels[panelKey].uses }}.css?v={{ build.version }}">
+  {%- endif %}
+  <link rel="stylesheet" href="/assets/css/panels/{{ panelKey }}.css?v={{ build.version }}">
+  <script>document.documentElement.classList.replace("no-js", "js")</script>
+  <script type="module" src="/assets/js/site.js?v={{ build.version }}"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
+    {{ content | safe }}
+  </main>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-legal">
+        <p>Copyright © {{ build.year }} {{ site.name }}. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

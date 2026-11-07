@@ -1,0 +1,13 @@
+{#- A plugin's basics (panels.js `how`), before its demo and its guide: its steps side by side, each a drawing
+    (panel/<panel>/how-<id>.njk), its number and name, and a few lines on what it shows; a `wide` step takes the whole
+    row, and a `link` ({href, label}) ends its text. Expects `how` and `panelId`; with `heroOut`, a step marked `hero`
+    is left out, drawn on the hero instead. -#}
+<ol class="hw-steps">
+  {%- for s in (how.steps | rejectattr("hero") if heroOut else how.steps) %}
+  <li class="hw-step{% if s.wide %} hw-step-wide{% endif %} reveal">
+    <div class="hw-art theme-light" aria-hidden="true">{% include "panel/" + panelId + "/how-" + s.id + ".njk" %}</div>
+    <h3 class="hw-name"><span class="hw-num">{{ loop.index | pad }}</span>{{ s.name }}</h3>
+    <p class="hw-text">{{ s.text }}{% if s.link %} <a class="hw-link" href="{{ s.link.href }}">{{ s.link.label }}&nbsp;›</a>{% endif %}</p>
+  </li>
+  {%- endfor %}
+</ol>

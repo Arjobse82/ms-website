@@ -1,0 +1,34 @@
+{%- from "panel/ui.njk" import hot, step, sel, box, btn, tag %}
+<div class="pt-card">
+  {%- call hot(1) %}
+  <div class="pt-head"><span class="pt-label">Brief</span>{{ btn("Change…") }}</div>
+  <p class="pt-title">Summer catalogue.xlsx</p>
+  <p class="pt-meta">Sheet “Products” | 48 products</p>
+  <p class="pt-warn">▸ 1 warning</p>
+  {%- endcall %}
+  <hr class="pt-rule">
+  {%- call hot(2) %}
+  <p class="pt-label">Image folders</p>
+  <div class="pt-line"><span class="pt-strong">/Packshots</span><span class="pt-meta pt-right">212 image files</span><span class="pt-x">×</span></div>
+  <div class="pt-line"><span class="pt-strong">/Extra shots</span><span class="pt-warn pt-right">Folder not found</span><span class="pt-x">×</span></div>
+  {%- endcall %}
+  <p class="pt-info">3 new files since the last Analyse links: they wait in Unassigned files until the next one.</p>
+  <div class="pt-btns">{{ btn("Add folder…") }}{% call hot(3, true) %}{{ btn("Analyse links", true) }}{% endcall %}</div>
+  <p class="pt-meta">Listed Oct 28, 9:05 AM | analysed Oct 28, 9:04 AM</p>
+  {%- call hot(4) %}<div class="pt-btns">{{ btn("Place images") }}{{ btn("Update 2 changed images") }}</div>{% endcall %}
+  <hr class="pt-rule">
+  {%- call hot(5) %}
+  <p class="pt-label">Matching</p>
+  <div class="pt-table">
+    <div class="pt-tr pt-th"><span></span><span>Use, in this order</span><span class="pt-right">Images</span></div>
+    <div class="pt-tr">{{ box() }}<span><span class="pt-grip" aria-hidden="true">⋮⋮</span>Product code in file names</span><span class="pt-right">186</span></div>
+    <div class="pt-tr">{{ box() }}<span><span class="pt-grip" aria-hidden="true">⋮⋮</span>Product code in folder names</span><span class="pt-right">21</span></div>
+    <div class="pt-tr is-off">{{ box(false) }}<span><span class="pt-grip" aria-hidden="true">⋮⋮</span>Product name in folder names</span><span class="pt-right">+2</span></div>
+    <div class="pt-tr">{{ box() }}<span>Low confidence</span><span class="pt-right">3</span></div>
+    <div class="pt-tr">{{ box() }}<span>No match</span><span class="pt-right">2</span></div>
+  </div>
+  {%- endcall %}
+  {%- call hot(6) %}<p class="pt-warn">Low confidence: 3 files matched to 3 products by name. Check each one on its product. <span class="pt-link">Show</span></p>{% endcall %}
+  <p class="pt-meta">Together: 47 of 48 products have images.</p>
+  {%- call hot(7) %}<div class="pt-field"><span class="pt-flabel">Prefer file types</span>{{ sel("Any", true) }}</div>{% endcall %}
+</div>

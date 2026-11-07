@@ -1,0 +1,11 @@
+{#- The pieces a plugin panel is drawn from on its product page (partials/panel-tour.njk): drawings of the panel's own
+    controls, not working ones, so nothing in them takes focus but the numbered marks. `hot(n)` wraps what note n is
+    about and puts its mark on it; `hot(n, true)` is for something inline, a button say, its mark on its corner. -#}
+{%- macro mark(n) -%}<button class="pt-mark" type="button" data-mark="{{ n }}" aria-label="Note {{ n }}">{{ n }}</button>{%- endmacro %}
+{%- macro hot(n, inline = false) -%}<div class="pt-hot{% if inline %} pt-in{% endif %}" data-n="{{ n }}">{{ mark(n) }}{{ caller() }}</div>{%- endmacro %}
+{%- macro step(value) -%}<span class="pt-step"><span aria-hidden="true">−</span><span class="pt-step-v">{{ value }}</span><span aria-hidden="true">+</span></span>{%- endmacro %}
+{%- macro sel(value, wide = false) -%}<span class="pt-sel{% if wide %} pt-sel-wide{% endif %}">{{ value }}</span>{%- endmacro %}
+{%- macro box(on = true) -%}<span class="pt-box{% if on %} is-on{% endif %}" aria-hidden="true"></span>{%- endmacro %}
+{%- macro btn(label, primary = false) -%}<span class="pt-btn{% if primary %} pt-btn-primary{% endif %}">{{ label }}</span>{%- endmacro %}
+{%- macro tag(text, kind = "") -%}<span class="pt-tag{% if kind %} pt-tag-{{ kind }}{% endif %}">{{ text }}</span>{%- endmacro %}
+{%- macro thumb(kind, name = "", check = false) -%}<span class="pt-thumb{% if check %} is-check{% endif %}"><span class="pt-thumb-img">{{ kind }}</span>{% if name %}<span class="pt-thumb-name">{{ name }}</span>{% endif %}</span>{%- endmacro %}

@@ -1,0 +1,18 @@
+{#- Behind the cog (catalague-producer src/photoshop/ui/shell.html #settings-popup): the two settings for what Assemblr may
+    do to your layers, each as it starts, and the status line under the panel naming the settings that are on (main.ts
+    showSettings, PLAN.md D74 (1)). The panel's look, Match Photoshop's light/dark and Background image, is left out
+    (the owner, 2026-10-29). -#}
+{%- from "panel/ui.njk" import hot, box %}
+{%- set a = panel.art %}
+<div class="pt-card ap ap-set">
+  {%- call hot(1) %}<p class="ap-check">{{ box(true) }}Allow Assemblr to unlock images</p>{% endcall %}
+  {%- call hot(2) %}
+  <p class="ap-check">{{ box(false) }}Allow Assemblr to restack layers</p>
+  <p class="ap-setnote">Off: layers keep their place in the Layers panel; the panel says when the row's order differs.</p>
+  {%- endcall %}
+</div>
+<div class="ap-status">
+  <span class="ap-dot" aria-hidden="true"></span>
+  <span class="ap-status-text">Ready · {{ a.board }}</span>
+  {%- call hot(3, true) %}<span class="ap-status-on">unlock</span>{% endcall %}
+</div>

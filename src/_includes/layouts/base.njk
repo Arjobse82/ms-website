@@ -13,11 +13,42 @@
   <meta property="og:url" content="{{ env.siteUrl }}{{ page.url }}">
   <meta property="og:image" content="{{ env.siteUrl }}/assets/img/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#161617">
+  <meta name="theme-color" content="#111111">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/main.css?v={{ build.version }}">
+  {#- A product page's panel guide brings its own look, after the look it shares (`uses`); a standalone app's page is its one product's. #}
+  {%- set panelOf = product.panel if product else (app.products[0].panel if app and app.standalone else "") %}
+  {%- if panelOf %}
+  {%- if panels[panelOf].uses %}
+  <link rel="stylesheet" href="/assets/css/panels/{{ panels[panelOf].uses }}.css?v={{ build.version }}">
+  {%- endif %}
+  <link rel="stylesheet" href="/assets/css/panels/{{ panelOf }}.css?v={{ build.version }}">
+  {%- endif %}
+  {#- An app's page that draws a product's panel on its card (`cardPanel`, partials/app-page.njk) brings that panel's look. #}
+  {%- if app and not product and not app.standalone %}
+  {%- for p in app.products %}{% if p.cardPanel %}
+  {%- if panels[p.panel].uses %}
+  <link rel="stylesheet" href="/assets/css/panels/{{ panels[p.panel].uses }}.css?v={{ build.version }}">
+  {%- endif %}
+  <link rel="stylesheet" href="/assets/css/panels/{{ p.panel }}.css?v={{ build.version }}">
+  {%- endif %}{% endfor %}
+  {%- endif %}
+  {#- And its plugin's dashboard (dashboards.js) its own. #}
+  {%- if product and product.dashboard %}
+  <link rel="stylesheet" href="/assets/css/dashboards/{{ product.dashboard }}.css?v={{ build.version }}">
+  {#- What each of its widgets opens to has its own look. #}
+  {%- for id in ["creatives", "template", "channels", "gridglyph", "syncFolders", "export", "brieflink", "componentIngest"] %}
+  <link rel="stylesheet" href="/assets/css/dashboards/{{ product.dashboard }}-ui-{{ id }}.css?v={{ build.version }}">
+  {%- endfor %}
+  {%- elif app and not product %}
+  {#- An app's page shows a dashboard on its card for a product that has one (partials/app-page.njk). #}
+  {%- for p in app.products %}{% if p.dashboard %}
+  <link rel="stylesheet" href="/assets/css/dashboards/{{ p.dashboard }}.css?v={{ build.version }}">
+  {%- endif %}{% endfor %}
+  {%- endif %}
   <script>document.documentElement.classList.replace("no-js", "js")</script>
-  <script src="/assets/js/site.js?v={{ build.version }}" defer></script>
+  <script type="module" src="/assets/js/site.js?v={{ build.version }}"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

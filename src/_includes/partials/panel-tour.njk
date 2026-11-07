@@ -1,0 +1,42 @@
+{#- A plugin's panel, explained (panels.js): a section for each of its tabs, each with its tiles, the open tile drawn as
+    the plugin draws it with a number on each setting, and beside it what each numbered setting does. The open tile has a
+    thick blue outline; site.js (initPanelTours) opens another and lights a setting and its note together. Without it,
+    each tab's first tile shows. Expects `panel` (one of panels.js) and `panelId` (its key). -#}
+{%- for tab in panel.tabs %}
+{%- set many = tab.tiles.length > 1 %}
+<section class="pt-group reveal" aria-labelledby="pt-{{ tab.id }}">
+  <div class="pt-group-head">
+    <h3 class="pt-group-name" id="pt-{{ tab.id }}">{{ tab.label }}</h3>
+    <p class="pt-group-text">{{ tab.summary }}{% if many %} <span class="pt-hint">Pick a tile to see its settings.</span>{% endif %}</p>
+  </div>
+  <div class="pt" data-panel-tour>
+    <div class="pt-side">
+      <div class="pt-panel">
+        {%- if many %}
+        <div class="pt-tiles" role="group" aria-label="{{ tab.label }} tiles">
+          {%- for tile in tab.tiles %}
+          <button class="pt-tile" type="button" data-view="{{ tile.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="pt-tile-art" aria-hidden="true">{{ tile.icon | safe }}</span><span class="pt-tile-name">{{ tile.label }}</span></button>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        {%- for tile in tab.tiles %}
+        <div class="pt-view" data-view-panel="{{ tile.id }}"{% if not loop.first %} hidden{% endif %}>{% include "panel/" + panelId + "/" + tile.id + ".njk" %}</div>
+        {%- endfor %}
+      </div>
+    </div>
+    <div class="pt-text">
+      {%- for tile in tab.tiles %}
+      <div class="pt-explain" data-view-notes="{{ tile.id }}"{% if not loop.first %} hidden{% endif %}>
+        {%- if many %}<h4 class="t-s pt-name">{{ tile.label }}</h4>{% endif %}
+        {%- if many %}<p class="pt-summary">{{ tile.summary }}</p>{% endif %}
+        <ol class="pt-notes">
+          {%- for note in tile.notes %}
+          <li class="pt-note" data-note="{{ loop.index }}"><span class="pt-num" aria-hidden="true">{{ loop.index }}</span><div><p class="pt-note-name">{{ note.name }}</p><p class="pt-note-text">{{ note.text }}</p></div></li>
+          {%- endfor %}
+        </ol>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endfor %}

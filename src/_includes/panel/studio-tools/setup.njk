@@ -1,0 +1,50 @@
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art %}
+{%- set d = a.defaults %}
+{#- A value field: its value, or its placeholder in grey (an inherited value, or an empty cell). -#}
+{%- macro field(col, value, placeholder) -%}<span class="su-field su-{{ col }}{% if not value %} is-ph{% endif %}">{{ value or placeholder }}</span>{%- endmacro %}
+{#- A note over a column of a table: its mark above the column (or under it, `below`), the column lit. -#}
+{%- macro col(n, cls, below = false) -%}<div class="st-col {{ cls }}{% if below %} is-below{% endif %}">{% call hot(n) %}<span></span>{% endcall %}</div>{%- endmacro %}
+{#- A channel's row: its ring, its name, its own values over the defaults, its lock. -#}
+{%- macro channel(c, d, lock) -%}<div class="su-row su-ch"><span class="su-c-wide su-name"><span class="su-swatch" title="Set this channel’s widget colour"></span><span class="su-title">{{ c.name }}</span></span>{{ field("c1", c.logo, d.logo) }}{{ field("c2", c.side, d.side) }}{{ field("c3", c.below, d.below) }}{{ field("c4", c.align, d.align) }}<span class="su-lock su-c-act" title="Lock {{ c.name }} — freeze its logo rules">{{ lock | safe }}</span></div>{%- endmacro %}
+<div class="pt-card st">
+  <div class="st-tabs"><span class="st-tab">Dashboard</span><span class="st-tab is-on">Setup</span></div>
+  <div class="su">
+    <section class="su-sec">
+      <h4 class="su-h">Channels<span class="su-h-meta">{{ a.frames }} frames on this page</span></h4>
+      <p class="su-note">Logo size and clear space for each channel. A grey value is inherited from All channels.</p>
+      <div class="st-table st-defaults">
+        <div class="su-row su-colhead"><span class="su-c1">Logo</span><span class="su-c2">Pad↔</span><span class="su-c3">Pad↕</span><span class="su-c4">Align</span></div>
+        <div class="su-block">
+          <div class="su-row su-ch"><span class="su-c-wide su-name"><span class="su-title">All channels</span></span>{{ field("c1", d.logo) }}{{ field("c2", d.side) }}{{ field("c3", d.below) }}{{ field("c4", d.align) }}<span class="su-lock su-c-act" title="Lock the defaults">{{ a.lock | safe }}</span></div>
+          <div class="su-row su-basis-row"><span class="su-c-wide su-muted">Pad measured from</span>{{ field("c2", d.sideBasis) }}{{ field("c3", d.belowBasis) }}</div>
+        </div>
+        <div class="su-row st-over">{{ col(1, "su-c1") }}{{ col(2, "su-c2") }}{{ col(3, "su-c3") }}{{ col(4, "su-c4") }}{{ col(5, "su-c-act") }}</div>
+      </div>
+      {%- for c in a.channels %}
+      <div class="su-block">
+        {%- if loop.first %}{% call hot(6) %}{{ channel(c, d, a.lock) }}{% endcall %}{% else %}{{ channel(c, d, a.lock) }}{% endif %}
+        {%- if c.sized %}
+        <div class="st-table st-sized">
+          <div class="su-row su-colhead su-colhead-sub"><span class="su-c-size">Size</span><span class="su-c1">Logo</span><span class="su-c2">Pad</span><span class="su-c3">Base</span><span class="su-c4">Loc</span></div>
+          {%- for e in c.sized %}
+          <div class="su-row su-entry"><span class="su-c-name su-label">{{ e.label }}</span><span class="su-c-size su-size">{{ e.size }}</span>{{ field("c1", e.logo, "%") }}{{ field("c2", e.pad, "%") }}{{ field("c3", e.base, "px") }}<span class="su-check su-c4"><span class="su-box{% if e.loc %} is-on{% endif %}"></span></span></div>
+          {%- endfor %}
+          <div class="su-row st-over">{{ col(7, "st-c13", true) }}{{ col(8, "su-c4", true) }}</div>
+        </div>
+        {%- endif %}
+      </div>
+      {%- endfor %}
+      <div class="su-row su-add"><span class="su-link su-c-wide">+ Add channel</span></div>
+      {%- call hot(9) %}
+      <div class="su-block su-custom">
+        <div class="su-row su-ch"><span class="su-c-wide su-name"><span class="su-title">CUSTOM</span></span></div>
+        <p class="su-note su-indent">One-off frames, each checked against its own saved logo and baseplate position. Never charted.</p>
+        {%- for e in a.custom %}
+        <div class="su-row su-entry"><span class="su-c-name su-label">{{ e.label }}</span><span class="su-c-size su-size">{{ e.size }}</span><span class="su-c-pins"><span class="su-pin{% if e.logo %} on{% endif %}">Logo</span><span class="su-pin{% if e.halo %} on{% endif %}">Baseplate</span></span><span class="su-lock su-c4">{{ a.lock | safe }}</span></div>
+        {%- endfor %}
+      </div>
+      {%- endcall %}
+    </section>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+{%- from "panel/ui.njk" import hot, step, sel, box, btn %}
+<div class="pt-card">
+  <p class="pt-label">Pages</p>
+  <p class="pt-label pt-sub">Grid</p>
+  {%- call hot(1) %}
+  <div class="pt-cards pt-cards-2">
+    <span class="pt-option is-on"><svg viewBox="0 0 64 30" aria-hidden="true"><g fill="#e2e2e2" stroke="#c9c9c9" stroke-width=".8"><rect x="2" y="1" width="28" height="28"/><rect x="34" y="1" width="28" height="28"/></g><g fill="#c9c9c9"><rect x="4" y="3" width="7" height="7"/><rect x="12.5" y="3" width="7" height="7"/><rect x="21" y="3" width="7" height="7"/><rect x="4" y="11.5" width="7" height="7"/><rect x="12.5" y="11.5" width="7" height="7"/><rect x="21" y="11.5" width="7" height="7"/><rect x="4" y="20" width="7" height="7"/><rect x="12.5" y="20" width="7" height="7"/><rect x="21" y="20" width="7" height="7"/><rect x="36" y="3" width="11" height="11"/><rect x="49" y="3" width="11" height="11"/><rect x="36" y="16" width="11" height="11"/><rect x="49" y="16" width="11" height="11"/></g></svg>Auto</span>
+    <span class="pt-option"><svg viewBox="0 0 64 30" aria-hidden="true"><g fill="#e2e2e2" stroke="#c9c9c9" stroke-width=".8"><rect x="2" y="1" width="28" height="28"/><rect x="34" y="1" width="28" height="28"/></g><g fill="#c9c9c9"><rect x="4" y="3" width="7" height="7"/><rect x="12.5" y="3" width="7" height="7"/><rect x="21" y="3" width="7" height="7"/><rect x="4" y="11.5" width="7" height="7"/><rect x="12.5" y="11.5" width="7" height="7"/><rect x="21" y="11.5" width="7" height="7"/><rect x="4" y="20" width="7" height="7"/><rect x="12.5" y="20" width="7" height="7"/><rect x="21" y="20" width="7" height="7"/><rect x="36" y="3" width="7" height="7"/><rect x="44.5" y="3" width="7" height="7"/><rect x="53" y="3" width="7" height="7"/></g><g fill="none" stroke="#c9c9c9" stroke-width=".8"><rect x="44.5" y="11.5" width="7" height="7"/><rect x="53" y="11.5" width="7" height="7"/><rect x="36" y="20" width="7" height="7"/><rect x="44.5" y="20" width="7" height="7"/><rect x="53" y="20" width="7" height="7"/></g><rect x="36" y="11.5" width="7" height="7" fill="#c9c9c9"/></svg>Consistent</span>
+  </div>
+  {%- endcall %}
+  {%- call hot(2) %}
+  <div class="pt-form">
+    <span class="pt-flabel">Across</span>{{ step("auto") }}<span class="pt-flabel">Down</span>{{ step("auto") }}
+    <span class="pt-flabel">Gap</span>{{ step("auto") }}
+  </div>
+  {%- endcall %}
+  {%- call hot(3) %}<div class="pt-form"><span class="pt-flabel">Copy height (%)</span>{{ step("25") }}</div>{% endcall %}
+  {%- call hot(4) %}
+  <p class="pt-label pt-sub">Page count</p>
+  <div class="pt-form"><span class="pt-flabel">Pages</span>{{ step("auto") }}<span class="pt-flabel">Start on page</span>{{ step("2") }}</div>
+  {%- endcall %}
+  {%- call hot(5) %}
+  <p class="pt-label pt-sub">Masters</p>
+  <div class="pt-form pt-form-2"><span class="pt-flabel">Left master</span>{{ sel("A-Product left") }}<span class="pt-flabel">Right master</span>{{ sel("A-Product right") }}</div>
+  {%- endcall %}
+  {%- call hot(6) %}
+  <p class="pt-label pt-sub">Page breaks</p>
+  <div class="pt-field"><span class="pt-flabel">Apply page break for each</span>{{ sel("Category", true) }}</div>
+  {%- endcall %}
+  {%- call hot(7) %}<div class="pt-btns">{{ btn("Apply changes", true) }}{{ btn("Discard") }}</div>{% endcall %}
+  <p class="pt-meta">48 products on 6 pages, 9 per page, 6 empty slots.</p>
+</div>

@@ -1,0 +1,26 @@
+{%- from "panel/ui.njk" import hot, tag, thumb %}
+<div class="pt-card">
+  <div class="pt-head"><span class="pt-label">Products (48)</span><span class="pt-filters"><span class="pt-chip is-on">All</span>{% call hot(1, true) %}<span class="pt-chip">No image (1)</span>{% endcall %}<span class="pt-chip">+ Insert</span></span></div>
+  {%- call hot(2) %}<p class="pt-meta pt-dark">Drag a product to reorder it: the pages are rebuilt in the new order. Changes lists the difference from the spreadsheet.</p>{% endcall %}
+  <div class="pt-product">
+    <div class="pt-prow"><span class="pt-meta">1</span><span class="pt-strong">328939</span><span class="pt-name">Garden chair, teak</span>{% call hot(3, true) %}<span class="pt-tags">{{ tag("P. 2") }}{{ tag("3/3 placed | 1 added") }}{{ tag("Overset", "warn") }}</span>{% endcall %}</div>
+    <div class="pt-strip pt-strip-small">{{ thumb("PSD", "#1") }}{{ thumb("PSD", "#2") }}{{ thumb("TIF", "#3") }}{{ thumb("PSD", "#4") }}</div>
+  </div>
+  <div class="pt-product">
+    <div class="pt-prow"><span class="pt-meta">2</span><span class="pt-strong">365296</span><span class="pt-name">Parasol 3 m, grey</span><span class="pt-tags">{{ tag("P. 2") }}{{ tag("1 changed | Update", "warn") }}</span></div>
+    {%- call hot(4) %}
+    <div class="pt-strip pt-strip-small">{{ thumb("PSD", "#1") }}{{ thumb("PSD", "Check", true) }}</div>
+    <p class="pt-info"><span class="pt-strong">Check</span> Grey parasol 3m.psd — Low confidence: parasol grey. <span class="pt-link">Looks right</span> | <span class="pt-link">Not this product</span></p>
+    {%- endcall %}
+  </div>
+  <div class="pt-product">
+    <div class="pt-prow"><span class="pt-meta">3</span><span class="pt-strong">368060</span><span class="pt-name">Outdoor cushion set</span><span class="pt-tags">{{ tag("P. 2") }}{{ tag("1/1 placed") }}{{ tag("Edited") }}</span>{% call hot(5, true) %}<span class="pt-icons" aria-hidden="true">¶ +</span>{% endcall %}</div>
+  </div>
+  <div class="pt-product">
+    <div class="pt-prow"><span class="pt-meta">4</span><span class="pt-strong">624644</span><span class="pt-name">Lantern, black steel</span><span class="pt-tags">{{ tag("P. 2") }}</span></div>
+    <p class="pt-meta pt-indent">No image found</p>
+  </div>
+  <div class="pt-product">
+    <div class="pt-prow"><span class="pt-meta">5</span><span class="pt-strong">680425</span><span class="pt-name">Side table</span><span class="pt-tags">{{ tag("P. 3") }}{{ tag("Pasteboard", "warn") }}</span></div>
+  </div>
+</div>

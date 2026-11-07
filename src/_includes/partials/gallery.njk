@@ -1,11 +1,10 @@
-{#- Horizontally scrolling cards with previous/next buttons, after apple.com's "Get to know" galleries. -#}
+{#- Horizontally scrolling cards with previous/next buttons, after apple.com's "Get to know" galleries: the principles, plain black. -#}
 <div class="gallery" data-gallery>
   <ul class="gallery-track" data-gallery-track>
     {%- for card in site.principles %}
-    <li class="gallery-card" style="--focus: {{ card.focus }}">
-      {% photo card.photo, { class: "gallery-card-photo", sizes: "372px" } %}
+    <li class="gallery-card">
       <div class="gallery-card-text">
-        <p class="gallery-card-eyebrow">{{ card.eyebrow }}</p>
+        <p class="label gallery-card-eyebrow">{{ card.eyebrow }}</p>
         <h3 class="gallery-card-title">{{ card.title }}</h3>
         <p class="gallery-card-body">{{ card.text }}</p>
       </div>

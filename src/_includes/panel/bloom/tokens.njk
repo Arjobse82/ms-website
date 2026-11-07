@@ -1,0 +1,15 @@
+{#- Token fixes: the lower right quarter of the panel, close up (bloom-panel.js tokensView): the comb turned on, the
+    corner radius mark clicked and its frame's marks held round it, and its fixes open in the corner. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art.tokens %}
+{%- macro place(box, side) -%}<div class="bp-spot is-{{ side }}" style="left: {{ box.left }}; top: {{ box.top }}; width: {{ box.width }}; height: {{ box.height }}">{{ caller() }}</div>{%- endmacro %}
+<div class="pt-card bp bp-close">
+  <div class="bp-crop">
+    {{ a.svg | safe }}
+    {%- call place(a.mark, "above") %}{% call hot(1) %}{% endcall %}{% endcall %}
+    {%- call place(a.value, "left") %}{% call hot(2) %}{% endcall %}{% endcall %}
+    {%- call place(a.matches, "left") %}{% call hot(3) %}{% endcall %}{% endcall %}
+    {%- call place(a.add, "right") %}{% call hot(4) %}{% endcall %}{% endcall %}
+    {%- call place(a.caption, "below") %}{% call hot(5) %}{% endcall %}{% endcall %}
+  </div>
+</div>

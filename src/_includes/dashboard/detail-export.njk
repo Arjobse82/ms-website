@@ -1,0 +1,42 @@
+{#- Export images, opened: run button, contact-sheet preview, options box, format table. Drawn from bloom exportWidget.js / exportPreview.js. Static sample data. -#}
+{%- set rows = [
+  { label: 'PDF', q: '90', scale: '1×', checks: [true, true, false] },
+  { label: 'JPEG', q: '70', scale: '1×', checks: [true, false, false] },
+  { label: 'PNG', q: '', scale: '2×', checks: [false, true, false] },
+  { label: 'PSD', q: '', scale: '1×', checks: [false, false, false] }
+] %}
+<div class="sdu-export">
+  <div class="sdu-export-run">Export 14 frames</div>
+
+  <div class="sdu-export-pv">
+    <div class="sdu-export-sheet">
+      <div class="sdu-export-page">
+        <i style="grid-area:1/1/3/3"></i><i style="grid-area:1/3/2/4"></i><i style="grid-area:2/3/3/4"></i>
+        <i style="grid-area:3/1/4/2"></i><i style="grid-area:3/2/4/3"></i><i style="grid-area:3/3/4/4"></i>
+      </div>
+      <div class="sdu-export-file">SummerSoda_ContactSheet_p1.pdf</div>
+    </div>
+    <div class="sdu-export-side">
+      <span class="sdu-export-refresh"><svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M13.5 8a5.5 5.5 0 1 1-1.61-3.89" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M13.5 2.5V5H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Refresh</span>
+      <span class="sdu-export-counter">1 / 3</span>
+      <span class="sdu-export-nav"><span class="off">‹</span><span>›</span></span>
+    </div>
+  </div>
+
+  <div class="sdu-export-opts">
+    <label><i class="on"></i>Uniform scale</label>
+    <label><i class="on"></i>Merge groups</label>
+    <label><i></i>Order by ratio</label>
+    <label><i class="on"></i>Brief Link summary page</label>
+  </div>
+
+  <table class="sdu-export-table">
+    <thead><tr><th>Export</th><th>Q</th><th>×</th><th>D</th><th>F</th><th>ZIP</th></tr></thead>
+    <tbody>
+    {%- for r in rows %}
+      <tr><td class="f">{{ r.label }}</td><td>{{ r.q }}</td><td>{{ r.scale }}</td>
+      {%- for c in r.checks %}<td><i class="cb{% if c %} on{% endif %}"></i></td>{% endfor %}</tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,49 @@
+{#- A plugin's dashboard (dashboards.js), in its product page's hero: the plugin's window in Figma, open on the screen it
+    opens on, drawn as the plugin draws it in its light, monochrome look. Each widget is a link to what it is on the page:
+    an included app's card, or its entry in the widget list; its tooltip is the plugin's. The Setup tab links to the
+    Setup tab's guide (panels.js). site.js (initDashboards) sets
+    the dots on the Creatives card drifting, as the plugin does. Expects `dashboard` (one of dashboards.js). -#}
+{%- from "dashboard/ui.njk" import widget %}
+{%- set d = dashboard %}
+<figure class="sd reveal">
+  <figcaption class="visually-hidden">{{ d.title }} in Figma, open on its dashboard for {{ d.brand }}: {{ d.creatives.length }} creatives and {{ d.frames }} frames, and a tile for each of its widgets and apps.</figcaption>
+  <div class="sd-window sd-ui">
+    <div class="sd-titlebar" aria-hidden="true"><span class="sd-title">{{ d.title }}</span><svg class="sd-close" viewBox="0 0 12 12"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+    <div class="sd-results">
+      <p class="intel-brand" aria-hidden="true"><span class="ib-dot"></span><strong>{{ d.brand }}</strong></p>
+      <div class="appbar" aria-hidden="true"><span class="appbar-btn">{{ d.icons.scan | safe }}</span><span class="appbar-dot"></span><span class="appbar-btn">{{ d.icons.moon | safe }}</span><span class="appbar-btn">{{ d.icons.cog | safe }}</span></div>
+      <div class="intel-tabs"><span class="intel-tab active" aria-hidden="true">{{ d.tabs[0] }}</span><a class="intel-tab" href="#panel" title="{{ d.tabs[1] }}">{{ d.tabs[1] }}</a></div>
+      <div class="widget-grid">
+        {%- for w in d.widgets %}
+        {{ widget(w, d, true) }}
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+  {#- What each widget is, beside the window: a click on a widget shows its entry here (site.js, initDashboards); without script every entry shows, each tile's link taking you to its own. -#}
+  <div class="sd-details" aria-live="polite">
+    {%- for w in d.list %}
+    <div class="sd-item sd-detail" id="widget-{{ w.id }}" data-detail>
+      <span class="sd-mini sd-ui sd-mini-{{ w.kind }}" aria-hidden="true">{{ widget(w, d, false) }}</span>
+      <div class="sd-item-body">
+        <h3 class="sd-item-name">{{ w.name }}</h3>
+        <p class="sd-item-text">{{ w.text }}</p>
+        {%- if w.bridge %}<p class="sd-item-tag">With Monochrome Bridge</p><p class="sd-item-text sd-item-note">{{ d.bridge }}</p>{% endif %}
+      </div>
+      {#- What the widget opens to in the plugin, drawn as the plugin draws it: dashboard/detail-<id>.njk, if there is one (css/dashboards/studio-tools-ui-<id>.css is its look). -#}
+      <div class="sd-detail-ui sd-ui">{% include "dashboard/detail-" + w.id + ".njk" ignore missing %}</div>
+    </div>
+    {%- endfor %}
+    {%- for w in d.widgets %}{% if w.app %}{% for p in catalog.allProducts %}{% if p.slug == w.app %}
+    <div class="sd-item sd-detail" id="app-{{ p.slug }}" data-detail>
+      <span class="sd-mini sd-ui sd-mini-{{ w.kind }}" aria-hidden="true">{{ widget(w, d, false) }}</span>
+      <div class="sd-item-body">
+        <h3 class="sd-item-name">{{ p.name }}</h3>
+        <p class="sd-item-text">{{ p.tagline }}</p>
+        <p class="sd-item-tag">Included in Studio Tools</p>
+        <div class="cta-row sd-item-cta"><a class="button button-primary button-compact" href="{{ p.url }}">Learn more</a></div>
+      </div>
+    </div>
+    {%- endif %}{% endfor %}{% endif %}{% endfor %}
+  </div>
+</figure>

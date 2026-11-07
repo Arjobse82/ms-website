@@ -1,0 +1,8 @@
+{#- How it works, products by Assemblr: one product's cell up close, its image area, copy and corners labelled
+    (src/_lib/catalogue-art.js `how.product`). -#}
+{%- from "panel/catalogue-producer/spread-ui.njk" import cell, features %}
+{%- set p = panels[panelId].art.how.product %}
+<div class="cs-frame cw-anat" style="--units: {{ p.w }}; aspect-ratio: {{ p.w }} / {{ p.h }}">
+  {{ cell(p.cell, p.w, p.h) }}
+  {{ features(p.features, p.w, p.h) }}
+</div>

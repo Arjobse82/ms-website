@@ -1,0 +1,29 @@
+{#- Find and fix: the whole panel, in its dark theme (bloom-panel.js fixView): the top bar, the bloom with the Half page
+    frame's marks gathered round the one under the pointer and its Dismiss menu open, the corner row, the wordmark and
+    the line that sums the page up. A mark on the bloom sits on a spot laid over the drawing. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art.fix %}
+{%- macro place(box, side) -%}<div class="bp-spot is-{{ side }}" style="left: {{ box.left }}; top: {{ box.top }}; width: {{ box.width }}; height: {{ box.height }}">{{ caller() }}</div>{%- endmacro %}
+<div class="pt-card bp">
+  <div class="bp-bar">
+    {%- call hot(1, true) %}<span class="bp-dpi">{{ a.dpi }}</span><span class="bp-dot is-{{ a.health }}" aria-hidden="true"></span>{% endcall %}
+    <span class="bp-cog">{{ a.cog | safe }}</span>
+  </div>
+  <div class="bp-stage">
+    {{ a.svg | safe }}
+    {%- call place(a.cluster, "left") %}{% call hot(2) %}{% endcall %}{% endcall %}
+    {%- call place(a.lead, "above") %}{% call hot(3) %}{% endcall %}{% endcall %}
+    <div class="bp-spot bp-menu-at" style="left: {{ a.menu.left }}; top: {{ a.menu.top }}">{% call hot(4) %}<div class="bp-menu"><span>Dismiss</span></div>{% endcall %}</div>
+    {%- call place(a.dot, "right") %}{% call hot(5) %}{% endcall %}{% endcall %}
+    {%- call place(a.centre, "below") %}{% call hot(6) %}{% endcall %}{% endcall %}
+  </div>
+  <div class="bp-corner">
+    <div class="bp-filter" aria-hidden="true">
+      <div class="bp-filter-row">{% for i in a.filterBar.errors %}{{ i | safe }}{% endfor %}</div>
+      <div class="bp-filter-row">{% for i in a.filterBar.tokens %}{{ i | safe }}{% endfor %}</div>
+    </div>
+    <p class="bp-readout"><span class="bp-readout-value">{{ a.readout.value }}</span><span class="bp-readout-type">{{ a.readout.type }}</span></p>
+  </div>
+  <div class="bp-logo">{{ a.logo | safe }}</div>
+  {%- call hot(7) %}<p class="bp-report">{{ a.report }}</p>{% endcall %}
+</div>

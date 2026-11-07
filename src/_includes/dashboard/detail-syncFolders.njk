@@ -1,0 +1,23 @@
+{#- Sync Folders, opened: the Job Folder tree (SYNC FROM / EXPORT TO) drawn from bloom/src/ui/widgets/syncFolders.js. Static sample data. -#}
+{%- set tick = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7"/></svg>' %}
+{%- set folder = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M1.8 4.2a1 1 0 0 1 1-1h3l1.4 1.6h6a1 1 0 0 1 1 1v6.2a1 1 0 0 1-1 1H2.8a1 1 0 0 1-1-1z"/></svg>' %}
+<div class="sdu-syncFolders">
+  <div class="sdu-syncFolders-row"><span class="sdu-syncFolders-br">│</span><span class="sdu-syncFolders-h">SYNC FROM</span><span class="sdu-syncFolders-hint">images in ↑</span></div>
+
+  <div class="sdu-syncFolders-row is-master"><span class="sdu-syncFolders-br">├──</span><span class="sdu-syncFolders-ic ok">{{ folder | safe }}</span><span class="sdu-syncFolders-badge">S1</span><span class="sdu-syncFolders-path">/Summer Soda Photography</span><span class="sdu-syncFolders-found has">(24 found)</span><span class="sdu-syncFolders-rm">×</span></div>
+  <div class="sdu-syncFolders-row is-link"><span class="sdu-syncFolders-br">│&nbsp;&nbsp;├─</span><span class="sdu-syncFolders-file">hero_can_01.psd</span><span class="sdu-syncFolders-master">· Hero / Can</span><span class="sdu-syncFolders-btn ok">{{ tick | safe }}</span></div>
+  <div class="sdu-syncFolders-row is-link"><span class="sdu-syncFolders-br">│&nbsp;&nbsp;├─</span><span class="sdu-syncFolders-file">lifestyle_pool.jpg</span><span class="sdu-syncFolders-master">· Lifestyle 4:5</span><span class="sdu-syncFolders-btn ready">↻</span></div>
+  <div class="sdu-syncFolders-row is-link"><span class="sdu-syncFolders-br">│&nbsp;&nbsp;├─</span><span class="sdu-syncFolders-file">flavours_lineup.png</span><span class="sdu-syncFolders-master">· Pack shot</span><span class="sdu-syncFolders-btn ok">{{ tick | safe }}</span></div>
+  <div class="sdu-syncFolders-row is-link"><span class="sdu-syncFolders-br">│&nbsp;&nbsp;└─</span><span class="sdu-syncFolders-file">logo_lockup.psd</span><span class="sdu-syncFolders-master">· Logo</span><span class="sdu-syncFolders-btn conflict">⚠</span></div>
+
+  <div class="sdu-syncFolders-row is-master"><span class="sdu-syncFolders-br">├──</span><span class="sdu-syncFolders-ic ok">{{ folder | safe }}</span><span class="sdu-syncFolders-badge">S2</span><span class="sdu-syncFolders-path">/Brand Assets</span><span class="sdu-syncFolders-found">(0 found)</span><span class="sdu-syncFolders-rm">×</span></div>
+  <div class="sdu-syncFolders-row is-master"><span class="sdu-syncFolders-br">├─</span><span class="sdu-syncFolders-ic add">{{ folder | safe }}</span><span class="sdu-syncFolders-badge add">+</span></div>
+  <div class="sdu-syncFolders-row"><span class="sdu-syncFolders-br">│</span></div>
+
+  <div class="sdu-syncFolders-row"><span class="sdu-syncFolders-br">│</span><span class="sdu-syncFolders-h">EXPORT TO</span><span class="sdu-syncFolders-hint">renders out ↓</span></div>
+  <div class="sdu-syncFolders-row is-master"><span class="sdu-syncFolders-br">├──</span><span class="sdu-syncFolders-ic ok">{{ folder | safe }}</span><span class="sdu-syncFolders-badge">D</span><span class="sdu-syncFolders-path">/Draft</span><span class="sdu-syncFolders-found has">(12 JPEGs)</span></div>
+  <div class="sdu-syncFolders-row is-master"><span class="sdu-syncFolders-br">├──</span><span class="sdu-syncFolders-ic ok">{{ folder | safe }}</span><span class="sdu-syncFolders-badge">F</span><span class="sdu-syncFolders-path">/Final</span><span class="sdu-syncFolders-found has">(3 Contact Sheets)</span></div>
+  <div class="sdu-syncFolders-row is-master"><span class="sdu-syncFolders-br">└─</span><span class="sdu-syncFolders-ic add">{{ folder | safe }}</span><span class="sdu-syncFolders-badge add">+</span></div>
+
+  <p class="sdu-syncFolders-status">Synced 2 of 4 · 1 needs a look</p>
+</div>

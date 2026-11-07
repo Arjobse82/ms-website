@@ -1,0 +1,69 @@
+{#- The Output widget's card (main.ts bodies.output, renderOutput): the sizes' folder, the file types with PDF-DESPATCH
+    chosen and its form open (its kind, preset, bleed, marks and folder; its name, suffix and preset list left out), the
+    job's folders, and InDesign. -#}
+{%- from "panel/ui.njk" import hot, box %}
+{%- set a = panel.art %}
+{%- set chosen = a.types | selectattr("chosen") | first %}
+<div class="pt-card ag">
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Output folder</span></div>
+    {%- call hot(1) %}
+    <div class="ag-row"><span class="ag-meta ag-path ag-grow ag-ellipsis">{{ a.out }}</span></div>
+    <div class="ag-btns"><span class="ag-btn ag-sm">Show in Finder</span><span class="ag-btn ag-sm">Show report.json</span></div>
+    {%- endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">File types</span><span class="ag-meta">{{ a.types.length }}</span></div>
+    {%- call hot(2) %}
+    <div class="ag-rules">
+      {%- for t in a.types %}
+      <div class="ag-rule{% if t.chosen %} is-chosen{% endif %}">
+        <span class="ag-rule-head"><span class="ag-name">{{ t.name }}</span><span class="ag-kind">{{ t.kind }}</span><span class="ag-meta">{{ t.channels }}</span><span class="ag-dot is-ok" aria-hidden="true"></span></span>
+        <span class="ag-meta">{{ t.words }}{% if t.to %} → {{ t.to }}{% endif %}</span>
+      </div>
+      {%- endfor %}
+    </div>
+    {%- endcall %}
+    {%- call hot(3, true) %}<span class="ag-btns"><span class="ag-btn ag-sm">New file type</span><span class="ag-btn ag-sm">Add .joboptions…</span></span>{% endcall %}
+    <div class="ag-sec ag-inner">
+      <div class="ag-head"><span class="ag-label">File type: {{ chosen.name }}</span></div>
+      {%- call hot(4) %}
+      <p class="ag-label ag-sub">Kind</p>
+      <div class="ag-modes"><span class="is-on">PDF</span><span>JPG</span><span>PNG</span></div>
+      {%- endcall %}
+      {%- call hot(5) %}
+      <p class="ag-label ag-sub">PDF preset</p>
+      <div class="ag-row"><span class="ag-flabel">Preset</span><span class="ag-input ag-grow">[PDF/X-4:2008]</span></div>
+      <div class="ag-btns"><span class="ag-btn ag-sm">Load .joboptions…</span></div>
+      {%- endcall %}
+      {%- call hot(6) %}
+      <p class="ag-label ag-sub">Bleed</p>
+      <div class="ag-modes"><span>As the preset</span><span class="is-on">The file's</span><span>None</span></div>
+      <p class="ag-label ag-sub">Crop marks</p>
+      <div class="ag-modes"><span>As the preset</span><span class="is-on">With a bleed</span><span>On</span><span>Off</span></div>
+      {%- endcall %}
+      {%- call hot(7) %}
+      <p class="ag-label ag-sub">Sent to</p>
+      <span class="ag-chip is-on ag-xchip">{{ chosen.to }}<span class="ag-x" aria-hidden="true">×</span></span>
+      {%- endcall %}
+    </div>
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Folders</span><span class="ag-meta">{{ a.folders.length }}</span></div>
+    {%- call hot(8) %}
+    <div class="ag-rules">
+      {%- for f in a.folders %}
+      <div class="ag-rule">
+        <span class="ag-rule-head"><span class="ag-name">{{ f.name }}</span><span class="ag-switch{% if f.on %} is-on{% endif %}" aria-hidden="true"></span></span>
+        <span class="ag-meta ag-ellipsis">{{ f.path }}</span>
+      </div>
+      {%- endfor %}
+    </div>
+    <div class="ag-btns"><span class="ag-btn ag-sm">New folder…</span></div>
+    {%- endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">InDesign</span></div>
+    {%- call hot(9) %}<p class="ag-check">{{ box(true) }}<span>Use InDesign to measure the masters' text, check each size and save its JPG preview</span></p>{% endcall %}
+  </div>
+</div>

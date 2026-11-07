@@ -1,0 +1,26 @@
+{#- Assemblr as it looks in its dark theme (src/_data/assemblrCard.js): the three tool tiles, the line-up over the page's
+    photo, and the panel under it, down to Perspective. A drawing, not the plugin. -#}
+<div class="pl-left">
+  <div class="pl-tools">
+    <span class="pl-tool">{% include "icons/assemblr.svg" %}</span>
+    <span class="pl-tool">{% include "icons/automated-assemblr.svg" %}</span>
+    {%- if not p.cardNoPrice %}<span class="pl-tool pl-price"><i>★★★</i><b>$</b></span>{% endif %}
+  </div>
+  {{ assemblrCard.art | safe }}
+</div>
+<div class="pl-panel">
+  <div class="pl-modes">
+    {%- for m in assemblrCard.modes %}<span class="pl-mode{% if loop.first %} is-on{% endif %}">{{ m | safe }}</span>{% endfor %}
+  </div>
+  <p class="pl-label">Product</p>
+  <span class="pl-input">Product 48</span>
+  <p class="pl-meta">Page 1 | 7 images</p>
+  <div class="pl-row"><b>Align images</b><span class="pl-seg"><span>Top</span><span class="is-on">Middle</span><span>Bottom</span></span></div>
+  <div class="pl-form">
+    <span>Angle (°)</span><span class="pl-sel">0</span><span>Size (%)</span><span class="pl-sel">68</span>
+    <span>Scale (%)</span><span class="pl-sel">69</span><span>Bleed (%)</span><span class="pl-sel">0</span>
+  </div>
+  <div class="pl-row pl-check"><span class="pl-box"></span><span>Add clipping path to alpha</span></div>
+  <div class="pl-row"><span>Perspective (%)</span><span class="pl-num">54</span><span class="pl-slider"><i></i></span></div>
+  <div class="pl-btns"><span>Re-fit</span><span>Reset</span><span>Swap order</span></div>
+</div>

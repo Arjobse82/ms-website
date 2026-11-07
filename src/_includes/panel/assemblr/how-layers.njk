@@ -1,0 +1,8 @@
+{#- How it works, Assemble: the Layers panel before it and after it (src/_lib/assemblr-panel.js `how`). -#}
+{%- from "panel/assemblr/how-ui.njk" import layersPanel %}
+{%- set h = panels[panelId].art.how %}
+<div class="hw-layers">
+  <div class="hw-side"><p class="hw-cap">Before</p>{{ layersPanel(h.before) }}</div>
+  <div class="hw-go"><span class="hw-btn">Assemble</span><svg class="hw-go-arrow" viewBox="0 0 40 12"><path d="M0 6h37M32 1.5 36.5 6 32 10.5"/></svg></div>
+  <div class="hw-side"><p class="hw-cap">After</p>{{ layersPanel(h.after) }}</div>
+</div>

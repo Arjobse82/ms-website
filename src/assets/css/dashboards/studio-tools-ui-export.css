@@ -1,0 +1,25 @@
+/* What the Export images widget opens to (src/_includes/dashboard/detail-export.njk).
+   Mirrors bloom ui-shell.html .pdf-pv-* / .exp-* rules. */
+.sdu-export { max-width: 380px; padding: 10px 12px 12px; border-radius: 10px; background: #fff; color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+.sdu-export-run { padding: 9px 12px; margin-bottom: 8px; border-radius: 5px; background: #111; color: #fff; font-size: 13px; font-weight: 500; text-align: center; }
+.sdu-export-pv { display: flex; gap: 8px; align-items: stretch; }
+.sdu-export-sheet { flex: 0 0 66%; min-width: 0; }
+.sdu-export-page { display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); gap: 4px; aspect-ratio: 3 / 2.2; max-height: 150px; padding: 8px; background: #fff; border: 1px solid #e0e0e0; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.sdu-export-page i { background: var(--bg-4); background-image: radial-gradient(#cfcfcf 0.8px, transparent 1px); background-size: 4px 4px; }
+.sdu-export-file { margin-top: 4px; font: 7px ui-monospace, Menlo, monospace; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sdu-export-side { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.sdu-export-refresh { display: flex; align-items: center; justify-content: center; gap: 4px; height: 24px; padding: 0 6px; font-size: 11px; color: #555; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 3px; }
+.sdu-export-counter { padding: 2px 0; text-align: center; font-size: 10px; color: var(--fg-5); font-variant-numeric: tabular-nums; }
+.sdu-export-nav { display: flex; gap: 4px; }
+.sdu-export-nav span { flex: 1; display: flex; align-items: center; justify-content: center; height: 22px; border: 1px solid #e0e0e0; background: #fafafa; border-radius: 3px; color: #666; font-size: 14px; font-weight: 300; }
+.sdu-export-nav span.off { color: #ccc; }
+.sdu-export-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 8px; margin: 8px 0; padding: 7px 8px 8px; border-radius: 4px; background: #f5f5f5; font-size: 10px; color: var(--fg-1); }
+.sdu-export-opts label { display: flex; align-items: center; gap: 5px; }
+.sdu-export-opts i, .sdu-export-table .cb { flex: none; position: relative; width: 11px; height: 11px; border-radius: 3px; background: #fff; border: 1px solid #ccc; box-sizing: border-box; display: inline-block; }
+.sdu-export-opts i.on { background: var(--fg); border-color: var(--fg); }
+.sdu-export-table .cb.on { background: var(--tab-underline); border-color: var(--tab-underline); }
+.sdu-export-opts i.on::after, .sdu-export-table .cb.on::after { content: ""; position: absolute; left: 3px; top: 0; width: 3px; height: 6px; border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+.sdu-export-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.sdu-export-table th { padding: 3px 3px 4px; font-weight: 400; text-align: left; font-size: 9.5px; color: var(--fg-5); border-bottom: 1px solid #e5e5e5; }
+.sdu-export-table td { padding: 4px 3px; text-align: left; border-bottom: 1px solid #e5e5e5; font-family: ui-monospace, monospace; }
+.sdu-export-table td.f { font-weight: 500; color: var(--fg-1); }

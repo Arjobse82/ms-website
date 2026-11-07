@@ -1,0 +1,9 @@
+{#- A product's video, at the top of its page: its poster, linked to the video on YouTube. With JS, playing it swaps the poster for YouTube's
+    privacy-enhanced player (site.js, initVideos), so nothing loads from YouTube until someone presses play. -#}
+{%- set v = product.video %}
+<div class="video video-hero reveal">
+  <a class="video-poster" href="https://www.youtube.com/watch?v={{ v.youtube }}" data-video="{{ v.youtube }}" data-video-title="{{ v.title }}">
+    {% photo v.poster, { sizes: "(max-width: 734px) 88vw, 1260px", eager: true } %}
+    <span class="video-play">{% include "icons/play.svg" %}<span class="video-play-label">Play the {{ v.label | lower }}</span><span class="video-length">{{ v.length }}</span></span>
+  </a>
+</div>

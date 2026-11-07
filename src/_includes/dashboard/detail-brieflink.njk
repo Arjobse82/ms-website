@@ -1,0 +1,81 @@
+{#- Sync Brief, opened: the panel as the plugin draws it (monocode.campaign-manager bloom/src/ui/widgets/syncBrief.js, _briefLinkPanelHtml,
+    renderBindingTable, renderPendingTable), with the Summer Soda brief. Monochrome Bridge is connected, so the "works without the Bridge"
+    note is hidden, as the plugin hides it, and the stale-brief arrow shows beside the file. -#}
+{%- set bindings = [
+  { tag: "headline", type: "text", group: "copy", req: true },
+  { tag: "subline", type: "text", group: "copy", req: false },
+  { tag: "flavour", type: "instance", group: "product", req: true },
+  { tag: "packshot", type: "image", group: "product", req: true },
+  { tag: "cta", type: "text", group: "copy", req: true },
+  { tag: "legal", type: "text", group: "", req: false }
+] %}
+{%- set pending = [
+  { idx: "#1", tag: "headline", cls: "brief", change: "Cold, crisp, Summer Soda", done: "applied" },
+  { idx: "#1", tag: "cta", cls: "brief", change: "Grab a can", done: "applied" },
+  { idx: "#4", tag: "flavour", cls: "brief", change: "Lime", done: "swapped" },
+  { idx: "#6", tag: "packshot", cls: "local", change: "summer-soda-can-lime.png", done: "replaced" },
+  { idx: "#9", tag: "resize", cls: "rsz", icon: "resize", change: "1080×1350 <span class=\"sdu-brieflink-arrow\">›</span> 1080×1440", done: "resized" },
+  { idx: "#10", tag: "rename", cls: "rnm", icon: "rename", change: "Portrait 1080×1440", done: "renamed" },
+  { idx: "＋", tag: "import", cls: "imp", icon: "import", change: "<span class=\"sdu-brieflink-dim\">1080×1080</span><span class=\"sdu-brieflink-meta\">new frame</span>", done: "created" }
+] %}
+<div class="sdu-brieflink" role="img" aria-label="Sync Brief opened: the Summer Soda brief, its bindings, and the changes the brief has for the page">
+  <div class="sdu-brieflink-box">
+    <div class="sdu-brieflink-file">
+      <span class="sdu-brieflink-pill sdu-brieflink-pill--primary"><span class="sdu-brieflink-pdot"></span><span class="sdu-brieflink-name">SummerSoda_Brief_v7.xlsx</span><span class="sdu-brieflink-x">×</span></span>
+      <span class="sdu-brieflink-stale" title="New brief available — click to import">↺</span>
+      <span class="sdu-brieflink-ts">saved 09:42 · newer on disk</span>
+      <span class="sdu-brieflink-refresh" title="Refresh">↺</span>
+    </div>
+    <div class="sdu-brieflink-tree">
+      <div class="sdu-brieflink-trow"><span class="sdu-brieflink-branch">│</span></div>
+      <div class="sdu-brieflink-trow"><span class="sdu-brieflink-branch">├──</span>
+        <span class="sdu-brieflink-count"><svg width="12" height="9" viewBox="0 0 12 9" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0.6" y="0.6" width="10.8" height="7.8" rx="1.2"/><path d="M3 4.5l2 2 3.5-4"/></svg><b>10</b>/11 FRAMES GENERATED</span>
+        <span class="sdu-brieflink-specs">10 sizes</span></div>
+      <div class="sdu-brieflink-trow"><span class="sdu-brieflink-branch">│</span></div>
+    </div>
+    <div class="sdu-brieflink-summary">
+      <span class="sdu-brieflink-bs-title">Bindings</span>
+      <span class="sdu-brieflink-bs-meta">6 columns · 6 found on the page</span>
+      <span class="sdu-brieflink-chev"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></span>
+    </div>
+    <table class="sdu-brieflink-table">
+      <thead><tr><th>@ label</th><th>mapping</th><th>group</th><th class="c">req</th></tr></thead>
+      <tbody>
+        {%- for b in bindings %}
+        <tr>
+          <td><span class="sdu-brieflink-dot" title="found on the page">●</span><span class="sdu-brieflink-tag">{{ b.tag }}</span></td>
+          <td><span class="sdu-brieflink-type">{{ b.type }}<svg width="7" height="5" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1.5L5 5.5L9 1.5" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          <td class="sdu-brieflink-group">{{ b.group or "—" }}</td>
+          <td class="c"><span class="sdu-brieflink-cb{% if b.req %} on{% endif %}"></span></td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    <div class="sdu-brieflink-rule"></div>
+    <div class="sdu-brieflink-auto">Auto brief link</div>
+  </div>
+
+  <div class="sdu-brieflink-bridge">Monochrome Bridge is running: one-click refresh and the check for a newer file on disk are on.</div>
+  <div class="sdu-brieflink-status">New brief available · 7 changes, 1 new frame</div>
+
+  <div class="sdu-brieflink-pending">
+    <div class="sdu-brieflink-ptree">│</div>
+    <div class="sdu-brieflink-phead">
+      <span class="sdu-brieflink-ptitle">⚠ 7 pending · 6 frames</span>
+      <span class="sdu-brieflink-applyall"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>apply all</span>
+    </div>
+    <table class="sdu-brieflink-ptable">
+      <thead><tr><th>#</th><th>@ field</th><th>update</th><th></th></tr></thead>
+      <tbody>
+        {%- for p in pending %}
+        <tr class="sdu-brieflink-row sdu-brieflink-row--{{ p.cls }}">
+          <td class="idx">{{ p.idx }}</td>
+          <td class="tag">{% if p.icon %}<i class="sdu-brieflink-ico sdu-brieflink-ico--{{ p.icon }}"></i>{% endif %}{{ p.tag }}</td>
+          <td class="change"><span class="sdu-brieflink-tick"><svg width="9" height="9" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></span>{{ p.change | safe }}</td>
+          <td class="act"><span class="sdu-brieflink-dismiss">×</span></td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

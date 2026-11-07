@@ -1,0 +1,23 @@
+{#- How it works, the frame: the product's rectangle where it was, dashed, then moved and resized, selected, its images
+    re-fitted with it; and the Layers panel with the product's square dragged to another layer (src/_lib/assemblr-panel.js
+    `how`). -#}
+{%- from "panel/assemblr/how-ui.njk" import layersPanel %}
+{%- set h = panels[panelId].art.how %}{% set f = h.frame %}
+<div class="hw-frame">
+  <svg class="hw-frame-svg" viewBox="0 0 {{ f.w }} {{ f.h }}">
+    <g class="hw-was">
+      {%- for c in f.from.cans %}<image href="{{ c.src }}" x="{{ c.x }}" y="{{ c.y }}" width="{{ c.w }}" height="{{ c.h }}"/>{% endfor %}
+      <rect class="hw-edge" x="{{ f.from.x }}" y="{{ f.from.y }}" width="{{ f.from.w }}" height="{{ f.from.h }}"/>
+    </g>
+    <path class="hw-arrow" d="M{{ f.from.x + f.from.w + 12 }} {{ f.h / 2 - 4 }}h{{ f.to.x - f.from.x - f.from.w - 26 }}M{{ f.to.x - 19 }} {{ f.h / 2 - 8.5 }}l4.5 4.5-4.5 4.5"/>
+    <g class="hw-now">
+      {%- for c in f.to.cans %}<image href="{{ c.src }}" x="{{ c.x }}" y="{{ c.y }}" width="{{ c.w }}" height="{{ c.h }}"/>{% endfor %}
+      <rect class="hw-edge" x="{{ f.to.x }}" y="{{ f.to.y }}" width="{{ f.to.w }}" height="{{ f.to.h }}"/>
+      {%- for p in f.to.handles %}<rect class="hw-handle" x="{{ p[0] - 3.5 }}" y="{{ p[1] - 3.5 }}" width="7" height="7"/>{% endfor %}
+    </g>
+    {#- The resize cursor at the handle dragged. #}
+    {%- set cx = f.to.x + f.to.w + 12 %}{% set cy = f.to.y + f.to.h + 12 %}
+    <path class="hw-cursor" d="M{{ cx - 6 }} {{ cy - 6 }}l12 12M{{ cx - 6 }} {{ cy - 6 }}h5M{{ cx - 6 }} {{ cy - 6 }}v5M{{ cx + 6 }} {{ cy + 6 }}h-5M{{ cx + 6 }} {{ cy + 6 }}v-5"/>
+  </svg>
+  {{ layersPanel(h.move) }}
+</div>

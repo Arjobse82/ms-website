@@ -1,0 +1,12 @@
+{#- Automated Assemblr's hero: a catalogue spread as the plugin builds it, its features scattered over it, each a label
+    and a line to what it is about (src/_lib/catalogue-art.js `spread`, the panel's `art`). Pans rather than shrinking
+    past reading below a laptop's width. Expects `spread`. -#}
+{%- from "panel/catalogue-producer/spread-ui.njk" import page, features %}
+<figure class="cs-hero reveal">
+  <div class="cs-scroll">
+    <div class="cs-frame cs-spread" style="--units: {{ spread.w }}; aspect-ratio: {{ spread.w }} / {{ spread.h }}">
+      {%- for p in spread.pages %}{{ page(p) }}{% endfor %}
+      {{ features(spread.features, spread.w, spread.h) }}
+    </div>
+  </div>
+</figure>

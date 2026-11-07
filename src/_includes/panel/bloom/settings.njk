@@ -1,0 +1,31 @@
+{#- Settings: the cog's popover in Build mode (bloom-panel.js settingsView), at its defaults. In the dark theme the
+    popover is the panel turned inside out, white with black boxes, as the plugin draws it. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art.settings %}
+{%- macro check(label, on = true) -%}<p class="bp-row"><span class="bp-box{% if on %} is-on{% endif %}" aria-hidden="true"></span>{{ label }}</p>{%- endmacro %}
+<div class="pt-card bp-opts">
+  <p class="bp-h">Options</p>
+  {%- call hot(1) %}{{ check("System light/dark mode") }}{% endcall %}
+  {%- call hot(2) %}{{ check("Ignore hidden layers", false) }}{% endcall %}
+  <hr class="bp-rule">
+  {%- call hot(3) %}<p class="bp-h"><span class="bp-box is-on" aria-hidden="true"></span>Errors</p>{% endcall %}
+  {%- for e in a.errors %}
+  {%- if e == "Low resolution" %}
+  {%- call hot(4) %}<p class="bp-row"><span class="bp-box is-on" aria-hidden="true"></span>{{ e }}<span class="bp-combo">{{ a.dpi }}</span></p>{% endcall %}
+  {%- elif loop.last %}
+  {%- call hot(5) %}{{ check(e) }}{% endcall %}
+  {%- else %}
+  {{ check(e) }}
+  {%- endif %}
+  {%- endfor %}
+  <hr class="bp-rule">
+  <p class="bp-h"><span class="bp-box is-on" aria-hidden="true"></span>Tokens</p>
+  {%- for t in a.tokens %}
+  {{ check(t) }}
+  {%- endfor %}
+  <hr class="bp-rule">
+  <p class="bp-h">Uploads</p>
+  {%- call hot(6) %}{{ check("Upload max resolution", false) }}{% endcall %}
+  {%- call hot(7) %}<p class="bp-row">Generate as<span class="bp-combo">{{ a.generateAs }}</span></p>{% endcall %}
+  {%- call hot(8) %}<p class="bp-replay">Replay welcome tour</p>{% endcall %}
+</div>

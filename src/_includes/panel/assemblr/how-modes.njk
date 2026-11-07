@@ -1,0 +1,13 @@
+{#- How it works, the five arrangements: one product of cans in each, laid out by Assemblr's engine
+    (src/_lib/assemblr-panel.js `how.modes`), in points inside its tile's margin (`pad`), each with its name and what it does, as the Layout tile's
+    mode chips say. A turned can is drawn turned about its middle. -#}
+<div class="hw-modes">
+  {%- for m in panels[panelId].art.how.modes %}
+  <figure class="hw-mode">
+    <svg class="hw-mode-svg" viewBox="{{ -m.pad }} {{ -m.pad }} {{ m.w + 2 * m.pad }} {{ m.h + 2 * m.pad }}">
+      {%- for c in m.cans %}<image href="{{ c.src }}" x="{{ c.x }}" y="{{ c.y }}" width="{{ c.w }}" height="{{ c.h }}"{% if c.turn %} transform="rotate({{ -c.turn }} {{ c.cx }} {{ c.cy }})"{% endif %}/>{% endfor %}
+    </svg>
+    <figcaption><span class="hw-mode-name">{{ m.name }}</span><span class="hw-mode-text">{{ m.text }}</span></figcaption>
+  </figure>
+  {%- endfor %}
+</div>

@@ -1,0 +1,37 @@
+{%- from "panel/ui.njk" import hot, btn %}
+{%- set a = panel.art %}
+{%- macro score(fr) -%}<span class="fm-score fm-{{ fr.cls }}">{{ fr.score }}</span>{%- endmacro %}
+<div class="pt-card fm">
+  <div class="fm-btns">
+    {%- call hot(1, true) %}{{ btn("Scan for updates") }}{% endcall %}
+    {%- call hot(2, true) %}{{ btn("Multiply & Update (2)", true) }}{% endcall %}
+  </div>
+  <div class="fm-tree">
+    <div class="fm-row fm-chiprow"><span class="fm-chip">{{ a.concept }}</span><span class="fm-meta">6 masters · {{ a.frames }} frames</span></div>
+    <div class="fm-row"><span class="fm-br">│</span></div>
+    {%- for g in a.groups %}
+    {%- set master %}<div class="fm-row fm-master"><span class="fm-br">├──</span><b class="fm-m">M</b><span class="fm-pill">{{ g.master }}</span><span class="fm-arr">{{ g.arrangement }}</span></div>{% endset %}
+    {%- if loop.first %}{% call hot(3) %}{{ master | safe }}{% endcall %}{% else %}{{ master | safe }}{% endif %}
+    {%- for fr in g.frames %}
+    {%- set row %}<div class="fm-row fm-frame{% if fr.selected %} is-sel{% endif %}"><span class="fm-br fm-br-2">{{ "│   └── " if loop.last else "│   ├── " }}</span><span class="fm-pay">{% if fr.markScore %}{% call hot(4, true) %}{{ score(fr) }}{% endcall %}{% else %}{{ score(fr) }}{% endif %}<span class="fm-tick{% if fr.cls == 'pred' %} is-off{% endif %}" aria-hidden="true">✓</span><span class="fm-size">{{ fr.size }}</span><span class="fm-desc">{% if fr.locked %}<span class="fm-locked">'{{ fr.locked }}' locked</span> · {% endif %}{{ fr.text }}</span></span></div>{% endset %}
+    {%- if fr.mark %}{% call hot(5) %}{{ row | safe }}{% endcall %}{% else %}{{ row | safe }}{% endif %}
+    {%- if fr.selected %}
+    {%- set c = a.card %}
+    <div class="fm-card">
+      {%- call hot(6) %}
+      <div class="fm-card-head"><span class="fm-card-name">{{ c.name }}</span><span class="fm-score fm-pred">{{ c.score }}</span></div>
+      <p class="fm-card-meta">{{ c.meta }} · <b class="fm-warn">{{ c.state }}</b></p>
+      <p class="fm-card-reason">{{ c.findings | join("<br>") | safe }}</p>
+      <p class="fm-card-reason"><b>Needs</b><br>{{ c.needs }}</p>
+      {{ c.preview | safe }}
+      {%- endcall %}
+      {%- call hot(7, true) %}<div class="fm-card-btns">{{ btn("Show in Figma") }}{{ btn("Multiply this one") }}{{ btn("Promote to master") }}</div>{% endcall %}
+      <p class="fm-card-more">▸ Placements ({{ c.placements }}) · layer ops (0)</p>
+    </div>
+    {%- endif %}
+    {%- endfor %}
+    {%- endfor %}
+    <div class="fm-row fm-unused"><span class="fm-br">└──</span><span class="fm-ic">·</span><span class="fm-desc">{{ a.unused }}</span></div>
+  </div>
+  {%- call hot(8) %}<p class="fm-summary"><span class="fm-dot" aria-hidden="true"></span>{{ a.summary }}</p>{% endcall %}
+</div>

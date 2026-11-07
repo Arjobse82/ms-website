@@ -1,0 +1,8 @@
+{#- How it works, inside the margins: a spread, page 4 its products and a table across its last row inside its
+    margins, page 5 a PDF advert, full page with bleed on its outer edges (src/_lib/catalogue-art.js `how.margins`). -#}
+{%- from "panel/catalogue-producer/spread-ui.njk" import page, features %}
+{%- set m = panels[panelId].art.how.margins %}
+<div class="cs-frame cs-spread cw-margins" style="--units: {{ m.w }}; aspect-ratio: {{ m.w }} / {{ m.h }}">
+  {%- for p in m.pages %}{{ page(p) }}{% endfor %}
+  {{ features(m.features, m.w, m.h) }}
+</div>

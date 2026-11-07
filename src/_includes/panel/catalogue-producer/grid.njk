@@ -1,0 +1,16 @@
+{%- from "panel/ui.njk" import hot, step %}
+<div class="pt-card">
+  {%- call hot(1) %}<div class="pt-head"><span class="pt-label">Page 2 | 4 products</span><span class="pt-filters"><span class="pt-chip is-on">Managed</span><span class="pt-chip">Free</span></span></div>{% endcall %}
+  {%- call hot(2) %}
+  <div class="pt-line"><span class="pt-meta pt-dark">Grid 3 × 3, automatic.</span><span class="pt-link pt-right">Set…</span></div>
+  <div class="pt-page" aria-hidden="true">
+    <span class="pt-slot is-on" style="grid-area: 1 / 1 / 3 / 3">Garden chair, teak</span>
+    <span class="pt-slot" style="grid-area: 1 / 3">Parasol 3 m, grey</span>
+    <span class="pt-slot" style="grid-area: 2 / 3">Outdoor cushion set</span>
+    <span class="pt-slot" style="grid-area: 3 / 1">Side table</span>
+    <span class="pt-slot is-empty" style="grid-area: 3 / 2"></span>
+    <span class="pt-slot is-empty" style="grid-area: 3 / 3"></span>
+  </div>
+  {%- endcall %}
+  {%- call hot(3) %}<div class="pt-field"><span class="pt-strong pt-clip">Garden chair, teak</span><span class="pt-flabel">Size</span>{{ step("2") }}<span class="pt-meta">×</span>{{ step("2") }}<span class="pt-link">One slot</span></div>{% endcall %}
+</div>

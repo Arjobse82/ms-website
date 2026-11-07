@@ -1,0 +1,30 @@
+{#- Measure, opened: the Consistency sub-page with its Measure / Setup sub-tabs (bloom measureEntry.js renderIntelMode, _renderMeasurePanel). Measure shows a campaign selector and a card per element; Setup lists the assets to track. The chart is the widget's own graph standing in for the radial deviation chart. Sample data: Summer Soda, 60 frames, 6 creatives. -#}
+{%- set dia = '<svg class="mp-pill-dia" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 0.5L7.5 4L4 7.5L0.5 4Z" fill="currentColor"/></svg>' -%}
+<div class="sdu-template">
+  <input class="sdu-template-r" type="radio" name="sdu-template-tab" id="sdu-template-t1" checked>
+  <input class="sdu-template-r" type="radio" name="sdu-template-tab" id="sdu-template-t2">
+  <div class="tabs"><label for="sdu-template-t1" class="tab t1">Measure</label><label for="sdu-template-t2" class="tab t2">Setup</label></div>
+
+  <div class="panel p1">
+    <div class="views"><span class="vb on">Summer Soda</span></div>
+    <div class="card">
+      <div class="head"><span class="caret">▼</span><span class="title">{{ dia | safe }} Logo</span></div>
+      <div class="body">{{ d.graph | safe }}</div>
+    </div>
+  </div>
+
+  <div class="panel p2">
+    <p class="status">Scanned 60 frames · 6 creatives.</p>
+    <table class="tbl">
+      <thead><tr><th></th><th>asset</th><th class="r">creatives</th><th>measure</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="chk"><span class="cb static"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M3 6.8 L5.4 9.2 L10 3.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          <td class="name"><span class="nd">{{ dia | safe }}</span>Logo</td><td class="r cov">6/6</td><td><span class="sel">Width</span></td><td class="r"><span class="tb">map</span></td></tr>
+        <tr><td class="chk"><span class="cb on"></span></td>
+          <td class="name"><span class="nd">{{ dia | safe }}</span>Baseplate<div class="match">Baseplate, Base, Plate</div></td><td class="r cov">5/6</td><td><span class="sel">Height</span></td><td class="r"><span class="tb">map</span></td></tr>
+      </tbody>
+    </table>
+    <div class="more">Show measured areas</div>
+    <div class="desc">Pick the assets to track for consistency.</div>
+  </div>
+</div>

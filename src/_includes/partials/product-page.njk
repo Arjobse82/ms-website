@@ -1,10 +1,30 @@
-{#- A product page, after apple.com product pages: sticky local nav, hero, statement, highlights, specs. -#}
-<nav class="localnav theme-dark" aria-label="{{ product.name }}">
+{#- A product page: sticky local nav (the house tab bar, with a progress line), hero, statement, highlights, specs.
+    A product with a `video` shows it in its hero instead of a photo, and one with `glyphs` that form of Monochrome's
+    glyphs; one with `tour` gets its Figma carousel, one with `rollout` Ad Agent's node view, and one with `demo`
+    Assemblr's live demo, one with `panel` its plugin panel explained (panels.js) and, if the panel has `how`, How it works, a section after the statement or, with `inHero`, in its hero above its video (a step marked `hero` drawn on the hero itself, under its buttons), and if it has `help`, its quick help, one with `flow` a flow chart of its work in its
+    hero (flows.js), one with `spread` its panel's catalogue spread there, its features over it (partials/catalogue-spread.njk), one with `job` a live job there, its marks to hover over (jobs.js), one with `diagram`
+    a diagram of its principles there (diagrams.js), one with `"look": "light"` is a white page, its nav, hero, statement and highlights light,
+    one with `"look": "white"` that and every other section white too, its grey bands with them, and one with
+    `highlightsTile` ("black" or "white") has a plain card for its tagline in its highlights, without its photo; a
+    highlight with an `icon` (icons/<icon>.svg) has it drawn faint in its card. One with
+    `dashboard` shows its plugin's dashboard in its hero and lists the dashboard's widgets (dashboards.js), and one with
+    `includes` (product slugs) has a card for each app it includes. -#}
+{%- set look = "theme-light" if product.look == "light" or product.look == "white" else "theme-dark" %}
+{%- set band = "theme-light" if product.look == "white" else "theme-gray" %}
+<nav class="localnav {{ look }}" aria-label="{{ product.name }}">
+  <span class="localnav-progress" aria-hidden="true"></span>
   <div class="localnav-content">
     <a class="localnav-title" href="{{ product.url }}">{{ product.name }}</a>
     <div class="localnav-menu">
       <ul class="localnav-links">
         <li><a href="#overview">Overview</a></li>
+        {%- if product.panel and panels[product.panel].how %}<li><a href="#how">How it works</a></li>{% endif %}
+        {%- if product.includes %}<li><a href="#apps">Apps</a></li>{% endif %}
+        {%- if product.tour %}<li><a href="#tour">Tour</a></li>{% endif %}
+        {%- if product.demo %}<li><a href="#try">Try it</a></li>{% endif %}
+        {%- if product.panel %}<li><a href="#panel">{{ panels[product.panel].nav or "Panel" }}</a></li>{% endif %}
+        {%- if product.panel and panels[product.panel].help %}<li><a href="#help">Help</a></li>{% endif %}
+        {%- if product.rollout %}<li><a href="#rollout">Rollout</a></li>{% endif %}
         <li><a href="#features">Highlights</a></li>
         <li><a href="#specs">Tech specs</a></li>
       </ul>
@@ -13,46 +33,232 @@
   </div>
 </nav>
 
-<section class="product-hero theme-dark" id="overview">
+<section class="product-hero {{ look }}" id="overview">
   <div class="container">
-    <p class="t-eyebrow product-hero-eyebrow">{{ product.kind }}</p>
+    <p class="label product-hero-kind">{{ product.kind }}</p>
     <h1 class="t-hero">{{ product.name }}</h1>
     <p class="t-subhead product-hero-subhead">{{ product.tagline }}</p>
     <div class="cta-row">
       {% set p = product %}{% include "partials/get-button.njk" %}
       {%- if not product.standalone %}
-      <a class="button button-secondary" href="{{ product.appUrl }}">All {{ product.appName }} plugins</a>
+      <a class="button" href="{{ product.appUrl }}">All {{ product.appName }} plugins</a>
       {%- endif %}
     </div>
   </div>
   <div class="container container-wide">
-    <div class="tile tile-hero reveal" style="--focus: {{ product.focus }}; --zoom: {{ product.zoom }}">
-      {% photo product.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 1260px", eager: true } %}
+    {%- if product.panel and panels[product.panel].how and panels[product.panel].how.inHero %}
+    {%- set how = panels[product.panel].how %}{% set panelId = product.panel %}
+    {#- A step marked `hero` is drawn on the hero itself, under its buttons, and left out of How it works. #}
+    {%- set lead = how.steps | selectattr("hero") | first %}
+    {%- if lead %}
+    <figure class="hw-lead reveal">
+      <div class="hw-lead-art" aria-hidden="true">{% set inHero = true %}{% include "panel/" + panelId + "/how-" + lead.id + ".njk" %}{% set inHero = false %}</div>
+      <figcaption class="hw-lead-cap">{{ lead.caption }}</figcaption>
+    </figure>
+    {%- endif %}
+    {%- set heroOut = true %}
+    <div class="hw-hero" id="how">
+      <p class="label hw-hero-label reveal">How it works</p>
+      <h2 class="t-l hw-hero-title reveal">{{ how.heading }}</h2>
+      <p class="pt-intro hw-hero-intro reveal">{{ how.intro }}</p>
+      {% include "partials/panel-how.njk" %}
+    </div>
+    {%- endif %}
+    {%- if product.video %}
+    {% include "partials/video.njk" %}
+    {#- A product with a dashboard shows it after the statement and the apps row, not in its hero. #}
+    {%- elif product.dashboard %}
+    {%- elif product.diagram %}
+    {%- set diagram = diagrams[product.diagram] %}
+    {% include "partials/diagram.njk" %}
+    {%- elif product.job %}
+    {%- set job = jobs[product.job] %}{% set jobId = product.job %}
+    {% include "partials/live-job.njk" %}
+    {%- elif product.spread %}
+    {%- set spread = panels[product.panel].art.spread %}
+    {% include "partials/catalogue-spread.njk" %}
+    {%- elif product.flow %}
+    {%- set flow = flows[product.flow] %}
+    {% include "partials/flow.njk" %}
+    {%- elif product.glyphs %}
+    <div class="tile tile-hero stage reveal">
+      <div class="glyphs" data-glyphs="{{ product.glyphs | dump }}" aria-hidden="true"></div>
+      <span class="stage-mark">{% include "icons/" + product.icon + ".svg" %}</span>
+    </div>
+    {%- else %}
+    <div class="tile tile-hero{% if product.tile %} tile-plain tile-{{ product.tile }}{% endif %} reveal" style="--focus: {{ product.focus }}; --zoom: {{ product.zoom }}">
+      {%- if not product.tile %}
+      {% photo product.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 1260px", eager: true, turn: product.turn, centre: product.centre } %}
+      {%- endif %}
       <span class="tile-body">
+        {%- if product.art %}
+        <span class="tile-art">{% include "tiles/" + product.art + ".svg" %}</span>
+        {%- else %}
         <span class="tile-icon">{% include "icons/" + product.icon + ".svg" %}</span>
+        {%- endif %}
         <span class="tile-name">{{ product.name }}</span>
       </span>
     </div>
+    {%- endif %}
   </div>
 </section>
 
-<section class="section section-statement theme-dark">
+{%- if not product.hideStatement %}
+<section class="section section-statement {{ look }}">
   <div class="container">
     <p class="t-xl statement statement-muted reveal"><strong>{{ product.name }}.</strong> {{ product.description }}</p>
   </div>
 </section>
+{%- endif %}
 
-<section class="section theme-dark" id="features">
+{%- set n = 1 %}
+{%- if product.panel and panels[product.panel].how and not panels[product.panel].how.inHero %}
+{%- set how = panels[product.panel].how %}{% set panelId = product.panel %}
+<section class="section theme-light" id="how">
   <div class="container container-wide">
-    <h2 class="t-l section-title reveal">Get the highlights.</h2>
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">How it works</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ how.heading }}</h2>
+    <p class="pt-intro reveal">{{ how.intro }}</p>
+    {% include "partials/panel-how.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+{%- if product.includes %}
+<section class="section {{ band }}" id="apps">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Included</span></div>
+    {%- if product.dashboard %}
+    {%- set dd = dashboards[product.dashboard] %}
+    <h2 class="t-l section-title reveal">{{ dd.ten.length }} apps, one plugin</h2>
+    <ul class="lineup-row lineup-row-fit lineup-row-ten sd-ui">
+      {%- for w in dd.ten %}
+      {%- set href = "#widget-" + w.id %}
+      {%- if w.app %}{% for p in catalog.allProducts %}{% if p.slug == w.app %}{% set href = p.url %}{% endif %}{% endfor %}{% endif %}
+      <li class="reveal" id="{% if w.app %}app-{{ w.app }}{% else %}apps-{{ w.id }}{% endif %}">
+        <a href="{{ href }}" class="lineup-item">
+          <span class="lineup-icon ten-icon ten-{{ w.kind }}">
+            {%- if w.kind == "creatives" %}<b>{{ dd.creatives.length }}</b>
+            {%- elif w.kind == "measure" %}{{ dd.graph | safe }}
+            {%- else %}{{ w.art | safe }}{% endif -%}
+          </span>
+          <span class="lineup-name">{{ w.name }}</span>
+          <span class="lineup-text">{{ w.short }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    <h2 class="t-l section-title reveal">{{ ["One app", "Two apps", "Three apps", "Four apps", "Five apps"][product.includes.length - 1] }}, in one plugin</h2>
+    <ul class="lineup-row lineup-row-fit">
+      {%- for slug in product.includes %}{% for p in catalog.allProducts %}{% if p.slug == slug %}
+      <li class="reveal" id="app-{{ p.slug }}">
+        <a href="{{ p.url }}" class="lineup-item">
+          <span class="lineup-icon">{% include "icons/" + p.icon + ".svg" %}</span>
+          <span class="lineup-name">{{ p.name }}</span>
+          <span class="lineup-text">{{ p.tagline }}</span>
+        </a>
+      </li>
+      {%- endif %}{% endfor %}{% endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+{%- if product.dashboard and not product.video %}
+{%- set dashboard = dashboards[product.dashboard] %}
+<section class="section {{ look }}" id="dashboard">
+  <div class="container container-wide">
+    {% include "partials/dashboard.njk" %}
+  </div>
+</section>
+{%- endif %}
+{%- if product.tour %}
+<section class="section theme-light" id="tour">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Tour</span></div>
+    <h2 class="t-l section-title reveal">Take the tour</h2>
+  </div>
+  {% include "partials/tour.njk" %}
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+{%- if product.demo %}
+<section class="section {{ band }}" id="try">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Try it</span></div>
+    <h2 class="t-l section-title ad-title reveal">Line up the cans</h2>
+    <p class="ad-intro reveal">A modified version of Assemblr, made to run in your browser. Try each arrangement, drag the frame or the line-up's handle, and hang badges on its corners. Drop your own cut-outs on the page: they never leave your computer.</p>
+    {#- The demo is not the plugin (the owner, 2026-11-02): said before it, with the trial. #}
+    <p class="ad-note reveal">This demo is a simplified version built for the website and doesn't include all the features available in Assemblr for InDesign. For the full experience, try the plugin free for 7 days.</p>
+    {% include "partials/assemblr-demo.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+{%- if product.panel %}
+<section class="section {{ band }}" id="panel">
+  <div class="container container-wide">
+    {%- set panel = panels[product.panel] %}{% set panelId = product.panel %}
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ panel.label or "The panel" }}</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ panel.heading or "Every setting, explained" }}</h2>
+    <p class="pt-intro reveal">{{ panel.intro }}</p>
+    {% include "partials/panel-tour.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+{%- if product.panel and panels[product.panel].help %}
+{%- set help = panels[product.panel].help %}
+<section class="section theme-light" id="help">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Help</span></div>
+    <h2 class="t-l section-title pt-heading reveal">Quick help</h2>
+    <p class="pt-intro reveal">{{ help.intro }}</p>
+    {% include "partials/panel-help.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+{%- if product.rollout %}
+<section class="section {{ band }}" id="rollout">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Rollout</span></div>
+    <h2 class="t-l section-title reveal">The whole rollout, in one view</h2>
+    {% include "partials/rollout.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+
+<section class="section {{ look }}" id="features">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Highlights</span></div>
+    <h2 class="t-l section-title reveal">Get the highlights</h2>
     <div class="bento">
-      <div class="bento-card bento-card-photo reveal" style="--focus: {{ product.focus }}; --zoom: {{ product.zoom }}">
-        {% photo product.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 820px" } %}
+      {%- if product.glyphs %}
+      <div class="bento-card bento-card-photo bento-card-glyphs glyph-texture reveal">
         <span class="bento-photo-icon">{% include "icons/" + product.icon + ".svg" %}</span>
         <p class="bento-title">{{ product.tagline }}</p>
       </div>
+      {%- else %}
+      {%- set plain = product.highlightsTile or product.tile %}
+      <div class="bento-card bento-card-photo{% if plain %} tile-plain tile-{{ plain }}{% endif %} reveal" style="--focus: {{ product.focus }}; --zoom: {{ product.zoom }}">
+        {%- if not plain %}
+        {% photo product.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 820px", turn: product.turn, centre: product.centre } %}
+        {%- endif %}
+        {%- if product.art %}
+        <span class="tile-art">{% include "tiles/" + product.art + ".svg" %}</span>
+        {%- else %}
+        <span class="bento-photo-icon">{% include "icons/" + product.icon + ".svg" %}</span>
+        {%- endif %}
+        <p class="bento-title">{{ product.tagline }}</p>
+      </div>
+      {%- endif %}
       {%- for f in product.features %}
       <div class="bento-card reveal">
+        {%- if f.icon %}<span class="bento-icon">{% include "icons/" + f.icon + ".svg" %}</span>{% endif %}
         <span class="bento-index">{{ loop.index | pad }}</span>
         <h3 class="bento-title">{{ f.title }}</h3>
         <p class="bento-text">{{ f.text }}</p>
@@ -64,7 +270,8 @@
 
 <section class="section theme-light" id="specs">
   <div class="container">
-    <h2 class="t-l section-title reveal">Tech specs</h2>
+    <div class="section-head reveal"><span class="section-index">{{ (n + 1) | pad }}</span><span class="label">Tech specs</span></div>
+    <h2 class="t-l section-title reveal">{{ product.name }} at a glance</h2>
     <dl class="specs">
       {%- for s in product.specs %}
       <div class="specs-row">
@@ -78,7 +285,7 @@
 
 <section class="section section-cta theme-light">
   <div class="container">
-    <h2 class="t-l reveal">Get {{ product.name }}.</h2>
+    <h2 class="t-l reveal">Get {{ product.name }}</h2>
     <div class="cta-row reveal">
       {% set p = product %}{% include "partials/get-button.njk" %}
     </div>
@@ -86,9 +293,10 @@
 </section>
 
 {%- if product.related.length %}
-<section class="section theme-gray">
+<section class="section {{ band }}">
   <div class="container container-wide">
-    <h2 class="t-l section-title reveal">{% if product.standalone %}More from Monochrome.{% else %}Keep exploring.{% endif %}</h2>
+    <div class="section-head reveal"><span class="section-index">{{ (n + 2) | pad }}</span><span class="label">{% if product.standalone %}More from Monochrome{% else %}More {{ product.appName }} plugins{% endif %}</span></div>
+    <h2 class="t-l section-title reveal">Keep exploring</h2>
     <div class="tile-grid">
       {%- for p in product.related %}
       <div class="reveal">{% include "partials/tile.njk" %}</div>

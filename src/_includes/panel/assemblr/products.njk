@@ -1,0 +1,31 @@
+{#- The Products tile (catalague-producer src/assemblr/ui/main.ts productsTile, sections.ts unitRow and pageDivider):
+    every product in the document, a divider naming each page where the list moves on to it; each row its name (it
+    selects the whole product), its image count, its tags and Disassemble, its strip under it, + ending every strip.
+    Marks 2, 4 and 5 sit on the first row, 3 on the second row's tags, 6 on its strip, and 7 on the second page's divider. -#}
+{%- from "panel/ui.njk" import hot, tag %}
+{%- set a = panel.art %}
+<div class="pt-card ap">
+  {%- call hot(1) %}<p class="pt-label">Products ({{ a.products.count }})</p>{% endcall %}
+  {%- for pg in a.products.pages %}
+  {%- if loop.first %}<p class="ap-board">{{ pg.page }}</p>{% else %}{% call hot(7) %}<p class="ap-board">{{ pg.page }}</p>{% endcall %}{% endif %}
+  {%- for p in pg.products %}
+  {%- set k = p.n %}
+  {%- set name %}<span class="ap-pname{% if p.selected %} pt-strong{% endif %}">{{ p.name }}</span>{% endset %}
+  {%- set tags %}<span class="pt-meta">{{ p.images.length }} images</span>{% if p.locked %}{{ tag("Locked " + p.locked, "warn") }}{% endif %}{% if p.disconnected %}{{ tag("Disconnected", "warn") }}{% endif %}{% endset %}
+  {%- set apart %}<span class="pt-link">Disassemble</span>{% endset %}
+  {%- set add %}<span class="ap-thumb ap-thumb-add" aria-hidden="true">+</span>{% endset %}
+  {%- set strip %}
+  {%- for i in p.images %}<span class="ap-thumb as-thumb{% if i.off %} is-off{% endif %}"><img src="{{ i.src }}" alt="{{ i.name }}{% if i.off %}: removed from the layout{% endif %}" loading="lazy">{% if i.off %}<span class="ap-on" aria-hidden="true">+</span>{% endif %}<span class="as-ext">{{ i.ext }}</span></span>{% endfor %}
+  {%- if k == 1 %}{% call hot(5, true) %}{{ add | safe }}{% endcall %}{% else %}{{ add | safe }}{% endif %}
+  {%- endset %}
+  <div class="ap-product{% if p.disconnected %} as-off{% endif %}">
+    <div class="ap-prow">
+      {%- if k == 1 %}{% call hot(2, true) %}{{ name | safe }}{% endcall %}{% else %}{{ name | safe }}{% endif %}
+      {%- if k == 2 %}{% call hot(3, true) %}{{ tags | safe }}{% endcall %}{% else %}{{ tags | safe }}{% endif %}
+      {%- if k == 1 %}{% call hot(4, true) %}{{ apart | safe }}{% endcall %}{% else %}{{ apart | safe }}{% endif %}
+    </div>
+    {%- if k == 2 %}{% call hot(6) %}<div class="ap-strip">{{ strip | safe }}</div>{% endcall %}{% else %}<div class="ap-strip">{{ strip | safe }}</div>{% endif %}
+  </div>
+  {%- endfor %}
+  {%- endfor %}
+</div>

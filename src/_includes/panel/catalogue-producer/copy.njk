@@ -1,0 +1,32 @@
+{%- from "panel/ui.njk" import hot, sel, box, btn %}
+<div class="pt-card">
+  <p class="pt-label">Copy and paragraph styles</p>
+  {%- call hot(1) %}
+  <p class="pt-meta pt-dark">Copy fitting</p>
+  <div class="pt-cards pt-cards-3">
+    <span class="pt-option"><svg viewBox="0 0 28 28" aria-hidden="true"><g fill="#e2e2e2"><rect x="2" y="2" width="10" height="16"/><rect x="16" y="2" width="10" height="16"/></g><g fill="#999"><rect x="2" y="21" width="10" height="1.4"/><rect x="2" y="24" width="6" height="1.4"/><rect x="16" y="21" width="10" height="1.4"/><rect x="16" y="24" width="8" height="1.4"/></g></svg>Off</span>
+    <span class="pt-option"><svg viewBox="0 0 28 28" aria-hidden="true"><g fill="#e2e2e2"><rect x="2" y="2" width="10" height="19"/><rect x="16" y="2" width="10" height="13"/></g><g fill="#999"><rect x="2" y="23.5" width="10" height="1.4"/><rect x="16" y="17.5" width="10" height="1.4"/><rect x="16" y="20.5" width="10" height="1.4"/><rect x="16" y="23.5" width="7" height="1.4"/></g></svg>Per product</span>
+    <span class="pt-option is-on"><svg viewBox="0 0 28 28" aria-hidden="true"><g fill="#e2e2e2"><rect x="2" y="2" width="10" height="13"/><rect x="16" y="2" width="10" height="13"/></g><g fill="#999"><rect x="2" y="17.5" width="10" height="1.4"/><rect x="16" y="17.5" width="10" height="1.4"/><rect x="16" y="20.5" width="10" height="1.4"/><rect x="16" y="23.5" width="7" height="1.4"/></g></svg>Match the row</span>
+  </div>
+  <p class="pt-meta">Every cell in a row takes the largest copy height in that row, so the captions all start level.</p>
+  {%- endcall %}
+  <hr class="pt-rule">
+  {%- call hot(2) %}<div class="pt-fieldhead">{{ box() }}<span class="pt-strong">Name</span><span class="pt-arrows" aria-hidden="true">˄ ˅</span></div>{% endcall %}
+  {%- call hot(3) %}<div class="pt-pair">{{ sel("New paragraph") }}{{ sel("Name") }}</div>{% endcall %}
+  <hr class="pt-rule">
+  <div class="pt-fieldhead">{{ box() }}<span class="pt-strong">Description</span><span class="pt-arrows" aria-hidden="true">˄ ˅</span></div>
+  <div class="pt-pair">{{ sel("New paragraph") }}{{ sel("Body") }}</div>
+  {%- call hot(4) %}<p class="pt-meta">Matched by name (prefix). <span class="pt-link">Confirm</span></p>{% endcall %}
+  <hr class="pt-rule">
+  <div class="pt-fieldhead">{{ box() }}<span class="pt-strong">Price</span><span class="pt-arrows" aria-hidden="true">˄ ˅</span></div>
+  <div class="pt-pair">{{ sel("New paragraph") }}{{ sel("Automatic (by name)") }}</div>
+  <p class="pt-meta">No matching style. <span class="pt-link">Create style “Price”</span></p>
+  <hr class="pt-rule">
+  <div class="pt-fieldhead is-off">{{ box(false) }}<span>Supplier</span><span class="pt-arrows" aria-hidden="true">˄ ˅</span></div>
+  <hr class="pt-rule">
+  {%- call hot(5) %}<div class="pt-fieldhead">{{ box() }}<span>Leave out empty fields</span></div>{% endcall %}
+  {%- call hot(6) %}
+  <p class="pt-meta">48 products have copy | 1 overset | 1 edited in InDesign</p>
+  <div class="pt-btns">{{ btn("Write copy") }}{{ btn("Overwrite 1 edited") }}</div>
+  {%- endcall %}
+</div>

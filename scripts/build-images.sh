@@ -27,6 +27,46 @@ build() {
 build facade      IMG_0205.JPG 0   800 1600 2400
 build granite     L1061424.JPG 0   800 1600 2400
 build granite-tall L1061422.JPG 270 800 1600
+build frame-multiplier frame-multiplier-heroL1062024.JPG 0 800 1600 2400
+build bloom      bloom-preflight-L1060980.JPG 0 800 1600 2400
+# The poster of Assemblr's intro video: the video's own thumbnail (i.ytimg.com/vi/fQn1EZXqsBs/maxresdefault.jpg).
+build assemblr-intro assemblr-intro.jpg 0 800 1280
+
+# Studio Tools' plugin icon, cropped square: 336 px, for the largest place it shows (168 px) at 2×.
+sips -s format png $src/studio-tools-icon-figma-plugin.png --out $tmp/st.png >/dev/null
+side=$(sips -g pixelWidth -g pixelHeight $tmp/st.png | awk '/pixel/ {print $2}' | sort -n | head -1)
+sips -c $side $side $tmp/st.png >/dev/null
+sips -Z 336 $tmp/st.png >/dev/null
+cwebp -quiet -q 86 -m 6 $tmp/st.png -o $out/studio-tools-icon.webp
+echo "studio-tools-icon.webp  $(du -h $out/studio-tools-icon.webp | cut -f1)"
+
+# The cans in Assemblr's live demo: cut-outs, so the alpha is kept (cwebp's alpha is lossless by default, and the
+# demo measures it). 800 px tall, for the tallest a can is drawn (about 400 px) at 2×.
+cutout() {
+  local name=$1 file=$2
+  sips --resampleHeight 800 $src/$file --out $tmp/$name.png >/dev/null
+  cwebp -quiet -q 82 -m 6 $tmp/$name.png -o $out/$name.webp
+  echo "$name.webp  $(du -h $out/$name.webp | cut -f1)"
+}
+cutout can-white can-assemblr-interp-white.png
+cutout can-black can-assemblr-interp.png
+
+# A product's tour: its Figma Community carousel (git-ignore/assets/carousels), in order. Screens with text in them, so
+# a higher quality than the photos, never tinted or turned. 960 and 1920 wide, as made (16 : 9).
+slides() {
+  local name=$1; shift
+  local n=0
+  for file in "$@"; do
+    n=$((n + 1))
+    for w in 960 1920; do
+      sips -s format png --resampleWidth $w "$src/carousels/$file" --out $tmp/$name-$n-$w.png >/dev/null
+      cwebp -quiet -q 88 -m 6 $tmp/$name-$n-$w.png -o $out/$name-$n-$w.webp
+    done
+    echo "$name-$n.webp  $(du -h $out/$name-$n-1920.webp | cut -f1)"
+  done
+}
+slides bloom-tour bloom-preflight/bloom_carousels-1.png bloom-preflight/bloom_carousels-0{2..6}.png
+slides frame-multiplier-tour "frame-multiplier/Frame "{1..8}.png
 
 # Social share image: 1200x630 JPEG, made from the metadata-free WebP.
 dwebp -quiet $out/granite-1600.webp -o $tmp/og.png

@@ -1,0 +1,22 @@
+/* What the Channels widget opens to (src/_includes/dashboard/detail-channels.njk). Mirrors bloom ui-shell.html .intel-* / .it-* rules. */
+.sdu-channels { max-width: 400px; padding: 10px 12px 12px; border-radius: 10px; background: #fff; color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+.sdu-channels-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 11px; margin: 2px 0 10px; font-size: 10px; color: var(--fg-6); }
+.sdu-channels-legend > span { display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
+.sdu-channels-legend .official, .sdu-channels-table .st.official { color: #3b82f6; }
+.sdu-channels-legend .known, .sdu-channels-table .st.known { color: #4f9a6a; }
+.sdu-channels-legend .unknown, .sdu-channels-table .st.unknown { color: var(--fg); }
+.sdu-channels-legend svg, .sdu-channels-table .st svg { display: block; flex: none; width: 14px; height: 14px; }
+.sdu-channels-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.sdu-channels-table th { padding: 4px 5px; border-bottom: 1px solid #ddd; font-size: 8.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-align: left; color: var(--fg-5); }
+.sdu-channels-table th:nth-child(n+3), .sdu-channels-table td.c { text-align: center; }
+.sdu-channels-table td { padding: 4px 5px; border-bottom: 1px solid #eee; color: #555; vertical-align: middle; white-space: nowrap; }
+.sdu-channels-table .st { width: 18px; padding: 3px 2px 3px 4px; }
+.sdu-channels-table .nm { width: 100%; color: #444; }
+.sdu-channels-table .nm b { margin-right: 4px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--fg); }
+.sdu-channels-table .chip { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px; border-radius: 7px; background: #dbeafe; color: #2d7ff0; font-size: 9px; font-weight: 600; letter-spacing: 0; text-transform: none; line-height: 1.4; }
+.sdu-channels-table .tk { font-weight: 700; color: #2d7ff9; }
+.sdu-channels-table td.c { font-size: 11px; }
+.sdu-channels-table .calc { display: inline-block; padding: 1px 6px; border: 1px solid var(--warn); border-radius: 4px; font-size: 9px; font-weight: 600; color: var(--warn); }
+.sdu-channels-table tr.flag > td.st { box-shadow: inset 2px 0 0 var(--warn); }
+.sdu-channels-table tr.why td { padding-top: 0; padding-bottom: 6px; font-size: 9px; line-height: 1.3; color: var(--warn); white-space: normal; }
+.sdu-channels-table tr:has(+ tr.why) td { border-bottom: none; }

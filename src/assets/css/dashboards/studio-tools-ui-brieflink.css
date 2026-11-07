@@ -1,0 +1,89 @@
+/* What the Sync Brief widget opens to (src/_includes/dashboard/detail-brieflink.njk): the plugin's panel in its light mode, at its own size,
+   on the .sd-ui tokens (studio-tools.css). Colours not in those tokens are the plugin's: --ok, --warn, --err and the pending table's
+   brief orange, local grey, resize/rename blue, import green, delete red. */
+
+.sdu-brieflink {
+  --bl-bd: #eee;
+  --bl-bd-2: #ddd;
+  --bl-fg-2: #444;
+  --bl-fg-7: #aaa;
+  --bl-info: #2d7ff0;
+  --bl-err: #e05050;
+  width: 420px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 16px 14px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.14), 0 2px 5px rgba(0, 0, 0, 0.1), 0 12px 28px rgba(0, 0, 0, 0.12);
+  font-size: 11px;
+}
+.sdu-brieflink * { box-sizing: border-box; }
+
+/* The brief and its bindings ---------------------------------------------------- */
+.sdu-brieflink-file { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; }
+.sdu-brieflink-pill { display: inline-flex; align-items: center; gap: 5px; max-width: 250px; padding: 3px 9px; border-radius: 100px; font: 500 10px ui-monospace, Menlo, monospace; white-space: nowrap; }
+.sdu-brieflink-pill--primary { background: var(--fg); color: #fff; }
+.sdu-brieflink-pdot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #fff; border: 1.5px solid currentColor; }
+.sdu-brieflink-name { overflow: hidden; text-overflow: ellipsis; }
+.sdu-brieflink-x { margin-left: 1px; font-size: 12px; line-height: 1; opacity: 0.7; }
+.sdu-brieflink-stale { font-size: 13px; line-height: 1; color: var(--warn); }
+.sdu-brieflink-ts { flex: 1; min-width: 0; overflow: hidden; font-size: 9px; color: var(--fg-6); white-space: nowrap; text-overflow: ellipsis; }
+.sdu-brieflink-refresh { flex: none; font-size: 13px; line-height: 1; color: var(--fg-5); }
+
+.sdu-brieflink-trow { display: flex; align-items: center; gap: 5px; height: 11px; font: 10px ui-monospace, Menlo, monospace; color: var(--fg); }
+.sdu-brieflink-branch { color: var(--fg); }
+.sdu-brieflink-count { display: inline-flex; align-items: center; gap: 0; font: 9px ui-monospace, Menlo, monospace; letter-spacing: 0.07em; color: var(--fg); }
+.sdu-brieflink-count svg { flex: none; margin-right: 6px; color: var(--ok); }
+.sdu-brieflink-count b { font-weight: 700; }
+.sdu-brieflink-specs { font-size: 9px; color: var(--bl-fg-7); }
+
+.sdu-brieflink-summary { display: flex; align-items: center; gap: 8px; margin: 6px 0 0; padding: 5px 8px; border-top: 1px solid var(--bl-bd); }
+.sdu-brieflink-bs-title { font-size: 11px; font-weight: 600; color: var(--fg); }
+.sdu-brieflink-bs-meta { flex: 1; font-size: 10px; color: var(--fg-5); }
+.sdu-brieflink-chev { display: inline-flex; color: var(--fg-5); transform: rotate(90deg); }
+
+.sdu-brieflink-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+.sdu-brieflink-table th { padding: 3px 6px 4px; border-bottom: 1px solid var(--bl-bd); font-size: 10px; font-weight: 400; text-align: left; color: var(--fg-5); }
+.sdu-brieflink-table th:first-child { padding-left: 8px; }
+.sdu-brieflink-table td { padding: 4px 6px; border-bottom: 1px solid var(--bl-bd); }
+.sdu-brieflink-table td:first-child { padding-left: 8px; white-space: nowrap; }
+.sdu-brieflink-table .c { text-align: center; }
+.sdu-brieflink-dot { margin-right: 5px; font-size: 7px; line-height: 1; vertical-align: 1px; color: #33e400; }
+.sdu-brieflink-tag { font: 500 10.5px ui-monospace, Menlo, monospace; color: var(--bl-fg-2); }
+.sdu-brieflink-type { display: inline-flex; align-items: center; gap: 3px; padding: 1px 5px 1px 6px; border-radius: 100px; background: #111; color: #fff; font: 500 9px/1.5 ui-monospace, Menlo, monospace; }
+.sdu-brieflink-group { font: 10px ui-monospace, Menlo, monospace; color: var(--fg-5); }
+.sdu-brieflink-cb { display: inline-block; width: 11px; height: 11px; vertical-align: middle; border: 1px solid #bbb; border-radius: 3px; background: #fff; }
+.sdu-brieflink-cb.on { border-color: var(--fg); background: var(--fg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center / 9px no-repeat; }
+.sdu-brieflink-rule { height: 1px; margin: 0 8px; background: var(--bl-bd); }
+.sdu-brieflink-auto { margin-top: 8px; padding: 5px 10px; border: 1px solid var(--bl-bd-2); border-radius: 100px; font: 500 10px ui-monospace, Menlo, monospace; text-align: center; color: var(--fg); }
+
+.sdu-brieflink-bridge { margin: 8px 0 3px 2px; font-size: 10px; line-height: 1.4; color: var(--fg-5); }
+.sdu-brieflink-bridge::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 5px; border-radius: 50%; background: #33e400; vertical-align: 0; }
+.sdu-brieflink-status { margin: 0 0 2px 2px; font-size: 10px; color: var(--warn); }
+
+/* The pending table: one row per change, coloured by where it comes from ---------- */
+.sdu-brieflink-pending { margin-top: 8px; }
+.sdu-brieflink-ptree { height: 11px; font: 10px ui-monospace, Menlo, monospace; line-height: 11px; color: var(--fg); }
+.sdu-brieflink-phead { display: flex; align-items: center; justify-content: space-between; margin: 2px 0 5px; }
+.sdu-brieflink-ptitle { font: 600 10px ui-monospace, Menlo, monospace; color: var(--warn); }
+.sdu-brieflink-applyall { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px 2px 7px; border-radius: 100px; background: var(--fg); color: #fff; font: 500 9.5px ui-monospace, Menlo, monospace; }
+.sdu-brieflink-ptable { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+.sdu-brieflink-ptable th { padding: 2px 6px 4px; border-bottom: 1px solid var(--bl-bd); font-size: 9.5px; font-weight: 400; text-align: left; color: var(--fg-6); }
+.sdu-brieflink-ptable td { padding: 4px 6px; border-bottom: 1px solid var(--bl-bd); vertical-align: middle; }
+.sdu-brieflink-ptable .idx { width: 30px; font: 10px ui-monospace, Menlo, monospace; color: var(--fg-5); }
+.sdu-brieflink-ptable .tag { width: 86px; font: 500 10.5px ui-monospace, Menlo, monospace; color: var(--bl-fg-2); white-space: nowrap; }
+.sdu-brieflink-ptable .change { font-size: 10.5px; }
+.sdu-brieflink-ptable .act { width: 18px; text-align: right; font-size: 12px; line-height: 1; color: var(--bl-fg-7); }
+.sdu-brieflink-tick { display: inline-flex; align-items: center; justify-content: center; width: 13px; height: 13px; margin-right: 6px; border: 1px solid currentColor; border-radius: 50%; vertical-align: -3px; }
+.sdu-brieflink-row--brief .change { color: var(--warn); }
+.sdu-brieflink-row--local .change { color: var(--fg-5); }
+.sdu-brieflink-row--rsz .change, .sdu-brieflink-row--rnm .change { color: var(--bl-info); }
+.sdu-brieflink-row--imp .change { color: var(--ok); }
+.sdu-brieflink-arrow { margin: 0 3px; }
+.sdu-brieflink-dim { color: var(--ok); }
+.sdu-brieflink-meta { margin-left: 6px; font-size: 9px; color: var(--fg-6); }
+.sdu-brieflink-ico { display: inline-block; width: 7px; height: 7px; margin-right: 4px; border-radius: 1px; vertical-align: 0; }
+.sdu-brieflink-ico--resize { background: var(--bl-info); }
+.sdu-brieflink-ico--rename { background: var(--bl-info); border-radius: 50%; }
+.sdu-brieflink-ico--import { background: var(--ok); border-radius: 50%; }

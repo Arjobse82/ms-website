@@ -2,7 +2,7 @@
   <div class="footer-content">
     {%- if app or product or title %}
     <nav class="footer-breadcrumbs" aria-label="Breadcrumbs">
-      <a class="footer-home" href="/">{% include "icons/mark.svg" %}<span class="visually-hidden">{{ site.name }}</span></a>
+      <a class="footer-home" href="/">{% include "icons/ms-mark.svg" %}<span class="visually-hidden">{{ site.name }}</span></a>
       {%- if product %}
       {% include "icons/chevron-right.svg" %}<a href="{{ product.appUrl }}">{{ product.appName }}</a>
       {% include "icons/chevron-right.svg" %}<span aria-current="page">{{ product.name }}</span>

@@ -1,0 +1,16 @@
+{#- Assemblr's live demo: the plugin's own layout engine and tools in the browser (assemblr-demo.js, which site.js loads as
+    the section comes near the screen). The page plays InDesign, with its toolbar over it; the panel beside it is built as
+    Assemblr's panel, its Layout and Overlays tiles. -#}
+<div class="ad reveal" data-assemblr-demo>
+  <div class="ad-stage">
+    <div class="ad-toolbar" data-demo-toolbar role="toolbar" aria-label="The page"></div>
+    <div class="ad-page" data-demo-page role="group" aria-label="An InDesign page with a product of cans on it. Drag a corner of the product's frame, or focus one and use the arrow keys, to resize it. Drop your own cut-outs on it to add them.">
+      <p class="ad-drop" aria-hidden="true">Drop your cut-outs to add them</p>
+    </div>
+  </div>
+  <div class="ad-panel" data-demo-panel role="region" aria-label="Assemblr's panel">
+    <p class="status status-waiting status-small ad-status"><span class="status-dot" aria-hidden="true"></span><span data-demo-status>Starting Assemblr…</span></p>
+    <noscript><p class="ad-status">The demo runs Assemblr in your browser, so it needs JavaScript.</p></noscript>
+  </div>
+  <p class="visually-hidden" aria-live="polite" data-demo-live></p>
+</div>

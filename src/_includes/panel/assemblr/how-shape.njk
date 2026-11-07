@@ -1,0 +1,50 @@
+{#- How it works, landscape to portrait: the same product at two shapes, each laid out by Assemblr's engine
+    (src/_lib/assemblr-panel.js `how.shape`), in points. The rectangle selected, with its handles; its images laid out
+    again; a badge top right and the price bottom left, each its insets marked in blue, the same at both shapes. Under
+    them the Layout tile's settings, the same for both, as the panel shows them, but on a product page's hero
+    (`inHero`), where the two shapes stand alone. -#}
+{%- from "panel/ui.njk" import sel %}
+{%- set sh = panels[panelId].art.how.shape %}
+{%- set pad = 46 %}
+{%- macro mark(x1, y1, x2, y2) %}<path class="hw-dim" d="M{{ x1 }} {{ y1 }}L{{ x2 }} {{ y2 }}{% if x1 == x2 %}M{{ x1 - 3 }} {{ y1 }}h6M{{ x2 - 3 }} {{ y2 }}h6{% else %}M{{ x1 }} {{ y1 - 3 }}v6M{{ x2 }} {{ y2 - 3 }}v6{% endif %}"/>{% endmacro %}
+{%- macro pill(x, y, anchor, inset) %}
+{%- set pw = 36 %}{% set left = x if anchor == "start" else (x - pw if anchor == "end" else x - pw / 2) %}
+<g class="hw-pill"><rect x="{{ left }}" y="{{ y - 8 }}" width="{{ pw }}" height="16" rx="8"/><text x="{{ left + pw / 2 }}" y="{{ y + 3.6 }}">{{ inset }} pt</text></g>
+{%- endmacro %}
+{%- macro state(s, pad, inset, cursor) %}
+<svg class="hw-shape-svg" viewBox="{{ -pad }} {{ -pad }} {{ s.w + 2 * pad }} {{ s.h + 2 * pad }}">
+  {%- for c in s.cans %}<image href="{{ c.src }}" x="{{ c.x }}" y="{{ c.y }}" width="{{ c.w }}" height="{{ c.h }}"/>{% endfor %}
+  {#- The badge, the demo's NEW, and the price, its "$X.XX each" with $12.50 written in. #}
+  {%- set b = s.badge %}
+  <g class="hw-badge" transform="translate({{ b.x }} {{ b.y }}) scale({{ b.w / 100 }})"><circle cx="50" cy="50" r="50"/><text x="50" y="61">NEW</text></g>
+  {%- set p = s.price %}
+  <g class="hw-price" transform="translate({{ p.x }} {{ p.y }}) scale({{ p.w / 150 }})"><rect width="150" height="90" rx="10"/><text x="6.4" y="40" class="hw-price-big" font-size="24">$</text><text x="22.4" y="72" class="hw-price-big" font-size="66">12</text><text x="105.6" y="44" class="hw-price-big" font-size="32">50</text><text x="106.6" y="70" class="hw-price-each" font-size="15">each</text></g>
+  <rect class="hw-edge" x="0" y="0" width="{{ s.w }}" height="{{ s.h }}"/>
+  {%- for q in s.handles %}<rect class="hw-handle" x="{{ q[0] - 3.5 }}" y="{{ q[1] - 3.5 }}" width="7" height="7"/>{% endfor %}
+  {#- The insets: the badge's from the top and right edges, the price's from the left and bottom. #}
+  {{ mark(b.cx, 0, b.cx, b.y) }}{{ mark(b.x + b.w, b.cy, s.w, b.cy) }}
+  {{ mark(0, p.cy, p.x, p.cy) }}{{ mark(p.cx, p.y + p.h, p.cx, s.h) }}
+  {{ pill(b.cx, -20, "middle", inset) }}{{ pill(s.w + 8, b.cy, "start", inset) }}
+  {{ pill(-8, p.cy, "end", inset) }}{{ pill(p.cx, s.h + 20, "middle", inset) }}
+  {%- if cursor %}
+  {%- set cx = s.w + 14 %}{% set cy = s.h + 14 %}
+  <path class="hw-cursor" d="M{{ cx - 6 }} {{ cy - 6 }}l12 12M{{ cx - 6 }} {{ cy - 6 }}h5M{{ cx - 6 }} {{ cy - 6 }}v5M{{ cx + 6 }} {{ cy + 6 }}h-5M{{ cx + 6 }} {{ cy + 6 }}v-5"/>
+  {%- endif %}
+</svg>
+{%- endmacro %}
+<div class="hw-shapes">
+<div class="hw-shape" style="--wmax: {{ sh.from.w + 2 * pad }}">
+  <div class="hw-shape-side" style="--w: {{ sh.from.w + 2 * pad }}"><p class="hw-cap">Landscape</p>{{ state(sh.from, pad, sh.inset, false) }}</div>
+  <div class="hw-go"><svg class="hw-go-arrow" viewBox="0 0 40 12"><path d="M0 6h37M32 1.5 36.5 6 32 10.5"/></svg></div>
+  <div class="hw-shape-side" style="--w: {{ sh.to.w + 2 * pad }}"><p class="hw-cap">Portrait</p>{{ state(sh.to, pad, sh.inset, true) }}</div>
+</div>
+{%- if not inHero %}
+{%- set st = sh.settings %}
+<div class="pt-card ap hw-settings">
+  <div class="pt-modes"><span class="is-on">Line-up</span><span>Grid</span><span>Mosaic</span><span>Pins</span><span>Puzzle</span></div>
+  <div class="pt-field"><span class="pt-flabel pt-strong pt-dark">Align images</span><span class="pt-seg">{% for a in ["Top", "Middle", "Bottom"] %}<span{% if a == st.align %} class="is-on"{% endif %}>{{ a }}</span>{% endfor %}</span></div>
+  <div class="pt-form"><span class="pt-flabel">Angle (°)</span>{{ sel(st.angle) }}<span class="pt-flabel">Size (%)</span>{{ sel(st.size) }}</div>
+  <div class="pt-field"><span class="pt-flabel">Perspective (%)</span><span class="pt-input pt-narrow">{{ st.perspective }}</span><span class="pt-slider" style="--at: {{ (st.perspective / 90 * 100) | round }}%"></span></div>
+</div>
+{%- endif %}
+</div>

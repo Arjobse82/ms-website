@@ -1,0 +1,45 @@
+/* What the Measure widget opens to (src/_includes/dashboard/detail-template.njk). Mirrors bloom ui-shell.html
+   .mc-tab, .rc-view-btn, .rc-card, table.intel-table and the .measure-panel rules. */
+.sdu-template { position: relative; max-width: 340px; padding: 4px 14px 14px; border-radius: 12px; background: #fff; color: var(--fg);
+  box-shadow: 0 0 0 0.5px rgba(0,0,0,.14), 0 2px 5px rgba(0,0,0,.1), 0 12px 28px rgba(0,0,0,.12);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+.sdu-template * { box-sizing: border-box; }
+.sdu-template-r { position: absolute; opacity: 0; pointer-events: none; }
+.sdu-template .tabs { display: flex; gap: 2px; justify-content: center; margin: 8px auto 10px; }
+.sdu-template .tab { padding: 9px 14px 8px; border-bottom: 2px solid transparent; margin-bottom: -1px; font-size: 11px; font-weight: 600; color: var(--fg-5); cursor: pointer; }
+.sdu-template .panel { display: none; }
+#sdu-template-t1:checked ~ .p1, #sdu-template-t2:checked ~ .p2 { display: block; }
+#sdu-template-t1:checked ~ .tabs .t1, #sdu-template-t2:checked ~ .tabs .t2 { color: #222; border-bottom-color: var(--tab-underline); }
+#sdu-template-t1:focus-visible ~ .tabs .t1, #sdu-template-t2:focus-visible ~ .tabs .t2 { outline: 2px solid var(--tab-underline); outline-offset: -2px; }
+
+.sdu-template .views { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin: 4px 0 12px; }
+.sdu-template .vb { padding: 4px 9px; border: 1px solid #d7dade; border-radius: 100px; font: 10px/1 ui-monospace, Menlo, monospace; letter-spacing: .3px; color: #6b7075; }
+.sdu-template .vb.on { border-color: var(--fg); background: var(--fg); color: #fff; }
+.sdu-template .card { padding: 0 11px; border: 1px solid #e2e2e2; border-radius: 12px; background: #fff; }
+.sdu-template .head { display: flex; align-items: center; gap: 7px; padding: 10px 1px; }
+.sdu-template .caret { flex: none; font-size: 8px; line-height: 1; color: var(--fg-5); }
+.sdu-template .title { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #777; }
+.sdu-template .title .mp-pill-dia { color: var(--tab-underline); }
+.sdu-template .note { font-size: 9px; font-weight: 500; letter-spacing: .02em; color: var(--fg-5); }
+.sdu-template .note::before { content: "◆"; margin-right: 4px; font-size: 7px; color: var(--warn); }
+.sdu-template .body { padding: 4px 0 10px; color: #111; }
+.sdu-template .body svg { display: block; width: 100%; height: auto; }
+
+.sdu-template .status { margin: 0 0 9px; font-size: 10.5px; line-height: 1.4; color: var(--fg-5); }
+.sdu-template .tbl { width: 100%; border-collapse: collapse; font-size: 10px; }
+.sdu-template .tbl th { padding: 4px 5px; border-bottom: 1px solid #ddd; text-align: left; font-size: 8.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--fg-5); }
+.sdu-template .tbl td { padding: 4px 5px; border-bottom: 1px solid #eee; vertical-align: middle; color: #555; }
+.sdu-template .r { text-align: right; }
+.sdu-template .chk { width: 16px; padding-right: 0; }
+.sdu-template .cb { display: inline-block; position: relative; width: 12px; height: 12px; vertical-align: middle; border: 1px solid #bbb; border-radius: 3px; background: #fff; }
+.sdu-template .cb.on { border-color: var(--tab-underline); background: var(--tab-underline); }
+.sdu-template .cb.on::after { content: ""; position: absolute; left: 3px; top: 0; width: 3px; height: 6px; border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+.sdu-template .cb.static { display: inline-flex; align-items: center; justify-content: center; width: 13px; height: 13px; border: 0; background: var(--fg); color: #fff; }
+.sdu-template .name { color: #222; font-weight: 500; }
+.sdu-template .nd { display: inline-flex; margin-right: 5px; color: var(--tab-underline); }
+.sdu-template .match { display: block; max-width: 170px; margin-top: 4px; padding: 1px 4px; border: 1px solid #ccc; border-radius: 3px; background: #fff; font: 400 10px/14px ui-monospace, Menlo, monospace; color: var(--fg-5); }
+.sdu-template .cov { font: 600 11px/1 ui-monospace, Menlo, monospace; color: #555; font-variant-numeric: tabular-nums; }
+.sdu-template .sel { display: inline-block; padding: 1px 16px 1px 4px; border: 1px solid #ccc; border-radius: 3px; background: #fff; font: 10px/14px ui-monospace, Menlo, monospace; color: #222; }
+.sdu-template .tb { display: inline-block; padding: 1px 6px; border: 1px solid #ddd; border-radius: 4px; background: #fafafa; color: #555; font-size: 9px; }
+.sdu-template .more { margin: 8px 0 0; display: inline-block; padding: 2px 8px; border: 1px solid #ddd; border-radius: 4px; background: #fafafa; color: #555; font-size: 10px; }
+.sdu-template .desc { margin: 8px 0 0; font-size: 10.5px; line-height: 1.5; color: var(--fg-5); }

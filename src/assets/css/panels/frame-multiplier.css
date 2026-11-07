@@ -1,0 +1,88 @@
+/* Frame Multiplier's panel (panel/frame-multiplier/*.njk, src/_lib/fm-panel.js): the plugin's own chrome (its
+   theme.css and rollout.css), a little larger than in Figma: the tree's ASCII branches, black concept chip, role
+   pills, column icons, score chips and the card under the selected frame. */
+.fm { --fm-col: 28px; --fm-role: 92px; gap: 7px; font-size: 13px; }
+.fm-topbar { margin-bottom: 4px; padding-bottom: 9px; border-bottom: 1px solid #eee; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #aaa; }
+.fm-sec { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.fm-chev { width: 11px; font-size: 8px; color: #aaa; transform: rotate(90deg); }
+.fm-sec-title { flex: 1; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #888; }
+.fm-meta { font-family: var(--font-mono); font-size: 11px; color: #aaa; white-space: nowrap; }
+.fm-step { font-size: 12.5px; font-weight: 600; color: #555; }
+.fm .pt-sel { width: 100%; }
+.fm .pt-btn { justify-content: center; border-color: #e0e0e0; border-radius: 5px; font-weight: 500; color: #555; }
+.fm .pt-btn-primary { border-color: #111; color: #fff; }
+.fm-btns { display: flex; gap: 6px; }
+.fm-btns > *, .fm-btns .pt-btn { flex: 1; }
+.fm-chip { display: inline-block; padding: 3px 10px; border-radius: 3px; background: #111; font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; }
+.fm-chiprow { gap: 9px; margin-top: 8px; }
+.fm-row { display: flex; align-items: center; min-width: 0; min-height: 23px; white-space: nowrap; }
+.fm-br { flex: none; min-width: 34px; font-family: Menlo, Consolas, monospace; font-size: 12px; color: #888; white-space: pre; }
+.fm-br-2 { min-width: 58px; }
+.fm-ic { display: inline-flex; flex: none; justify-content: center; width: 14px; margin-right: 7px; color: #111; }
+.fm-ic svg, .fm-fi svg, .fm-col svg { display: block; width: 14px; height: 14px; }
+.fm-desc { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #aaa; }
+/* Setup: the Components table. Its column marks sit over the headers, a row of them. */
+.fm-hdr { display: flex; align-items: flex-end; margin-top: 30px; padding-bottom: 4px; border-bottom: 1px solid #eee; }
+.fm-hdr-role { width: var(--fm-role); margin-left: auto; font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; color: #bbb; }
+.fm-hdr > .pt-hot { flex: none; }
+.fm-hdr .pt-in > .pt-mark { top: -27px; left: 50%; margin-left: -9.5px; }
+/* A mark on something small (the concept chip, a role pill, a score) sits beside it, not on it. */
+.fm-chiprow > .pt-in > .pt-mark, .fm-rolecell .pt-in > .pt-mark, .fm-pay > .pt-in > .pt-mark { top: 50%; left: -26px; margin-top: -9.5px; }
+.fm-rolecell .pt-in > .pt-mark { left: 100%; margin-left: 4px; }
+.fm-col { display: flex; flex-direction: column; align-items: center; gap: 2px; width: var(--fm-col); color: #bbb; }
+.fm-col b { font-family: var(--font-mono); font-size: 9px; line-height: 1; }
+.fm-layer { height: 25px; }
+.fm-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12.5px; color: #555; }
+.fm-rolecell { flex: none; width: var(--fm-role); }
+.fm-role { position: relative; display: inline-block; height: 20px; padding: 0 17px 0 4px; margin-left: -4px; border-radius: 3px; font-family: var(--font-mono); font-size: 12px; font-weight: 500; line-height: 20px; color: #111; }
+.fm-role::after { content: ""; position: absolute; top: 50%; right: 5px; width: 5px; height: 5px; margin-top: -4px; border-right: 1.2px solid currentColor; border-bottom: 1.2px solid currentColor; transform: rotate(45deg); }
+.fm-fi { display: flex; flex: none; justify-content: center; align-items: center; width: var(--fm-col); color: #ccc; }
+.fm-fi.is-on { color: #111; }
+.fm-flag { font-size: 13px; font-weight: 700; letter-spacing: -0.04em; }
+.fm-mono { font-family: var(--font-mono); font-size: 10px; letter-spacing: -0.02em; }
+.fm-console { margin-top: 6px; padding-top: 9px; border-top: 1px solid #eee; font-size: 12px; color: #555; }
+/* Frames: the tree. A score chip is grey while it is a forecast, coloured once it was measured on the frame. */
+.fm-tree { display: flex; flex-direction: column; }
+.fm-m { flex: none; margin: 0 5px 0 -6px; font-size: 12.5px; font-weight: 700; }
+.fm-pill { flex: none; padding: 2px 9px; border-radius: 100px; background: #f0f0f0; font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+.fm-arr { margin-left: 7px; overflow: hidden; text-overflow: ellipsis; font-family: var(--font-mono); font-size: 10px; color: #aaa; }
+.fm-pay { display: flex; flex: 1; align-items: center; min-width: 0; padding: 1px 6px 1px 4px; margin-left: -4px; border-radius: 4px; }
+.fm-score { flex: none; min-width: 30px; padding: 1px 5px; margin-right: 6px; border-radius: 3px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.02em; text-align: center; }
+.fm-ok { background: #e8f8ef; color: #22a06b; }
+.fm-warn { color: #f07000; }
+.fm-score.fm-warn { background: #fff3e6; }
+.fm-pred { background: #f0f0f0; color: #444; }
+.fm-tick { flex: none; width: 14px; font-size: 12.5px; font-weight: 700; color: #22a06b; }
+.fm-tick.is-off { visibility: hidden; }
+.fm-size { flex: none; min-width: 74px; margin-right: 6px; font-size: 12.5px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fm-locked { color: #f07000; }
+.fm-frame.is-sel .fm-pay { background: #111; }
+.fm-frame.is-sel .fm-pay * { color: #fff; }
+.fm-frame.is-sel .fm-score { background: rgba(128, 128, 128, 0.32); }
+.fm-frame.is-sel .fm-desc { opacity: 0.6; }
+.fm-card { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; padding: 12px; border-radius: 6px; background: #f5f5f5; }
+.fm-card-head { display: flex; align-items: center; gap: 6px; }
+.fm-card-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 600; }
+.fm-card-head .fm-score { margin-right: 0; }
+.fm-card-meta { font-size: 12px; color: #999; }
+.fm-card-reason { font-size: 12px; line-height: 1.5; color: #555; }
+.fm-preview { display: block; width: 100%; height: auto; margin: 4px 0; border-radius: 4px; }
+.fm-card-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.fm-card-btns .pt-btn { flex: initial; min-height: 26px; padding: 2px 10px; font-size: 12px; }
+.fm-card-more { font-size: 12px; color: #999; }
+.fm-unused .fm-ic { color: #aaa; }
+.fm-summary { display: flex; align-items: center; gap: 7px; margin-top: 4px; padding-top: 10px; border-top: 1px solid #eee; font-size: 12.5px; color: #555; }
+.fm-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+/* Settings: the cog's popover. */
+.fm-set-h { margin-top: 4px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #888; }
+.fm-check { display: flex; align-items: center; gap: 9px; font-size: 13px; }
+@media (prefers-reduced-motion: no-preference) {
+  .fm-ants { animation: fm-ants 0.9s linear infinite; }
+  @keyframes fm-ants { to { stroke-dashoffset: -7; } }
+}
+@media (max-width: 734px) {
+  .fm { --fm-col: 24px; --fm-role: 78px; }
+  .fm-br { min-width: 30px; }
+  .fm-br-2 { min-width: 52px; }
+  .fm-size { min-width: 68px; }
+}

@@ -1,0 +1,51 @@
+{%- from "panel/ui.njk" import hot, box %}
+{%- set a = panel.art %}
+{%- set I = a.icon %}
+{%- set GLYPH = { tick: I.check, link: I.link, unknown: I.question } %}
+{#- A table's rows are placed by line (`at`), so the column marks of the Known table can lie over its whole height. -#}
+{%- macro swatchRow(r, glyph, at) -%}
+<div class="ie-sw ie-swrow" style="grid-row: {{ at }}">
+  <span class="ie-st is-{{ r.status }}"{% if r.title %} title="{{ r.title }}"{% endif %}>{{ glyph | safe }}</span>
+  <span class="ie-swdot" style="background: {{ r.dot }}"></span>
+  <span class="ie-fname{% if r.combo %} ie-combo{% endif %}{% if not r.name %} is-ph{% endif %}">{{ r.name or r.placeholder }}</span>
+  {%- for v in r.values %}<span class="ie-ink">{{ v }}</span>{% endfor %}
+  <span class="ie-model">{{ r.model }}</span>
+</div>
+{%- endmacro %}
+{%- macro cols() -%}<div class="ie-sw ie-swcols" style="grid-row: 1"><span></span><span></span><span></span><span>C</span><span>M</span><span>Y</span><span>K</span><span></span></div>{%- endmacro %}
+<div class="pt-card ie">
+  <div class="ie-field">
+    {%- call hot(1) %}<div class="ie-prow"><span class="ie-label">Profile</span><span class="ie-pf">{{ a.profile.name }}</span><span class="ie-pfx" title="Eject this profile AND clear the current colour setup back to Default (the profile itself stays saved)">×</span></div>{% endcall %}
+    <p class="ie-source">{{ a.scanned }}</p>
+  </div>
+  <div class="ie-field ie-pad">
+    {%- call hot(2) %}<p class="ie-label">Output folder</p><div><span class="ie-folder"><span class="ie-fdot"></span><span class="ie-flabel">{{ a.outputFolder }}</span><span class="ie-fx" title="Clear output folder">×</span></span></div>{% endcall %}
+  </div>
+  <div class="ie-swsec">
+    <p class="ie-swhead ie-swhead-marked">Known swatches</p>
+    <div class="ie-swtable" style="--rows: {{ a.known.length + 1 }}">
+      {{ cols() }}
+      {%- for r in a.known %}{{ swatchRow(r, GLYPH[r.status], loop.index + 1) }}{% endfor %}
+      {#- Over the table's columns: the status glyphs and dots, the names, the inks and types. #}
+      {%- call hot(3) %}<span class="ie-col-status"></span>{% endcall %}
+      {%- call hot(4) %}<span class="ie-col-name"></span>{% endcall %}
+      {%- call hot(5) %}<span class="ie-col-inks"></span>{% endcall %}
+    </div>
+  </div>
+  <div class="ie-swsec">
+    {%- call hot(6) %}
+    <p class="ie-swhead">Unknown swatches</p>
+    <div class="ie-swtable" style="--rows: {{ a.unknown.length + 1 }}">
+      {{ cols() }}
+      {%- for r in a.unknown %}{{ swatchRow(r, GLYPH[r.status], loop.index + 1) }}{% endfor %}
+    </div>
+    {%- endcall %}
+  </div>
+  <div class="ie-swsec">
+    {%- call hot(7) %}<p class="ie-swhead ie-hidhead"><span class="ie-caret">{{ I.caret | safe }}</span>Hidden swatches</p><p class="ie-hidsum">{{ a.hiddenSummary }}</p>{% endcall %}
+  </div>
+  {%- call hot(8) %}<div class="ie-primary ie-save">Save</div>{% endcall %}
+  <div class="ie-options">
+    {%- call hot(9) %}<p class="ie-ohead">Options</p><div class="ie-orows"><span class="ie-check">{{ box(false) }}Overprint fill</span><span class="ie-check">{{ box(false) }}Overprint stroke</span></div>{% endcall %}
+  </div>
+</div>

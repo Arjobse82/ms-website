@@ -1,0 +1,17 @@
+{#- A product's tour: its Figma Community carousel, slide by slide, in the gallery's scrolling track (site.js
+    initGalleries gives it its previous and next buttons). -#}
+<div class="gallery gallery-tour reveal" data-gallery>
+  <ul class="gallery-track" data-gallery-track aria-label="{{ product.name }} tour, {{ product.tour.length }} slides">
+    {%- for s in product.tour %}
+    <li class="slide-card">{% slide s.image, s.alt %}</li>
+    {%- endfor %}
+  </ul>
+  <div class="gallery-controls container container-wide">
+    <button class="gallery-button" type="button" data-gallery-prev>
+      <span class="visually-hidden">Previous slide</span>{% include "icons/chevron-left.svg" %}
+    </button>
+    <button class="gallery-button" type="button" data-gallery-next>
+      <span class="visually-hidden">Next slide</span>{% include "icons/chevron-right.svg" %}
+    </button>
+  </div>
+</div>

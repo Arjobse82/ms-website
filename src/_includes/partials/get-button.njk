@@ -1,6 +1,7 @@
-{#- The Get button for product `p`. Shows "Coming soon" until the product has a getUrl. Set `compact` for the small local nav size. -#}
+{#- The Get button for product `p`; until it has a getUrl, its status instead: the house's grey pulsing dot and
+    "Coming soon". Set `compact` for the local nav's size. -#}
 {%- if p.getUrl -%}
 <a class="button {{ 'button-small' if compact else 'button-primary' }}" href="{{ p.getUrl }}">Get{% if not compact %} {{ p.name }}{% endif %}</a>
 {%- else -%}
-<span class="button {{ 'button-small' if compact else 'button-primary' }} is-disabled" aria-disabled="true">Coming soon</span>
+<span class="status status-waiting{% if compact %} status-small{% endif %}"><span class="status-dot" aria-hidden="true"></span>Coming soon</span>
 {%- endif -%}

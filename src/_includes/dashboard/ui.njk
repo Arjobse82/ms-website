@@ -1,0 +1,17 @@
+{#- One widget of a dashboard (dashboards.js), as the plugin draws it: in the hero a link to what it is on the page, named
+    as the plugin's tooltip names it; in the widget list a picture. Expects the widget `w`, its dashboard `d`, and `link`. -#}
+{%- macro widget(w, d, link) -%}
+{%- if link %}<a class="{{ w.cls }}" style="--w-span: {{ w.span or 2 }}" href="{{ w.href }}" title="{{ w.name }}{% if w.status %} · {{ w.status }}{% endif %}" aria-label="{{ w.name }}">{% else %}<div class="{{ w.cls }}" style="--w-span: {{ w.span or 2 }}">{% endif %}
+{%- if w.kind == "creatives" -%}
+<canvas class="w-dots" data-ov-dots></canvas><div class="w-cr-body"><div class="w-cr-title">Creatives</div><ol class="w-cr-list">{% for c in d.creatives %}<li><span class="w-cr-n">&gt;</span> {{ c }}</li>{% endfor %}</ol></div><div class="w-cr-num">{{ d.creatives.length }}</div>
+{%- elif w.kind == "measure" -%}
+<div class="w-tmpl-graph">{{ d.graph | safe }}</div><div class="w-tmpl-title">Measure</div><div class="w-tmpl-pills">{% for p in d.measured %}<span class="w-pill">{% if p.layout %}{{ d.diamond | safe }}{% endif %}<span class="w-pill-lab">{{ p.label }}</span></span>{% endfor %}</div>
+{%- elif w.kind == "channel" -%}
+<div class="w-tile-n">{{ w.n }}</div><div class="w-tile-l">{{ w.key }}</div>
+{%- elif w.kind == "brand" -%}
+{{ w.art | safe }}
+{%- else -%}
+<div class="w-sf-art">{{ w.art | safe }}</div>
+{%- endif -%}
+{%- if link %}</a>{% else %}</div>{% endif %}
+{%- endmacro %}

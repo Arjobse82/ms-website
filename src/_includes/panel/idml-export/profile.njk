@@ -1,0 +1,20 @@
+{%- from "panel/ui.njk" import hot %}
+{%- set p = panel.art.profile %}
+{%- macro check(label, on, title) -%}<p class="ie-pcheck" title="{{ title }}"><span class="ie-pbox{% if on %} is-on{% endif %}" aria-hidden="true"></span>{{ label }}</p>{%- endmacro %}
+<div class="pt-card ie ie-popup">
+  {%- call hot(1) %}{{ check("Apply Flex layout when available", true, "On: Auto Layout frames convert to InDesign Flex layout where compatible (see the Compatibility report's Auto Layout row on the Export tab). Off: ignore Auto Layout entirely.") }}{% endcall %}
+  {%- call hot(2) %}{{ check("Save components to idml links", false, "Generate an IDML link for components. Warning: IDML links are not compatible with InDesign. You will need to convert it to INDD later, or swap it out for a new link.") }}{% endcall %}
+  {%- call hot(3) %}{{ check("Convert hidden swatches without mapping.", true, "On: unmapped colours convert from RGB automatically and stay out of this list. Off: every hidden colour appears below to map by hand.") }}{% endcall %}
+  <hr class="ie-prule">
+  {%- call hot(4) %}
+  <p class="ie-ph4">Profile colours&nbsp; · &nbsp;{{ p.name }}</p>
+  <div class="ie-pt">
+    <div class="ie-ptrow ie-ptcols"><span></span><span></span><span>C</span><span>M</span><span>Y</span><span>K</span><span></span><span></span></div>
+    {%- for c in p.colours %}
+    <div class="ie-ptrow"><span class="ie-swdot" style="background: {{ c.dot }}"></span><span class="ie-fname">{{ c.name }}</span>{% for v in c.values %}<span class="ie-ink">{{ v }}</span>{% endfor %}<span class="ie-model">{{ c.model }}</span><span class="ie-premove" title="Remove this colour from the profile">×</span></div>
+    {%- endfor %}
+  </div>
+  {%- endcall %}
+  {%- call hot(5) %}<div class="ie-primary ie-psave">Save profile</div>{% endcall %}
+  {%- call hot(6) %}<div class="ie-pdelete">Delete profile</div>{% endcall %}
+</div>

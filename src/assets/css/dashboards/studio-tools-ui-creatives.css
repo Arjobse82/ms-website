@@ -1,0 +1,19 @@
+/* What the Creatives widget opens to (src/_includes/dashboard/detail-creatives.njk). Mirrors bloom ui-shell.html
+   table.intel-table / .mp-pill / .mc-desc, at the plugin's size, on the .sd-ui tokens. */
+.sdu-creatives { max-width: 340px; padding: 12px 14px 14px; border-radius: 12px; background: #fff; color: var(--fg);
+  box-shadow: 0 0 0 0.5px rgba(0,0,0,.14), 0 2px 5px rgba(0,0,0,.1), 0 12px 28px rgba(0,0,0,.12);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+.sdu-creatives * { box-sizing: border-box; }
+.sdu-creatives-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.sdu-creatives-table th { padding: 4px 5px; border-bottom: 1px solid #ddd; text-align: left; font-size: 8.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--fg-5); }
+.sdu-creatives-table td { padding: 4px 5px; border-bottom: 1px solid #eee; vertical-align: middle; color: #555; }
+.sdu-creatives-table .n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sdu-creatives-table .name { color: #222; font-weight: 500; }
+.sdu-creatives-table .tools { width: 1%; text-align: right; white-space: nowrap; }
+.sdu-creatives .pair { display: inline-flex; align-items: center; gap: 6px; }
+.sdu-creatives .pill { display: inline-flex; align-items: center; gap: 4px; padding: 1px 5px 1px 6px; border: 1px solid #ccc; border-radius: 3px; background: #fff; color: #222; font: 10px/14px ui-monospace, Menlo, monospace; white-space: nowrap; }
+.sdu-creatives .pill.is-off { color: var(--fg-5); }
+.sdu-creatives .pill svg:not(.mp-pill-dia) { width: 8px; height: 6px; margin-left: 2px; }
+.sdu-creatives .tb { display: inline-block; padding: 1px 6px; border: 1px solid #ddd; border-radius: 4px; background: #fafafa; color: #555; font-size: 9px; }
+.sdu-creatives .desc { margin: 10px 0 0; font-size: 10.5px; line-height: 1.5; color: var(--fg-5); }
+.sdu-creatives .desc b { font-weight: 600; color: #555; }

@@ -1,0 +1,49 @@
+/* What the Component Manager widget opens to (src/_includes/dashboard/detail-componentIngest.njk): the plugin's three screens in its light
+   mode at its own size (ui.html's tokens: --bg-2 #fafafa, --bd-2 #ddd, --bd-3 #e0e0e0, --ok, --warn, --err), on the .sd-ui tokens
+   (studio-tools.css). The plugin's .appbar rules are in studio-tools.css; only its close square is drawn here. */
+
+.sdu-componentIngest { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.sdu-componentIngest * { box-sizing: border-box; }
+.sdu-componentIngest-cap { margin: 10px 0 0; font-size: 12px; color: #555; }
+.sdu-componentIngest-cap:first-child { margin-top: 0; }
+.sdu-componentIngest-cap b { display: inline-block; width: 18px; height: 18px; margin-right: 6px; border-radius: 50%; background: var(--fg); color: #fff; font-size: 10px; line-height: 18px; text-align: center; }
+
+.sdu-componentIngest-win {
+  position: relative;
+  width: 420px;
+  max-width: 100%;
+  padding: 46px 20px 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.14), 0 2px 5px rgba(0, 0, 0, 0.1), 0 12px 28px rgba(0, 0, 0, 0.12);
+  font-size: 12px;
+}
+.sdu-componentIngest-win .appbar { top: 10px; right: 12px; }
+.sdu-componentIngest-help { font: 700 14px/1 Inter, -apple-system, sans-serif; }
+.sdu-componentIngest-win .appbar-btn.sdu-componentIngest-close { width: 16px; height: 16px; min-width: 16px; margin-left: 6px; border-radius: 3px; background: var(--tab-underline); color: #fff; opacity: 1; }
+.sdu-componentIngest-close svg { width: 14px; height: 14px; }
+
+.sdu-componentIngest-h { margin: 0 0 12px; font-size: 14px; font-weight: 700; }
+
+/* Drop */
+.sdu-componentIngest-drop { padding: 26px 32px; border: 2px dashed #bbb; border-radius: 8px; text-align: center; color: #555; }
+.sdu-componentIngest-lab { display: inline-block; margin: 8px 4px 0; padding: 6px 12px; border: 1px solid #e0e0e0; border-radius: 5px; background: #fff; color: #444; }
+
+/* Confirm */
+.sdu-componentIngest-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #eee; }
+.sdu-componentIngest-folder { flex: 1; font-weight: 600; }
+.sdu-componentIngest-count { font-size: 11px; color: var(--fg-5); }
+.sdu-componentIngest-select { display: flex; flex: 1.4; align-items: center; justify-content: space-between; padding: 4px 6px; border: 1px solid #ddd; border-radius: 4px; background: #fafafa; color: var(--fg); }
+.sdu-componentIngest-select svg { flex: none; color: var(--fg-5); }
+.sdu-componentIngest-uniform { display: flex; align-items: center; gap: 7px; margin-top: 14px; color: #444; }
+.sdu-componentIngest-cb { width: 14px; height: 14px; border-radius: 3px; background: var(--fg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center / 11px no-repeat; }
+.sdu-componentIngest-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+.sdu-componentIngest-btn { padding: 6px 12px; border: 1px solid #e0e0e0; border-radius: 5px; background: #fff; color: #555; }
+.sdu-componentIngest-btn--primary { border-color: var(--fg); background: var(--fg); color: #fff; }
+
+/* Done */
+.sdu-componentIngest-summary { margin: 12px 0 4px; font-weight: 600; white-space: pre; }
+.sdu-componentIngest-log { margin-top: 8px; padding: 8px; border-radius: 4px; background: #fafafa; font: 11px ui-monospace, Menlo, monospace; }
+.sdu-componentIngest-log .imported { color: var(--ok); }
+.sdu-componentIngest-log .skipped { color: var(--warn); }
+.sdu-componentIngest-log .failed { color: #e05050; }

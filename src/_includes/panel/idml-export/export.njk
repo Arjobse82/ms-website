@@ -1,0 +1,63 @@
+{%- from "panel/ui.njk" import hot, box %}
+{%- set a = panel.art %}
+{%- set I = a.icon %}
+{%- set STATUS = { ok: I.check, note: '<span class="ie-ndot"></span>', warn: '<span class="ie-tri">⚠</span>' } %}
+<div class="pt-card ie">
+  {%- call hot(1) %}<div class="ie-scan">Scan</div>{% endcall %}
+  {%- call hot(2) %}
+  <div class="ie-seg">
+    <div class="ie-segcard is-on">{{ I.spreads | safe }}<span>Spreads</span></div>
+    <div class="ie-segcard">{{ I.single | safe }}<span>Single pages</span></div>
+  </div>
+  {%- endcall %}
+  <div class="ie-rows">
+    {%- call hot(3, true) %}<span class="ie-check">{{ box(true) }}Group frames by size</span>{% endcall %}
+    {%- call hot(4, true) %}<span class="ie-check">{{ box(false) }}Create separate IDML files</span>{% endcall %}
+  </div>
+  <hr class="ie-divider">
+  {%- call hot(5) %}
+  <div class="ie-compat">
+    <div class="ie-compat-head"><span class="ie-caret is-open">{{ I.caret | safe }}</span><span class="ie-cpill">{{ I.check | safe }}<span>Compatibility report</span></span></div>
+    <div class="ie-compat-body">
+      {%- for s in a.compat %}
+      <div class="ie-csec">
+        <p class="ie-csec-head">{{ s.head }}</p>
+        <table class="ie-ctable">
+          {%- for r in s.rows %}
+          <tr class="is-{{ s.kind }}"><td class="ie-cstat">{{ STATUS[s.kind] | safe }}</td><td class="ie-carea">{{ r[0] }}</td><td class="ie-cres">{{ r[1] }}</td></tr>
+          {%- endfor %}
+        </table>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+  {%- endcall %}
+  <div class="ie-tree">
+    {%- for b in a.blocks %}
+    {%- set first = loop.first %}
+    <div class="ie-block">
+      <div class="ie-head">
+        {%- set ident %}<span class="ie-pill">IDML</span><span class="ie-dots">{% for d in b.dots %}<span class="ie-dot" style="background: {{ d }}"></span>{% endfor %}{% if b.unknown %}<span class="ie-dot ie-dot-warn" title="{{ b.unknown }}">{{ I.question | safe }}</span>{% endif %}</span>{% endset %}
+        {%- if first %}{% call hot(6, true) %}{{ ident | safe }}{% endcall %}{% else %}<span class="ie-ident">{{ ident | safe }}</span>{% endif %}
+        {%- if b.chips.length %}
+        {%- set chips %}{% for c in b.chips %}<span class="ie-chip{% if c.on %} is-on{% endif %}">{% if c.icon %}{{ I.diamond | safe }}{% endif %}<span class="ie-chip-label">{{ c.label }}</span><span class="ie-chip-box">{% if c.on %}{{ I.chipCheck | safe }}{% endif %}</span></span>{% endfor %}{% endset %}
+        <div class="ie-chips">{% if first %}{% call hot(7, true) %}{{ chips | safe }}{% endcall %}{% else %}{{ chips | safe }}{% endif %}</div>
+        {%- endif %}
+      </div>
+      <p class="ie-size"><span class="ie-k">└──</span> {{ b.w }}x{{ b.h }}px</p>
+      <div class="ie-ctrls">
+        {%- set mm %}<span class="ie-mm"><span class="ie-mm-v">{{ b.mm }}</span>{% if b.badge %}<span class="ie-badge {{ b.badge.cls }}"{% if b.badge.title %} title="{{ b.badge.title }}"{% endif %}>{{ b.badge.text }}</span>{% endif %}</span>{% endset %}
+        {%- set sels %}<span class="ie-sel">3mm</span><span class="ie-sel">CMYK</span>{% endset %}
+        {%- if first %}{% call hot(8, true) %}{{ mm | safe }}{% endcall %}{% call hot(9, true) %}{{ sels | safe }}{% endcall %}{% else %}{{ mm | safe }}<span class="ie-sels">{{ sels | safe }}</span>{% endif %}
+      </div>
+      {%- set pages %}{% for p in b.pages %}<div class="ie-page"><span class="ie-k">├──</span><span class="ie-tick">{{ I.check | safe }}</span><span class="ie-picon">{{ (I.spread if p.spread else I.file) | safe }}</span><span class="ie-pno">{{ p.label }}</span><span class="ie-pname">{{ p.names }}</span></div>{% endfor %}{% endset %}
+      {%- set l = b.links %}
+      {%- set linksRow %}<div class="ie-links"><span class="ie-k">└──</span><span class="ie-caret{% if l.open %} is-open{% endif %}">{{ I.caret | safe }}</span><span class="ie-lfolder" title="Change connected Links folder">{{ I.folder | safe }}</span><span class="ie-llabel">{{ l.label }}<span class="ie-found">{{ l.found }}</span>)</span><span class="ie-lx" title="Disconnect Links folder">×</span></div>{% if l.open %}<div class="ie-ldetail">{% for i in l.images %}<div class="ie-litem{{ ' is-linked' if i.file else ' is-unlinked' }}">{% if i.file %}{{ I.check | safe }}{% endif %}<span>{{ i.name }}{% if i.file %}.{{ i.file }}{% endif %}</span></div>{% endfor %}</div>{% endif %}{% endset %}
+      <div class="ie-pages">
+        {%- if first %}{% call hot(10) %}{{ pages | safe }}{% endcall %}{% call hot(11) %}{{ linksRow | safe }}{% endcall %}{% else %}{{ pages | safe }}{{ linksRow | safe }}{% endif %}
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+  {%- call hot(12) %}<div class="ie-primary">{{ a.exportLabel }}</div>{% endcall %}
+</div>

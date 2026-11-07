@@ -8,15 +8,142 @@
     "photo": "granite",
     "focus": "50% 65%",
     "install": [
-      { "title": "Find it in Figma Community.", "text": "Search for the plugin by name, or use the Get button on its page here." },
-      { "title": "Save it to your account.", "text": "Saved plugins are available in every file you open." },
-      { "title": "Run it from the Plugins menu.", "text": "In any file, open Plugins and pick it from your saved plugins." }
+      {
+        "title": "Find it in Figma Community.",
+        "text": "Search for the plugin by name, or use the Get button on its page here."
+      },
+      {
+        "title": "Save it to your account.",
+        "text": "Saved plugins are available in every file you open."
+      },
+      {
+        "title": "Run it from the Plugins menu.",
+        "text": "In any file, open Plugins and pick it from your saved plugins."
+      }
     ],
     "products": [
-      { "slug": "plugin-1", "name": "Plugin 1", "tagline": "A one-line description of Plugin 1.", "description": "A short paragraph about what Plugin 1 does and who it is for.", "icon": "circles", "photo": "granite", "focus": "40% 45%", "zoom": 1.2, "getUrl": "" },
-      { "slug": "plugin-2", "name": "Plugin 2", "tagline": "A one-line description of Plugin 2.", "description": "A short paragraph about what Plugin 2 does and who it is for.", "icon": "squares", "photo": "facade", "focus": "70% 40%", "zoom": 1.3, "getUrl": "" },
-      { "slug": "plugin-3", "name": "Plugin 3", "tagline": "A one-line description of Plugin 3.", "description": "A short paragraph about what Plugin 3 does and who it is for.", "icon": "grid", "photo": "granite-tall", "focus": "50% 45%", "zoom": 1, "getUrl": "" },
-      { "slug": "plugin-4", "name": "Plugin 4", "tagline": "A one-line description of Plugin 4.", "description": "A short paragraph about what Plugin 4 does and who it is for.", "icon": "rings", "photo": "facade", "focus": "15% 25%", "zoom": 1.6, "getUrl": "" }
+      {
+        "slug": "bloom",
+        "name": "Bloom",
+        "tagline": "Quality control check for your Figma designs.",
+        "description": "A short paragraph about what Bloom does and who it is for.",
+        "panel": "bloom",
+        "icon": "bloom",
+        "tile": "radial",
+        "getUrl": "https://www.figma.com/community/plugin/1664550979463930940/bloom-preflight",
+        "price": "$4 a month",
+        "job": "bloom",
+        "tour": [
+          {
+            "image": "bloom-tour-1",
+            "alt": "Bloom: a rosette of fine lines with error markers round it, reading 65 PPI, low resolution."
+          },
+          {
+            "image": "bloom-tour-2",
+            "alt": "Preflight, error detection, token fixes and quality control, beside two of Bloom's panels."
+          },
+          {
+            "image": "bloom-tour-3",
+            "alt": "Find and fix: off-pixel grid, stretched components, low-res images, unlocked aspect ratios, raw colours, raw corner radii and raw text. Safety detection: hidden layers, loose layers, detached instances, placeholder text and file dimension errors."
+          },
+          {
+            "image": "bloom-tour-4",
+            "alt": "Each error populates around the bloom: a data visualisation that overlays all your frames as a unique rosette."
+          },
+          {
+            "image": "bloom-tour-5",
+            "alt": "A low-resolution image at 59 dpi: upload the full-resolution file, or bring it up to 72, 144 or 300 dpi as a new layer or variant."
+          },
+          {
+            "image": "bloom-tour-6",
+            "alt": "A raw corner radius of 25: add it to your local library, or pick an existing variable from your library or design system."
+          }
+        ]
+      },
+      {
+        "slug": "frame-multiplier",
+        "name": "Frame Multiplier",
+        "tagline": "Automate your advertising.",
+        "description": "A short paragraph about what Frame Multiplier does and who it is for.",
+        "icon": "frame-multiplier",
+        "tile": "white",
+        "highlightsTile": "black",
+        "cardImage": "frame-multiplier-tour-8",
+        "cardImageAlt": "Frame Multiplier's plugin windows: setup with its masters and components, the frames it will multiply, and a verified frame.",
+        "getUrl": "https://www.figma.com/community/plugin/1680043052278547639/frame-multiplier",
+        "price": "$99 a month",
+        "trial": "7 days of full access",
+        "diagram": "frame-multiplier",
+        "panel": "frame-multiplier",
+        "tour": [
+          {
+            "image": "frame-multiplier-tour-1",
+            "alt": "Frame Multiplier."
+          },
+          {
+            "image": "frame-multiplier-tour-2",
+            "alt": "Turn this: a handful of burger ad masters."
+          },
+          {
+            "image": "frame-multiplier-tour-3",
+            "alt": "Into this: hundreds of ads, one for every size."
+          },
+          {
+            "image": "frame-multiplier-tour-4",
+            "alt": "How the plugin works: a key finds the master each size inherits its layers from, from the closest one or two ratios, blending between two."
+          },
+          {
+            "image": "frame-multiplier-tour-5",
+            "alt": "Infinite frames, easy setup, precise control, lightning fast, AI assistance and multiple designs."
+          },
+          {
+            "image": "frame-multiplier-tour-6",
+            "alt": "Component setup: give each layer of a component its role."
+          },
+          {
+            "image": "frame-multiplier-tour-7",
+            "alt": "Optional: a collision path and a focal path round the product, and pins that hold objects to an edge."
+          },
+          {
+            "image": "frame-multiplier-tour-8",
+            "alt": "Frame Multiplier's panels: the setup, the sizes, and a finished frame."
+          }
+        ]
+      },
+      {
+        "slug": "idml-export",
+        "name": "IDML Export",
+        "tagline": "Send your files to InDesign with maximum compatibility.",
+        "description": "A short paragraph about what IDML Export does and who it is for.",
+        "panel": "idml-export",
+        "icon": "idml-export",
+        "tile": "white",
+        "art": "idml-export",
+        "getUrl": "https://www.figma.com/community/plugin/1673864920631374701",
+        "price": "$7 a month"
+      },
+      {
+        "slug": "studio-tools",
+        "name": "Studio Tools",
+        "tagline": "Monochrome's Figma tools, in one plugin.",
+        "description": "Studio Tools puts Bloom, Frame Multiplier and IDML Export side by side in one Figma plugin. Open it once and move between them.",
+        "icon": "studio-tools",
+        "hideStatement": true,
+        "tile": "black",
+        "look": "white",
+        "highlightsTile": "white",
+        "dashboard": "studio-tools",
+        "cardStyle": "widgets",
+        "panel": "studio-tools",
+        "features": [
+          { "title": "Logo size and position, on every frame.", "text": "Each frame’s logo is measured against the brand’s rules: its size, its clear space and its corner, for every channel and every size. A double-click puts it right, one frame or the whole chart." },
+          { "title": "Three apps, one plugin.", "text": "Bloom, Frame Multiplier and IDML Export, each a tile on the dashboard." },
+          { "title": "The page at a glance.", "text": "Its creatives, its channels and what is measured in each frame, as soon as the plugin opens." },
+          { "title": "In step with your folders.", "text": "Images, exports and the Excel brief kept in sync through Monochrome Bridge." }
+        ],
+        "includes": ["bloom", "frame-multiplier", "idml-export"],
+        "getUrl": ""
+      }
     ]
   },
   {
@@ -28,13 +155,165 @@
     "photo": "facade",
     "focus": "50% 55%",
     "install": [
-      { "title": "Download the plugin.", "text": "Use the Get button on the plugin's page to download its installer file." },
-      { "title": "Double-click to install.", "text": "Creative Cloud installs the plugin for you." },
-      { "title": "Open it from the Plugins menu.", "text": "Restart InDesign and find it in the Plugins menu." }
+      {
+        "title": "Download the plugin.",
+        "text": "Use the Get button on the plugin's page to download its installer file."
+      },
+      {
+        "title": "Double-click to install.",
+        "text": "Creative Cloud installs the plugin for you."
+      },
+      {
+        "title": "Open it from the Plugins menu.",
+        "text": "Restart InDesign and find it in the Plugins menu."
+      }
     ],
     "products": [
-      { "slug": "plugin-1", "name": "Plugin 1", "tagline": "A one-line description of Plugin 1.", "description": "A short paragraph about what Plugin 1 does and who it is for.", "icon": "columns", "photo": "granite", "focus": "85% 75%", "zoom": 1.5, "getUrl": "" },
-      { "slug": "plugin-2", "name": "Plugin 2", "tagline": "A one-line description of Plugin 2.", "description": "A short paragraph about what Plugin 2 does and who it is for.", "icon": "lines", "photo": "facade", "focus": "45% 75%", "zoom": 1.4, "getUrl": "" }
+      {
+        "slug": "assemblr",
+        "name": "Assemblr",
+        "tagline": "An image layout engine.",
+        "description": "An intelligent image layout engine that arranges images into precisely calculated formations, with the ability to add overlay graphics or price devices to each corner. Everything automatically resizes and readjusts using a single bounding rectangle.",
+        "panel": "assemblr",
+        "cardPlugin": "assemblr",
+        "icon": "assemblr",
+        "photo": "facade",
+        "centre": "33% 24%",
+        "zoom": 2.3,
+        "getUrl": "",
+        "video": {
+          "label": "Intro",
+          "youtube": "fQn1EZXqsBs",
+          "title": "Assemblr intro",
+          "poster": "assemblr-intro",
+          "length": "2:30"
+        },
+        "demo": true,
+        "features": [
+          {
+            "title": "Lined up by what shows.",
+            "icon": "hl-subject",
+            "text": "Each image is arranged by its visible subject, read from the file's transparency, so the products line up, not just their frames."
+          },
+          {
+            "title": "One rectangle drives it all.",
+            "icon": "hl-rect",
+            "text": "Assemble puts the images on a layer of their own and draws an empty rectangle round them. Move it, or drag it from landscape to portrait, and they are laid out again for the new shape."
+          },
+          {
+            "title": "Five arrangements.",
+            "icon": "hl-modes",
+            "text": "Line-up, Grid, Mosaic, Pins or Puzzle, each keeping its own settings for when you switch back. Change a setting and the page follows."
+          },
+          {
+            "title": "Badges and prices on the corners.",
+            "icon": "hl-corners",
+            "text": "Load a badge onto any corner, or a price in your own InDesign design: the digits go where its Xs are, its styles kept. Each keeps its distance from the edges as the product changes shape."
+          },
+          {
+            "title": "Your edits, kept.",
+            "icon": "hl-edit",
+            "text": "Crop, scale or turn an image by hand. Assemblr waits until you deselect, then lays the product out once: the crop is kept, and the scale and turn in Line-up, Grid and Puzzle."
+          }
+        ],
+        "specs": [
+          {
+            "label": "Works with",
+            "value": "InDesign 2026 (21.0 or later)"
+          },
+          {
+            "label": "Arrangements",
+            "value": "Line-up, Grid, Mosaic, Pins and Puzzle"
+          },
+          {
+            "label": "Undo",
+            "value": "One step for every action"
+          },
+          {
+            "label": "Platform",
+            "value": "macOS, no account, no network"
+          },
+          {
+            "label": "Availability",
+            "value": "Coming soon"
+          },
+          {
+            "label": "Price",
+            "value": "To be announced"
+          }
+        ]
+      },
+      {
+        "slug": "automated-assemblr",
+        "name": "Automated Assemblr",
+        "tagline": "Catalogue pages, built from your Excel file.",
+        "description": "Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of images, and keeps the pages and the brief in sync both ways.",
+        "icon": "automated-assemblr",
+        "photo": "granite",
+        "turn": 90,
+        "centre": "10% 32%",
+        "zoom": 1.6,
+        "getUrl": "",
+        "price": "$99 a month",
+        "look": "light",
+        "highlightsTile": "black",
+        "spread": true,
+        "panel": "catalogue-producer",
+        "cardPlugin": "automated-assemblr",
+        "features": [
+          {
+            "title": "Smart matching.",
+            "icon": "hl-match",
+            "text": "Each image file finds its row in the spreadsheet by the product code in its file or folder name, or by the product's name. A near match is placed and marked Check."
+          },
+          {
+            "title": "Images auto-place with cropping.",
+            "icon": "hl-crop",
+            "text": "Each matched file goes into its product's cell, auto-cropped, and arranges itself there with the product's other images."
+          },
+          {
+            "title": "Drop in, arranged.",
+            "icon": "hl-drop",
+            "text": "Drag an image into a cell and it joins that product, arranged with the rest. Nothing to place, fit or line up by hand."
+          },
+          {
+            "title": "Freestyle pages.",
+            "icon": "hl-free",
+            "text": "Set a page to Freestyle and make any image area any size. Its images and text stay linked to their product, and in step with the brief."
+          },
+          {
+            "title": "Reorder in one move.",
+            "icon": "hl-reorder",
+            "text": "Swap two products or change the whole order, and the plugin re-flows the pages to follow, in one undo step."
+          }
+        ],
+        "specs": [
+          {
+            "label": "Works with",
+            "value": "InDesign 2026 (21.0 or later)"
+          },
+          {
+            "label": "Brief",
+            "value": "Excel"
+          },
+          {
+            "label": "Images",
+            "value": "Any file InDesign places: PSD, TIFF, PNG, JPEG, HEIC, AI, PDF, EPS, SVG and more"
+          },
+          {
+            "label": "Platform",
+            "value": "macOS"
+          },
+          {
+            "label": "Availability",
+            "value": "Coming soon"
+          },
+          {
+            "label": "Price",
+            "value": "$99 a month"
+          }
+        ]
+      }
     ]
   },
   {
@@ -46,25 +325,163 @@
     "photo": "granite",
     "focus": "70% 40%",
     "install": [
-      { "title": "Download the plugin.", "text": "Use the Get button on the plugin's page to download its installer file." },
-      { "title": "Double-click to install.", "text": "Creative Cloud installs the plugin for you." },
-      { "title": "Open it from the Plugins menu.", "text": "Restart Photoshop and find it in the Plugins menu." }
+      {
+        "title": "Download the plugin.",
+        "text": "Use the Get button on the plugin's page to download its installer file."
+      },
+      {
+        "title": "Double-click to install.",
+        "text": "Creative Cloud installs the plugin for you."
+      },
+      {
+        "title": "Open it from the Plugins menu.",
+        "text": "Restart Photoshop and find it in the Plugins menu."
+      }
     ],
     "products": [
-      { "slug": "plugin-1", "name": "Plugin 1", "tagline": "A one-line description of Plugin 1.", "description": "A short paragraph about what Plugin 1 does and who it is for.", "icon": "layers", "photo": "granite-tall", "focus": "50% 80%", "zoom": 1.3, "getUrl": "" }
+      {
+        "slug": "assemblr",
+        "name": "Assemblr",
+        "tagline": "Arrange layers by what you see.",
+        "description": "Every packshot carries a different amount of transparent space round the product, so layers aligned by their edges leave the products out of line. Assemblr measures each layer's visible subject and arranges by that, and your Layers panel keeps its structure.",
+        "panel": "assemblr-photoshop",
+        "cardPlugin": "assemblr",
+        "cardNoPrice": true,
+        "icon": "assemblr",
+        "photo": "facade",
+        "centre": "33% 24%",
+        "zoom": 2.3,
+        "getUrl": "",
+        "features": [
+          {
+            "title": "Lined up by what shows.",
+            "text": "Each layer is arranged by its visible subject, measured from its transparency, not by its layer box."
+          },
+          {
+            "title": "Five arrangements.",
+            "text": "Line-up, Grid, Mosaic, Pins or Puzzle, inside an invisible rectangle. Resize it and the layers re-fit."
+          },
+          {
+            "title": "Your edits, respected.",
+            "text": "Scale a layer by hand and its size is kept; lock one and it stays where it is while the others fit round it."
+          },
+          {
+            "title": "One history step.",
+            "text": "Every action is one named history step, and the product is saved in the document itself."
+          }
+        ],
+        "specs": [
+          {
+            "label": "Works with",
+            "value": "Photoshop"
+          },
+          {
+            "label": "Documents",
+            "value": "RGB, CMYK, Grayscale and Lab, 8 or 16 bits"
+          },
+          {
+            "label": "Arrangements",
+            "value": "Line-up, Grid, Mosaic, Pins and Puzzle"
+          },
+          {
+            "label": "Platform",
+            "value": "macOS, no account, no network"
+          },
+          {
+            "label": "Availability",
+            "value": "Coming soon"
+          },
+          {
+            "label": "Price",
+            "value": "To be announced"
+          }
+        ]
+      }
     ]
   },
   {
     "slug": "ad-agent",
     "name": "Ad Agent",
-    "kind": "Agent",
+    "kind": "Mac app",
     "standalone": true,
-    "subhead": "From brief to finished ad set.",
-    "intro": "A short paragraph about what Ad Agent does and who it is for.",
+    "subhead": "InDesign and Figma masters in, one file per size out.",
+    "intro": "Open the brief and type the sizes, choose your masters, then run. The whole rollout shows in one view: creatives, masters, channels, sizes and where each file goes.",
     "photo": "facade",
     "focus": "60% 20%",
     "products": [
-      { "slug": "ad-agent", "name": "Ad Agent", "tagline": "From brief to finished ad set.", "description": "A short paragraph about what Ad Agent does and who it is for.", "icon": "orbit", "photo": "granite", "focus": "25% 30%", "zoom": 1.4, "getUrl": "" }
+      {
+        "slug": "ad-agent",
+        "name": "Ad Agent",
+        "tagline": "InDesign and Figma masters in, one file per size out.",
+        "description": "Our latest release combines AI with automated campaign rollouts. Control both InDesign and Figma from one app, with AI support built into the workflow.",
+        "panel": "ad-agent",
+        "icon": "ad-agent",
+        "tile": "black",
+        "getUrl": "",
+        "price": "$199 a month",
+        "glyphs": {
+          "form": "globe",
+          "speed": 2,
+          "wobble": 0,
+          "grain": 0,
+          "flow": 0.3,
+          "breathe": 0.05,
+          "radius": 0.37,
+          "glyphScale": 0.8,
+          "rim": 3.6,
+          "back": 1,
+          "brightness": 1.2,
+          "tilt": 0.21,
+          "spray": 0.5,
+          "points": 10000,
+          "spin": 0.11
+        },
+        "rollout": true,
+        "features": [
+          {
+            "title": "Your masters stay closed.",
+            "text": "Ad Agent never opens your masters in InDesign. It works on copies."
+          },
+          {
+            "title": "Every size from the brief.",
+            "text": "Type the sizes, or open the brief's spreadsheet and take them from there."
+          },
+          {
+            "title": "Each channel, its own files.",
+            "text": "PDF, JPG or PNG for each channel, sent to the folders you choose."
+          },
+          {
+            "title": "Rounds, kept.",
+            "text": "Pull the brief's update and see only the sizes it adds or takes away."
+          }
+        ],
+        "specs": [
+          {
+            "label": "Masters",
+            "value": "InDesign and Figma"
+          },
+          {
+            "label": "Brief",
+            "value": "Excel or CSV"
+          },
+          {
+            "label": "Files",
+            "value": "PDF, JPG and PNG"
+          },
+          {
+            "label": "Platform",
+            "value": "macOS"
+          },
+          {
+            "label": "Availability",
+            "value": "Coming soon"
+          },
+          {
+            "label": "Price",
+            "value": "$199 a month"
+          }
+        ]
+      }
     ]
   }
 ]

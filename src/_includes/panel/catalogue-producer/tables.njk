@@ -1,0 +1,33 @@
+{%- from "panel/ui.njk" import hot, btn %}
+<div class="pt-card">
+  {%- call hot(1) %}
+  <div class="pt-head"><span class="pt-label">Table setup</span>{{ btn("Show") }}</div>
+  <p class="pt-title">T-Table Setup</p>
+  <p class="pt-info">Holds 2 table designs. It is applied to no page, so nothing on it prints.</p>
+  {%- endcall %}
+  <hr class="pt-rule">
+  {%- call hot(2) %}
+  <p class="pt-label">Designs</p>
+  <div class="pt-line"><span class="pt-strong">Price list</span><span class="pt-meta pt-right">used by 2 tables</span></div>
+  <p class="pt-meta">Code | Product | Size | Price</p>
+  <div class="pt-line"><span class="pt-strong">Specs</span><span class="pt-meta pt-right">used by 1 table</span></div>
+  <p class="pt-meta">Model | Watts</p>
+  <div class="pt-pair"><span class="pt-input">Table 3</span>{{ btn("Use selection as design") }}</div>
+  {%- endcall %}
+  <hr class="pt-rule">
+  <p class="pt-label">Tables</p>
+  {%- call hot(3) %}
+  <p class="pt-title">Garden | Price lists.xlsx</p>
+  <p class="pt-meta">follows Price list | page 4</p>
+  <p class="pt-meta">5 cells change | 2 rows added | 1 row removed</p>
+  <p class="pt-warn">▾ Cells that change</p>
+  <p class="pt-meta pt-indent">row 3, Price: 4.99 → 5.49<br>row 7, Size: 30 cm → 32 cm</p>
+  <p class="pt-warn">▾ 1 cell edited by hand is kept</p>
+  <p class="pt-meta pt-indent">row 2, Product: Teak chair (FSC)</p>
+  <div class="pt-btns">{{ btn("Apply") }}</div>
+  {%- endcall %}
+  <p class="pt-title">Lamps | Specs.xlsx</p>
+  <p class="pt-meta">follows Specs | page 6</p>
+  {%- call hot(4) %}<p class="pt-info">It is 180 pt taller than its cells: 12 rows do not fit.</p>{% endcall %}
+  {%- call hot(5) %}<div class="pt-btns">{{ btn("Refresh tables") }}{{ btn("Apply all", true) }}<span class="pt-meta">Read Oct 28, 9:12 AM</span></div>{% endcall %}
+</div>

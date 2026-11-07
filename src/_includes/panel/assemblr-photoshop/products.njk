@@ -1,0 +1,32 @@
+{#- The Products tile (catalague-producer src/photoshop/ui/main.ts productsTile, psRow, boardDivider): every product of
+    the document, the artboard in focus first, each other artboard under a divider with its name; each row its name
+    (it selects the rectangle), its layer count and Disassemble, its strip under it. The selection holds layers no
+    product has, so + ends every strip. Marks 2 to 4 sit on the first row, 5 on the second row's strip, 6 on the
+    divider. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art %}
+<div class="pt-card ap">
+  {%- call hot(1) %}<p class="pt-label">Products ({{ a.products.count }})</p>{% endcall %}
+  {%- for p in a.products.rows %}
+  {%- set i = loop.index %}
+  {%- if p.board %}
+  {%- call hot(6) %}<p class="ap-board">{{ p.board }}</p>{% endcall %}
+  {%- else %}
+  {%- set name %}<span class="ap-pname{% if p.selected %} pt-strong{% endif %}">{{ p.name }}</span>{% endset %}
+  {%- set apart %}<span class="pt-link">Disassemble</span>{% endset %}
+  {%- set add %}<span class="ap-thumb ap-thumb-add" aria-hidden="true">+</span>{% endset %}
+  {%- set strip %}
+  {%- for l in p.layers %}<span class="ap-thumb{% if l.off %} is-off{% endif %}"><img src="{{ l.src }}" alt="{{ l.name }}{% if l.off %}: off{% endif %}" loading="lazy">{% if l.off %}<span class="ap-on" aria-hidden="true">+</span>{% endif %}</span>{% endfor %}
+  {%- if i == 1 %}{% call hot(4, true) %}{{ add | safe }}{% endcall %}{% else %}{{ add | safe }}{% endif %}
+  {%- endset %}
+  <div class="ap-product">
+    <div class="ap-prow">
+      {%- if i == 1 %}{% call hot(2, true) %}{{ name | safe }}{% endcall %}{% else %}{{ name | safe }}{% endif %}
+      <span class="pt-meta">{{ p.layers.length }} layers</span>
+      {%- if i == 1 %}{% call hot(3, true) %}{{ apart | safe }}{% endcall %}{% else %}{{ apart | safe }}{% endif %}
+    </div>
+    {%- if i == 2 %}{% call hot(5) %}<div class="ap-strip">{{ strip | safe }}</div>{% endcall %}{% else %}<div class="ap-strip">{{ strip | safe }}</div>{% endif %}
+  </div>
+  {%- endif %}
+  {%- endfor %}
+</div>

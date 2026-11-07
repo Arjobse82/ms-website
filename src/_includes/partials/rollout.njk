@@ -1,0 +1,45 @@
+{#- Ad Agent's node view in miniature, in the app's own house style: its top bar, the rollout's nodes over the pool,
+    its status bar. When it scrolls into view it runs: the load line crosses the top, the nodes turn from planned
+    to made column by column, and the bar says Ready. Run plays it again. Data: src/_data/rollout.js. -#}
+<figure class="rollout reveal" data-rollout>
+  <div class="rollout-bar">
+    <span class="rollout-load" aria-hidden="true"></span>
+    <span class="rollout-title">{% include "icons/ad-agent-word.svg" %}<span class="visually-hidden">Ad Agent</span></span>
+    <span class="rollout-sub">Spring campaign</span>
+    <button class="rollout-run" type="button" data-rollout-run>Run</button>
+  </div>
+  <div class="rollout-view">
+    <svg class="rollout-graph" viewBox="-1 0 {{ rollout.width + 2 }} {{ rollout.height }}" role="img"
+         aria-label="A brief's creatives, channels, sizes and files, linked left to right, one path selected">
+      {%- for t in rollout.titles %}
+      <text class="rn-title" x="{{ t.x }}" y="12">{{ t.title }}</text>
+      {%- endfor %}
+      <g class="rn-edges">
+        {%- for e in rollout.edges %}
+        <path class="re{% if e.chosen %} re-chosen{% endif %}" style="--c: {{ e.col }}" d="{{ e.d }}"/>
+        {%- endfor %}
+      </g>
+      {%- for n in rollout.nodes %}
+      <g class="rn{% if n.chosen %} rn-chosen{% endif %}{% if n.tall %} rn-tall{% endif %}" style="--c: {{ n.col }}" transform="translate({{ n.x }} {{ n.y }})">
+        <rect class="rn-box" x="0.5" y="0.5" width="{{ n.w - 1 }}" height="{{ n.h - 1 }}" rx="6"/>
+        {%- if n.chosen %}<rect class="rn-mark" x="0.5" y="4" width="2" height="{{ n.h - 8 }}" rx="1"/>{% endif %}
+        {%- if n.box %}<rect class="rn-ratio" x="{{ n.box.x }}" y="{{ n.box.y }}" width="{{ n.box.w }}" height="{{ n.box.h }}" rx="1"/>{% endif %}
+        {%- if n.tall %}
+        <text class="rn-label" x="10" y="17">{{ n.label }}</text>
+        <text class="rn-sub" x="10" y="30">{{ n.sub }}</text>
+        {%- else %}
+        <text class="rn-label{% if n.mono %} rn-mono{% endif %}" x="{{ 30 if n.box else 10 }}" y="{{ n.h / 2 + 4 }}">{{ n.label }}</text>
+        {%- endif %}
+        <circle class="rn-dot" cx="{{ n.w - 13 }}" cy="{{ n.h / 2 }}" r="3"/>
+      </g>
+      {%- endfor %}
+    </svg>
+  </div>
+  <figcaption class="rollout-summary">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span class="rollout-states">
+      <span class="rollout-state rollout-state-run">Running the rollout</span>
+      <span class="rollout-state rollout-state-done">{{ rollout.summary }}</span>
+    </span>
+  </figcaption>
+</figure>

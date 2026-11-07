@@ -1,0 +1,29 @@
+{#- A plugin's live job (jobs.js), in its product page's hero. Bloom's: the bloom, the plugin's own graphic of a page
+    (src/_lib/bloom.js draws it), on black, with one of each mark it makes on the ring round it; its filter bar
+    bottom left and its readout bottom right, as in the plugin. Hovering over a mark or a chip, or focusing one, freezes
+    the bloom, opens what the plugin says about the mark beside it and prints its value and label in the readout; a tap
+    or a click keeps it open (site.js, initLiveJobs). Without script, each mark's tooltip is the plugin's own.
+    Expects `job` (one of jobs.js). -#}
+<figure class="lj reveal" data-live-job>
+  <figcaption class="visually-hidden">{{ job.file }}, {{ job.page }}: {{ job.frames.length }} frames, with {{ job.errors }} errors and {{ job.tokens }} tokens marked.</figcaption>
+  <div class="lj-stage">{{ job.svg | safe }}</div>
+  <div class="lj-filter">
+    {%- for group in [["error", "Errors"], ["token", "Tokens"]] %}
+    <div class="lj-row" role="group" aria-label="{{ group[1] }}">
+      {%- for m in job.marks %}{% if m.group == group[0] %}
+      <button class="lj-chip" type="button" data-chip="{{ m.id }}" aria-label="{{ m.label }}" aria-describedby="lj-pop-{{ m.id }}" title="{{ m.label }}">{{ m.chip | safe }}</button>
+      {%- endif %}{% endfor %}
+    </div>
+    {%- endfor %}
+  </div>
+  <p class="lj-readout" aria-hidden="true"><span class="lj-readout-value" data-readout-value>{{ job.errors }} errors · {{ job.tokens }} tokens</span><span class="lj-readout-type" data-readout-type>Hover over a mark</span></p>
+  {%- for m in job.marks %}
+  <div class="lj-pop" id="lj-pop-{{ m.id }}" data-pop="{{ m.id }}" role="tooltip" style="--c: {{ m.colour }}">
+    <span class="lj-pop-head"><span class="lj-pop-glyph">{{ m.chip | safe }}</span><span class="lj-pop-type">{{ m.label }}</span></span>
+    {%- if m.value %}<span class="lj-pop-value">{{ m.value }}</span>{% endif %}
+    <span class="lj-pop-layer">{{ m.layer }} · {{ m.frame }}</span>
+    <span class="lj-pop-text">{{ m.text }}</span>
+    {%- if m.action %}<span class="lj-pop-action">{{ m.action }}</span>{% endif %}
+  </div>
+  {%- endfor %}
+</figure>

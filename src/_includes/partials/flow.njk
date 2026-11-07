@@ -1,0 +1,46 @@
+{#- A plugin's work as a flow chart (flows.js), at the top of its product page: its columns left to right, each step a
+    node with the panel tile it is made in, the catalogue it comes out as, and the loop back that keeps both ends in
+    step. Expects `flow`. -#}
+<figure class="flow reveal">
+  <figcaption class="flow-head">
+    <span class="flow-title">{{ flow.title }}</span>
+    <span class="visually-hidden">{{ flow.summary }}</span>
+  </figcaption>
+  <div class="flow-cols">
+    {%- for col in flow.columns %}
+    {%- if not loop.first %}<span class="flow-arrow" style="--i: {{ loop.index0 * 2 - 1 }}" aria-hidden="true"></span>{% endif %}
+    <div class="flow-col" style="--i: {{ loop.index0 * 2 }}">
+      <p class="flow-step">{{ col.step }}</p>
+      {%- if col.catalogue %}
+      <div class="flow-catalogue">
+        <svg class="flow-spread" viewBox="0 0 220 150" aria-hidden="true">
+          <rect x="4" y="4" width="104" height="142" fill="#fff" stroke="#ddd"/><rect x="112" y="4" width="104" height="142" fill="#fff" stroke="#ddd"/>
+          <rect x="12" y="12" width="58" height="70" fill="#111"/>
+          <g fill="#e6e6e6"><rect x="74" y="12" width="27" height="28"/><rect x="74" y="56" width="27" height="28"/><rect x="12" y="100" width="27" height="28"/><rect x="43" y="100" width="27" height="28"/><rect x="74" y="100" width="27" height="28"/>
+            <rect x="120" y="12" width="27" height="28"/><rect x="151" y="12" width="27" height="28"/><rect x="182" y="12" width="27" height="28"/><rect x="120" y="56" width="27" height="28"/><rect x="151" y="56" width="27" height="28"/><rect x="182" y="56" width="27" height="28"/><rect x="120" y="100" width="27" height="28"/><rect x="151" y="100" width="27" height="28"/><rect x="182" y="100" width="27" height="28"/></g>
+          <g fill="#bdbdbd"><rect x="12" y="86" width="34" height="2"/><rect x="12" y="91" width="22" height="2"/>
+            <rect x="74" y="43" width="20" height="1.6"/><rect x="74" y="47" width="13" height="1.6"/><rect x="74" y="87" width="20" height="1.6"/><rect x="74" y="91" width="13" height="1.6"/><rect x="12" y="131" width="20" height="1.6"/><rect x="12" y="135" width="13" height="1.6"/><rect x="43" y="131" width="20" height="1.6"/><rect x="43" y="135" width="13" height="1.6"/><rect x="74" y="131" width="20" height="1.6"/><rect x="74" y="135" width="13" height="1.6"/>
+            <rect x="120" y="43" width="20" height="1.6"/><rect x="120" y="47" width="13" height="1.6"/><rect x="151" y="43" width="20" height="1.6"/><rect x="151" y="47" width="13" height="1.6"/><rect x="182" y="43" width="20" height="1.6"/><rect x="182" y="47" width="13" height="1.6"/><rect x="120" y="87" width="20" height="1.6"/><rect x="120" y="91" width="13" height="1.6"/><rect x="151" y="87" width="20" height="1.6"/><rect x="151" y="91" width="13" height="1.6"/><rect x="182" y="87" width="20" height="1.6"/><rect x="182" y="91" width="13" height="1.6"/><rect x="120" y="131" width="20" height="1.6"/><rect x="120" y="135" width="13" height="1.6"/><rect x="151" y="131" width="20" height="1.6"/><rect x="151" y="135" width="13" height="1.6"/><rect x="182" y="131" width="20" height="1.6"/><rect x="182" y="135" width="13" height="1.6"/></g>
+          <circle cx="63" cy="19" r="4.5" fill="#3372f6"/><circle cx="174" cy="18" r="3.6" fill="#111"/><circle cx="205" cy="62" r="3.6" fill="#3372f6"/>
+        </svg>
+        {%- for node in col.nodes %}
+        <p class="flow-name">{{ node.name }}</p>
+        <p class="flow-text">{{ node.text }}</p>
+        {%- endfor %}
+      </div>
+      {%- else %}
+      {%- for node in col.nodes %}
+      <div class="flow-node{% if node.key %} flow-node-key{% endif %}">
+        <span class="flow-icon" aria-hidden="true">{{ node.icon | safe }}</span>
+        <span><span class="flow-name">{{ node.name }}</span><span class="flow-text">{{ node.text }}</span></span>
+      </div>
+      {%- endfor %}
+      {%- endif %}
+    </div>
+    {%- endfor %}
+  </div>
+  <div class="flow-loop" style="--i: {{ flow.columns.length * 2 }}">
+    <span class="flow-loop-end flow-loop-in" aria-hidden="true"></span><span class="flow-loop-end flow-loop-out" aria-hidden="true"></span>
+    <p class="flow-loop-label"><span class="flow-loop-name">{{ flow.loop.name }}</span> {{ flow.loop.text }}</p>
+  </div>
+</figure>

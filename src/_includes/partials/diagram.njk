@@ -1,0 +1,17 @@
+{#- A plugin's principles as a diagram (diagrams.js), at the top of its product page: its steps left to right, each a
+    drawing, its number and name, and a line or two on what it shows. Expects `diagram`. -#}
+<figure class="dg reveal">
+  <figcaption class="dg-head">
+    <span class="dg-title">{{ diagram.title }}</span>
+    <span class="visually-hidden">{{ diagram.summary }}</span>
+  </figcaption>
+  <div class="dg-steps">
+    {%- for s in diagram.steps %}
+    <div class="dg-step dg-step-{{ s.id }}" style="--i: {{ loop.index0 }}">
+      <div class="dg-art">{{ s.svg | safe }}</div>
+      <p class="dg-name"><span class="dg-num">{{ loop.index | pad }}</span>{{ s.name }}</p>
+      <p class="dg-text">{{ s.text }}</p>
+    </div>
+    {%- endfor %}
+  </div>
+</figure>

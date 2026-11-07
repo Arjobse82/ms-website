@@ -1,0 +1,56 @@
+{#- A catalogue page as Automated Assemblr builds it (src/_lib/catalogue-art.js): its margins, its cells on the grid
+    inside them, and its folio. A product's cell is its image area, the cans placed where the engine put them, a NEW
+    badge and a price device on its corners if it has them, over its copy; an insert is an advert or a table. A `ghost`
+    page fades what is in its cells and draws each cell as a box, a `joined` one with a dashed line where its cells met
+    and its span, cells across × down. Every box is placed as a share of its parent, and every size is in points of the
+    page (`--u`, set by the frame it is in), so a page draws the same at any width. -#}
+{%- macro pc(v, of) %}{{ (v / of * 100) | round(2) }}{% endmacro %}
+{%- macro at(b, W, H) %}left: {{ pc(b.x, W) }}%; top: {{ pc(b.y, H) }}%; width: {{ pc(b.w, W) }}%; height: {{ pc(b.h, H) }}%{% endmacro %}
+
+{%- macro cell(c, W, H) %}
+{%- if c.kind == "product" %}
+<div class="cs-cell cs-product" style="{{ at(c, W, H) }}">
+  <div class="cs-img" style="height: {{ pc(c.img.h, c.h) }}%">
+    {%- for i in c.cans %}<img src="{{ i.src }}" alt="" loading="lazy" style="{{ at(i, c.img.w, c.img.h) }}">{% endfor %}
+    {%- if c.badge %}<span class="cs-badge" style="{{ at(c.badge, c.img.w, c.img.h) }}"><span>NEW</span></span>{% endif %}
+    {%- if c.price %}<span class="cs-device" style="{{ at(c.price, c.img.w, c.img.h) }}">{{ c.price.svg | safe }}</span>{% endif %}
+  </div>
+  <div class="cs-copy"><p class="cs-name">{{ c.p.name }}</p><p class="cs-pack">{{ c.p.pack }}</p><p class="cs-price">{{ c.p.price }}</p></div>
+</div>
+{%- elif c.kind == "table" %}
+<div class="cs-cell cs-table" style="{{ at(c, W, H) }}">
+  <p class="cs-table-title">{{ c.title }}</p>
+  <table><thead><tr>{% for th in c.table.head %}<th>{{ th }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for row in c.table.rows %}<tr>{% for td in row %}<td>{{ td }}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+</div>
+{%- elif c.kind == "ad" %}
+<div class="cs-cell cs-ad{% if c.bleed %} cs-ad-bleed{% endif %}" style="{{ at(c, W, H) }}">
+  <p class="cs-ad-title">{{ c.title }}</p><p class="cs-ad-sub">{{ c.sub }}</p>
+</div>
+{%- endif %}
+{%- endmacro %}
+
+{%- macro page(p) %}
+<div class="cs-page cs-page-{{ p.side }}{% if p.bleed %} cs-page-bleed{% endif %}{% if p.ghost %} cs-ghost{% endif %}">
+  {%- if p.bleed %}<span class="cs-bleed" style="{{ at({ x: 0, y: -p.bleed, w: p.w + p.bleed, h: p.h + 2 * p.bleed }, p.w, p.h) }}"></span>{% endif %}
+  <span class="cs-margins" style="{{ at(p.margins, p.w, p.h) }}"></span>
+  {%- for c in p.cells %}{{ cell(c, p.w, p.h) }}{% endfor %}
+  {%- if p.ghost %}{% for c in p.cells %}<span class="cs-slot{% if c.joined %} is-joined{% endif %}" style="{{ at(c, p.w, p.h) }}">
+    {%- if c.joined %}{% for k in range(1, c.joined[0]) %}<i class="cs-join cs-join-x" style="left: {{ pc(k, c.joined[0]) }}%"></i>{% endfor %}{% for k in range(1, c.joined[1]) %}<i class="cs-join cs-join-y" style="top: {{ pc(k, c.joined[1]) }}%"></i>{% endfor %}<b class="cs-joined">{{ c.joined[0] }} × {{ c.joined[1] }}</b>{% endif -%}
+  </span>{% endfor %}{% endif %}
+  <span class="cs-folio">{{ p.number }}</span>
+</div>
+{%- endmacro %}
+
+
+{#- Features over a drawing: each a dot on what it is about, a line, and its label (`side` "left" ends at the line,
+    "right" starts there, "centre" sits on it; `wide` keeps it to one line; `special` draws it in blue), in the drawing's W × H points; `r` the
+    dot's radius in those points, larger on a drawing shown small. -#}
+{%- macro features(list, W, H, r = 4) %}
+<svg class="cs-leads" viewBox="0 0 {{ W }} {{ H }}" aria-hidden="true">
+  {%- for f in list %}<line x1="{{ f.x }}" y1="{{ f.y }}" x2="{{ f.lx }}" y2="{{ f.ly }}"/><circle cx="{{ f.x }}" cy="{{ f.y }}" r="{{ r }}"/>{% endfor %}
+</svg>
+<ul class="cs-features">
+  {%- for f in list %}<li class="cs-feature cs-feature-{{ f.side }}{% if f.wide %} cs-feature-wide{% endif %}{% if f.special %} cs-feature-special{% endif %}" style="left: {{ pc(f.lx, W) }}%; top: {{ pc(f.ly, H) }}%">{{ f.text }}</li>{% endfor %}
+</ul>
+{%- endmacro %}

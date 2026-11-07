@@ -6,8 +6,8 @@ permalink: /about/
 ---
 <section class="about-hero theme-light">
   <div class="container">
-    <p class="t-eyebrow">About</p>
-    <h1 class="t-hero">{{ site.name }}.</h1>
+    <p class="label about-hero-kind">About</p>
+    <h1 class="t-hero">{{ site.name }}</h1>
     <p class="t-subhead about-hero-subhead">{{ site.statement }}</p>
   </div>
   <div class="container container-wide">
@@ -21,11 +21,11 @@ permalink: /about/
   <div class="container">
     <div class="about-columns">
       <div class="reveal">
-        <h2 class="t-s">What we make.</h2>
-        <p class="about-text">Plugins for Figma, InDesign and Photoshop, and an agent for advertising work. Each one is built to do a single job well inside the app you already use.</p>
+        <h2 class="t-s">What we make</h2>
+        <p class="about-text">Plugins for Figma, InDesign and Photoshop, and Ad Agent, a Mac app that rolls a campaign out to every size it needs. Each one does a single job well, inside the app you already use.</p>
       </div>
       <div class="reveal">
-        <h2 class="t-s">How we work.</h2>
+        <h2 class="t-s">How we work</h2>
         <p class="about-text">A short paragraph about the team, how the tools get made and what matters to you. Replace this with your own words.</p>
       </div>
     </div>
@@ -34,11 +34,12 @@ permalink: /about/
 
 <section class="section theme-gray">
   <div class="container container-wide">
-    <h2 class="t-l section-title reveal">What we believe.</h2>
+    <div class="section-head reveal"><span class="section-index">01</span><span class="label">Principles</span></div>
+    <h2 class="t-l section-title reveal">What we believe</h2>
     <div class="principles">
       {%- for item in site.principles %}
       <div class="principle reveal">
-        <p class="principle-eyebrow">{{ item.eyebrow }}</p>
+        <p class="label principle-eyebrow">{{ item.eyebrow }}</p>
         <h3 class="principle-title">{{ item.title }}</h3>
         <p class="principle-text">{{ item.text }}</p>
       </div>
@@ -49,7 +50,8 @@ permalink: /about/
 
 <section class="section theme-light">
   <div class="container">
-    <h2 class="t-l section-title reveal">The apps.</h2>
+    <div class="section-head reveal"><span class="section-index">02</span><span class="label">Apps</span></div>
+    <h2 class="t-l section-title reveal">The apps</h2>
     <ul class="app-rows">
       {%- for item in catalog.apps %}
       <li class="reveal">

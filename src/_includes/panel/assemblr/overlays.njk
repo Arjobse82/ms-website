@@ -1,0 +1,57 @@
+{#- The Overlays tile (catalague-producer src/assemblr/ui/overlays.ts scopedDiagram, overlaysSection, cornerForm,
+    priceRow, cornerPanel; src/ui/overlay-geometry.ts): the selected product's image area above the card, its open
+    corner top right; in the card where it applies, the open corner's overlays and price, the buttons that bring new
+    artwork in and those that use what the document holds, Corner with Stack and the spacing, the report, and the
+    document's list. -#}
+{%- from "panel/ui.njk" import hot, sel, btn %}
+{%- set o = panel.art.overlays %}{% set d = o.drawing %}{% set name = panel.art.product.name %}
+{%- call hot(1) %}
+<svg class="pt-drawing" viewBox="0 0 400 220" aria-hidden="true">
+  <rect x="{{ d.area.x }}" y="{{ d.area.y }}" width="{{ d.area.w }}" height="{{ d.area.h }}" rx="{{ d.area.rx }}" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".5" stroke-width="1.5"/>
+  <g fill="rgba(51,114,246,.28)" stroke="#3372f6" stroke-width="4">{% for b in d.open %}<rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" rx="{{ b.rx }}"/>{% endfor %}</g>
+  <g fill="none" stroke="#111" stroke-width="3.5">{% for b in d.held %}<rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" rx="{{ b.rx }}"/>{% endfor %}</g>
+  <circle cx="{{ d.dots.tr[0] }}" cy="{{ d.dots.tr[1] }}" r="10" fill="#3372f6" stroke="#fff" stroke-width="3"/>
+  <circle cx="{{ d.dots.bl[0] }}" cy="{{ d.dots.bl[1] }}" r="10" fill="#111" stroke="#fff" stroke-width="3"/>
+  {%- for c in [d.plus.tl, d.plus.br] %}
+  <g><circle cx="{{ c[0] }}" cy="{{ c[1] }}" r="11" fill="#fff"/><path d="M{{ c[0] }} {{ c[1] - 6 }}v12M{{ c[0] - 6 }} {{ c[1] }}h12" stroke="#111" stroke-width="2.4"/></g>
+  {%- endfor %}
+</svg>
+{%- endcall %}
+<div class="pt-card ap">
+  <p class="pt-label">Overlays</p>
+  {%- call hot(2) %}<span class="pt-chip is-on">Product: {{ name }}</span>{% endcall %}
+  {%- call hot(3) %}
+  <p class="pt-title">{{ name }} | Top right</p>
+  <p class="pt-meta">Follows the document</p>
+  {%- for b in o.badges %}<div class="pt-line as-entry"><span>{{ b }}</span><span class="pt-x pt-right" aria-hidden="true">×</span></div>{% endfor %}
+  {%- endcall %}
+  {%- call hot(4) %}
+  <div class="pt-line"><span class="pt-input">{{ o.price.value }}</span><span class="pt-meta">{{ o.price.set }}</span><span class="pt-x" aria-hidden="true">×</span></div>
+  <div class="pt-line"><span class="pt-flabel">{{ o.price.extra.label }}</span><span class="pt-input">{{ o.price.extra.value }}</span></div>
+  {%- endcall %}
+  {%- call hot(5) %}<div class="pt-btns"><span class="pt-btn as-import"><span aria-hidden="true">↓</span> Load badge…</span><span class="pt-btn as-import"><span aria-hidden="true">↓</span> Load price…</span></div>{% endcall %}
+  {%- call hot(6) %}<div class="pt-btns">{% for b in o.list %}<span class="pt-chip">+ {{ b }}</span>{% endfor %}<span class="pt-chip">+ {{ o.set.name }}</span></div>{% endcall %}
+  {%- call hot(7) %}<div class="pt-btns">{{ btn("Apply this corner to page") }}{{ btn("Apply this corner to document") }}</div>{% endcall %}
+  <hr class="pt-rule">
+  <p class="pt-label">Corner</p>
+  {%- call hot(8) %}
+  <div class="pt-field"><span class="pt-seg pt-corners"><span class="c-tl"></span><span class="c-tr is-on"></span><span class="c-bl as-held"></span><span class="c-br"></span></span><span class="pt-flabel pt-right">Stack</span><span class="pt-seg"><span class="is-on">Across</span><span>Down</span></span></div>
+  {%- endcall %}
+  {%- call hot(9) %}
+  <div class="pt-form">
+    <span class="pt-flabel">Resize scale</span><span class="pt-switch" aria-hidden="true"></span><span class="pt-flabel">Inset X</span>{{ sel("6 pt") }}
+    <span class="pt-flabel">Gap</span>{{ sel("4 pt") }}<span class="pt-flabel">Inset Y</span>{{ sel("6 pt") }}
+    <span class="pt-flabel">Max size</span><span class="pt-seg"><span class="is-on">pt</span><span>%</span></span><span class="pt-flabel">Max width</span>{{ sel("40 pt") }}
+    <span></span><span></span><span class="pt-flabel">Max height</span>{{ sel("40 pt") }}
+  </div>
+  {%- endcall %}
+  {%- call hot(10) %}<p class="pt-meta">Overlays: 3 placed, 0 removed.</p>{% endcall %}
+  <hr class="pt-rule">
+  {%- call hot(11) %}
+  <p class="pt-label">In this document</p>
+  <p class="pt-strong">Badges</p>
+  {%- for b in o.list %}<div class="pt-line as-entry"><span>{{ b }}</span>{% if b == o.missing %}<span class="pt-warn">cannot be found</span>{% endif %}<span class="pt-x pt-right" aria-hidden="true">×</span></div>{% endfor %}
+  <div class="pt-line as-entry"><span class="pt-strong">{{ o.set.name }}</span><span class="pt-meta">{{ o.set.folder }}</span><span class="pt-x pt-right" aria-hidden="true">×</span></div>
+  <p class="pt-meta">{% for s in o.set.styles %}{{ s[0] }} — {{ s[1] }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+  {%- endcall %}
+</div>

@@ -1,0 +1,64 @@
+{#- Component Manager, opened: its three screens in the order the plugin shows them (monocode.campaign-manager
+    src/main/apps/componentIngest/ui.html: panel-drop, panel-map, panel-summary), with the Summer Soda cans. The status dot is green:
+    the companion app (Monochrome Bridge) is connected, so PSD files convert too. -#}
+{%- set folders = [
+  { name: "lime", count: 3, set: "Can / Lime" },
+  { name: "cherry", count: 3, set: "Can / Cherry" },
+  { name: "cola", count: 2, set: "Can / Cola" },
+  { name: "ginger", count: 1, set: "" }
+] %}
+{%- set log = [
+  { s: "imported", t: "lime/lime-front.png" },
+  { s: "imported", t: "lime/lime-side.psd" },
+  { s: "skipped", t: "lime/lime-top.svg" },
+  { s: "imported", t: "cherry/cherry-front.png" },
+  { s: "imported", t: "cherry/cherry-side.png" },
+  { s: "failed", t: "cola/cola-label.pdf — PDF isn’t supported — export this asset as SVG instead" }
+] %}
+{%- macro bar() %}
+<div class="appbar">
+  <span class="appbar-dot"></span>
+  <span class="appbar-btn sdu-componentIngest-help">?</span>
+  <span class="appbar-btn sdu-componentIngest-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+</div>
+{%- endmacro %}
+<div class="sdu-componentIngest" role="img" aria-label="Component Manager opened: drop folders, confirm which component set each goes to, then the import's result">
+
+  <p class="sdu-componentIngest-cap"><b>1</b> Drop folders</p>
+  <div class="sdu-componentIngest-win">
+    {{ bar() }}
+    <div class="sdu-componentIngest-drop">
+      Drag folders or files here
+      <br><br>
+      <span class="sdu-componentIngest-lab">Choose folder</span><span class="sdu-componentIngest-lab">Choose files</span>
+    </div>
+  </div>
+
+  <p class="sdu-componentIngest-cap"><b>2</b> Confirm folder → component-set</p>
+  <div class="sdu-componentIngest-win">
+    {{ bar() }}
+    <h2 class="sdu-componentIngest-h">Confirm folder → component-set</h2>
+    {%- for f in folders %}
+    <div class="sdu-componentIngest-row">
+      <span class="sdu-componentIngest-folder">{{ f.name }}/</span>
+      <span class="sdu-componentIngest-count">{{ f.count }} file{% if f.count != 1 %}s{% endif %}</span>
+      <span class="sdu-componentIngest-select"><span>{{ f.set or "— skip —" }}</span><svg width="8" height="10" viewBox="0 0 8 10" aria-hidden="true"><path d="M1 4l3-3 3 3M1 6l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+    {%- endfor %}
+    <div class="sdu-componentIngest-uniform"><span class="sdu-componentIngest-cb"></span><span>Uniform size</span></div>
+    <div class="sdu-componentIngest-actions"><span class="sdu-componentIngest-btn">Back</span><span class="sdu-componentIngest-btn sdu-componentIngest-btn--primary">Import</span></div>
+  </div>
+
+  <p class="sdu-componentIngest-cap"><b>3</b> Done</p>
+  <div class="sdu-componentIngest-win">
+    {{ bar() }}
+    <h2 class="sdu-componentIngest-h">Done</h2>
+    <div class="sdu-componentIngest-summary">Imported: 4   Skipped: 1   Failed: 1</div>
+    <div class="sdu-componentIngest-log">
+      {%- for l in log %}
+      <div class="{{ l.s }}">[{{ l.s }}] {{ l.t }}</div>
+      {%- endfor %}
+    </div>
+    <div class="sdu-componentIngest-actions"><span class="sdu-componentIngest-btn">Copy log</span><span class="sdu-componentIngest-btn sdu-componentIngest-btn--primary">Start over</span></div>
+  </div>
+</div>

@@ -1,8 +1,15 @@
-{#- Photo tile for one product. Expects `p` (a product) and optionally `tileSizes`. -#}
-<a class="tile" href="{{ p.url }}" style="--focus: {{ p.focus }}; --zoom: {{ p.zoom }}">
-  {% photo p.photo, { class: "tile-photo", sizes: tileSizes or "(max-width: 734px) 88vw, 600px" } %}
+{#- Photo tile for one product, or a plain black or white one (`tile`), with its artwork (`art`) in place of the icon.
+    Expects `p` (a product) and optionally `tileSizes`. -#}
+<a class="tile{% if p.tile %} tile-plain tile-{{ p.tile }}{% endif %}" href="{{ p.url }}" style="--focus: {{ p.focus }}; --zoom: {{ p.zoom }}">
+  {%- if not p.tile %}
+  {% photo p.photo, { class: "tile-photo", sizes: tileSizes or "(max-width: 734px) 88vw, 600px", turn: p.turn, centre: p.centre } %}
+  {%- endif %}
   <span class="tile-body">
+    {%- if p.art %}
+    <span class="tile-art">{% include "tiles/" + p.art + ".svg" %}</span>
+    {%- else %}
     <span class="tile-icon">{% include "icons/" + p.icon + ".svg" %}</span>
+    {%- endif %}
     <span class="tile-name">{{ p.name }}</span>
     <span class="tile-app">{{ p.appName }}</span>
   </span>

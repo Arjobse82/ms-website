@@ -1,0 +1,60 @@
+{#- Price designs, for Quick help (Assemblr's and Automated Assemblr's, panels.js `help`, an item with `art`): on the
+    left, two folders, each a set of price designs, one InDesign file a kind, named for its shape (catalague-producer
+    src/core/overlay/device.ts nameShape: x-xx dollars and cents, xx-c cents alone), the second set a sale look; on the
+    right one design's file, its layers drawn apart and coming together (a rounded panel, the price with X where the digits go, its $, dollars and cents each a size of their own,
+    a field tagged Unit), then placed on a product's corner, the price written in. Loops; still where motion is reduced. On a phone
+    the drawing keeps a size its labels read at, and pans. -#}
+{#- A price as the design sets it: a small $, the dollars large, the cents small and raised, each a run of its own. #}
+{%- macro price(dollars, cents, y) %}<text class="pd-price" x="75" y="{{ y }}"><tspan class="pd-cur" dy="-14">$</tspan><tspan class="pd-dol" dy="14">{{ dollars }}</tspan><tspan class="pd-cts" dy="-15">{{ cents }}</tspan></text>{% endmacro %}
+{%- set sets = [
+  { name: "Prices", set: "Set 1", look: "regular", files: [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] },
+  { name: "Prices sale", set: "Set 2", look: "sale", files: [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] }
+] %}
+<div class="pd" aria-hidden="true">
+  <div class="pd-folders">
+    {%- for s in sets %}
+    <div class="pd-folder">
+      <p class="pd-folder-row"><svg class="pd-folder-icon" viewBox="0 0 20 16"><path d="M1 3a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2z"/></svg><span class="pd-folder-name">{{ s.name }}</span><span class="pd-set">{{ s.set }}</span></p>
+      <ul class="pd-files">
+        {%- for f in s.files %}
+        <li><svg class="pd-thumb pd-{{ s.look }}" viewBox="0 0 150 80"><rect width="150" height="80" rx="22"/><text x="75" y="52">{{ f[1] }}</text></svg><span class="pd-file">{{ f[0] }}</span><span class="pd-spells">{{ f[1] }}</span></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endfor %}
+  </div>
+  <div class="pd-scroll"><svg class="pd-place" viewBox="0 0 700 240">
+    {#- The design's file. #}
+    <g class="pd-indd">
+      <path class="pd-doc" d="M14 58h54l22 22v92H14z"/><path class="pd-fold" d="M68 58v22h22"/>
+      <rect class="pd-badge" x="26" y="112" width="52" height="22" rx="5"/><text class="pd-badge-text" x="52" y="127.5">INDD</text>
+      <text class="pd-name" x="52" y="194">x-xx.indd</text>
+    </g>
+    <path class="pd-go" d="M102 116h34M131 111l5 5-5 5"/>
+    {#- Its layers, apart, then together: lifted in screen space, each drawn on a plane leaning back. #}
+    <g transform="translate(196 96)">
+      <g class="pd-lift" style="--off: 50px">
+        <g transform="matrix(1 0 -0.5 0.55 0 0)"><rect class="pd-plane" x="-6" y="-6" width="162" height="92" rx="10"/><rect class="pd-panel" width="150" height="80" rx="22"/></g>
+        <text class="pd-tag" x="158" y="26">Background</text>
+      </g>
+      <g class="pd-lift" style="--off: 0px">
+        <g transform="matrix(1 0 -0.5 0.55 0 0)"><rect class="pd-plane pd-plane-text" x="-6" y="-6" width="162" height="92" rx="10"/>{{ price("X", "XX", 50) }}</g>
+        <text class="pd-tag" x="158" y="26">Price <tspan class="pd-tag-soft">X for the digits</tspan></text>
+      </g>
+      <g class="pd-lift" style="--off: -50px">
+        <g transform="matrix(1 0 -0.5 0.55 0 0)"><rect class="pd-plane pd-plane-text" x="-6" y="-6" width="162" height="92" rx="10"/><text class="pd-unit" x="75" y="70">each</text></g>
+        <text class="pd-tag" x="158" y="26">Unit <tspan class="pd-tag-soft">tagged</tspan></text>
+      </g>
+    </g>
+    <path class="pd-go" d="M496 116h34M525 111l5 5-5 5"/>
+    {#- The document: a product of cans, the design on its bottom-left corner, $12.50 written in. #}
+    <g class="pd-page">
+      <rect class="pd-sheet" x="544" y="18" width="150" height="206" rx="3"/>
+      <rect class="pd-area" x="556" y="32" width="126" height="150" rx="2"/>
+      <image href="/assets/img/can-white.webp" x="574" y="44" width="52" height="88"/>
+      <image href="/assets/img/can-black.webp" x="614" y="48" width="50" height="85"/>
+      <rect class="pd-copy" x="556" y="192" width="70" height="6" rx="3"/><rect class="pd-copy" x="556" y="204" width="44" height="5" rx="2.5"/>
+      <g class="pd-drop"><g transform="translate(562 130) scale(0.58)"><rect class="pd-panel" width="150" height="80" rx="22"/>{{ price("12", "50", 50) }}<text class="pd-unit" x="75" y="70">each</text></g></g>
+    </g>
+  </svg></div>
+</div>

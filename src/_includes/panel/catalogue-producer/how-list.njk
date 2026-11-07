@@ -1,0 +1,20 @@
+{#- How it works, the product list: the Catalogue tile's rows, each product its strip of images; Cola zero lifted to
+    go above the Duo pack, the blue line where it lands, and in the Party pack's strip a can lifted to move along
+    (src/_lib/catalogue-art.js `how.list`). -#}
+{%- set l = panels[panelId].art.how.list %}
+<div class="cw-list">
+  <div class="cw-list-head"><span class="cw-list-title">Products (12)</span><span class="cw-chips"><span class="is-on">All</span><span>No image</span><span>+ Insert</span></span></div>
+  {%- for r in l %}
+  {%- if r.dropBefore %}<div class="cw-drop"></div>{% endif %}
+  <div class="cw-row{% if r.lifted %} is-lifted{% endif %}">
+    <div class="cw-prow"><span class="cw-n">{{ r.n }}</span><span class="cw-code">{{ r.code }}</span><span class="cw-name">{{ r.name }}</span><span class="cw-tag">{{ r.page }}</span></div>
+    <div class="cw-strip">
+      {%- for i in r.images %}
+      {%- if r.liftAt is defined and loop.index0 == 1 %}<span class="cw-insert"></span>{% endif %}
+      <span class="cw-thumb{% if r.liftAt == loop.index0 %} is-lifted{% endif %}"><img src="{{ i.src }}" alt="" loading="lazy"><span>{{ i.ext }}</span></span>
+      {%- endfor %}
+      <span class="cw-thumb cw-add">+</span>
+    </div>
+  </div>
+  {%- endfor %}
+</div>

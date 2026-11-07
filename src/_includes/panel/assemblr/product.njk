@@ -1,0 +1,49 @@
+{#- The Layout tile (the plugin's Product tile: catalague-producer src/assemblr/ui/main.ts productTile, sections.ts selectedUnitSection): the
+    line-up drawing above the card; in the card Assemble, as it shows while the selection holds images in no product,
+    then the selected product in Line-up: the modes, its name and page, the fields in the panel's order, its buttons
+    (Clear transformations as it shows once an image was turned by hand), and its images. -#}
+{%- from "panel/ui.njk" import hot, sel, box, btn %}
+{%- set a = panel.art %}{% set r = a.row %}
+{%- call hot(1) %}
+<svg class="pt-drawing" viewBox="0 0 {{ r.view.w }} {{ r.view.h }}" aria-hidden="true">
+  <line x1="{{ r.guide.x1 }}" y1="{{ r.guide.y }}" x2="{{ r.guide.x2 }}" y2="{{ r.guide.y }}" stroke="#fff" stroke-opacity=".35"/>
+  <g fill="none" stroke="#111">
+    {%- for it in r.items %}<rect x="{{ it.x }}" y="{{ it.y }}" width="{{ it.w }}" height="{{ it.h }}" rx="{{ it.rx }}" stroke-width="{{ it.stroke }}"/>{% endfor %}
+  </g>
+  <line x1="{{ r.axis.x1 }}" y1="{{ r.axis.y1 }}" x2="{{ r.axis.x2 }}" y2="{{ r.axis.y2 }}" stroke="#3372f6" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="{{ r.axis.x2 }}" cy="{{ r.axis.y2 }}" r="8" fill="#fff" stroke="#3372f6" stroke-width="3"/>
+  <g fill="#fff">{% for p in r.anchors %}<circle cx="{{ p.x }}" cy="{{ p.y }}" r="7"/>{% endfor %}</g>
+  <circle cx="{{ r.axis.mx }}" cy="{{ r.axis.my }}" r="7.5" fill="#3372f6" stroke="#fff" stroke-width="2"/>
+</svg>
+{%- endcall %}
+<div class="pt-card ap">
+  {%- call hot(2) %}
+  <p class="pt-label">Assemble</p>
+  <div class="pt-line">{{ btn("Assemble", true) }}<span class="pt-meta">{{ a.assemble }} images</span></div>
+  {%- endcall %}
+  <hr class="pt-rule">
+  {%- call hot(3) %}
+  <div class="pt-modes"><span class="is-on">Line-up</span><span>Grid</span><span>Mosaic</span><span>Pins</span><span>Puzzle</span></div>
+  {%- endcall %}
+  {%- call hot(4) %}
+  <p class="pt-label">Product</p>
+  <span class="pt-input ap-name">{{ a.product.name }}</span>
+  <p class="pt-meta">Page {{ a.page }} | {{ a.product.images.length }} images</p>
+  {%- endcall %}
+  {%- call hot(5) %}
+  <div class="pt-field"><span class="pt-flabel pt-strong pt-dark">Align images</span><span class="pt-seg"><span>Top</span><span>Middle</span><span class="is-on">Bottom</span></span></div>
+  <div class="pt-form"><span class="pt-flabel">Angle (°)</span>{{ sel("10") }}<span class="pt-flabel">Size (%)</span>{{ sel("63") }}<span class="pt-flabel">Scale (%)</span>{{ sel("100") }}<span class="pt-flabel">Bleed (%)</span>{{ sel("0") }}</div>
+  {%- endcall %}
+  {%- call hot(6) %}<div class="pt-fieldhead"><span class="pt-flabel">Add clipping path to alpha</span>{{ box(false) }}</div>{% endcall %}
+  {%- call hot(7) %}<div class="pt-field"><span class="pt-flabel">Perspective (%)</span><span class="pt-input pt-narrow">10</span><span class="pt-slider" style="--at: 11%"></span></div>{% endcall %}
+  <div class="pt-btns ap-btns">{% call hot(8, true) %}{{ btn("Re-fit") }}{% endcall %}{% call hot(9, true) %}{{ btn("Reset") }}{% endcall %}{% call hot(10, true) %}{{ btn("Clear transformations") }}{% endcall %}{% call hot(11, true) %}{{ btn("Swap order") }}{% endcall %}</div>
+  <div class="pt-btns ap-btns">{% call hot(12, true) %}{{ btn("Disassemble") }}{% endcall %}{% call hot(13, true) %}{{ btn("Disconnect") }}{% endcall %}</div>
+  <hr class="pt-rule">
+  {%- call hot(14) %}
+  <p class="pt-label">Images</p>
+  <div class="ap-strip">
+    {%- for i in a.product.images %}<span class="ap-thumb as-thumb"><img src="{{ i.src }}" alt="{{ i.name }}" loading="lazy"><span class="as-ext">{{ i.ext }}</span></span>{% endfor %}
+    <span class="ap-thumb ap-thumb-add" aria-hidden="true">+</span>
+  </div>
+  {%- endcall %}
+</div>

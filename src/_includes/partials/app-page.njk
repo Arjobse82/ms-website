@@ -1,10 +1,11 @@
-{#- An app's overview page, after apple.com/mac: chapter nav, hero, lineup, gallery, install steps. -#}
+{#- An app's overview page: the products as the house's widget tiles, hero, lineup, gallery, install steps. -#}
+{%- from "dashboard/ui.njk" import widget %}
 <nav class="chapternav" aria-label="{{ app.name }} plugins">
   <ul class="chapternav-items">
     {%- for p in app.products %}
     <li>
       <a href="{{ p.url }}">
-        <span class="chapternav-icon">{% include "icons/" + p.icon + ".svg" %}</span>
+        <span class="chapter-tile">{% include "icons/" + p.icon + ".svg" %}</span>
         <span class="chapternav-label">{{ p.name }}</span>
       </a>
     </li>
@@ -12,14 +13,17 @@
   </ul>
 </nav>
 
-<section class="app-hero theme-light">
+<section class="app-hero theme-light{% if app.slug in ["figma", "indesign", "photoshop"] %} app-hero-plain{% endif %}">
   <div class="container">
+    <p class="label app-hero-kind">{{ app.kind }}s</p>
     <h1 class="t-hero app-hero-title">{{ app.name }}</h1>
     <p class="t-subhead app-hero-subhead">{{ app.subhead }}</p>
   </div>
+  {#- The Figma, InDesign and Photoshop pages have no banner card or intro under their title (the owner, 2026-11-07). -#}
+  {%- if app.slug not in ["figma", "indesign", "photoshop"] %}
   <div class="container container-wide">
     <div class="banner reveal" style="--focus: {{ app.focus }}">
-      {% photo app.photo, { class: "banner-photo", sizes: "(max-width: 734px) 88vw, 1260px", eager: true } %}
+      {% photo app.photo, { class: "banner-photo", sizes: "(max-width: 734px) 88vw, 1260px", eager: true, turn: app.turn } %}
       <ul class="banner-icons" aria-hidden="true">
         {%- for p in app.products %}
         <li>{% include "icons/" + p.icon + ".svg" %}</li>
@@ -28,15 +32,102 @@
     </div>
     <p class="t-body-l app-hero-intro reveal">{{ app.intro }}</p>
   </div>
+  {%- endif %}
 </section>
 
 <section class="section theme-gray" id="lineup">
   <div class="container container-wide">
-    <h2 class="t-l section-title reveal">Explore the lineup.</h2>
+    <div class="section-head reveal"><span class="section-index">01</span><span class="label">Lineup</span></div>
+    <h2 class="t-l section-title reveal">Explore the lineup</h2>
     <div class="lineup">
       {%- for p in app.products %}
       <article class="lineup-card reveal">
+        {%- if p.job %}
+        {#- The plugin's own window, its bloom live (jobs.js), where the other cards have a photo or a plain tile. -#}
+        {%- set job = jobs[p.job] %}
+        <a class="tile tile-plain tile-radial tile-ui" href="{{ p.url }}" aria-label="{{ p.name }}">
+          <span class="ui-window" aria-hidden="true">
+            <span class="ui-body">
+              <span class="ui-bloom">{{ job.svg | safe }}</span>
+              <span class="ui-word">bloom</span>
+              <span class="ui-readout">{{ job.errors }} errors · {{ job.tokens }} tokens</span>
+            </span>
+          </span>
+        </a>
+        {%- elif p.dashboard %}
+        {#- The plugin's dashboard in its black look (dashboards.js, css/dashboards/*.css), cropped by the tile. -#}
+        {%- set d = dashboards[p.dashboard] %}
+        {%- if p.cardStyle == "widgets" %}
+        {#- Every widget of the dashboard laid out to fit the tile, none cropped (css/dashboards/*.css, .tile-widgets); `cardStyle` left off, it is the window above. -#}
+        <a class="tile tile-plain tile-light tile-widgets" href="{{ p.url }}" aria-label="{{ p.name }}">
+          <div class="sd-ui" aria-hidden="true">
+            <div class="widget-grid">
+              {%- for w in d.widgets %}
+              {{ widget(w, d, false) }}
+              {%- endfor %}
+            </div>
+          </div>
+        </a>
+        {%- else %}
+        <a class="tile tile-plain tile-light tile-dash" href="{{ p.url }}" aria-label="{{ p.name }}">
+          <div class="sd-window sd-ui" aria-hidden="true">
+            <div class="sd-titlebar"><span class="sd-title">{{ d.title }}</span><svg class="sd-close" viewBox="0 0 12 12"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="sd-results">
+              <span class="intel-brand"><span class="ib-dot"></span><strong>{{ d.brand }}</strong></span>
+              <span class="appbar"><span class="appbar-btn">{{ d.icons.scan | safe }}</span><span class="appbar-dot"></span><span class="appbar-btn">{{ d.icons.moon | safe }}</span><span class="appbar-btn">{{ d.icons.cog | safe }}</span></span>
+              <span class="intel-tabs"><span class="intel-tab active">{{ d.tabs[0] }}</span><span class="intel-tab">{{ d.tabs[1] }}</span></span>
+              <div class="widget-grid">
+                {%- for w in d.widgets %}
+                {{ widget(w, d, false) }}
+                {%- endfor %}
+              </div>
+            </div>
+          </div>
+        </a>
+        {%- endif %}
+        {%- elif p.cardPlugin %}
+        {#- The plugin in its dark theme, drawn over the product's photo (tiles/plugin-<name>.njk), cropped by the tile. -#}
+        <div class="tile tile-plugin" style="--focus: {{ p.focus }}; --zoom: {{ p.zoom }}">
+          {% photo p.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 620px", turn: p.turn, centre: p.centre } %}
+          <a class="tile-link" href="{{ p.url }}" aria-label="{{ p.name }}"></a>
+          <div class="pl" aria-hidden="true">{% include "tiles/plugin-" + p.cardPlugin + ".njk" %}</div>
+        </div>
+        {%- elif p.cardSnapshot %}
+        {#- A snapshot of the product page's live demo panel (tiles/<name>.html, taken from the rendered page), inert, under a link over the whole tile. -#}
+        <div class="tile tile-snapshot" style="--focus: {{ p.focus }}; --zoom: {{ p.zoom }}">
+          {% photo p.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 620px", turn: p.turn, centre: p.centre } %}
+          <a class="tile-link" href="{{ p.url }}" aria-label="{{ p.name }}"></a>
+          {%- if p.cardLineup %}
+          {#- Assemblr's line-up drawing (the Layout tile's, panel/assemblr/product.njk, drawn from assemblr-panel.js), beside the panel. -#}
+          {%- set r = panels[p.panel].art.row %}
+          <svg class="tile-lineup" viewBox="0 0 {{ r.view.w }} {{ r.view.h }}" aria-hidden="true">
+            <line x1="{{ r.guide.x1 }}" y1="{{ r.guide.y }}" x2="{{ r.guide.x2 }}" y2="{{ r.guide.y }}" stroke="#fff" stroke-opacity=".5"/>
+            <g fill="none" stroke="#111">
+              {%- for it in r.items %}<rect x="{{ it.x }}" y="{{ it.y }}" width="{{ it.w }}" height="{{ it.h }}" rx="{{ it.rx }}" stroke-width="{{ it.stroke }}"/>{% endfor %}
+            </g>
+            <line x1="{{ r.axis.x1 }}" y1="{{ r.axis.y1 }}" x2="{{ r.axis.x2 }}" y2="{{ r.axis.y2 }}" stroke="#3372f6" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="{{ r.axis.x2 }}" cy="{{ r.axis.y2 }}" r="8" fill="#fff" stroke="#3372f6" stroke-width="3"/>
+            <g fill="#fff">{% for a in r.anchors %}<circle cx="{{ a.x }}" cy="{{ a.y }}" r="7"/>{% endfor %}</g>
+            <circle cx="{{ r.axis.mx }}" cy="{{ r.axis.my }}" r="7.5" fill="#3372f6" stroke="#fff" stroke-width="2"/>
+          </svg>
+          {%- endif %}
+          <div class="ad-panel" inert aria-hidden="true">{% include "tiles/" + p.cardSnapshot + ".html" %}</div>
+        </div>
+        {%- elif p.cardPanel %}
+        {#- The plugin's own panel, one tile of it as its product page draws it (panels.js, panel/<panel>/<tile>.njk), cropped by the tile; its numbered marks hidden. -#}
+        {%- set panel = panels[p.panel] %}{% set panelId = p.panel %}
+        <a class="tile tile-panel" href="{{ p.url }}" aria-label="{{ p.name }}" style="--focus: {{ p.focus }}; --zoom: {{ p.zoom }}">
+          {% photo p.photo, { class: "tile-photo", sizes: "(max-width: 734px) 88vw, 620px", turn: p.turn, centre: p.centre } %}
+          <div class="pt-panel" aria-hidden="true"><div class="pt-view">{% include "panel/" + p.panel + "/" + p.cardPanel + ".njk" %}</div></div>
+        </a>
+        {%- elif p.cardImage %}
+        {#- A tour slide (scripts/build-images.sh) on the card, in place of the tile; cropped to the tile's shape. -#}
+        <a class="tile tile-plain tile-black tile-image" href="{{ p.url }}">
+          <img src="/assets/img/{{ p.cardImage }}-960.webp" srcset="/assets/img/{{ p.cardImage }}-960.webp 960w, /assets/img/{{ p.cardImage }}-1920.webp 1920w" sizes="(max-width: 734px) 88vw, 620px" width="1920" height="1080" alt="{{ p.cardImageAlt }}" loading="lazy" decoding="async">
+        </a>
+        {%- else %}
         {% include "partials/tile.njk" %}
+        {%- endif %}
         <div class="lineup-card-body">
           <h3 class="lineup-card-title">{{ p.name }}</h3>
           <p class="lineup-card-tagline">{{ p.tagline }}</p>
@@ -54,7 +145,8 @@
 
 <section class="section theme-light" id="why">
   <div class="container container-wide">
-    <h2 class="t-l section-title reveal">Why Monochrome.</h2>
+    <div class="section-head reveal"><span class="section-index">02</span><span class="label">Principles</span></div>
+    <h2 class="t-l section-title reveal">Why Monochrome</h2>
   </div>
   {% include "partials/gallery.njk" %}
 </section>
@@ -62,7 +154,8 @@
 {%- if app.install %}
 <section class="section theme-gray" id="install">
   <div class="container container-wide">
-    <h2 class="t-l section-title reveal">How to install.</h2>
+    <div class="section-head reveal"><span class="section-index">03</span><span class="label">Install</span></div>
+    <h2 class="t-l section-title reveal">How to install</h2>
     <ol class="steps">
       {%- for step in app.install %}
       <li class="step reveal">

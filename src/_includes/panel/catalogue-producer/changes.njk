@@ -1,0 +1,43 @@
+{%- from "panel/ui.njk" import hot, btn %}
+<div class="pt-card">
+  {%- call hot(1) %}
+  <div class="pt-head"><span class="pt-label">Spreadsheet ↔ Document</span>{{ btn("Check") }}</div>
+  <p class="pt-meta">Summer catalogue.xlsx saved Oct 28, 9:20 AM | checked Oct 28, 9:31 AM</p>
+  {%- endcall %}
+  <div class="pt-stack">
+    {%- call hot(2, true) %}{{ btn("Apply 2 spreadsheet changes", true) }}{% endcall %}
+    {{ btn("Apply 5 image folder changes") }}
+    {%- call hot(3, true) %}{{ btn("Write 2 InDesign edits to spreadsheet") }}{% endcall %}
+    {{ btn("Write everything to the spreadsheet (4)") }}
+  </div>
+  <div class="pt-changes">
+    <div class="pt-tr pt-th"><span>Product</span><span>Change</span></div>
+    {%- call hot(4) %}
+    <div class="pt-change">
+      <span class="pt-warn">328939</span>
+      <div><p class="pt-warn">Garden chair, teak | Price <span class="pt-meta">Spreadsheet changed</span></p><p class="pt-meta">Spreadsheet: 119.00<br>InDesign: 129.00</p><div class="pt-btns">{{ btn("Update document", true) }}{{ btn("Write to spreadsheet") }}</div></div>
+      <span class="pt-x">×</span>
+    </div>
+    {%- endcall %}
+    {%- call hot(5) %}
+    <div class="pt-change is-both">
+      <span>368060</span>
+      <div><p>Outdoor cushion set | Description <span class="pt-meta">Changed in both</span></p><p class="pt-meta">Spreadsheet: Water-resistant, 4 pieces<br>InDesign: Water-repellent, 4 pieces</p><div class="pt-btns">{{ btn("Use spreadsheet") }}{{ btn("Write to spreadsheet") }}</div></div>
+      <span class="pt-x">×</span>
+    </div>
+    {%- endcall %}
+    {%- call hot(6) %}
+    <div class="pt-change">
+      <span class="pt-warn">–</span>
+      <div><p class="pt-warn">2 products in the spreadsheet are not on the pages <span class="pt-meta">Spreadsheet changed</span></p><p class="pt-meta">700001 Hammock, 700002 Fire bowl</p></div>
+      <span class="pt-right">{{ btn("Apply") }}</span>
+    </div>
+    <div class="pt-change">
+      <span>–</span>
+      <div><p>Page 4 is over by 2 products <span class="pt-meta">Changed in InDesign</span></p><p class="pt-meta">2 would move to page 5, and 9 later products would shift, adding 1 page.</p></div>
+      <span class="pt-right">{{ btn("Apply") }}</span>
+    </div>
+    {%- endcall %}
+  </div>
+  {%- call hot(7) %}<div class="pt-alert"><span class="pt-strong">Did not finish</span><span>The brief is open in Excel. Close it and try again.</span></div>{% endcall %}
+</div>

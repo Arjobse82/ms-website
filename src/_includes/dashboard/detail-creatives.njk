@@ -1,0 +1,25 @@
+{#- Creatives, opened: the creative → layout table (bloom measureEntry.js _creativeMapSectionHtml). Each creative's Logo and Base come from what was detected; the pills override. Sample data: Summer Soda, 6 creatives, 60 frames. -#}
+{%- set dia = '<svg class="mp-pill-dia" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 0.5L7.5 4L4 7.5L0.5 4Z" fill="currentColor"/></svg>' -%}
+{%- set chev = '<svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1.5L5 5.5L9 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' -%}
+{%- set layouts = [['on','on'],['on','on'],['on','on'],['on','off'],['on','on'],['on','bespoke']] -%}
+<div class="sdu-creatives sdu-creatives-panel">
+  <table class="sdu-creatives-table">
+    <thead><tr><th>creative</th><th class="n">%</th><th>layout</th><th></th></tr></thead>
+    <tbody>
+    {%- for c in d.creatives %}
+      {%- set l = layouts[loop.index0] %}
+      <tr>
+        <td class="name">{{ c }}</td>
+        <td class="n">17%</td>
+        <td><span class="pair">
+          {%- for el in [{k:'Logo',v:l[0]},{k:'Base',v:l[1]}] %}
+          <span class="pill{% if el.v == 'off' %} is-off{% endif %}">{% if el.v == 'on' %}{{ dia | safe }}<span>{{ el.k }}</span>{% else %}<span>{{ el.v }}</span>{% endif %}{{ chev | safe }}</span>
+          {%- endfor %}
+        </span></td>
+        <td class="tools"><span class="tb">map</span></td>
+      </tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+  <div class="desc">Set each creative’s layout from two independent elements — Logo and Baseplate. Each defaults to what was detected; change it to override. <b>Logo/Base</b> = present &amp; checked against the brand spec · <b>bespoke</b> = present but free placement (not spec-checked) · <b>off</b> = not in this layout (a frame carrying it is flagged).</div>
+</div>

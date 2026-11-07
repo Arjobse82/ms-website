@@ -6,9 +6,12 @@
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
-    "images": "./scripts/build-images.sh"
+    "images": "./scripts/build-images.sh",
+    "help:assemblr": "eleventy && node scripts/export-help.mjs help/assemblr ../assemblr-help",
+    "help:assemblr-photoshop": "eleventy && node scripts/export-help.mjs help/assemblr-photoshop ../assemblr-photoshop-help"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.7"
+    "@11ty/eleventy": "^3.1.7",
+    "esbuild": "^0.25.12"
   }
 }

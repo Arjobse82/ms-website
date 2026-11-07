@@ -1,0 +1,276 @@
+/* Studio Tools' dashboard (partials/dashboard.njk, dashboards.js): Bloom's Measure dashboard in the plugin's window,
+   in the hero, and each widget again in the list under it (.sd-mini). The plugin's own look in its light, monochrome
+   mode, its tokens and rules as monocode.campaign-manager bloom/src/ui-shell.html has them (the widget framework, the
+   widget grid, .widget and its variants, the Creatives, Measure, stat, brand and ported-widget tiles, the .w-mono
+   block), drawn at the plugin's own size and scaled with `zoom`: the window is the 420px Figma opens it at. */
+
+/* The plugin's tokens -------------------------------------------------------- */
+
+.sd-ui {
+  --fg: #111;
+  --fg-1: #222;
+  --fg-4: #777;
+  --fg-5: #888;
+  --fg-6: #999;
+  --bg-4: #f0f0f0;
+  --warn: #f07000;
+  --ok: #22a06b;
+  --tab-underline: #3372f6;
+  --w-cols: 10;
+  --w-gap: 8px;
+  --w-pad-x: 11px;
+  --w-pad-y: 9px;
+  --w-pad-b: 11px;
+  --w-radius: 18px;
+  --w-radius-tile: 14px;
+  --w-mono-font: ui-monospace, Menlo, Monaco, monospace;
+  --w-title-size: 15px;
+  --w-title-weight: 700;
+  --w-title-ls: -0.02em;
+  --w-list-size: 7.2px;
+  --w-label-size: 8.5px;
+  --w-tile-num: 38px;
+  --w-cr-num: 113px;
+  --w-surface: #fff;
+  --w-ink: var(--fg);
+  --w-grid-line: #ededed;
+  --w-fixed-light: #fff;
+  --w-fixed-dark: #111;
+  --w-fixed-bg-2: #fff;
+  --w-sf-circle: var(--w-fixed-dark);
+  --w-sf-chain: var(--w-fixed-light);
+  --w-fixed-ok: #33e400;
+  font-family: Inter, -apple-system, sans-serif;
+  font-size: 11px;
+  line-height: normal;
+  letter-spacing: normal;
+  font-feature-settings: normal;
+  color: var(--fg);
+  text-align: left;
+}
+
+/* The hero: the window on Figma's canvas -------------------------------------- */
+
+.sd { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 56px; align-items: start; justify-content: center; margin: 64px 0 0; padding: 56px 24px; border-radius: var(--radius); background: #f5f5f5; }
+/* On a white page, the window on the page itself. */
+.theme-light .sd { padding-top: 8px; padding-bottom: 40px; background: none; }
+.sd-window {
+  flex: none;
+  width: 420px;
+  zoom: 0.9;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.14), 0 2px 5px rgba(0, 0, 0, 0.1), 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+@media (max-width: 900px) { .sd { grid-template-columns: minmax(0, 1fr); justify-items: center; } .sd-details { width: 100%; max-width: 560px; } .sd-window { zoom: 1; } }
+@media (max-width: 734px) {
+  .sd { margin-top: 40px; padding: 20px 0; }
+  .sd-window { zoom: 0.78; }
+}
+/* Beside the window: the entry for the widget picked (site.js, initDashboards), the page's own words for it. */
+.sd-details { display: flex; flex-direction: column; gap: 16px; min-width: 0; text-align: left; }
+.sd-detail[hidden] { display: none; }
+/* What a widget opens to, under its entry, the full width of it. Each is drawn in its own file. */
+.sd-detail { flex-wrap: wrap; }
+.sd-detail-ui { flex: 1 0 100%; min-width: 0; margin-top: 18px; }
+.sd-detail-ui:not(:has(*)) { display: none; }
+/* Measure opened: the logo's size across the campaign's frames against the spec, and the frames that miss it. */
+.sd-measure { margin-top: 18px; padding: 14px 16px 12px; border-radius: 14px; background: #fafafa; box-shadow: 0 0 0 1px #e6e6e6; }
+.sd-measure-head { margin: 0 0 8px; font-size: 12px; line-height: 1.4; color: #555; }
+.sd-measure-head b { color: #111; }
+.sd-measure-count { display: block; margin-top: 2px; font-family: var(--w-mono-font); font-size: 11px; color: #888; }
+.sd-measure-chart svg { display: block; width: 100%; height: auto; color: #111; }
+.sd-measure-rows { display: grid; gap: 6px; margin: 4px 0 0; padding: 10px 0 0; border-top: 1px solid #e6e6e6; list-style: none; }
+.sd-measure-rows li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto auto; align-items: center; gap: 10px; font-size: 12px; color: #333; }
+.sd-measure-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+.sd-measure-name i { font-style: normal; font-family: var(--w-mono-font); font-size: 11px; color: #888; }
+.sd-measure-rows b { font-family: var(--w-mono-font); font-weight: 600; color: var(--warn); }
+.sd-measure-note { font-size: 11px; color: #888; }
+.sd-item-note { max-width: 36em; font-size: 14px; }
+.sd-item-cta { justify-content: flex-start; margin-top: 16px; }
+.sd-ui a.widget.is-active { outline: 5px solid var(--tab-underline); outline-offset: 1px; }
+@media (max-width: 380px) { .sd-window { zoom: 0.7; } }
+
+/* Figma's bar over a plugin's window: its name, and its close. */
+.sd-titlebar { display: flex; align-items: center; justify-content: space-between; height: 40px; padding: 0 12px 0 16px; border-bottom: 1px solid #e6e6e6; }
+.sd-title { font-size: 11px; font-weight: 600; color: rgba(0, 0, 0, 0.9); }
+.sd-close { width: 12px; height: 12px; color: rgba(0, 0, 0, 0.7); }
+
+/* The dashboard's screen: a soft pool behind the grid (.results:has(.widget-grid)). */
+.sd-results {
+  position: relative;
+  display: flow-root;
+  background: radial-gradient(ellipse 44.1% 35.7% at 50% 40%, #f1f1f1 0%, #f1f1f1 55%, transparent 100%) #fff;
+}
+
+/* The brand, top left; the app bar, top right: Scan, the Bridge's dot, the theme switch, the cog. */
+.sd-ui .intel-brand { position: absolute; top: 9px; left: 9px; z-index: 5; display: inline-flex; align-items: center; gap: 4px; margin: 0; font-size: 10px; line-height: 1.2; color: var(--fg-1); }
+.sd-ui .intel-brand strong { font-weight: 400; }
+.sd-ui .ib-dot { flex: none; width: 5px; height: 5px; border-radius: 50%; background: var(--ok); }
+.sd-ui .appbar { position: absolute; top: 10px; right: 10px; z-index: 5; display: grid; grid-auto-flow: column; align-items: center; gap: 4px; }
+.sd-ui .appbar-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; border-radius: 6px; color: var(--fg-4); opacity: 0.6; }
+.sd-ui .appbar-btn svg { width: 15px; height: 15px; }
+.sd-ui .appbar-dot { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
+.sd-ui .appbar-dot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #33e400; }
+
+/* Measure's tabs: Dashboard, the one open, and Setup. */
+.sd-ui .intel-tabs { display: flex; justify-content: center; gap: 2px; max-width: 340px; margin: 19px auto 12px; }
+.sd-ui .intel-tab { margin-bottom: -1px; padding: 11px 14px 10px; border-bottom: 2px solid transparent; font-size: 11px; font-weight: 600; color: var(--fg-5); }
+.sd-ui .intel-tab.active { color: var(--fg-1); border-bottom-color: var(--tab-underline); }
+.sd-ui a.intel-tab { text-decoration: none; }
+.sd-ui a.intel-tab:hover, .sd-ui a.intel-tab:focus-visible { color: var(--fg-1); outline: none; border-bottom-color: #ddd; }
+
+/* The widget grid ------------------------------------------------------------ */
+
+/* Ten columns; a widget spans its own (--w-span) and the grid packs them. Behind it, fine lines a quarter of a column
+   apart, one through the middle of every gap. */
+.sd-ui .widget-grid { position: relative; display: grid; grid-template-columns: repeat(var(--w-cols), 1fr); grid-auto-flow: row dense; gap: var(--w-gap); margin: 28px 14px 14px; padding-bottom: 14px; }
+.sd-ui .widget-grid::before {
+  content: "";
+  position: absolute;
+  inset: -4px auto auto -4px;
+  z-index: 0;
+  width: calc(100% + 8px);
+  height: calc(100% + 4px);
+  pointer-events: none;
+  background-image: linear-gradient(to right, var(--w-grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--w-grid-line) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+/* A widget: its surface and ink are tokens, so a variant only swaps them. */
+.sd-ui .widget { position: relative; display: flex; flex-direction: column; grid-column: span var(--w-span, 1); min-width: 0; min-height: 0; overflow: hidden; padding: var(--w-pad-y) var(--w-pad-x) var(--w-pad-b); border-radius: var(--w-radius); background: var(--w-surface); color: var(--w-ink); text-decoration: none; }
+.sd-ui .widget--tile { --w-radius: var(--w-radius-tile); aspect-ratio: 1 / 1; align-items: center; justify-content: center; padding: 9px 2px 16px; }
+/* On the page, each widget is a link: the house blue round it under the pointer or the keyboard. */
+.sd-ui a.widget { cursor: pointer; }
+.sd-ui a.widget:hover, .sd-ui a.widget:focus-visible { outline: 2px solid var(--tab-underline); outline-offset: 1px; }
+
+/* Creatives: white, the page's creatives listed over a drifting cloud of dots, their count large. */
+.sd-ui .w-creatives { --w-surface: var(--w-fixed-light); --w-ink: var(--w-fixed-dark); aspect-ratio: 1 / 1; }
+.sd-ui .w-dots { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
+.sd-ui .w-cr-body { position: relative; z-index: 1; }
+.sd-ui .w-cr-title, .sd-ui .w-tmpl-title { margin: 0 0 -2px; font-family: var(--w-mono-font); font-size: var(--w-title-size); font-weight: var(--w-title-weight); letter-spacing: var(--w-title-ls); }
+.sd-ui .w-cr-list { margin: 0; padding: 0; list-style: none; }
+.sd-ui .w-cr-list li { max-width: 100%; overflow: hidden; font-size: var(--w-list-size); font-weight: 500; line-height: 1.5; white-space: nowrap; text-overflow: ellipsis; }
+/* Its words dark, with a white edge, so the dots never run into them. */
+.sd-ui .w-cr-title, .sd-ui .w-cr-list li { width: fit-content; color: var(--w-fixed-dark); -webkit-text-stroke: 2px var(--w-fixed-light); paint-order: stroke fill; }
+.sd-ui .w-cr-num { position: absolute; right: 6px; bottom: -7px; z-index: 1; font-family: var(--w-mono-font); font-size: var(--w-cr-num); font-weight: 500; line-height: 1; pointer-events: none; }
+
+/* Measure: the elements measured, as pills, a diamond on the layout ones, over a line graph seen through a window cut
+   in the widget, the grid's lines behind it. */
+.sd-ui .w-template { background: none; }
+.sd-ui .w-template::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--w-surface);
+  -webkit-mask-image: linear-gradient(#fff, #fff), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Crect x='4' y='4' width='192' height='92' rx='12' ry='12' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%, calc(100% - 2 * var(--w-pad-x)) auto;
+  -webkit-mask-position: 0 0, left var(--w-pad-x) bottom var(--w-pad-b);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: xor;
+  mask-image: linear-gradient(#fff, #fff), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Crect x='4' y='4' width='192' height='92' rx='12' ry='12' fill='white'/%3E%3C/svg%3E");
+  mask-size: 100% 100%, calc(100% - 2 * var(--w-pad-x)) auto;
+  mask-position: 0 0, left var(--w-pad-x) bottom var(--w-pad-b);
+  mask-repeat: no-repeat;
+  mask-composite: exclude;
+}
+.sd-ui .w-template .w-tmpl-title, .sd-ui .w-template .w-tmpl-pills { position: relative; z-index: 1; }
+.sd-ui .w-tmpl-graph { position: absolute; right: var(--w-pad-x); bottom: var(--w-pad-b); left: var(--w-pad-x); z-index: 0; pointer-events: none; }
+.sd-ui .w-tmpl-graph svg { display: block; width: 100%; height: auto; }
+.sd-ui .w-tmpl-pills { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; margin: 2px 0 0; }
+.sd-ui .w-pill { display: inline-flex; align-items: center; gap: 2px; padding: 2px 6px 2px 3px; border-radius: 100px; background: var(--w-fixed-light); color: var(--w-fixed-dark); font: 500 var(--w-list-size) / 1 var(--w-mono-font); white-space: nowrap; }
+.sd-ui .w-pill svg { flex-shrink: 0; width: 6px; height: 6px; }
+
+/* A channel: its number of frames, its name under it; white, the biggest too, in the monochrome look. */
+.sd-ui .w-tile-n { font-family: var(--w-mono-font); font-size: var(--w-tile-num); font-weight: 300; line-height: 1; font-variant-numeric: tabular-nums; color: var(--w-fixed-dark); }
+.sd-ui .nd-2 .w-tile-n { font-size: 30px; }
+.sd-ui .nd-3 .w-tile-n { font-size: 22px; }
+.sd-ui .w-tile-l { position: absolute; right: 0; bottom: 4px; left: 0; margin: 0; font-size: var(--w-label-size); font-weight: 600; letter-spacing: 0.04em; text-align: center; color: var(--w-fixed-dark); -webkit-font-smoothing: antialiased; }
+
+/* Bloom and Grid: their marks full bleed, both white in the monochrome look. Bloom's T goes round its B, upright, its
+   colour turning. */
+.sd-ui .w-brand-cell { --w-radius: var(--w-radius-tile); aspect-ratio: 1 / 1; padding: 0; background: var(--w-fixed-light); color: var(--w-fixed-dark); }
+.sd-ui .w-brand-cell svg { display: block; width: 100%; height: 100%; }
+.sd-ui .w-brand-orbit { transform-box: view-box; transform-origin: 50px 50px; animation: sd-orbit 72s linear infinite; }
+.sd-ui .w-brand-orb-i { transform-box: view-box; animation: sd-orbit-back 72s linear infinite, sd-hue 14s linear infinite; }
+@keyframes sd-orbit { to { transform: rotate(360deg); } }
+@keyframes sd-orbit-back { to { transform: rotate(-360deg); } }
+@keyframes sd-hue { 0% { color: #2d7ff0; } 25% { color: #00c86c; } 50% { color: #f07000; } 75% { color: #e05050; } 100% { color: #2d7ff0; } }
+@media (prefers-reduced-motion: reduce) { .sd-ui .w-brand-orbit, .sd-ui .w-brand-orb-i { animation: none; } }
+
+/* Sync Folders, Export images, Sync Brief and the apps' tiles: each one's art full bleed on white. */
+.sd-ui .w-art { background: var(--w-fixed-light); color: var(--w-fixed-dark); }
+.sd-ui .w-sf-art { position: absolute; inset: 0; z-index: 0; }
+.sd-ui .w-sf-art svg { display: block; width: 100%; height: 100%; }
+
+/* The widget list ------------------------------------------------------------ */
+
+.sd-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.sd-item { display: flex; align-items: flex-start; gap: 24px; padding: 28px 32px 30px 28px; border-radius: var(--radius); background: #fff; box-shadow: 0 0 0 1px #e6e6e6; scroll-margin-top: 120px; }
+.sd-item:target { box-shadow: 0 0 0 2px var(--signal); }
+/* Each widget as the dashboard draws it, on the dashboard's grey: a tile at its own size, Creatives and Measure smaller. */
+.sd-mini { flex: none; width: 88px; height: 88px; padding: 8px; border-radius: 20px; background: #f1f1f1; }
+.sd-mini > .widget { width: 72px; }
+.sd-mini-creatives > .widget, .sd-mini-measure > .widget { width: 192px; height: 192px; zoom: 0.375; }
+.sd-item-name { font-size: 21px; line-height: 1.19; font-weight: 600; letter-spacing: -0.015em; }
+.sd-item-text { margin-top: 8px; color: var(--fg-2); }
+.sd-item-tag { margin-top: 12px; font-size: 12px; line-height: 1.33; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); }
+.sd-note { max-width: 680px; margin-top: 40px; color: var(--fg-2); }
+@media (max-width: 1068px) { .sd-list { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 734px) {
+  .sd-list { gap: 12px; }
+  .sd-item { gap: 18px; padding: 22px 22px 24px 20px; }
+  .sd-mini { width: 72px; height: 72px; padding: 6px; border-radius: 17px; }
+  .sd-mini-creatives > .widget, .sd-mini-measure > .widget { width: 192px; height: 192px; zoom: 0.3125; }
+  .sd-mini > .widget--tile, .sd-mini > .w-brand-cell { zoom: 0.8333; width: 72px; }
+  .sd-item-name { font-size: 19px; }
+}
+
+/* The included apps' cards: three across, their tiles a little taller. */
+/* The black version: the plugin's dark look, its fixed-light widgets staying white as the plugin keeps them. Used on
+   Studio Tools' card on the Figma page (partials/app-page.njk), the window cropped by the tile. */
+.sd-dark {
+  --fg: #f1f2f4;
+  --fg-1: #e6e6e6;
+  --fg-4: #a3a3a3;
+  --fg-5: #8a8a8a;
+  --fg-6: #777;
+  --bg-4: #262626;
+  --w-surface: #1d1d1d;
+  --w-ink: #f1f2f4;
+  --w-grid-line: #242424;
+}
+.sd-window.sd-dark { background: #0f0f0f; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 14px 34px rgba(0, 0, 0, 0.6); }
+.sd-dark .sd-titlebar { border-bottom-color: #2a2a2a; }
+.sd-dark .sd-title { color: rgba(255, 255, 255, 0.9); }
+.sd-dark .sd-close { color: rgba(255, 255, 255, 0.7); }
+.sd-dark .sd-results { background: radial-gradient(ellipse 44.1% 35.7% at 50% 40%, #1c1c1c 0%, #1c1c1c 55%, transparent 100%) #0f0f0f; }
+.tile-light { background: #f1f1f1; box-shadow: inset 0 0 0 1px #e6e6e6; color: #111; }
+/* The other card: every widget, the whole grid on the tile. Creatives and Measure tall on the left, the ten tiles four
+   across on the right, at the plugin's own sizes, the whole scaled with `zoom` to the tile's width. */
+.tile-widgets { display: grid; place-items: center; }
+.tile-widgets .sd-ui { --cell: calc((192px - 16px) / 3); zoom: 0.9; }
+/* Creatives and Measure stay square, as drawn (their dots and numbers would stretch otherwise): three tile rows are as tall as they are. */
+.tile-widgets .widget-grid { grid-template-columns: 192px 192px repeat(4, var(--cell)); grid-auto-rows: var(--cell); grid-auto-flow: row; gap: 8px; width: max-content; margin: 0; padding: 0; }
+.tile-widgets .widget-grid::before { display: none; }
+.tile-widgets .widget { grid-column: auto; }
+.tile-widgets .widget:nth-child(-n+2) { grid-row: span 3; }
+.tile-widgets .widget:nth-child(1) { grid-column: 1; }
+.tile-widgets .widget:nth-child(2) { grid-column: 2; }
+.tile-widgets .w-tile-n { font-size: 26px; }
+@media (max-width: 1068px) { .tile-widgets .sd-ui { zoom: 0.6; } }
+@media (max-width: 734px) { .tile-widgets .sd-ui { zoom: 0.44; } }
+.tile-dash { display: flex; justify-content: center; align-items: flex-start; padding-top: 22px; }
+.tile-dash .sd-window { zoom: 0.9; }
+@media (max-width: 734px) { .tile-dash { padding-top: 14px; } .tile-dash .sd-window { zoom: 0.6; } }
+
+.lineup-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lineup-3 .tile { aspect-ratio: 1.6 / 1; }
+.lineup-3 .lineup-card { scroll-margin-top: 120px; }
+.lineup-3 .lineup-card:target { box-shadow: 0 0 0 2px var(--signal); }
+@media (max-width: 734px) {
+  .lineup-3 { grid-template-columns: minmax(0, 1fr); }
+  .lineup-3 .tile { aspect-ratio: 2.08 / 1; }
+}

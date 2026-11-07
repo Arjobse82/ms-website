@@ -1,37 +1,29 @@
 {
   "name": "Monochrome Systems",
-  "tagline": "Plugins and agents for Figma, InDesign and Photoshop.",
+  "tagline": "Apps for Figma, InDesign, Photoshop and Mac.",
   "description": "Monochrome Systems makes plugins and agents for Figma, InDesign and Photoshop.",
-  "statement": "Small, focused tools that do one job well, then get out of the way.",
+  "statement": "Purpose-built tools for advertising, production and design.",
 
   "principles": [
     {
       "eyebrow": "Native",
       "title": "Feels like part of the app.",
-      "text": "Every tool follows the conventions of the app it lives in. Nothing new to learn.",
-      "photo": "granite",
-      "focus": "60% 30%"
+      "text": "Every tool follows the conventions of the app it lives in. Nothing new to learn."
     },
     {
       "eyebrow": "Scale",
       "title": "Made for real workloads.",
-      "text": "Large files, long documents and big batches are the everyday case, not the edge case.",
-      "photo": "granite-tall",
-      "focus": "50% 60%"
+      "text": "Large files, long documents and big batches are the everyday case, not the edge case."
     },
     {
       "eyebrow": "Predictable",
       "title": "Same input. Same output.",
-      "text": "Results you can check, repeat and hand over without surprises.",
-      "photo": "facade",
-      "focus": "30% 50%"
+      "text": "Results you can check, repeat and hand over without surprises."
     },
     {
       "eyebrow": "Quiet",
       "title": "Out of your way.",
-      "text": "No clutter, no noise. Open it, do the job, get back to the work.",
-      "photo": "facade",
-      "focus": "85% 80%"
+      "text": "No clutter, no noise. Open it, do the job, get back to the work."
     }
   ],
 

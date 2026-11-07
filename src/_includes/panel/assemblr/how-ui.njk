@@ -1,0 +1,29 @@
+{#- InDesign's Layers panel as How it works draws it (src/_lib/assemblr-panel.js `how`): a layer a row, with its
+    colour, and its items under it in angle brackets, as InDesign names them. What Assemble moved is tinted blue, what
+    it made is tagged New, and a layer's square is the one InDesign shows for its selected items (`sel`: "from", or
+    "to", dashed, where it is dragged). -#}
+{%- macro eye() %}<svg class="hw-eye" viewBox="0 0 16 16"><path d="M1.2 8S3.7 3.6 8 3.6 14.8 8 14.8 8 12.3 12.4 8 12.4 1.2 8 1.2 8z"/><circle cx="8" cy="8" r="2.1"/></svg>{% endmacro %}
+
+{%- macro row(l, layer) %}
+<li class="hw-row {{ 'hw-layer' if layer else 'hw-item' }}{% if l.moved %} is-moved{% endif %}{% if l.new %} is-new{% endif %}">
+  {{- eye() }}<span class="hw-lock"></span>
+  {%- if layer %}<svg class="hw-tri{% if l.closed %} is-closed{% endif %}" viewBox="0 0 8 8"><path d="M1 2.2h6L4 6.2z"/></svg><span class="hw-sw" style="--sw: {{ l.colour }}"></span><span class="hw-label">{{ l.name }}</span>
+  {%- else %}<span class="hw-label">&lt;{{ l.name }}&gt;</span>{% endif %}
+  {%- if l.new %}<span class="hw-tag">New</span>{% endif %}
+  {%- if l.sel %}<span class="hw-sel hw-sel-{{ l.sel }}"></span>{% endif %}
+</li>
+{%- endmacro %}
+
+{%- macro layersPanel(p) %}
+<div class="hw-lp">
+  <p class="hw-lp-head">Layers</p>
+  <ul class="hw-lp-list">
+    {%- for l in p.layers %}
+    {{- row(l, true) }}
+    {%- for it in l.items %}{{ row(it, false) }}{% endfor %}
+    {%- endfor %}
+    {%- if p.layers[0].sel %}<svg class="hw-drag" viewBox="0 0 8 14"><path d="M4 0v12.5M1 9.5l3 3 3-3"/></svg>{% endif %}
+  </ul>
+  {%- if p.foot %}<p class="hw-lp-foot">{{ p.foot }}</p>{% endif %}
+</div>
+{%- endmacro %}

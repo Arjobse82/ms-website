@@ -1,0 +1,32 @@
+{#- A plugin's quick help (panels.js `help`), after its panel explained: a group a heading, each item a card with its
+    question and its steps, numbered when there are more than one, or its ways of doing it (`or`), dotted. Each card
+    has an id, help-<id>, to link to. An item with `art` is a large card, the whole row: its intro, its drawing
+    (panel/<art>.njk) and its points. Expects `help`. -#}
+{%- for g in help.groups %}
+<div class="hp-group" aria-labelledby="hp-{{ g.id }}">
+  <h3 class="hp-name reveal" id="hp-{{ g.id }}">{{ g.label }}</h3>
+  <ul class="hp-list">
+    {%- for it in g.items %}
+    {%- if it.art %}
+    <li class="hp-item hp-big reveal" id="help-{{ it.id }}">
+      <h4 class="hp-q">{{ it.q }}</h4>
+      <p class="hp-a hp-big-intro">{{ it.intro }}</p>
+      <div class="hp-big-art">{% include "panel/" + it.art + ".njk" %}</div>
+      <dl class="hp-big-points">{% for pt in it.points %}<div><dt>{{ pt.name }}</dt><dd>{{ pt.text }}</dd></div>{% endfor %}</dl>
+    </li>
+    {%- else %}
+    <li class="hp-item reveal" id="help-{{ it.id }}">
+      <h4 class="hp-q">{{ it.q }}</h4>
+      {%- if it.or %}
+      <ul class="hp-steps hp-ways">{% for s in it.a %}<li>{{ s }}</li>{% endfor %}</ul>
+      {%- elif it.a.length > 1 %}
+      <ol class="hp-steps">{% for s in it.a %}<li>{{ s }}</li>{% endfor %}</ol>
+      {%- else %}
+      <p class="hp-a">{{ it.a[0] }}</p>
+      {%- endif %}
+    </li>
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+</div>
+{%- endfor %}

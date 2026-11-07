@@ -1,0 +1,26 @@
+/* What the Sync Folders widget opens to (src/_includes/dashboard/detail-syncFolders.njk).
+   Mirrors bloom ui-shell.html .jf-* rules. */
+.sdu-syncFolders { max-width: 420px; padding: 10px 12px 12px; border-radius: 10px; background: #fff; color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+.sdu-syncFolders-row { display: flex; align-items: baseline; gap: 5px; line-height: 1.7; min-width: 0; }
+.sdu-syncFolders-row.is-link { gap: 4px; }
+.sdu-syncFolders-br { flex: none; min-width: 28px; font-family: Menlo, Consolas, monospace; font-size: 10px; color: #888; white-space: pre; }
+.sdu-syncFolders-row.is-link .sdu-syncFolders-br { color: var(--fg-6); }
+.sdu-syncFolders-h { font: 9px ui-monospace, monospace; letter-spacing: .07em; color: var(--fg); }
+.sdu-syncFolders-hint { font-size: 9px; color: #aaa; }
+.sdu-syncFolders-ic { flex: none; display: inline-flex; align-self: center; width: 13px; height: 13px; color: var(--fg-5); }
+.sdu-syncFolders-ic.ok { color: var(--ok); }
+.sdu-syncFolders-ic.add { color: var(--ok); }
+.sdu-syncFolders-ic svg { width: 13px; height: 13px; }
+.sdu-syncFolders-badge { min-width: 16px; font: 700 9px monospace; color: var(--fg); }
+.sdu-syncFolders-badge.add { font-size: 13px; color: var(--ok); line-height: 1; }
+.sdu-syncFolders-path { font: 9px ui-monospace, monospace; letter-spacing: .07em; color: var(--fg-5); }
+.sdu-syncFolders-found { font: 9px ui-monospace, monospace; letter-spacing: .07em; color: var(--fg-6); }
+.sdu-syncFolders-found.has { color: var(--ok); }
+.sdu-syncFolders-rm { margin-left: auto; font-size: 13px; line-height: 1; color: var(--fg-6); }
+.sdu-syncFolders-file { font: 9px ui-monospace, monospace; letter-spacing: .07em; color: var(--fg-1); white-space: nowrap; }
+.sdu-syncFolders-master { font: 9px ui-monospace, monospace; letter-spacing: .07em; color: var(--fg-6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.sdu-syncFolders-btn { margin-left: auto; align-self: center; padding-left: 6px; font-size: 16px; line-height: 1; }
+.sdu-syncFolders-btn svg { display: block; width: 13px; height: 13px; }
+.sdu-syncFolders-btn.ok { color: var(--ok); }
+.sdu-syncFolders-btn.ready, .sdu-syncFolders-btn.conflict { color: var(--warn); }
+.sdu-syncFolders-status { margin: 4px 0 0 2px; font-size: 10px; color: var(--fg-5); }

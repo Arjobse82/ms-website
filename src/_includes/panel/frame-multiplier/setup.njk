@@ -1,0 +1,30 @@
+{%- from "panel/ui.njk" import hot, sel, btn %}
+{%- set a = panel.art %}
+<div class="pt-card fm">
+  <p class="fm-topbar">1 concept · 6 masters · {{ a.layers.length }} layers</p>
+  <div class="fm-sec"><span class="fm-chev" aria-hidden="true">▶</span><span class="fm-sec-title">Masters</span><span class="fm-meta">[MASTERS] Inferno · 6 masters</span></div>
+  <p class="fm-step">Select your master page</p>
+  {%- call hot(1) %}{{ sel("[MASTERS] Inferno", true) }}{% endcall %}
+  {%- call hot(2) %}<div class="fm-btns">{{ btn("Okay", true) }}</div>{% endcall %}
+  <div class="fm-sec"><span class="fm-chev" aria-hidden="true">▶</span><span class="fm-sec-title">Components</span><span class="fm-meta">{{ a.layers.length }} layers · 4 inferred</span></div>
+  <div class="fm-table">
+    <div class="fm-hdr">
+      <span class="fm-hdr-role">ROLE</span>
+      {%- for c in a.cols %}
+      {%- call hot(loop.index + 4, true) %}<span class="fm-col">{{ c.icon | safe }}<b>{{ c.ltr }}</b></span>{% endcall %}
+      {%- endfor %}
+    </div>
+    <div class="fm-row fm-chiprow">{% call hot(3, true) %}<span class="fm-chip">{{ a.concept }}</span>{% endcall %}</div>
+    <div class="fm-row"><span class="fm-br">│</span></div>
+    {%- for l in a.layers %}
+    <div class="fm-row fm-layer">
+      <span class="fm-br">{{ "└── " if loop.last else "├── " }}</span>
+      <span class="fm-ic">{{ a.roles[l.role] | safe }}</span>
+      <span class="fm-name">{{ l.name }}</span>
+      <span class="fm-rolecell">{% if l.mark %}{% call hot(4, true) %}<span class="fm-role">{{ l.role }}</span>{% endcall %}{% else %}<span class="fm-role">{{ l.role }}</span>{% endif %}</span>
+      {%- for cell in l.cells %}<span class="fm-fi{% if cell %} is-on{% endif %}">{{ cell | safe }}</span>{% endfor %}
+    </div>
+    {%- endfor %}
+  </div>
+  <p class="fm-console">Focal | Auto (Draw in path for best results)</p>
+</div>

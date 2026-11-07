@@ -1,0 +1,61 @@
+{#- A plugin's help page (src/help/*.njk, layouts/help.njk): How it works if its panel has `how`, its user guide and its
+    quick help, the same sections as on its product page (partials/panel-how.njk, partials/panel-tour.njk,
+    partials/panel-help.njk, from its panel's module), on a page of their own
+    to publish with the plugin (scripts/export-help.mjs). Expects `panelKey`, `kind` ("InDesign plugin") and `heading`
+    ("Assemblr help"). -#}
+{%- set panel = panels[panelKey] %}{% set panelId = panelKey %}{% set help = panel.help %}{% set how = panel.how %}
+{%- set n = 1 %}
+<nav class="localnav theme-light" aria-label="{{ heading }}">
+  <span class="localnav-progress" aria-hidden="true"></span>
+  <div class="localnav-content">
+    <a class="localnav-title" href="#overview">{{ heading }}</a>
+    <div class="localnav-menu">
+      <ul class="localnav-links">
+        <li><a href="#overview">Overview</a></li>
+        {%- if how %}<li><a href="#how">How it works</a></li>{% endif %}
+        <li><a href="#panel">User guide</a></li>
+        <li><a href="#help">Quick help</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="product-hero hp-hero theme-light" id="overview">
+  <div class="container">
+    <p class="label product-hero-kind">{{ kind }}</p>
+    <h1 class="t-hero">{{ heading }}</h1>
+    <p class="t-subhead product-hero-subhead">{% if how %}How it works, every{% else %}Every{% endif %} control in the panel, and the everyday jobs step by step.</p>
+  </div>
+</section>
+
+{%- if how %}
+<section class="section theme-light" id="how">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">How it works</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ how.heading }}</h2>
+    <p class="pt-intro reveal">{{ how.intro }}</p>
+    {% include "partials/panel-how.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
+
+<section class="section theme-gray" id="panel">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ panel.label }}</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ panel.heading }}</h2>
+    <p class="pt-intro reveal">{{ panel.intro }}</p>
+    {% include "partials/panel-tour.njk" %}
+  </div>
+</section>
+
+{%- set n = n + 1 %}
+
+<section class="section theme-light" id="help">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Help</span></div>
+    <h2 class="t-l section-title pt-heading reveal">Quick help</h2>
+    <p class="pt-intro reveal">{{ help.intro }}</p>
+    {% include "partials/panel-help.njk" %}
+  </div>
+</section>

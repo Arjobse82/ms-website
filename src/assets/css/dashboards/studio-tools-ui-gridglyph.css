@@ -1,0 +1,12 @@
+/* What the Grid widget opens to (src/_includes/dashboard/detail-gridglyph.njk). Mirrors bloom ui-shell.html .arr-* / .sp-num rules. */
+.sdu-gridglyph { max-width: 380px; padding: 12px; border-radius: 10px; background: #fff; color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+.sdu-gridglyph-act { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.sdu-gridglyph .btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 14px 6px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; font-size: 10.5px; font-weight: 600; color: #333; }
+.sdu-gridglyph .btn svg { color: #777; }
+.sdu-gridglyph .btn.revert { border-color: #999; color: #999; opacity: .4; }
+.sdu-gridglyph-fields { display: flex; flex-direction: column; gap: 6px; }
+.sdu-gridglyph-fields label { display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: #555; }
+.sdu-gridglyph-fields label > span:first-child { min-width: 78px; }
+.sdu-gridglyph-fields .sel, .sdu-gridglyph-fields .num { padding: 2px 5px; border: 1px solid #ccc; border-radius: 3px; background: #fff; font: 10px/14px ui-monospace, Menlo, monospace; color: var(--fg); }
+.sdu-gridglyph-fields .num { width: 56px; text-align: right; }
+.sdu-gridglyph-desc { margin: 8px 0 0; font-size: 10.5px; line-height: 1.5; color: var(--fg-5); }

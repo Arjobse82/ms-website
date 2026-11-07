@@ -1,0 +1,31 @@
+{#- The Masters widget's card (main.ts bodies.masters, render's masters list and creatives, renderFigma): three InDesign
+    masters, the same three read from Figma through Ad Agent Bridge, and the masters grouped by tag. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art %}
+<div class="pt-card ag">
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Masters</span><span class="ag-meta">{{ a.masters.length }} files</span></div>
+    {%- call hot(1, true) %}<span class="ag-btns"><span class="ag-btn ag-import">{{ a.importIcon | safe }}Choose folder…</span><span class="ag-btn ag-import">{{ a.importIcon | safe }}Add files…</span></span>{% endcall %}
+    {%- call hot(2) %}
+    <div class="ag-list">
+      {%- for m in a.masters %}
+      <div class="ag-row"><span class="ag-name ag-grow ag-ellipsis">{{ m.name }}</span><span class="ag-kind">{{ m.kind }}</span><span class="ag-x" aria-hidden="true">×</span></div>
+      {%- endfor %}
+    </div>
+    <p class="ag-meta">Your InDesign masters, .indd or .idml. InDesign only ever opens copies of them.</p>
+    {%- endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Figma</span></div>
+    {%- call hot(3) %}<div class="ag-row"><span class="ag-dot is-ok" aria-hidden="true"></span><span class="ag-meta ag-ellipsis">Connected · {{ a.figma.file }}</span></div>{% endcall %}
+    {%- call hot(4, true) %}<span class="ag-btn ag-import">{{ a.importIcon | safe }}Read again</span>{% endcall %}
+    {%- call hot(5) %}<p class="ag-meta">{{ a.figma.masters }} masters on {{ a.figma.page }}, live · {{ a.figma.masters }} paired with your InDesign masters</p>{% endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Creatives</span><span class="ag-meta">2</span></div>
+    {%- call hot(6) %}
+    <div class="ag-modes"><span class="is-on">By tag</span><span>By hero</span><span>One</span></div>
+    <p class="ag-meta">Each creative is solved from its own masters, for the brief's rows that name it; a row naming none is every creative's. Grouped by the [CREATIVE] tag in their names; a master without one goes by the other.</p>
+    {%- endcall %}
+  </div>
+</div>

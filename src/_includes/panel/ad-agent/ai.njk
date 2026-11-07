@@ -1,0 +1,43 @@
+{#- The AI widget's card (main.ts renderAi, permissionsSection, reviewSection, findingsList, askSection): Claude chosen
+    with the key in the Keychain, the permissions at their defaults, the last run reviewed by the rules and by Claude,
+    every finding shown, and the question box. Its Test row and the notes under the key are left out. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art %}
+<div class="pt-card ag">
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">AI</span><span class="ag-meta">Claude Sonnet 5.5</span></div>
+    {%- call hot(1) %}<div class="ag-modes"><span>Off</span><span class="is-on">Claude</span><span>Local</span></div>{% endcall %}
+    {%- call hot(2) %}
+    <div class="ag-modes"><span class="is-on">Sonnet 5.5</span><span>Opus 5.5</span><span>Haiku 5.5</span></div>
+    <div class="ag-row"><span class="ag-dot is-ok" aria-hidden="true"></span><span class="ag-meta ag-grow">Your API key, in your Mac's Keychain</span><span class="ag-btn ag-sm">Remove</span></div>
+    {%- endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Permissions</span><span class="ag-link">Change</span></div>
+    {%- call hot(3) %}<p class="ag-meta">Sees the whole job; does what you ask with components' settings, logo profiles, print labels and where channels build. It does not run. Nothing in Figma.</p>{% endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Review</span><span class="ag-meta">{{ a.found }}</span></div>
+    {%- call hot(4) %}<p class="ag-meta">The rules: {{ a.rules }}. Claude Sonnet 5.5: {{ a.ai }}, 28 Oct, 14:05 · ≈ $0.03 · 24K in, 410 out.</p>{% endcall %}
+    {%- call hot(5) %}<div class="ag-btns"><span class="ag-btn ag-sm">Review again with Claude Sonnet 5.5</span><span class="ag-meta">about $0.03 for 7 sizes</span></div>{% endcall %}
+    {%- call hot(6) %}
+    <div class="ag-modes"><span>To fix · {{ a.fix }}</span><span class="is-on">All · {{ a.findings.length }}</span></div>
+    <div class="ag-found">
+      {%- for f in a.findings %}
+      <p class="ag-fch">{{ f.channel }}</p>
+      <div class="ag-fsize">
+        <span class="ag-link">{{ f.size }}</span>
+        <p class="ag-finding"><span class="ag-dot{% if f.problem %} is-err{% endif %}" aria-hidden="true"></span><span class="ag-meta">{% if f.ai %}<span class="ag-tag">AI</span>{% endif %}{{ f.words }}</span></p>
+      </div>
+      {%- endfor %}
+    </div>
+    {%- endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Ask</span></div>
+    {%- call hot(7) %}
+    <span class="ag-input ag-area is-empty">Ask about this job: why is the 728 × 90's headline cut off?</span>
+    <div class="ag-btns"><span class="ag-btn ag-sm">Ask</span></div>
+    {%- endcall %}
+  </div>
+</div>

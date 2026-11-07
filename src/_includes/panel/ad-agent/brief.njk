@@ -1,0 +1,42 @@
+{#- The Brief widget's card (main.ts bodies.brief, renderRounds, renderNaming): the brief read from its file, its sizes
+    under their creative and channel, its rounds with an update just pulled (one size new, one going), and the files'
+    names left automatic. -#}
+{%- from "panel/ui.njk" import hot %}
+{%- set a = panel.art %}
+<div class="pt-card ag">
+  <div class="ag-sec">
+    {%- call hot(1) %}
+    <div class="ag-head"><span class="ag-label">Brief</span><span class="ag-meta">{{ a.brief.file }} · {{ a.brief.sheet }} · {{ a.brief.sizes }} sizes</span></div>
+    <div class="ag-btns"><span class="ag-btn ag-import">{{ a.importIcon | safe }}Open brief…</span></div>
+    {%- endcall %}
+    {%- call hot(2) %}
+    <div class="ag-chips">
+      {%- for g in a.brief.groups %}
+      {%- for s in g.sizes %}
+      {%- set chip %}<span class="ag-chip is-on{% if s.diff %} is-{{ s.diff }}{% endif %}">{{ s.label }}</span>{% endset %}
+      {%- if loop.first %}<span class="ag-group"><span class="ag-ch">{{ g.label }}</span>{{ chip | safe }}</span>{% else %}{{ chip | safe }}{% endif %}
+      {%- endfor %}
+      {%- endfor %}
+    </div>
+    {%- endcall %}
+    <p class="ag-meta">Read from line {{ a.brief.header }}'s headers: {{ a.brief.columns }}. Each row is a size in a channel, for a creative; a print row's size is its trim in mm after its scale.</p>
+    {%- call hot(3, true) %}<span class="ag-btn ag-sm">Type the sizes instead</span>{% endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">Rounds</span><span class="ag-meta">round {{ a.rounds.now }} of {{ a.brief.file }}</span></div>
+    {%- call hot(4, true) %}
+    <span class="ag-rounds">{% for n in a.rounds.list %}<span class="ag-round{% if n == a.rounds.now %} is-now{% endif %}">{{ n }}</span>{% endfor %}</span>
+    {%- endcall %}
+    {%- call hot(5) %}<p class="ag-meta">The update: 1 new, 1 going. New and going sizes are orange on the nodes, going ones struck through; a changed size's card says what changed. Apply keeps round {{ a.rounds.now }}'s files in Superseded/v{{ a.rounds.now }}, the going sizes' moved out of the output.</p>{% endcall %}
+    {%- call hot(6, true) %}<span class="ag-btns"><span class="ag-btn ag-sm ag-primary">Apply updates</span><span class="ag-btn ag-sm">Discard</span></span>{% endcall %}
+    {%- call hot(7) %}<div class="ag-row"><span class="ag-meta ag-grow ag-ellipsis">Kept in {{ a.rounds.kept }}</span><span class="ag-btn ag-sm">Show in Finder</span></div>{% endcall %}
+  </div>
+  <div class="ag-sec">
+    <div class="ag-head"><span class="ag-label">File names</span></div>
+    {%- call hot(8) %}
+    <div class="ag-row"><span class="ag-meta ag-job">Job number</span><span class="ag-input ag-grow is-empty">123456</span></div>
+    <p class="ag-meta">Automatic: each file is named by its size, as “[Masters] 1080x1920.idml”; a size in two channels is one file. A job number names them by tags.</p>
+    <div class="ag-btns"><span class="ag-btn ag-sm">Name them by tags</span></div>
+    {%- endcall %}
+  </div>
+</div>

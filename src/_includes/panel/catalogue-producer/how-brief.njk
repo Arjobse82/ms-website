@@ -1,0 +1,30 @@
+{#- How it works, built from the brief: the Excel brief, a row a product; the image folders, two files found by the
+    Duo pack's code; and the Duo pack's cell on the page, those images laid out and its copy written from its row
+    (src/_lib/catalogue-art.js `how.brief`). What is the Duo pack's is blue in all three. -#}
+{%- from "panel/catalogue-producer/spread-ui.njk" import cell %}
+{%- set b = panels[panelId].art.how.brief %}
+{%- set arrow %}<div class="hw-go"><svg class="hw-go-arrow" viewBox="0 0 40 12"><path d="M0 6h37M32 1.5 36.5 6 32 10.5"/></svg></div>{% endset %}
+<div class="cw-brief">
+  <div class="cw-side">
+    <p class="hw-cap">Brief.xlsx</p>
+    <table class="cw-sheet">
+      <thead><tr><th></th>{% for c in ["A", "B", "C", "D"] %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        <tr class="cw-sheet-head"><th>1</th>{% for h in b.brief.head %}<td>{{ h }}</td>{% endfor %}</tr>
+        {%- for r in b.brief.rows %}<tr{% if r.on %} class="is-on"{% endif %}><th>{{ loop.index + 1 }}</th>{% for c in r.cells %}<td>{{ c }}</td>{% endfor %}</tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {{ arrow | safe }}
+  <div class="cw-side">
+    <p class="hw-cap">Image folders</p>
+    <ul class="cw-files">
+      {%- for f in b.files %}<li{% if f.on %} class="is-on"{% endif %}><span class="cw-file-img"><img src="{{ f.src }}" alt="" loading="lazy"></span><span class="cw-file-name">{{ f.name }}</span></li>{% endfor %}
+    </ul>
+  </div>
+  {{ arrow | safe }}
+  <div class="cw-side cw-side-cell">
+    <p class="hw-cap">Page 2</p>
+    <div class="cs-frame cw-cell" style="--units: {{ b.cell.w }}; aspect-ratio: {{ b.cell.w }} / {{ b.cell.h }}">{{ cell(b.cell, b.cell.w, b.cell.h) }}</div>
+  </div>
+</div>
