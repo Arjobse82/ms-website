@@ -12,25 +12,33 @@
     <svg class="rollout-graph" viewBox="-1 0 {{ rollout.width + 2 }} {{ rollout.height }}" role="img"
          aria-label="A brief's creatives, channels, sizes and files, linked left to right, one path selected">
       {%- for t in rollout.titles %}
-      <text class="rn-title" x="{{ t.x }}" y="12">{{ t.title }}</text>
+      <text class="rn-title" x="{{ t.x }}" y="12" style="font-size: 12px; fill: #999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;">{{ t.title }}</text>
       {%- endfor %}
       <g class="rn-edges">
         {%- for e in rollout.edges %}
-        <path class="re{% if e.chosen %} re-chosen{% endif %}" style="--c: {{ e.col }}" d="{{ e.d }}"/>
+        <path class="re{% if e.chosen %} re-chosen{% endif %}" 
+               style="stroke: #e0e0e0; fill: none; stroke-width: 1.5;{% if e.chosen %} stroke: #3372f6; stroke-width: 2.5;{% endif %}"
+               d="{{ e.d }}"/>
         {%- endfor %}
       </g>
       {%- for n in rollout.nodes %}
-      <g class="rn{% if n.chosen %} rn-chosen{% endif %}{% if n.tall %} rn-tall{% endif %}" style="--c: {{ n.col }}" transform="translate({{ n.x }} {{ n.y }})">
-        <rect class="rn-box" x="0.5" y="0.5" width="{{ n.w - 1 }}" height="{{ n.h - 1 }}" rx="6"/>
-        {%- if n.chosen %}<rect class="rn-mark" x="0.5" y="4" width="2" height="{{ n.h - 8 }}" rx="1"/>{% endif %}
-        {%- if n.box %}<rect class="rn-ratio" x="{{ n.box.x }}" y="{{ n.box.y }}" width="{{ n.box.w }}" height="{{ n.box.h }}" rx="1"/>{% endif %}
+      <g class="rn{% if n.chosen %} rn-chosen{% endif %}{% if n.tall %} rn-tall{% endif %}" 
+         style="--c: {{ n.col }}" transform="translate({{ n.x }} {{ n.y }})">
+        <rect class="rn-box" x="0.5" y="0.5" width="{{ n.w - 1 }}" height="{{ n.h - 1 }}" 
+               rx="6" style="fill: #fff; stroke: #e0e0e0;"/>
+        {%- if n.chosen %}
+        <rect class="rn-mark" x="0.5" y="4" width="2" height="{{ n.h - 8 }}" rx="1" style="fill: #3372f6;"/>
+        {% endif %}
+        {%- if n.box %}<rect class="rn-ratio" x="{{ n.box.x }}" y="{{ n.box.y }}" width="{{ n.box.w }}" height="{{ n.box.h }}" rx="1" style="fill: #d1d0d0;"/>{% endif %}
         {%- if n.tall %}
-        <text class="rn-label" x="10" y="17">{{ n.label }}</text>
-        <text class="rn-sub" x="10" y="30">{{ n.sub }}</text>
+        <text class="rn-label" x="10" y="17" style="font-size: 12.5px; fill: #111; font-weight: 600;">{{ n.label }}</text>
+        <text class="rn-sub" x="10" y="30" style="font-size: 11px; fill: #555;">{{ n.sub }}</text>
         {%- else %}
-        <text class="rn-label{% if n.mono %} rn-mono{% endif %}" x="{{ 30 if n.box else 10 }}" y="{{ n.h / 2 + 4 }}">{{ n.label }}</text>
+        <text class="rn-label{% if n.mono %} rn-mono{% endif %}" 
+               x="{{ 30 if n.box else 10 }}" y="{{ n.h / 2 + 4 }}" 
+               style="font-size: 12.5px; fill: #111; font-weight: 600;">{{ n.label }}</text>
         {%- endif %}
-        <circle class="rn-dot" cx="{{ n.w - 13 }}" cy="{{ n.h / 2 }}" r="3"/>
+        <circle class="rn-dot" cx="{{ n.w - 13 }}" cy="{{ n.h / 2 }}" r="3" style="fill: #aaa;"/>
       </g>
       {%- endfor %}
     </svg>

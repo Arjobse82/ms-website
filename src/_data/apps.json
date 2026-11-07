@@ -412,8 +412,8 @@
       {
         "slug": "ad-agent",
         "name": "Ad Agent",
-        "tagline": "InDesign and Figma masters in, one file per size out.",
-        "description": "Our latest release combines AI with automated campaign rollouts. Control both InDesign and Figma from one app, with AI support built into the workflow.",
+        "tagline": "AI powered file management system.",
+        "description": "Our latest release combines AI with our automated campaign rollouts. You can control both Indesign and Figma from within the app, where it as a modern node based visual mapp.",
         "panel": "ad-agent",
         "icon": "ad-agent",
         "tile": "black",
