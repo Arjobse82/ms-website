@@ -412,7 +412,7 @@
       {
         "slug": "ad-agent",
         "name": "Ad Agent",
-        "tagline": "AI powered file management system.",
+        "tagline": "AI powered layout & file management system.",
         "description": "Our latest release combines AI with our automated campaign rollouts. You can control both Indesign and Figma from within the app, where it as a modern node based visual mapp.",
         "panel": "ad-agent",
         "icon": "ad-agent",
