@@ -1,9 +1,9 @@
 // What Automated Assemblr's drawings are drawn from (src/_lib/panels/catalogue-producer.js `art`): the hero's catalogue
 // spread with its features over it (partials/catalogue-spread.njk), and How it works's five drawings
 // (src/_includes/panel/catalogue-producer/how-*.njk). One made-up catalogue of canned drinks, its brief a row a
-// product, its images the site's two cans. Pages are A4 in points, built as the plugin builds them: the grid inside
+// product, its images ten 3D shapes (src/_lib/shapes.js), a product's own object, several of one grouped. Pages are A4 in points, built as the plugin builds them: the grid inside
 // each page's margins, inside and outside swapped on facing pages (PLAN.md §5, page.marginPreferences); each product a
-// cell, its image area over its copy; inserts an advert and a table (D53, D54). The cans in every image area are laid
+// cell, its image area over its copy; inserts an advert and a table (D53, D54). The objects in every image area are laid
 // out by Assemblr's own engine (src/_lib/engine-layout.js), the price devices and badges stacked on their corners by it.
 import { E, laidOut, cornerStack, r1, PRICE_ASPECT } from "./engine-layout.js";
 import { CAN } from "./assemblr-photoshop-panel.js";
@@ -16,18 +16,19 @@ const COPY = 58; // the copy under each image area, in points
 /** The brief: a row a product. `cans` are its images, found in the image folders by its code. Like drinks sit
  *  together, so the pages run in groups of one can, not black, white, black (the owner, 2026-11-02). */
 export const BRIEF = [
-  { code: "410201", name: "Cola", pack: "6 × 330 ml", price: "$12.50", cans: ["black"] },
-  { code: "410202", name: "Cola zero", pack: "6 × 330 ml", price: "$12.50", cans: ["black"] },
-  { code: "410203", name: "Duo pack", pack: "12 × 330 ml", price: "$24.00", cans: ["white", "black"] },
-  { code: "410204", name: "Party pack", pack: "24 × 330 ml", price: "$45.00", cans: ["white", "white", "white", "white", "white", "white"], badge: true },
-  { code: "410205", name: "Sparkling water", pack: "6 × 330 ml", price: "$12.50", cans: ["white"] },
-  { code: "410206", name: "Lemon soda", pack: "6 × 330 ml", price: "$13.00", cans: ["white"] },
-  { code: "410207", name: "Mixed case", pack: "24 × 330 ml", price: "$46.00", cans: ["white", "white", "white", "black", "black", "black"], badge: true },
-  { code: "410208", name: "Ginger beer", pack: "6 × 330 ml", price: "$14.00", cans: ["black"] },
-  { code: "410209", name: "Root beer", pack: "6 × 330 ml", price: "$14.00", cans: ["black"] },
-  { code: "410210", name: "Tonic", pack: "6 × 330 ml", price: "$13.50", cans: ["white"] },
-  { code: "410211", name: "Soda water", pack: "6 × 330 ml", price: "$11.00", cans: ["white"] },
-  { code: "410212", name: "Iced tea", pack: "6 × 330 ml", price: "$13.50", cans: ["black"] },
+  { code: "410201", name: "Cola", pack: "6 × 330 ml", price: "$12.50", cans: ["tan-pillar"] },
+  { code: "410202", name: "Cola zero", pack: "6 × 330 ml", price: "$12.50", cans: ["grey-cube"] },
+  { code: "410203", name: "Duo pack", pack: "12 × 330 ml", price: "$24.00", cans: ["blue-slab", "blue-slab"] },
+  { code: "410204", name: "Party pack", pack: "24 × 330 ml", price: "$45.00", cans: ["pink-box", "pink-box", "pink-box", "pink-box", "pink-box", "pink-box"], badge: true },
+  { code: "410205", name: "Sparkling water", pack: "6 × 330 ml", price: "$12.50", cans: ["yellow-disc"] },
+  { code: "410206", name: "Lemon soda", pack: "6 × 330 ml", price: "$13.00", cans: ["amber-bar"] },
+  // Same objects stand together: a pair of each shape, a row of the Pins formation each.
+  { code: "410207", name: "Mixed case", pack: "24 × 330 ml", price: "$46.00", cans: ["green-brick", "green-brick", "blue-arch", "blue-arch", "rose-cylinder", "rose-cylinder"], badge: true },
+  { code: "410208", name: "Ginger beer", pack: "6 × 330 ml", price: "$14.00", cans: ["red-tile"] },
+  { code: "410209", name: "Root beer", pack: "6 × 330 ml", price: "$14.00", cans: ["blue-arch"] },
+  { code: "410210", name: "Tonic", pack: "6 × 330 ml", price: "$13.50", cans: ["green-brick"] },
+  { code: "410211", name: "Soda water", pack: "6 × 330 ml", price: "$11.00", cans: ["rose-cylinder"] },
+  { code: "410212", name: "Iced tea", pack: "6 × 330 ml", price: "$13.50", cans: ["amber-bar"] },
 ];
 const byCode = Object.fromEntries(BRIEF.map((p) => [p.code, p]));
 
@@ -40,8 +41,8 @@ const byCode = Object.fromEntries(BRIEF.map((p) => [p.code, p]));
 // in front (Space down −90 %), centred in its cell, Scale 90 %.
 const PLAIN = E.modeStart("line");
 const SETTINGS = {
-  "410204": { ...E.modeStart("line"), spacing: -0.2, size: null, perspective: 0.4, baseline: "centre", alignY: "centre", scale: 0.95 },
-  "410207": { ...E.modeStart("pins"), rows: 3, rowCounts: [2, 2, 2], gapY: -0.9, perspective: 0.1, alignY: "centre", scale: 0.9 },
+  "410204": { ...E.modeStart("line"), spacing: -0.05, size: null, perspective: 0.4, baseline: "centre", alignY: "centre", scale: 0.95 },
+  "410207": { ...E.modeStart("pins"), rows: 3, rowCounts: [2, 2, 2], gapY: -0.3, perspective: 0.1, alignY: "centre", scale: 0.9 },
 };
 
 /** The content area of a page: the page less its margins, inside and outside swapped on facing pages. */
@@ -99,7 +100,7 @@ export function productCell(code, box, opts = {}) {
   const p = byCode[code];
   const copy = opts.copy ?? COPY;
   const img = { w: box.w, h: box.h - copy };
-  const laid = laidOut(img.w, img.h, p.cans.map((c) => `can-${c}.psd`), opts.params ?? SETTINGS[code] ?? PLAIN);
+  const laid = laidOut(img.w, img.h, p.cans.map((c) => `${c}.psd`), opts.params ?? SETTINGS[code] ?? PLAIN);
   const [badge] = p.badge || opts.badge ? cornerStack(img.w, img.h, "tr", [1], { insetX: 8, insetY: 8, maxW: opts.badgeSize ?? 40, maxH: opts.badgeSize ?? 40 }) : [];
   const [price] = opts.priceTag ? cornerStack(img.w, img.h, "bl", [PRICE_ASPECT], { insetX: 8, insetY: 8, maxW: 56, maxH: 56 }) : [];
   return { kind: "product", ...round(box), copyH: copy, img, cans: laid.cans, evidence: laid.evidence, badge, price: price && { ...price, svg: priceSvg(p.price) }, p };
@@ -176,8 +177,8 @@ function how() {
   const files = [
     { name: "410201.psd", code: "410201" },
     { name: "410202.psd", code: "410202" },
-    { name: "410203 white.psd", can: "white", code: pick },
-    { name: "410203 black.psd", can: "black", code: pick },
+    { name: "410203 a.psd", can: "blue-slab", code: pick },
+    { name: "410203 b.psd", can: "blue-slab", code: pick },
     { name: "410204 front.psd", code: "410204" },
   ].map((f) => ({ ...f, src: CAN[f.can ?? byCode[f.code].cans[0]], on: f.code === pick }));
   const brief = { head: ["Code", "Name", "Pack", "Price"], rows: BRIEF.slice(0, 5).map((p) => ({ cells: [p.code, p.name, p.pack, p.price], on: p.code === pick })) };

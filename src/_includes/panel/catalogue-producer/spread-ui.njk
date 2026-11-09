@@ -26,6 +26,13 @@
 {%- elif c.kind == "ad" %}
 <div class="cs-cell cs-ad{% if c.bleed %} cs-ad-bleed{% endif %}" style="{{ at(c, W, H) }}">
   <p class="cs-ad-title">{{ c.title }}</p><p class="cs-ad-sub">{{ c.sub }}</p>
+  {#- Nine shapes in a pyramid, the broad ones at the foot (2, 3, 4 across), packed close. -#}
+  {%- set pyramid = [
+    { h: 40, items: [["pink-box", 100], ["yellow-disc", 84]] },
+    { h: 36, items: [["blue-slab", 100], ["grey-cube", 89], ["blue-arch", 79]] },
+    { h: 30, items: [["green-brick", 100], ["amber-bar", 100], ["red-tile", 91], ["rose-cylinder", 100]] }
+  ] %}
+  <div class="cs-pyr" aria-hidden="true">{% for row in pyramid %}<div class="cs-pyr-row" style="height: {{ row.h }}%">{% for k in row.items %}<img src="/assets/img/shape-{{ k[0] }}.webp" alt="" loading="lazy" style="height: {{ k[1] }}%">{% endfor %}</div>{% endfor %}</div>
 </div>
 {%- endif %}
 {%- endmacro %}

@@ -7,18 +7,22 @@
 // (Perspective); the blue axis through the middle of the row with the size-and-angle handle at its end; the nine anchor
 // dots round the area, the middle one filled because the middle is the anchor.
 
-export const CAN = { white: "/assets/img/can-white.webp", black: "/assets/img/can-black.webp" };
-const layer = (name) => ({ name, src: CAN[name.includes("black") ? "black" : "white"] });
+import { SHAPES, SHAPE_SRC, shapeOf, copies } from "./shapes.js";
+
+export const CAN = SHAPE_SRC;
+const layer = (name) => ({ name, src: SHAPE_SRC[shapeOf(name)] });
+/** A shape's visible width over its height. */
+const visibleAspect = (key) => { const s = SHAPES[key]; return (s.aspect * (s.box[3] - s.box[1])) / (s.box[2] - s.box[0]); };
 
 // The drawing's viewBox (400 × 220, as Automated Assemblr's), its area inset so the corner dot clears the note mark.
 const VIEW = { w: 400, h: 220 };
 const AREA = { x0: 40, y0: 18, x1: 360, y1: 202 };
 // The can's visible subject, width over height (src/assets/img/can-*.webp, about 460 × 780).
-const CAN_ASPECT = 0.6;
+const DEFAULT_ASPECT = 0.6;
 
 /** The row: `n` layers along a line at `angle` degrees through the area's middle, bottoms on that line, the first the
  *  farthest (heights grow from `far` to `near`, the stroke thins from 4 to 2 as the widget draws perspective). */
-export function lineup({ n = 5, angle = 14, step = 44, far = 64, near = 88 } = {}) {
+export function lineup({ n = 5, angle = 14, step = 44, far = 64, near = 88, shapes = [] } = {}) {
   const cx = (AREA.x0 + AREA.x1) / 2, cy = (AREA.y0 + AREA.y1) / 2;
   const ux = Math.cos((angle * Math.PI) / 180), uy = Math.sin((angle * Math.PI) / 180);
   const hs = Array.from({ length: n }, (_, i) => far + ((near - far) * i) / (n - 1));
@@ -26,7 +30,7 @@ export function lineup({ n = 5, angle = 14, step = 44, far = 64, near = 88 } = {
   const r1 = (v) => Math.round(v * 10) / 10;
   const items = hs.map((h, i) => {
     const t = (i - (n - 1) / 2) * step;
-    const bx = cx + t * ux, by = base + t * uy, w = h * CAN_ASPECT;
+    const bx = cx + t * ux, by = base + t * uy, w = h * (shapes[i] ? visibleAspect(shapes[i]) : DEFAULT_ASPECT);
     return { x: r1(bx - w / 2), y: r1(by - h), w: r1(w), h: r1(h), rx: r1(w * 0.18), stroke: r1(4 - (2 * i) / (n - 1)), cx: r1(bx), cy: r1(by - h / 2) };
   });
   const first = items[0], last = items[items.length - 1];
@@ -48,26 +52,28 @@ function list(boards) {
 }
 
 export function assemblrPhotoshopPanel() {
-  const cans = ["can-white", "can-black", "can-white copy", "can-black copy", "can-white copy 2"].map(layer);
+  // Same objects stand together: three pink boxes then two tan pillars.
+  const names = [...copies("pink-box", 3), ...copies("tan-pillar", 2)];
+  const cans = names.map(layer);
   const boards = [
     { name: "Feed", focus: true, products: [
-      { name: "Cans", selected: true, layers: cans },
-      { name: "Assemblr 2", layers: [layer("can-black copy 2"), { ...layer("can-white copy 3"), off: true }, layer("can-black copy 3")] },
+      { name: "Boxes", selected: true, layers: cans },
+      { name: "Assemblr 2", layers: copies("blue-slab", 3).map((n, i) => (i === 1 ? { ...layer(n), off: true } : layer(n))) },
     ] },
     { name: "Story", products: [
-      { name: "Assemblr 1", layers: ["can-white copy 4", "can-black copy 4", "can-white copy 5", "can-black copy 5"].map(layer) },
+      { name: "Assemblr 1", layers: [...copies("grey-cube", 2), ...copies("yellow-disc", 2)].map(layer) },
     ] },
   ];
   return {
-    doc: "Cans.psd",
+    doc: "Boxes.psd",
     board: "Feed",
-    product: { name: "Cans", board: "Feed", layers: cans },
+    product: { name: "Boxes", board: "Feed", layers: cans },
     // Assemble's count: two more layers selected that no product has.
     assemble: 2,
-    row: lineup({ n: cans.length }),
+    row: lineup({ n: cans.length, shapes: names.map(shapeOf) }),
     // The Layers panel's front layer, and the row's (the first, with Swap order not pressed): the panel's sentence while
     // "Allow Assemblr to restack layers" is off (src/photoshop/host/arrange.ts orderSentence).
-    front: { panel: "can-white copy 2", row: "can-white" },
+    front: { panel: names.at(-1), row: names[0] },
     // The Products tile: every product in the document, the artboard in focus first, each other artboard under its name.
     // Products are numbered on their own artboard, so Story has an Assemblr 1 of its own.
     products: list(boards),

@@ -7,19 +7,25 @@
 // right and a price bottom left, $12.50 drawn by Set 1's dollars style.
 import { CAN, lineup } from "./assemblr-photoshop-panel.js";
 import { E, laidOut, cornerStack, handOf, r1, PRICE_ASPECT } from "./engine-layout.js";
+import { SHAPES, shapeOf } from "./shapes.js";
 
-const image = (name, extra = {}) => ({ name, src: CAN[name.includes("black") ? "black" : "white"], ext: name.split(".").pop().toUpperCase(), ...extra });
+/** n files of one shape, named as InDesign names placed files: copies of one file share its name. */
+const files = (key, n) => Array.from({ length: n }, () => `${key}.psd`);
 
-const CANS = ["can-white.psd", "can-black.psd", "can-white.psd", "can-black.psd", "can-white.psd"].map((n) => image(n));
+const image = (name, extra = {}) => ({ name, src: CAN[shapeOf(name)], ext: name.split(".").pop().toUpperCase(), ...extra });
+
+// Same objects stand together: three pink boxes then two tan pillars.
+const CAN_NAMES = [...files("pink-box", 3), ...files("tan-pillar", 2)];
+const CANS = CAN_NAMES.map((n) => image(n));
 
 /** The Products list as the panel draws it: a divider where the list moves on to another page, each product its row. */
 const PAGES = [
   { page: "Page 2", products: [
-    { name: "Cans", selected: true, images: CANS },
-    { name: "Product 2", locked: 1, images: [image("can-black.psd"), image("can-white.psd", { off: true }), image("can-black.psd")] },
+    { name: "Boxes", selected: true, images: CANS },
+    { name: "Product 2", locked: 1, images: files("blue-slab", 3).map((n, i) => image(n, i === 1 ? { off: true } : {})) },
   ] },
   { page: "Page 3", products: [
-    { name: "Product 3", disconnected: true, images: ["can-white.psd", "can-black.psd", "can-white.psd", "can-black.psd"].map((n) => image(n)) },
+    { name: "Product 3", disconnected: true, images: [...files("green-brick", 2), ...files("amber-bar", 2)].map((n) => image(n)) },
   ] },
 ];
 // Each product's place in the list, for the drawing's marks (a Nunjucks counter does not outlive its loop).
@@ -50,15 +56,15 @@ function corners() {
  *  product moved whole to another layer works there (rule 8, D84): its square dragged in the Layers panel. At its new
  *  size the frame's images re-fit, a grid of one row as Assemble starts, so the drawing scales them with it. */
 function how() {
-  const names = ["can-white.psd", "can-black.psd", "can-white.psd"];
+  const names = files("pink-box", 3);
   const text = { name: "Summer range" };
   const LAYER_1 = "#b5b5b5", ASSEMBLR = "#3372f6";
   const frame = (x, y, w, h) => {
-    const ch = h * 0.86, cw = ch * (471 / 800), gap = w * 0.03;
+    const ch = h * 0.86, cw = ch * SHAPES["pink-box"].aspect, gap = w * 0.03;
     const x0 = x + (w - 3 * cw - 2 * gap) / 2, y0 = y + (h - ch) / 2;
     return {
       x, y, w, h,
-      cans: names.map((n, i) => ({ src: CAN[n.includes("black") ? "black" : "white"], x: r1(x0 + i * (cw + gap)), y: r1(y0), w: r1(cw), h: r1(ch) })),
+      cans: names.map((n, i) => ({ src: CAN[shapeOf(n)], x: r1(x0 + i * (cw + gap)), y: r1(y0), w: r1(cw), h: r1(ch) })),
       handles: [[x, y], [x + w / 2, y], [x + w, y], [x + w, y + h / 2], [x + w, y + h], [x + w / 2, y + h], [x, y + h], [x, y + h / 2]],
     };
   };
@@ -94,7 +100,7 @@ const SHAPE_INSET = 12;
 // landscape rectangle, so the host records that rectangle's shape with it (setLineup's stampSizeAspect, D89). Dragged
 // to portrait, the recorded shape no longer fills the narrower rectangle, so Size is read in the new one (D89 (2f),
 // sizeShape): the front can as tall as it allows, the others tucked in behind (the overlap in each one's evidence).
-const SIX = ["can-white.psd", "can-black.psd", "can-white.psd", "can-black.psd", "can-white.psd", "can-black.psd"];
+const SIX = [...files("pink-box", 3), ...files("tan-pillar", 3)];
 const LANDSCAPE = [420, 230], PORTRAIT = [240, 330];
 const LINEUP = { ...E.modeStart("line"), angle: 0, perspective: 0.4, baseline: "centre", size: 1, sizeAspect: LANDSCAPE[0] / LANDSCAPE[1] };
 const ALIGN = { top: "Top", centre: "Middle", bottom: "Bottom" };
@@ -111,17 +117,18 @@ const ALIGN = { top: "Top", centre: "Middle", bottom: "Bottom" };
  * turns (handOf) and sized by hand, every fourth one large (Puzzle keeps a hand size and a turn).
  */
 function modes() {
-  const cans = (n) => Array.from({ length: n }, (_, i) => (i % 2 ? "can-black.psd" : "can-white.psd"));
+  // Same objects stand together, a group of each shape in turn.
+  const cans = (groups) => groups.flatMap(([key, n]) => files(key, n));
   const puzzleHand = handOf(3, 16).map((h, i) => ({ weight: i % 4 === 0 ? 2.6 : h.weight * 0.8, angle: h.angle }));
   // Each laid out inside a 12 pt margin of its tile, so no can touches the tile's edge.
   const W = 240, H = 170, pad = 12;
-  const lay = (id, name, text, n, params, hands) => ({ id, name, text, pad, ...laidOut(W - 2 * pad, H - 2 * pad, cans(n), params, hands) });
+  const lay = (id, name, text, groups, params, hands) => ({ id, name, text, pad, ...laidOut(W - 2 * pad, H - 2 * pad, cans(groups), params, hands) });
   return [
-    lay("line", "Line-up", "One row, with an angle and perspective.", 6, { ...E.modeStart("line"), angle: -15, spacing: -0.3, size: null, perspective: 0.4, alignY: "centre" }),
-    lay("grid", "Grid", "Rows and columns.", 6, { ...E.modeStart("grid"), cols: 3, gap: -0.45, gapY: 0.04, alignX: "centre", alignY: "centre" }),
-    lay("mosaic", "Mosaic", "Arranged and scaled to fill the space.", 7, E.modeStart("mosaic")),
-    lay("pins", "Pins", "A bowling-pins formation.", 6, { ...E.modeStart("pins"), gapY: -0.55, perspective: 0.25, alignY: "centre" }),
-    lay("puzzle", "Puzzle", "Tightly packed round each other, at equal area or at the sizes you give them.", 16, E.modeStart("puzzle"), puzzleHand),
+    lay("line", "Line-up", "One row, with an angle and perspective.", [["pink-box", 3], ["tan-pillar", 3]], { ...E.modeStart("line"), angle: -15, spacing: -0.3, size: null, perspective: 0.4, alignY: "centre" }),
+    lay("grid", "Grid", "Rows and columns.", [["pink-box", 3], ["tan-pillar", 3]], { ...E.modeStart("grid"), cols: 3, gap: -0.45, gapY: 0.04, alignX: "centre", alignY: "centre" }),
+    lay("mosaic", "Mosaic", "Arranged and scaled to fill the space.", [["grey-cube", 4], ["blue-slab", 3]], E.modeStart("mosaic")),
+    lay("pins", "Pins", "A bowling-pins formation.", [["pink-box", 3], ["amber-bar", 2], ["tan-pillar", 1]], { ...E.modeStart("pins"), gapY: -0.55, perspective: 0.25, alignY: "centre" }),
+    lay("puzzle", "Puzzle", "Tightly packed round each other, at equal area or at the sizes you give them.", [["grey-cube", 8], ["yellow-disc", 5], ["red-tile", 3]], E.modeStart("puzzle"), puzzleHand),
   ];
 }
 
@@ -137,10 +144,10 @@ export function assemblrPanel() {
   return {
     how: how(),
     page: "2",
-    product: { name: "Cans", images: CANS },
+    product: { name: "Boxes", images: CANS },
     // Three more images selected, in no product: what the Assemble section counts.
     assemble: 3,
-    row: lineup({ n: CANS.length }),
+    row: lineup({ n: CANS.length, shapes: CAN_NAMES.map(shapeOf) }),
     products: { pages: PAGES, count: PAGES.reduce((n, p) => n + p.products.length, 0) },
     overlays: {
       drawing: corners(),

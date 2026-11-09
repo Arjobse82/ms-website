@@ -19,9 +19,12 @@ const READ_LONG = 512;
 const MAX = 10;
 // The page is a document this many points wide (A4's short side), so the panel's pt fields mean what they mean in InDesign.
 const PAGE_PT = 595;
+// The objects, three of one before the next: like objects stand together (src/_lib/shapes.js).
 const CANS = [
-  { src: new URL("../img/can-white.webp", import.meta.url).href, label: "White can" },
-  { src: new URL("../img/can-black.webp", import.meta.url).href, label: "Black can" },
+  { src: new URL("../img/shape-pink-box.webp", import.meta.url).href, label: "Pink box" },
+  { src: new URL("../img/shape-tan-pillar.webp", import.meta.url).href, label: "Tan pillar" },
+  { src: new URL("../img/shape-blue-slab.webp", import.meta.url).href, label: "Blue slab" },
+  { src: new URL("../img/shape-grey-cube.webp", import.meta.url).href, label: "Grey cube" },
 ];
 // Clear space round each can, in can heights [top, left, bottom, right]: packshots never agree on it, which is the
 // whole problem.
@@ -171,7 +174,7 @@ export async function startDemo(root) {
   let S;
   let uid = 0;
   const canPicture = (i, hand) => {
-    const can = cans[i % cans.length], p = padded(can.m, PADS[i % PADS.length]);
+    const can = cans[Math.floor(i / 3) % cans.length], p = padded(can.m, PADS[i % PADS.length]);
     return { key: `can-${i}`, label: can.label, src: can.src, subject: p.subject, inner: p.inner, on: true, hand };
   };
   const overlay = (kind, id, extra = {}) => ({ kind, id, key: `ov-${++uid}`, ...extra });
@@ -665,7 +668,7 @@ export async function startDemo(root) {
       });
       strip.append(thumb);
     });
-    if (S.pictures.length < MAX) strip.append(h("button", { class: "ad-thumb ad-thumb-add", type: "button", "aria-label": "Add a can", title: "Add a can", onclick: addCan }, "+"));
+    if (S.pictures.length < MAX) strip.append(h("button", { class: "ad-thumb ad-thumb-add", type: "button", "aria-label": "Add an object", title: "Add an object", onclick: addCan }, "+"));
     return strip;
   }
 
@@ -737,7 +740,7 @@ export async function startDemo(root) {
 
   function renderToolbar() {
     toolbar.replaceChildren(
-      h("button", { class: "ad-tool", type: "button", title: "Give each can a new size (Line-up and Puzzle keep them), and in Puzzle a turn", onclick: () => { S.seed++; const hand = handOf(S.seed, MAX); S.pictures.forEach((p, i) => { p.hand = hand[i]; }); render(); queue(); } }, "Randomise size"),
+      h("button", { class: "ad-tool", type: "button", title: "Give each object a new size (Line-up and Puzzle keep them), and in Puzzle a turn", onclick: () => { S.seed++; const hand = handOf(S.seed, MAX); S.pictures.forEach((p, i) => { p.hand = hand[i]; }); render(); queue(); } }, "Randomise size"),
       h("button", { class: "ad-tool", type: "button", onclick: () => { S.pictures.filter((p) => p.key.startsWith("own-")).forEach((p) => URL.revokeObjectURL(p.src)); fresh(); syncElements(); render(); queue(); } }, "Start again"));
   }
 

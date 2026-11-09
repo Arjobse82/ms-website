@@ -29,6 +29,8 @@ build granite     L1061424.JPG 0   800 1600 2400
 build granite-tall L1061422.JPG 270 800 1600
 build frame-multiplier frame-multiplier-heroL1062024.JPG 0 800 1600 2400
 build bloom      bloom-preflight-L1060980.JPG 0 800 1600 2400
+# The About page's hero.
+build about      L1061270.JPG 0 800 1600 2400
 # The poster of Assemblr's intro video: the video's own thumbnail (i.ytimg.com/vi/fQn1EZXqsBs/maxresdefault.jpg).
 build assemblr-intro assemblr-intro.jpg 0 800 1280
 
@@ -40,16 +42,10 @@ sips -Z 336 $tmp/st.png >/dev/null
 cwebp -quiet -q 86 -m 6 $tmp/st.png -o $out/studio-tools-icon.webp
 echo "studio-tools-icon.webp  $(du -h $out/studio-tools-icon.webp | cut -f1)"
 
-# The cans in Assemblr's live demo: cut-outs, so the alpha is kept (cwebp's alpha is lossless by default, and the
-# demo measures it). 800 px tall, for the tallest a can is drawn (about 400 px) at 2×.
-cutout() {
-  local name=$1 file=$2
-  sips --resampleHeight 800 $src/$file --out $tmp/$name.png >/dev/null
-  cwebp -quiet -q 82 -m 6 $tmp/$name.png -o $out/$name.webp
-  echo "$name.webp  $(du -h $out/$name.webp | cut -f1)"
-}
-cutout can-white can-assemblr-interp-white.png
-cutout can-black can-assemblr-interp.png
+# The example objects in Assemblr's drawings and live demo (src/_lib/shapes.js): ten 3D shapes, cut-outs, so the alpha
+# is kept (cwebp's alpha is lossless by default, and the demo measures it). Not built here: each is a transparent PNG
+# trimmed to its visible edge plus a 3 % margin, 800 px tall (sips cannot trim by alpha), then cwebp -q 82 -m 6 into
+# src/assets/img/shape-<key>.webp. The bounding boxes in shapes.js are measured from that trim; redo both together.
 
 # A product's tour: its Figma Community carousel (git-ignore/assets/carousels), in order. Screens with text in them, so
 # a higher quality than the photos, never tinted or turned. 960 and 1920 wide, as made (16 : 9).

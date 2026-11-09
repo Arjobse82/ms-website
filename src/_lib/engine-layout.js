@@ -4,17 +4,18 @@
 // the demo places them; and a corner's overlays by the corner's stack. In points, in a w × h area.
 // Kept out of src/_data, as a data file's named exports change what Eleventy reads from it.
 import * as E from "../assets/js/assemblr-engine.js";
-import { CAN } from "./assemblr-photoshop-panel.js";
+import { SHAPES, SHAPE_SRC, shapeOf } from "./shapes.js";
 
 export { E };
 
-/** The cans' visible subject, as the engine's traceAlpha reads it from can-white.webp and can-black.webp (one box for both). */
-export const CAN_SUBJECT = { box: [0.0325, 0.0977, 0.9513, 0.9321], aspect: 471 / 800 };
+/** Each shape's visible subject, as the engine's traceAlpha reads it from its cut-out (src/_lib/shapes.js): `box` is
+ *  [top, left, bottom, right] as fractions of the image, the engine's rectangle order. */
 /** The demo's price design, "$X.XX each". */
 export const PRICE_ASPECT = 150 / 90;
 
 export const r1 = (n) => Math.round(n * 10) / 10;
-const canOf = (name) => CAN[name.includes("black") ? "black" : "white"];
+const canOf = (name) => SHAPE_SRC[shapeOf(name)];
+const subjectOf = (name) => SHAPES[shapeOf(name)];
 
 /** The demo's sizes and turns by hand, dealt from a seed (src/assets/js/assemblr-demo.js handOf, kept the same): a weight,
  *  an AREA ratio, and a turn in degrees, InDesign's sense (positive is counter-clockwise). */
@@ -41,19 +42,21 @@ export function handOf(seed, n) {
 export function laidOut(w, h, names, params, hands = []) {
   const keepsHand = params.mode === "line" || params.mode === "puzzle";
   const turnOf = (i) => (params.mode === "puzzle" ? hands[i]?.angle ?? 0 : 0);
-  const subjects = names.map((_, i) => {
-    const s = keepsHand && hands[i] && hands[i].weight !== 1 ? { ...CAN_SUBJECT, weight: hands[i].weight } : CAN_SUBJECT;
+  const subjects = names.map((name, i) => {
+    const base = subjectOf(name);
+    const s = keepsHand && hands[i] && hands[i].weight !== 1 ? { ...base, weight: hands[i].weight } : base;
     return turnOf(i) ? { ...s, angle: turnOf(i) } : s;
   });
   const out = E.solvePreview({ aspect: w / h, subjects }, params);
-  const f = E.withBleed(CAN_SUBJECT.box, params.bleed);
   const cans = [...out.items].sort((a, b) => a.z - b.z).map((placed) => {
     const turn = turnOf(placed.index);
+    const sub = subjectOf(names[placed.index]);
+    const f = E.withBleed(sub.box, params.bleed);
     let rect = placed.rect, cx = 0, cy = 0;
     if (turn) {
       // The solver's rect is the box the turned subject sweeps: the subject upright, its own size, about the same middle.
       cx = ((rect[1] + rect[3]) / 2) * w; cy = ((rect[0] + rect[2]) / 2) * h;
-      const a = ((f[3] - f[1]) * CAN_SUBJECT.aspect) / (f[2] - f[0]);
+      const a = ((f[3] - f[1]) * sub.aspect) / (f[2] - f[0]);
       const hs = E.uprightHeight((rect[2] - rect[0]) * h, a, turn), ws = a * hs;
       rect = [(cy - hs / 2) / h, (cx - ws / 2) / w, (cy + hs / 2) / h, (cx + ws / 2) / w];
     }

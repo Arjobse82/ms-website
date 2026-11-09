@@ -90,7 +90,7 @@ export default {
         items: [
           { id: "already", q: "Already in Assemblr 1.", a: ["Every layer you selected is in a product already. Select others, or use Add selected or a strip to move one."] },
           { id: "background", q: "Background is the Background layer: it cannot be assembled.", a: ["Turn it into an ordinary layer first, with Layer ▸ New ▸ Layer from Background, or leave it out of the selection."] },
-          { id: "converted", q: "can-white converted to a smart object.", a: ["A layer that is not a smart object becomes one when you assemble it, and stays one. Layer ▸ Smart Objects ▸ Convert to Layers gives you the original layers back, out of the product."] },
+          { id: "converted", q: "pink-box converted to a smart object.", a: ["A layer that is not a smart object becomes one when you assemble it, and stays one. Layer ▸ Smart Objects ▸ Convert to Layers gives you the original layers back, out of the product."] },
           { id: "choose", q: "Choose arrangement", a: ["The product is assembled but not laid out yet. Pick one of the five arrangements at the top of the Layout tile."] },
           { id: "front", q: "The Layers panel puts … in front; the row's front is …", a: ["The Layers panel's order and the row's differ. Tick Allow Assemblr to restack layers behind the cog to make them agree, or leave it: the canvas is right either way."] },
           { id: "snapped", q: "… snapped back into Assemblr 1", a: ["You moved one of the product's layers by hand. Move the rectangle to move the set, or Disconnect the product to place its layers by hand."] },
