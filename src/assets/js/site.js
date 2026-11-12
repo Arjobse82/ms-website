@@ -457,8 +457,13 @@ function initJourney() {
       let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
       for (const e of els) {
         const r = e.getBoundingClientRect();
-        x1 = Math.min(x1, (r.left - wr.left) / s); y1 = Math.min(y1, (r.top - wr.top) / s);
-        x2 = Math.max(x2, (r.right - wr.left) / s); y2 = Math.max(y2, (r.bottom - wr.top) / s);
+        // A card (or a chat turn) still sliding in: measured where it lands, not where it is mid-slide, or its
+        // highlight is left off centre by the slide (cards come in from 14px aside).
+        const slide = e.closest(".aj-card, .aj-turn");
+        const m = slide ? new DOMMatrixReadOnly(getComputedStyle(slide).transform === "none" ? undefined : getComputedStyle(slide).transform) : null;
+        const dx = m ? m.e : 0, dy = m ? m.f : 0;
+        x1 = Math.min(x1, (r.left - wr.left) / s - dx); y1 = Math.min(y1, (r.top - wr.top) / s - dy);
+        x2 = Math.max(x2, (r.right - wr.left) / s - dx); y2 = Math.max(y2, (r.bottom - wr.top) / s - dy);
       }
       return { x: x1, y: y1, w: x2 - x1, h: y2 - y1 };
     };
