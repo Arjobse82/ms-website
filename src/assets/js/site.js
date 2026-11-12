@@ -491,7 +491,7 @@ function initJourney() {
       const step = steps[n];
       capK.textContent = String(n + 1).padStart(2, "0");
       capT.textContent = step.querySelector("h3").textContent;
-      capX.textContent = step.querySelector("p").textContent;
+      capX.innerHTML = step.querySelector("p").innerHTML;
       capBody.classList.remove("is-new"); void capBody.offsetWidth; capBody.classList.add("is-new");
       dots.forEach((d, k) => { d.classList.toggle("is-past", k < n); d.classList.toggle("is-now", k === n); });
       // A phone's camera (`data-mcam`) frames less, so what it shows can be read.

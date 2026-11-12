@@ -280,7 +280,7 @@
   </div>
   <ol class="aj-steps">
     {%- for s in j.steps %}
-    <li class="aj-step" data-step="{{ loop.index0 }}" data-cam="{{ s.cam }}" data-mcam="{{ s.mcam }}" data-hl="{{ s.hl | dump }}"><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>
+    <li class="aj-step" data-step="{{ loop.index0 }}" data-cam="{{ s.cam }}" data-mcam="{{ s.mcam }}" data-hl="{{ s.hl | dump }}"><h3>{{ s.title }}</h3><p>{{ s.text | escape | replace(r/\*\*(.+?)\*\*/g, "<strong>$1</strong>") | safe }}</p></li>
     {%- endfor %}
   </ol>
 </div>
