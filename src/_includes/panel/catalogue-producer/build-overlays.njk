@@ -1,0 +1,11 @@
+{#- How the spread is made, step 6 (build.njk): Products ▸ Overlays, a badge and a price device on two corners. -#}
+{%- from "panel/ui.njk" import sel, btn %}
+<div class="pt-card">
+  <p class="pt-label">Products ▸ Overlays</p>
+  <div class="pt-line cb-set"><span class="pt-title">Top right</span><span class="pt-seg pt-corners pt-right"><span class="c-tl"></span><span class="c-tr is-on"></span><span class="c-bl"></span><span class="c-br"></span></span></div>
+  <div class="pt-field"><span class="pt-flabel">Sources</span><span class="pt-chip">Badges ×</span><span class="pt-meta">new.png</span></div>
+  <hr class="pt-rule">
+  <div class="pt-line cb-set"><span class="pt-title">Bottom left</span><span class="pt-seg pt-corners pt-right"><span class="c-tl"></span><span class="c-tr"></span><span class="c-bl is-on"></span><span class="c-br"></span></span></div>
+  <div class="pt-field"><span class="pt-flabel">Sources</span>{{ sel("Price") }}<span class="pt-meta">Price dollars.idml — $X.XX</span></div>
+  <div class="pt-btns">{{ btn("Apply this corner to document") }}</div>
+</div>

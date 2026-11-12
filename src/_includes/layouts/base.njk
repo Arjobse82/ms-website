@@ -25,6 +25,11 @@
   {%- endif %}
   <link rel="stylesheet" href="/assets/css/panels/{{ panelOf }}.css?v={{ build.version }}">
   {%- endif %}
+  {#- Ad Agent's journey (partials/ad-journey.njk) its own. #}
+  {%- set journeyOf = product.journey if product else (app.products[0].journey if app and app.standalone else false) %}
+  {%- if journeyOf %}
+  <link rel="stylesheet" href="/assets/css/ad-journey.css?v={{ build.version }}">
+  {%- endif %}
   {#- An app's page that draws a product's panel on its card (`cardPanel`, partials/app-page.njk) brings that panel's look. #}
   {%- if app and not product and not app.standalone %}
   {%- for p in app.products %}{% if p.cardPanel %}

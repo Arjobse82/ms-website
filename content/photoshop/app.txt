@@ -1,0 +1,15 @@
+name: Photoshop
+kind: Photoshop plugin
+subhead: Batch work, without the batch work.
+intro: Repeatable image production in Photoshop, from one file to a thousand.
+
+# install
+
+## Download the plugin.
+Use the Get button on the plugin's page to download its installer file.
+
+## Double-click to install.
+Creative Cloud installs the plugin for you.
+
+## Open it from the Plugins menu.
+Restart Photoshop and find it in the Plugins menu.

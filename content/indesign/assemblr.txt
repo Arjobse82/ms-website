@@ -1,0 +1,34 @@
+name: Assemblr
+tagline: A page layout engine.
+description: A page layout engine that can arrange images into various formations with the ability to add overlay graphics or price devices to each corner. Everything automatically resizes and readjusts using a single bounding rectangle. 
+
+# highlights
+
+## Lined up by what shows.
+Each image is arranged by its visible subject, read from the file's transparency, so the products line up, not just their frames.
+
+## One rectangle drives it all.
+Assemble puts the images on a layer of their own and draws an empty rectangle round them. Move it, or drag it from landscape to portrait, and they are laid out again for the new shape.
+
+## Five arrangements.
+Line-up, Grid, Mosaic, Pins or Puzzle, each keeping its own settings for when you switch back. Change a setting and the page follows.
+
+## Badges and prices on the corners.
+Load a badge onto any corner, or a price in your own InDesign design: the digits go where its Xs are, its styles kept. Each keeps its distance from the edges as the product changes shape.
+
+## Your edits, kept.
+Crop, scale or turn an image by hand. Assemblr waits until you deselect, then lays the product out once: the crop is kept, and the scale and turn in Line-up, Grid and Puzzle.
+
+# specs
+
+Works with: InDesign 2026 (21.0 or later)
+Arrangements: Line-up, Grid, Mosaic, Pins and Puzzle
+Undo: One step for every action
+Platform: macOS, no account, no network
+Availability: Adobe Exchange
+Price: To be announced
+
+# video
+
+label: Intro
+title: Assemblr intro

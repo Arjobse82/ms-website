@@ -2,10 +2,11 @@
 {%- from "dashboard/ui.njk" import widget %}
 <nav class="chapternav" aria-label="{{ app.name }} plugins">
   <ul class="chapternav-items">
-    {%- for p in app.products %}
+    {#- A featured app (alsoFeatures) is not this app's own plugin: its tile is filled black. -#}
+    {%- for p in app.lineup %}
     <li>
       <a href="{{ p.url }}">
-        <span class="chapter-tile">{% include "icons/" + p.icon + ".svg" %}</span>
+        <span class="chapter-tile{% if p.also %} chapter-tile-featured{% endif %}">{% include "icons/" + p.icon + ".svg" %}</span>
         <span class="chapternav-label">{{ p.name }}</span>
       </a>
     </li>
@@ -38,9 +39,9 @@
 <section class="section theme-gray" id="lineup">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">01</span><span class="label">Lineup</span></div>
-    <h2 class="t-l section-title reveal">Explore the lineup</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.appLineupTitle }}</h2>
     <div class="lineup">
-      {%- for p in app.products %}
+      {%- for p in app.lineup %}
       <article class="lineup-card reveal">
         {%- if p.job %}
         {#- The plugin's own window, its bloom live (jobs.js), where the other cards have a photo or a plain tile. -#}
@@ -129,11 +130,12 @@
         {% include "partials/tile.njk" %}
         {%- endif %}
         <div class="lineup-card-body">
+          {%- if p.also %}<p class="label">{{ pages.labels.alsoWorksWith | replace("{name}", app.name) }}</p>{% endif %}
           <h3 class="lineup-card-title">{{ p.name }}</h3>
           <p class="lineup-card-tagline">{{ p.tagline }}</p>
           <p class="lineup-card-text">{{ p.description }}</p>
           <div class="cta-row">
-            <a class="button button-primary button-compact" href="{{ p.url }}">Learn more</a>
+            <a class="button button-primary button-compact" href="{{ p.url }}">{{ pages.labels.learnMore }}</a>
             {% include "partials/get-button.njk" %}
           </div>
         </div>
@@ -143,19 +145,22 @@
   </div>
 </section>
 
+{#- `hideWhy` in apps.json leaves this section out (Figma, until it goes live). -#}
+{%- if not app.hideWhy %}
 <section class="section theme-light" id="why">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">02</span><span class="label">Principles</span></div>
-    <h2 class="t-l section-title reveal">Why Monochrome</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.whyTitle }}</h2>
   </div>
   {% include "partials/gallery.njk" %}
 </section>
+{%- endif %}
 
 {%- if app.install %}
 <section class="section theme-gray" id="install">
   <div class="container container-wide">
-    <div class="section-head reveal"><span class="section-index">03</span><span class="label">Install</span></div>
-    <h2 class="t-l section-title reveal">How to install</h2>
+    <div class="section-head reveal"><span class="section-index">{{ "02" if app.hideWhy else "03" }}</span><span class="label">Install</span></div>
+    <h2 class="t-l section-title reveal">{{ pages.labels.installTitle }}</h2>
     <ol class="steps">
       {%- for step in app.install %}
       <li class="step reveal">

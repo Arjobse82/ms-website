@@ -14,8 +14,8 @@ npm run build      # writes the site to _site/
 
 | To change | Edit |
 | --- | --- |
-| Apps, products, taglines, install steps, Get links | `src/_data/apps.json` |
-| Site name, tagline, principles, default product highlights | `src/_data/site.json` |
+| **The words** on every page: names, taglines, descriptions, prices, highlights, tech specs, tour captions, install steps, headings | the plain text files in `content/` (start with `content/README.txt`) |
+| Which apps and products exist, their photos, icons, tiles and Get links | `src/_data/apps.json` |
 | Global nav and flyouts | `src/_includes/partials/globalnav.njk` |
 | Page layouts | `src/_includes/partials/app-page.njk`, `product-page.njk`, `src/index.njk`, `src/about.njk` |
 | Styles | `src/assets/css/main.css` |

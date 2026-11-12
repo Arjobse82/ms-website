@@ -1,0 +1,14 @@
+{#- How the spread is made, step 9 (build.njk): Products ▸ Layout, the Mixed case's strip of images, its first and
+    last swapped (catalogue-art.js `build.strip`). -#}
+{%- set strip = panels[panelId].art.build.strip %}
+<div class="pt-card">
+  <p class="pt-label">Products ▸ Layout</p>
+  <div class="pt-line"><span class="pt-title">Mixed case</span><span class="pt-meta pt-right">410207 | Page 3</span></div>
+  <div class="pt-modes"><span>Line-up</span><span>Grid</span><span>Mosaic</span><span class="is-on">Pins</span><span>Puzzle</span></div>
+  <p class="pt-label pt-sub">Images</p>
+  <div class="cw-strip cb-strip">
+    {%- for i in strip %}<span class="cw-thumb{% if i.on %} cb-set{% endif %}"><img src="{{ i.src }}" alt="" loading="lazy"><span>PSD</span></span>{% endfor %}
+    <span class="cw-thumb cw-add">+</span>
+  </div>
+  <p class="pt-meta">Drag an image onto another to swap them; × takes one out.</p>
+</div>

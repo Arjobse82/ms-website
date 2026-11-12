@@ -9,7 +9,7 @@
 {%- macro mark(x1, y1, x2, y2) %}<path class="hw-dim" d="M{{ x1 }} {{ y1 }}L{{ x2 }} {{ y2 }}{% if x1 == x2 %}M{{ x1 - 3 }} {{ y1 }}h6M{{ x2 - 3 }} {{ y2 }}h6{% else %}M{{ x1 }} {{ y1 - 3 }}v6M{{ x2 }} {{ y2 - 3 }}v6{% endif %}"/>{% endmacro %}
 {%- macro pill(x, y, anchor, inset) %}
 {%- set pw = 36 %}{% set left = x if anchor == "start" else (x - pw if anchor == "end" else x - pw / 2) %}
-<g class="hw-pill"><rect x="{{ left }}" y="{{ y - 8 }}" width="{{ pw }}" height="16" rx="8"/><text x="{{ left + pw / 2 }}" y="{{ y + 3.6 }}">{{ inset }} pt</text></g>
+<g class="hw-pill"><rect x="{{ left }}" y="{{ y - 8 }}" width="{{ pw }}" height="16" rx="8"/><text x="{{ left + pw / 2 }}" y="{{ y + 3.6 }}">{{ inset }} mm</text></g>
 {%- endmacro %}
 {%- macro state(s, pad, inset, cursor) %}
 <svg class="hw-shape-svg" viewBox="{{ -pad }} {{ -pad }} {{ s.w + 2 * pad }} {{ s.h + 2 * pad }}">

@@ -1,0 +1,7 @@
+// The About page. The statement under the title and the four principles are in ../site.txt.
+makeTitle: What we make
+makeText: Plugins for Figma, InDesign and Photoshop, and Ad Agent, a Mac app that rolls a campaign out to every size it needs. Each one does a single job well, inside the app you already use.
+workTitle: How we work
+workText: A short paragraph about the team, how the tools get made and what matters to you. Replace this with your own words.
+principlesTitle: What we believe
+appsTitle: The apps

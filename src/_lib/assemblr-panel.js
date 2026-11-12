@@ -82,54 +82,103 @@ function how() {
       { name: "Layer 1", colour: LAYER_1, closed: true, sel: "to" },
     ] },
     modes: modes(),
+    overlays: overlaysHow(),
+    sizes: sizesHow(),
     // Six cans in Line-up, landscape and then portrait, at the same settings; and those settings as the panel shows them.
     shape: {
-      inset: SHAPE_INSET, from: reshaped(...LANDSCAPE, SIX, LINEUP), to: reshaped(...PORTRAIT, SIX, LINEUP),
-      settings: { align: ALIGN[LINEUP.baseline], angle: LINEUP.angle, size: Math.round(LINEUP.size * 100), perspective: Math.round(LINEUP.perspective * 100) },
+      inset: SHAPE_INSET_MM, from: reshaped(...LANDSCAPE, SIX, LINEUP), to: reshaped(...PORTRAIT, SIX, LINEUP),
+      // Size never typed: the panel shows what the overlap amounts to in each shape (sections.ts sizeOf).
+      settings: { align: ALIGN[LINEUP.baseline], angle: LINEUP.angle, overlap: Math.round(-LINEUP.spacing * 100), size: sizeShown(...LANDSCAPE), sizeTo: sizeShown(...PORTRAIT), perspective: Math.round(LINEUP.perspective * 100) },
     },
   };
 }
 
 // Landscape to portrait (panel/assemblr/how-shape.njk), laid out by Assemblr's own engine (src/_lib/engine-layout.js),
 // in points; the overlays at the corner's defaults (40 pt at most, Resize scale off) but for its insets, drawn wider
-// than the 6 pt default to be seen.
-const SHAPE_INSET = 12;
+// than the 6 pt default to be seen: 4 mm, labelled in mm (the owner, 2026-11-11: "swap pt for mm").
+const MM = 72 / 25.4;
+const SHAPE_INSET_MM = 4, SHAPE_INSET = SHAPE_INSET_MM * MM;
 
 // Six cans in Line-up: the row level (Angle 0, the owner, 2026-11-02), Perspective 40 %, Align images Middle (the
-// engine's baseline "centre", the panel's ALIGN_CHIPS in src/ui/lineup-widget.ts), and Size 100 % typed in the
-// landscape rectangle, so the host records that rectangle's shape with it (setLineup's stampSizeAspect, D89). Dragged
-// to portrait, the recorded shape no longer fills the narrower rectangle, so Size is read in the new one (D89 (2f),
-// sizeShape): the front can as tall as it allows, the others tucked in behind (the overlap in each one's evidence).
-const SIX = [...files("pink-box", 3), ...files("tan-pillar", 3)];
+// engine's baseline "centre", the panel's ALIGN_CHIPS in src/ui/lineup-widget.ts), overlapping by 10 % with Size never
+// typed, so the overlap governs (D37) and the row keeps it at any shape, scaled to fit: in portrait the cans get smaller
+// rather than tucking in. (Size 100 % typed in landscape tucked them to about 70 % in portrait, D89 (2f) sizeShape: too
+// much overlap for the hero, the owner, 2026-11-11.) The panel's Size box shows what the overlap amounts to in each shape.
+const SIX = files("pink-box", 6); // One object, six of it (the owner, 2026-11-11).
 const LANDSCAPE = [420, 230], PORTRAIT = [240, 330];
-const LINEUP = { ...E.modeStart("line"), angle: 0, perspective: 0.4, baseline: "centre", size: 1, sizeAspect: LANDSCAPE[0] / LANDSCAPE[1] };
+const LINEUP = { ...E.modeStart("line"), angle: 0, perspective: 0.4, baseline: "centre", alignY: "centre", size: null, spacing: -0.1 };
+/** The Size the panel shows for LINEUP in a w × h rectangle (catalague-producer src/assemblr/ui/sections.ts sizeOf). */
+function sizeShown(w, h) {
+  const preview = { aspect: w / h, subjects: SIX.map((n) => SHAPES[shapeOf(n)]) };
+  return Math.round(E.sizeOfSpacing(LINEUP.spacing, { items: E.previewItems(preview, LINEUP), aspect: w / h, params: LINEUP }) * 100);
+}
 const ALIGN = { top: "Top", centre: "Middle", bottom: "Bottom" };
 
 /**
  * The five arrangements (panel/assemblr/how-modes.njk, the owner, 2026-11-02), each laid out by the engine in a 240 × 170
  * pt tile, named and described as the Layout tile's mode chips are (catalague-producer src/assemblr/ui/sections.ts
- * modeChip). Cans as the demo has them, white and black by turns; each arrangement as a designer might set it, so it
- * looks like itself with cans that are all one shape: Line-up turned to −15°, so the row rises as it goes back towards
- * the horizon (the owner, 2026-11-02), overlapping by 30 % (spacing −0.30, Size unset) and receding with Perspective
- * 40 %; Grid three across, closed up 45 % across; Mosaic with seven, a row of
- * three over a row of four; Pins a rack of three, two and one, each row riding up behind the one in front (Space down
- * −55 %) and a little smaller (Perspective 25 %); Puzzle with sixteen, nested round each other, turned as the demo deals
- * turns (handOf) and sized by hand, every fourth one large (Puzzle keeps a hand size and a turn).
+ * modeChip). Each arrangement as a designer might set it (the owner, 2026-11-11): Line-up the hero's own row (SIX and
+ * LINEUP above: six pink boxes, level, overlapping by 10 %, Perspective 40 %); Grid six blue slabs three across and two
+ * down, overlapping 40 % both ways; Mosaic five different objects, one each; Pins a rack of three, two and one of one
+ * object, the yellow disc, each row riding up behind the one in front (Space down −55 %) and a little smaller
+ * (Perspective 25 %); Puzzle with sixteen, nested round each other, turned as the demo deals turns (handOf) and sized
+ * by hand from large to tiny (Puzzle keeps a hand size and a turn).
  */
 function modes() {
   // Same objects stand together, a group of each shape in turn.
   const cans = (groups) => groups.flatMap(([key, n]) => files(key, n));
-  const puzzleHand = handOf(3, 16).map((h, i) => ({ weight: i % 4 === 0 ? 2.6 : h.weight * 0.8, angle: h.angle }));
+  // Sixteen sizes, from 12 down to 0.08 evenly in log, dealt so neighbours differ (the owner, 2026-11-11: "more varied").
+  const sizes = Array.from({ length: 16 }, (_, k) => 12 * Math.pow(0.08 / 12, k / 15));
+  const deal = [0, 15, 3, 9, 1, 12, 6, 14, 2, 10, 5, 13, 4, 11, 7, 8];
+  const puzzleHand = handOf(3, 16).map((h, i) => ({ weight: sizes[deal[i]], angle: h.angle }));
   // Each laid out inside a 12 pt margin of its tile, so no can touches the tile's edge.
   const W = 240, H = 170, pad = 12;
   const lay = (id, name, text, groups, params, hands) => ({ id, name, text, pad, ...laidOut(W - 2 * pad, H - 2 * pad, cans(groups), params, hands) });
   return [
-    lay("line", "Line-up", "One row, with an angle and perspective.", [["pink-box", 3], ["tan-pillar", 3]], { ...E.modeStart("line"), angle: -15, spacing: -0.3, size: null, perspective: 0.4, alignY: "centre" }),
-    lay("grid", "Grid", "Rows and columns.", [["pink-box", 3], ["tan-pillar", 3]], { ...E.modeStart("grid"), cols: 3, gap: -0.45, gapY: 0.04, alignX: "centre", alignY: "centre" }),
-    lay("mosaic", "Mosaic", "Arranged and scaled to fill the space.", [["grey-cube", 4], ["blue-slab", 3]], E.modeStart("mosaic")),
-    lay("pins", "Pins", "A bowling-pins formation.", [["pink-box", 3], ["amber-bar", 2], ["tan-pillar", 1]], { ...E.modeStart("pins"), gapY: -0.55, perspective: 0.25, alignY: "centre" }),
+    lay("line", "Line-up", "One row, with an angle and perspective.", [["pink-box", 6]], LINEUP),
+    lay("grid", "Grid", "Rows and columns.", [["blue-slab", 6]], { ...E.modeStart("grid"), cols: 3, gap: -0.4, gapY: -0.4, alignX: "centre", alignY: "centre" }),
+    lay("mosaic", "Mosaic", "Arranged and scaled to fill the space.", [["yellow-disc", 1], ["grey-cube", 1], ["red-tile", 1], ["rose-cylinder", 1], ["blue-arch", 1]], E.modeStart("mosaic")),
+    lay("pins", "Pins", "A bowling-pins formation.", [["yellow-disc", 6]], { ...E.modeStart("pins"), gapY: -0.55, perspective: 0.25, alignY: "centre" }),
     lay("puzzle", "Puzzle", "Tightly packed round each other, at equal area or at the sizes you give them.", [["grey-cube", 8], ["yellow-disc", 5], ["red-tile", 3]], E.modeStart("puzzle"), puzzleHand),
   ];
+}
+
+/**
+ * The overlays (panel/assemblr/how-overlays.njk, the owner, 2026-11-11): the hero's product with a setup on each corner,
+ * each stacked by the engine (cornerStack, catalague-producer src/core/overlay/stack.ts solveStack), in points: top
+ * left three small badges stacked Down; top right two badges stacked Across, a Gap between; bottom left the price; bottom
+ * right a wide badge fitted inside its Max width × Max height. Under it Max size's one example, Ink (sizesHow).
+ */
+function overlaysHow() {
+  // Labelled in mm (the owner, 2026-11-11: "swap pt for mm"), laid out in points: 4 mm insets, 3 mm gap, Max 25 × 15 mm.
+  const LABEL = { inset: 4, gap: 3, max: { w: 25, h: 15 } };
+  const W = 440, H = 270, INSET = LABEL.inset * MM, GAP = LABEL.gap * MM, MAX = { w: LABEL.max.w * MM, h: LABEL.max.h * MM };
+  const S = { insetX: INSET, insetY: INSET };
+  const main = {
+    w: W, h: H,
+    cans: laidOut(W, H, SIX, { ...LINEUP, scale: 0.6 }).cans,
+    tr: cornerStack(W, H, "tr", [1, 1], { ...S, gap: GAP, maxW: 44, maxH: 44 }),
+    bl: cornerStack(W, H, "bl", [PRICE_ASPECT], { ...S, maxW: 84, maxH: 50 }),
+  };
+  main.tl = cornerStack(W, H, "tl", [1, 1, 1], { ...S, gap: 6, maxW: 30, maxH: 30, direction: "down" });
+  main.br = cornerStack(W, H, "br", [2.4], { ...S, maxW: MAX.w, maxH: MAX.h });
+  main.maxBox = { x: W - INSET - MAX.w, y: H - INSET - MAX.h, w: MAX.w, h: MAX.h };
+  return { inset: LABEL.inset, gap: LABEL.gap, max: LABEL.max, main };
+}
+
+/**
+ * Max size, one example (under the overlays in panel/assemblr/how-overlays.njk, the owner, 2026-11-11): Ink 4 %, the same badge top right and
+ * price bottom left on three products of different sizes and shapes, sized by the engine (cornerStack, D91: A = W × H ×
+ * inkPct / 100, each artwork's aspect kept). `share` is how much of the image area the badge takes: 4 % on every one.
+ * (In pt the same badge took 4.3, 6.7 and 7.7 % of these three; in 22 % × 22 %, 2.4, 4.8 and 2.4 %.)
+ */
+function sizesHow() {
+  const SETUP = { insetX: 8, insetY: 8, sizing: "ink", inkPct: 4 };
+  return [[300, 150], [170, 170], [112, 224]].map(([w, h]) => {
+    const [badge] = cornerStack(w, h, "tr", [1], SETUP);
+    const [price] = cornerStack(w, h, "bl", [PRICE_ASPECT], SETUP);
+    return { w, h, cans: laidOut(w, h, files("pink-box", 3), { ...LINEUP, scale: 0.62 }).cans, badge, price, share: ((badge.w * badge.h) / (w * h) * 100).toFixed(1) };
+  });
 }
 
 /** laidOut, with a badge top right and the price bottom left stacked on its corners. */

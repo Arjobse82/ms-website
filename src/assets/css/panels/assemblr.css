@@ -111,3 +111,26 @@
 .hw-mode-text { font-size: 13px; line-height: 1.4; color: #666; }
 @container (max-width: 760px) { .hw-modes { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 20px; } }
 @container (max-width: 440px) { .hw-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* How it works, the overlays (panel/assemblr/how-overlays.njk): the product with a setup on each corner, its settings
+   in blue and each corner named beside it; under it Max size's one example. */
+.hw-ov { display: grid; justify-items: center; gap: 30px; width: 100%; }
+.hw-ov-svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--font); }
+.hw-ov-main { max-width: 800px; }
+.hw-ov-svg .hw-edge { stroke-width: 1.4; }
+.hw-ov-badge text { font-weight: 700; letter-spacing: 0.02em; text-anchor: middle; fill: #fff; }
+.hw-ov-max { fill: none; stroke: var(--signal); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.hw-ov-arrow { fill: none; stroke: var(--signal); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.hw-ov-note { font-size: 12.5px; fill: #666; }
+.hw-ov-name { font-weight: 600; fill: #111; }
+.hw-ov-area { fill: #f4f4f5; }
+
+/* Max size, one example (in how-overlays.njk): the panel's chips, Ink on, over three products, each as wide as its
+   points (flex-grow by width from nothing) so all are drawn at one scale, each badge's share of its area in blue. */
+.hw-sz { display: grid; gap: 12px; width: 100%; max-width: 560px; color: #111; font-size: 13px; }
+.hw-sz-head { display: flex; align-items: center; gap: 8px; }
+.hw-sz-cells { display: flex; align-items: flex-end; gap: 4%; }
+.hw-sz-cell { flex: var(--w) 1 0; min-width: 0; margin: 0; }
+.hw-sz-cell figcaption { margin-top: 6px; font-size: 12px; line-height: 1.35; color: #777; }
+.hw-sz-cell b { color: var(--signal); }
+@container (max-width: 520px) { .hw-sz-cell figcaption { font-size: 10.5px; } }

@@ -13,6 +13,27 @@ export default {
   how: {
     heading: "From brief to catalogue, and back",
     intro: "How Automated Assemblr turns an Excel brief and your folders of images into catalogue pages, and keeps the two in step.",
+    // The hero's spread, made as you scroll (panel/catalogue-producer/build.njk): the empty spread held at the top of
+    // the window, the panel's settings scrolling under it, each step adding what it sets to the pages. A step's `cap`
+    // names the spread at that step; its drawing is build-<id>.njk.
+    build: {
+      start: { cap: "Pages 2 and 3, empty", name: "An empty spread", text: "A new document: two facing pages on your parent pages, their margins and nothing else. Scroll, and build the spread at the top of this page, one setting at a time." },
+      steps: [
+        { id: "pages", cap: "A 3 × 3 grid inside the margins", name: "Set the grid", text: "In Setup ▸ Pages: three across, three down and 12 pt between, inside each page's margins, inside and outside swapped on facing pages. Apply changes builds the pages." },
+        { id: "grid", cap: "Cells joined", name: "Join cells", text: "In the Grid tile, give a product more than one slot: the Party pack the width of the page, the Mixed case two across and two down. Two rows are kept for inserts, and the products round them flow on." },
+        { id: "folders", cap: "Images placed", name: "Place the images", text: "Point it at the brief and your image folders. Each file finds its product by the code in its name, and Place images puts it in the product's cell, laid out by Assemblr's engine." },
+        { id: "copy", cap: "Copy written", name: "Write the copy", text: "Pick the brief's columns for the copy and the paragraph style each starts in. Write copy fills every cell, and Match the row starts the captions level." },
+        { id: "layout", cap: "Products arranged", name: "Arrange a product", text: "Select a product and set its arrangement: the Party pack in Line-up with perspective, the Mixed case in Pins, three rows of two. The images move; the cell stays." },
+        { id: "overlays", cap: "Badges and prices on the corners", name: "Badges and prices", text: "Put overlays on a product's corners: a NEW badge top right, and bottom left a price device, the price written from the brief into your own InDesign design." },
+        { id: "inserts", cap: "Inserts in, the spread made", name: "Add the inserts", text: "Anything that is not a product goes in as an insert: a PDF advert across the top of page 3, and a price list filled from its own sheet and styled by a table you drew." },
+        // Then the spread edited (catalogue-art.js `build`, steps 8 to 12). `group` heads the first of them.
+        { id: "swap", group: "Then edit it", cap: "Cola and Duo pack swapped", name: "Swap two products", text: "Drag a product in the Catalogue tile onto another: the Cola and the Duo pack change cells, each with its images, its copy and its corners. Changes lists the new order against the brief." },
+        { id: "images", cap: "Two images swapped", name: "Swap a product's images", text: "In a product's strip of images, drag one onto another: the Mixed case's first and last change places, and the engine lays the arrangement out again round them." },
+        { id: "hide", cap: "Lemon soda hidden", name: "Hide a product, show it again", text: "Hide a product and it leaves the pages, the products after it flowing up: Ginger beer comes up from the next page into its cell. Show it, and it goes back in its place in the brief's order." },
+        { id: "size", cap: "Sparkling water 1 × 2", name: "Change a cell's size", text: "Give a product a bigger or a smaller cell: Sparkling water one across and two down. Its image is laid out again for the new shape, and Ginger beer flows on to the next page." },
+        { id: "overlay-size", cap: "A bigger price device", name: "Size an overlay your own way", text: "Each corner sets its own size: a Max width and a Max height in points, or as a share of the product. The Party pack's price device goes to 96 pt; every other product keeps its own." },
+      ],
+    },
     steps: [
       { id: "brief", name: "Built from your brief", wide: true, text: "The Excel brief is the catalogue, one row a product. Each product's images are found in your folders by the code in the file or folder name, or by the product's name, a near match marked Check for you to confirm, and laid out in its cell; its copy is written from the brief's columns, in your paragraph styles. Product and row stay tied: an edit on either side, a new price in the brief or a renamed product on the page, is listed in Changes, to take whichever way you choose." },
       { id: "grid", name: "Pages on a live grid or no grid", text: "Every page is built on a grid: products across and down, and the gap between them, set in Setup ▸ Pages. Change it and Apply changes builds the pages again in one undo step, the products flowing on in the brief's order. Cells can be joined, across and down: here the Party pack takes the width of the page, Sparkling water two cells across and two down, and Lemon soda two across, and the products round them flow on. On Auto a short page gets a smaller grid, and a page break starts a new page wherever a column of the brief changes. Set a page to Free and it is yours to arrange: each product is placed once and never moved again, and its images are still laid out for its cell, wherever you put it and whatever its size." },

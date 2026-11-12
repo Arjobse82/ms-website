@@ -61,7 +61,7 @@ export function laidOut(w, h, names, params, hands = []) {
       rect = [(cy - hs / 2) / h, (cx - ws / 2) / w, (cy + hs / 2) / h, (cx + ws / 2) / w];
     }
     const [l, t, r, b] = E.imageTarget([0, 0, w, h], rect, f);
-    return { src: canOf(names[placed.index]), x: r1(l), y: r1(t), w: r1(r - l), h: r1(b - t), ...(turn ? { turn, cx: r1(cx), cy: r1(cy) } : {}) };
+    return { src: canOf(names[placed.index]), index: placed.index, x: r1(l), y: r1(t), w: r1(r - l), h: r1(b - t), ...(turn ? { turn, cx: r1(cx), cy: r1(cy) } : {}) };
   });
   const overlap = Number(/overlapping by (\d+)%/.exec(out.evidence.join(" "))?.[1] ?? 0);
   return { w, h, cans, overlap, evidence: out.evidence, handles: [[0, 0], [w / 2, 0], [w, 0], [w, h / 2], [w, h], [w / 2, h], [0, h], [0, h / 2]] };

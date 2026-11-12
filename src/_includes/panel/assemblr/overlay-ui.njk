@@ -1,0 +1,19 @@
+{#- What How it works's overlay drawings are drawn with (how-overlays.njk), in points: a measure in blue,
+    a blue pill, a round badge, the price in its "$X.XX each" design, and a product of pink boxes with a badge top right
+    and the price bottom left. -#}
+{%- macro dim(x1, y1, x2, y2) %}<path class="hw-dim" d="M{{ x1 }} {{ y1 }}L{{ x2 }} {{ y2 }}{% if x1 == x2 %}M{{ x1 - 3 }} {{ y1 }}h6M{{ x2 - 3 }} {{ y2 }}h6{% else %}M{{ x1 }} {{ y1 - 3 }}v6M{{ x2 }} {{ y2 - 3 }}v6{% endif %}"/>{% endmacro %}
+{#- A blue pill, its width from its text; `anchor` start, middle or end at x. #}
+{%- macro pill(x, y, anchor, text) %}
+{%- set pw = text | length * 5.7 + 14 %}{% set left = x if anchor == "start" else (x - pw if anchor == "end" else x - pw / 2) %}
+<g class="hw-pill"><rect x="{{ left }}" y="{{ y - 8 }}" width="{{ pw }}" height="16" rx="8"/><text x="{{ left + pw / 2 }}" y="{{ y + 3.6 }}">{{ text }}</text></g>
+{%- endmacro %}
+{%- macro badge(b, label, fill) %}<g class="hw-ov-badge"><circle cx="{{ b.cx }}" cy="{{ b.cy }}" r="{{ b.w / 2 }}" fill="{{ fill }}"/><text x="{{ b.cx }}" y="{{ b.cy + b.w * 0.11 }}" font-size="{{ b.w * 0.3 }}">{{ label }}</text></g>{% endmacro %}
+{%- macro price(p) %}<g class="hw-price" transform="translate({{ p.x }} {{ p.y }}) scale({{ p.w / 150 }})"><rect width="150" height="90" rx="10"/><text x="6.4" y="40" class="hw-price-big" font-size="24">$</text><text x="22.4" y="72" class="hw-price-big" font-size="66">12</text><text x="105.6" y="44" class="hw-price-big" font-size="32">50</text><text x="106.6" y="70" class="hw-price-each" font-size="15">each</text></g>{% endmacro %}
+{#- A product: its cans, the image area's edge, and `tr` / `bl` (a list's first, or a single box) as NEW and the price. #}
+{%- macro product(s, second = true) %}
+  <rect class="hw-ov-area" x="0" y="0" width="{{ s.w }}" height="{{ s.h }}"/>
+  {%- for c in s.cans %}<image href="{{ c.src }}" x="{{ c.x }}" y="{{ c.y }}" width="{{ c.w }}" height="{{ c.h }}"/>{% endfor %}
+  {%- if s.tr %}{{ badge(s.tr[0], "NEW", "#111") }}{% if second %}{{ badge(s.tr[1], "−20%", "#e5484d") }}{% endif %}{{ price(s.bl[0]) }}{% endif %}
+  {%- if s.badge %}{{ badge(s.badge, "NEW", "#111") }}{{ price(s.price) }}{% endif %}
+  <rect class="hw-edge" x="0" y="0" width="{{ s.w }}" height="{{ s.h }}"/>
+{%- endmacro %}

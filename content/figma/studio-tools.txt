@@ -1,0 +1,17 @@
+name: Studio Tools
+tagline: All our plugins, one app.
+description: Get Bloom, Frame Multiplier, IDML Export and 7 more apps in the one plugin.
+
+# highlights
+
+## Logo size and position, on every frame.
+Each frame’s logo is measured against the brand’s rules: its size, its clear space and its corner, for every channel and every size. A double-click puts it right, one frame or the whole chart.
+
+## Three apps, one plugin.
+Bloom, Frame Multiplier and IDML Export, each a tile on the dashboard.
+
+## The page at a glance.
+Its creatives, its channels and what is measured in each frame, as soon as the plugin opens.
+
+## In step with your folders.
+Images, exports and the Excel brief kept in sync through Monochrome Bridge.

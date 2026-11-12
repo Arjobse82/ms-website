@@ -1,0 +1,14 @@
+{#- How the spread is made, step 7 (build.njk): an advert and a table as inserts, from Products ▸ Catalogue's + Insert
+    and Setup ▸ Tables. -#}
+{%- from "panel/ui.njk" import sel, btn %}
+<div class="pt-card">
+  <p class="pt-label">Products ▸ Catalogue ▸ + Insert</p>
+  <div class="pt-line cb-set"><span class="pt-strong">Summer advert.pdf</span><span class="pt-meta pt-right">Page 3, top row</span></div>
+  <div class="pt-field"><span class="pt-flabel">Takes</span><span class="pt-seg"><span>Full page</span><span>Half</span><span class="is-on">Cells</span></span>{{ sel("3 × 1") }}</div>
+  <p class="pt-meta">Make the file 525 × 242 pt.</p>
+  <hr class="pt-rule">
+  <p class="pt-label">Setup ▸ Tables</p>
+  <div class="pt-line cb-set"><span class="pt-strong">Price list</span><span class="pt-meta pt-right">Page 2, bottom row</span></div>
+  <div class="pt-form pt-form-2"><span class="pt-flabel">Sheet</span>{{ sel("Prices") }}<span class="pt-flabel">Design</span>{{ sel("Price table") }}</div>
+  <div class="pt-btns">{{ btn("Refresh tables", true) }}</div>
+</div>

@@ -1,0 +1,13 @@
+{#- How the spread is made, step 10 (build.njk): Products ▸ Catalogue, Lemon soda hidden, Ginger beer flowing up. -#}
+{%- set eye %}<svg class="cb-eye" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8Z"/><circle cx="8" cy="8" r="2"/></svg>{% endset %}
+{%- set shut %}<svg class="cb-eye" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8Z"/><path d="M2.5 13.5 13.5 2.5"/></svg>{% endset %}
+<div class="pt-card">
+  <p class="pt-label">Products ▸ Catalogue</p>
+  <div class="pt-table cb-rows">
+    <div class="pt-tr"><span class="pt-meta">5</span><span><span class="pt-strong">410205</span> Sparkling water</span><span>{{ eye | safe }}</span></div>
+    <div class="pt-tr is-off cb-set"><span class="pt-meta">6</span><span><span class="pt-strong">410206</span> Lemon soda <span class="pt-meta">Hidden</span></span><span>{{ shut | safe }}</span></div>
+    <div class="pt-tr"><span class="pt-meta">7</span><span><span class="pt-strong">410207</span> Mixed case</span><span>{{ eye | safe }}</span></div>
+    <div class="pt-tr"><span class="pt-meta">8</span><span><span class="pt-strong">410208</span> Ginger beer <span class="pt-meta">P. 4 → P. 3</span></span><span>{{ eye | safe }}</span></div>
+  </div>
+  <p class="pt-meta">A hidden product stays in the brief; show it and it goes back in its place.</p>
+</div>

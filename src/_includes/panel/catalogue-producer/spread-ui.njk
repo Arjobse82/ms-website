@@ -9,11 +9,14 @@
 
 {%- macro cell(c, W, H) %}
 {%- if c.kind == "product" %}
-<div class="cs-cell cs-product" style="{{ at(c, W, H) }}">
+{#- In the spread made as you scroll (catalogue-art.js `build`), a cell, a can or a price device may carry `cls` and
+    `vars`: classes and custom properties saying where it goes at a later step. A can with `from` also carries where it
+    starts, as --x0 … --h0, to move from. #}
+<div class="cs-cell cs-product{% if c.cls %} {{ c.cls }}{% endif %}" style="{{ at(c, W, H) }}{% if c.vars %}; {{ c.vars }}{% endif %}">
   <div class="cs-img" style="height: {{ pc(c.img.h, c.h) }}%">
-    {%- for i in c.cans %}<img src="{{ i.src }}" alt="" loading="lazy" style="{{ at(i, c.img.w, c.img.h) }}">{% endfor %}
+    {%- for i in c.cans %}<img src="{{ i.src }}" alt="" loading="lazy"{% if i.from or i.cls %} class="{% if i.from %}cs-moves {% endif %}{{ i.cls }}"{% endif %} style="{{ at(i, c.img.w, c.img.h) }}{% if i.from %}; --x0: {{ pc(i.from.x, c.img.w) }}%; --y0: {{ pc(i.from.y, c.img.h) }}%; --w0: {{ pc(i.from.w, c.img.w) }}%; --h0: {{ pc(i.from.h, c.img.h) }}%{% endif %}{% if i.vars %}; {{ i.vars }}{% endif %}">{% endfor %}
     {%- if c.badge %}<span class="cs-badge" style="{{ at(c.badge, c.img.w, c.img.h) }}"><span>NEW</span></span>{% endif %}
-    {%- if c.price %}<span class="cs-device" style="{{ at(c.price, c.img.w, c.img.h) }}">{{ c.price.svg | safe }}</span>{% endif %}
+    {%- if c.price %}<span class="cs-device{% if c.price.cls %} {{ c.price.cls }}{% endif %}" style="{{ at(c.price, c.img.w, c.img.h) }}{% if c.price.vars %}; {{ c.price.vars }}{% endif %}">{{ c.price.svg | safe }}</span>{% endif %}
   </div>
   <div class="cs-copy"><p class="cs-name">{{ c.p.name }}</p><p class="cs-pack">{{ c.p.pack }}</p><p class="cs-price">{{ c.p.price }}</p></div>
 </div>

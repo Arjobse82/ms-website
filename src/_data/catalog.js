@@ -1,15 +1,17 @@
-// Derived from apps.json and site.json: URLs, menu links, related products.
-// Edit those two files, not this one.
+// Derived from apps.json (structure) and the text files in /content (words): URLs, menu links, related products.
+// Edit those, not this file.
 import { readFileSync } from "node:fs";
+import { readSite, applyApp, applyProduct } from "../_lib/content.js";
 
 const read = (file) => JSON.parse(readFileSync(new URL(file, import.meta.url), "utf8"));
 
 export default function () {
-  const site = read("./site.json");
+  const site = readSite();
 
-  const base = read("./apps.json").map((app) => {
+  const base = read("./apps.json").map((rawApp) => {
+    const app = applyApp(rawApp);
     const url = `/${app.slug}/`;
-    const products = app.products.map((product) => ({
+    const products = app.products.map((rawProduct) => applyProduct(app, rawProduct)).map((product) => ({
       focus: "50% 50%",
       zoom: 1,
       getUrl: "",
@@ -42,7 +44,7 @@ export default function () {
         ]
       : [
           { label: "How to install", url: `${url}#install` },
-          { label: "Why Monochrome", url: `${url}#why` },
+          ...(app.hideWhy ? [] : [{ label: "Why Monochrome", url: `${url}#why` }]),
         ];
     return { ...app, url, products, menuLinks };
   });
@@ -70,6 +72,19 @@ export default function () {
     ...app,
     products: app.products.map((p) => ({ ...p, related: relatedTo(p) })),
   }));
+
+  // An app page's lineup: its own products, then the products of other apps it lists in `alsoFeatures` (apps.json), which
+  // work with it but are not plugins for it (Ad Agent, on the InDesign page). Those link to their own page.
+  for (const app of apps) {
+    app.lineup = [
+      ...app.products,
+      ...(app.alsoFeatures ?? []).map((slug) => {
+        const p = apps.flatMap((a) => a.products).find((x) => x.slug === slug && x.appSlug !== app.slug);
+        if (!p) throw new Error(`alsoFeatures: no product "${slug}" for ${app.slug}`);
+        return { ...p, also: true };
+      }),
+    ];
+  }
 
   return {
     apps,

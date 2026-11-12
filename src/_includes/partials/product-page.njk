@@ -18,7 +18,7 @@
     <div class="localnav-menu">
       <ul class="localnav-links">
         <li><a href="#overview">Overview</a></li>
-        {%- if product.panel and panels[product.panel].how %}<li><a href="#how">How it works</a></li>{% endif %}
+        {%- if (product.panel and panels[product.panel].how) or product.journey %}<li><a href="#how">How it works</a></li>{% endif %}
         {%- if product.includes %}<li><a href="#apps">Apps</a></li>{% endif %}
         {%- if product.tour %}<li><a href="#tour">Tour</a></li>{% endif %}
         {%- if product.demo %}<li><a href="#try">Try it</a></li>{% endif %}
@@ -26,6 +26,7 @@
         {%- if product.panel and panels[product.panel].help %}<li><a href="#help">Help</a></li>{% endif %}
         {%- if product.rollout %}<li><a href="#rollout">Rollout</a></li>{% endif %}
         <li><a href="#features">Highlights</a></li>
+        {%- if product.pricing %}<li><a href="#pricing">Pricing</a></li>{% endif %}
         <li><a href="#specs">Tech specs</a></li>
       </ul>
       {% set p = product %}{% set compact = true %}{% include "partials/get-button.njk" %}{% set compact = false %}
@@ -112,6 +113,18 @@
 {%- endif %}
 
 {%- set n = 1 %}
+{#- One with `journey` (Ad Agent's): a job made in its window as you scroll (partials/ad-journey.njk). #}
+{%- if product.journey %}
+<section class="section {{ look }} aj-section" id="how">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">How it works</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ adJourney.heading }}</h2>
+    <p class="pt-intro reveal">{{ adJourney.intro }}</p>
+    {% include "partials/ad-journey.njk" %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
 {%- if product.panel and panels[product.panel].how and not panels[product.panel].how.inHero %}
 {%- set how = panels[product.panel].how %}{% set panelId = product.panel %}
 <section class="section theme-light" id="how">
@@ -119,6 +132,8 @@
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">How it works</span></div>
     <h2 class="t-l section-title pt-heading reveal">{{ how.heading }}</h2>
     <p class="pt-intro reveal">{{ how.intro }}</p>
+    {#- A panel whose `how` has `build`: its hero made as you scroll, before its steps (panel/<panel>/build.njk). #}
+    {%- if how.build %}{% include "panel/" + panelId + "/build.njk" %}{% endif %}
     {% include "partials/panel-how.njk" %}
   </div>
 </section>
@@ -178,7 +193,7 @@
 <section class="section theme-light" id="tour">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Tour</span></div>
-    <h2 class="t-l section-title reveal">Take the tour</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.tourTitle }}</h2>
   </div>
   {% include "partials/tour.njk" %}
 </section>
@@ -188,10 +203,10 @@
 <section class="section {{ band }}" id="try">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Try it</span></div>
-    <h2 class="t-l section-title ad-title reveal">Line up the cans</h2>
-    <p class="ad-intro reveal">A modified version of Assemblr, made to run in your browser. Try each arrangement, drag the frame or the line-up's handle, and hang badges on its corners. Drop your own cut-outs on the page: they never leave your computer.</p>
+    <h2 class="t-l section-title ad-title reveal">{{ pages.labels.tryTitle }}</h2>
+    <p class="ad-intro reveal">{{ pages.labels.tryIntro }}</p>
     {#- The demo is not the plugin (the owner, 2026-11-02): said before it, with the trial. #}
-    <p class="ad-note reveal">This demo is a simplified version built for the website and doesn't include all the features available in Assemblr for InDesign. For the full experience, try the plugin free for 7 days.</p>
+    <p class="ad-note reveal">{{ pages.labels.tryNote }}</p>
     {% include "partials/assemblr-demo.njk" %}
   </div>
 </section>
@@ -214,7 +229,7 @@
 <section class="section theme-light" id="help">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Help</span></div>
-    <h2 class="t-l section-title pt-heading reveal">Quick help</h2>
+    <h2 class="t-l section-title pt-heading reveal">{{ pages.labels.helpTitle }}</h2>
     <p class="pt-intro reveal">{{ help.intro }}</p>
     {% include "partials/panel-help.njk" %}
   </div>
@@ -225,7 +240,7 @@
 <section class="section {{ band }}" id="rollout">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Rollout</span></div>
-    <h2 class="t-l section-title reveal">The whole rollout, in one view</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.rolloutTitle }}</h2>
     {% include "partials/rollout.njk" %}
   </div>
 </section>
@@ -235,7 +250,7 @@
 <section class="section {{ look }}" id="features">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Highlights</span></div>
-    <h2 class="t-l section-title reveal">Get the highlights</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.highlightsTitle }}</h2>
     <div class="bento">
       {%- if product.glyphs %}
       <div class="bento-card bento-card-photo bento-card-glyphs glyph-texture reveal">
@@ -268,10 +283,34 @@
   </div>
 </section>
 
+{#- One with `pricing` (its text file's # pricing): its plans, a row each, a price a column. #}
+{%- if product.pricing %}
+{%- set n = n + 1 %}{% set pr = product.pricing %}
+<section class="section {{ look }}" id="pricing">
+  <div class="container">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Pricing</span></div>
+    <h2 class="t-l section-title reveal">{{ pr.title or "Pricing" }}</h2>
+    {%- if pr.intro %}<p class="pricing-intro reveal">{{ pr.intro }}</p>{% endif %}
+    <table class="pricing reveal">
+      <thead><tr><th scope="col">Plan</th>{% for c in pr.columns %}<th scope="col">{{ c.name }}{% if c.text %}<small>{{ c.text }}</small>{% endif %}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {%- for p in pr.plans %}
+        <tr>
+          <th scope="row">{{ p.plan }}{% if p.text %}<small>{{ p.text }}</small>{% endif %}</th>
+          {%- for c in pr.columns %}<td data-label="{{ c.name }}">{{ p.prices[loop.index0] }}</td>{% endfor %}
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    {%- if pr.note %}<p class="pricing-note reveal">{{ pr.note }}</p>{% endif %}
+  </div>
+</section>
+{%- endif %}
+
 <section class="section theme-light" id="specs">
   <div class="container">
     <div class="section-head reveal"><span class="section-index">{{ (n + 1) | pad }}</span><span class="label">Tech specs</span></div>
-    <h2 class="t-l section-title reveal">{{ product.name }} at a glance</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.specsTitle | replace("{name}", product.name) }}</h2>
     <dl class="specs">
       {%- for s in product.specs %}
       <div class="specs-row">
@@ -285,7 +324,7 @@
 
 <section class="section section-cta theme-light">
   <div class="container">
-    <h2 class="t-l reveal">Get {{ product.name }}</h2>
+    <h2 class="t-l reveal">{{ pages.labels.getTitle | replace("{name}", product.name) }}</h2>
     <div class="cta-row reveal">
       {% set p = product %}{% include "partials/get-button.njk" %}
     </div>
@@ -296,7 +335,7 @@
 <section class="section {{ band }}">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">{{ (n + 2) | pad }}</span><span class="label">{% if product.standalone %}More from Monochrome{% else %}More {{ product.appName }} plugins{% endif %}</span></div>
-    <h2 class="t-l section-title reveal">Keep exploring</h2>
+    <h2 class="t-l section-title reveal">{{ pages.labels.exploreTitle }}</h2>
     <div class="tile-grid">
       {%- for p in product.related %}
       <div class="reveal">{% include "partials/tile.njk" %}</div>

@@ -1,0 +1,15 @@
+name: Figma
+kind: Figma plugin
+subhead: Plugins for campaign managment and quality control.
+intro: Focused plugins that take the repetitive work out of Figma, so files stay tidy and teams stay in sync.
+
+# install
+
+## Find it in Figma Community.
+Search for the plugin by name, or use the Get button on its page here.
+
+## Save it to your account.
+Saved plugins are available in every file you open.
+
+## Run it from the Plugins menu.
+In any file, open Plugins and pick it from your saved plugins.

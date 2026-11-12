@@ -8,7 +8,8 @@
     "build": "eleventy",
     "images": "./scripts/build-images.sh",
     "help:assemblr": "eleventy && node scripts/export-help.mjs help/assemblr ../assemblr-help",
-    "help:assemblr-photoshop": "eleventy && node scripts/export-help.mjs help/assemblr-photoshop ../assemblr-photoshop-help"
+    "help:assemblr-photoshop": "eleventy && node scripts/export-help.mjs help/assemblr-photoshop ../assemblr-photoshop-help",
+    "help:automated-assemblr": "eleventy && node scripts/export-help.mjs help/automated-assemblr ../automated-assemblr-help"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.7",

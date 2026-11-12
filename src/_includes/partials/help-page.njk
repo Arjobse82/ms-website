@@ -1,7 +1,7 @@
 {#- A plugin's help page (src/help/*.njk, layouts/help.njk): How it works if its panel has `how`, its user guide and its
     quick help, the same sections as on its product page (partials/panel-how.njk, partials/panel-tour.njk,
     partials/panel-help.njk, from its panel's module), on a page of their own
-    to publish with the plugin (scripts/export-help.mjs). Expects `panelKey`, `kind` ("InDesign plugin") and `heading`
+    to publish with the plugin (scripts/export-help.mjs). Expects `panelKey`, `kind` ("Plugin for InDesign") and `heading`
     ("Assemblr help"). -#}
 {%- set panel = panels[panelKey] %}{% set panelId = panelKey %}{% set help = panel.help %}{% set how = panel.how %}
 {%- set n = 1 %}

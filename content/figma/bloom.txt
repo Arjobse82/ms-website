@@ -1,0 +1,13 @@
+name: Bloom
+tagline: Preflight your designs. 
+description: Quality control check for your Figma frames.
+price: $4 a month
+
+# tour
+
+bloom-tour-1: Bloom: a rosette of fine lines with error markers round it, reading 65 PPI, low resolution.
+bloom-tour-2: Preflight, error detection, token fixes and quality control, beside two of Bloom's panels.
+bloom-tour-3: Find and fix: off-pixel grid, stretched components, low-res images, unlocked aspect ratios, raw colours, raw corner radii and raw text. Safety detection: hidden layers, loose layers, detached instances, placeholder text and file dimension errors.
+bloom-tour-4: Each error populates around the bloom: a data visualisation that overlays all your frames as a unique rosette.
+bloom-tour-5: A low-resolution image at 59 dpi: upload the full-resolution file, or bring it up to 72, 144 or 300 dpi as a new layer or variant.
+bloom-tour-6: A raw corner radius of 25: add it to your local library, or pick an existing variable from your library or design system.

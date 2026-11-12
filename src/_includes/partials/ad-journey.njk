@@ -1,0 +1,286 @@
+{#- Ad Agent's journey: the app's window, drawn in its dark house style at 1440 × 900, made into a job as you scroll
+    (src/_lib/ad-journey.js has the job, the layout and the steps; site.js initJourney plays it). The window holds every
+    part of every step; a part with `data-in` shows from that step (and with `data-out` until that one), and `data-st`
+    ("4:made 12:dim") gives it classes from a step on ("-made" takes one off). Each step's camera frames what its
+    `data-cam` names and rings what its `data-hl` points at. Without script the steps read as a list. -#}
+{%- set j = adJourney %}
+{%- macro on(i, o) %}{% if i or i === 0 %} data-in="{{ i }}"{% endif %}{% if o %} data-out="{{ o }}"{% endif %}{% endmacro %}
+<div class="aj" data-journey style="--steps: {{ j.steps.length }}">
+  <div class="aj-stage">
+    <div class="aj-view">
+      <div class="aj-win" style="width: {{ j.win.w }}px; height: {{ j.win.h }}px" aria-hidden="true">
+        <svg class="aj-sprite" width="0" height="0" focusable="false">
+          {% include "partials/ad-journey-glyphs.njk" %}
+          {#- The two creatives' heroes: a burger and a thickshake, flat, as a designer's master would place them. #}
+          <symbol id="aj-burger" viewBox="0 0 120 100">
+            <path d="M10 47Q10 8 60 8T110 47Z" fill="#e9a23b"/>
+            <g fill="#fff3d6"><ellipse cx="40" cy="24" rx="3" ry="1.6" transform="rotate(-20 40 24)"/><ellipse cx="58" cy="17" rx="3" ry="1.6"/><ellipse cx="76" cy="25" rx="3" ry="1.6" transform="rotate(20 76 25)"/><ellipse cx="50" cy="34" rx="3" ry="1.6" transform="rotate(-10 50 34)"/><ellipse cx="68" cy="35" rx="3" ry="1.6" transform="rotate(12 68 35)"/><ellipse cx="88" cy="38" rx="3" ry="1.6"/><ellipse cx="30" cy="38" rx="3" ry="1.6"/></g>
+            <path d="M6 47Q14 43 22 48T38 48T54 48T70 48T86 48T102 48T114 47L112 55H8Z" fill="#6bbf4e"/>
+            <rect x="9" y="52" width="102" height="7" rx="3.5" fill="#e5484d"/>
+            <path d="M7 58H113L106 67L97 60L86 71L74 60H46L34 71L23 60L14 67Z" fill="#ffd23f"/>
+            <rect x="6" y="60" width="108" height="16" rx="8" fill="#6b3a22"/>
+            <path d="M10 79H110Q110 94 94 94H26Q10 94 10 79Z" fill="#d98e2b"/>
+          </symbol>
+          <symbol id="aj-shake" viewBox="0 0 60 100">
+            <rect x="36" y="0" width="5" height="34" rx="2" fill="#e5484d" transform="rotate(14 38 17)"/>
+            <path d="M8 38Q8 24 18 24Q20 14 30 15Q40 14 42 24Q52 24 52 38Z" fill="#fff6ec"/>
+            <circle cx="30" cy="13" r="5" fill="#d7263d"/>
+            <rect x="6" y="36" width="48" height="6" rx="3" fill="#fff"/>
+            <path d="M9 42H51L45 98H15Z" fill="#fff"/>
+            <path d="M11.5 52H48.5L47.6 60H12.4ZM13.3 69H46.7L45.8 77H14.2Z" fill="#f48fb1"/>
+          </symbol>
+        </svg>
+
+        <div class="aj-globe" data-glyphs="horizon" data-st="1:dim"></div>
+        <svg class="aj-corner" viewBox="0 0 79.36 107.6"><use href="#aj-logo"/></svg>
+
+        {#- The top bar: the word, the job, the status and Play. #}
+        <header class="aj-top">
+          <span class="aj-load" data-in="{{ j.at.made }}" data-out="{{ j.at.sheet }}"></span>
+          <span class="aj-load" data-in="{{ j.at.sent }}"></span>
+          <svg class="aj-word"><use href="#aj-logo-word"/></svg>
+          <span class="aj-job" data-in="1">123456 SUMMER STACK · BURGER · THICKSHAKE</span>
+          <span class="aj-status aj-swap" id="aj-status">
+            {%- set S = [
+              [0, 1, "", "Choose your masters"],
+              [1, 2, "", "Open the brief, or type the sizes"],
+              [2, 3, "warn", "12 sizes planned · 2 creatives · 4 channels"],
+              [3, 4, "warn", "Specs applied to 12 sizes · 20 files to make"],
+              [4, 6, "ok", "12 low-res previews made in 41 s · InDesign 5 · Figma 7"],
+              [6, 7, "warn", "R2 · 1 size to make again"],
+              [7, 8, "warn", "R2 · 2 sizes to make again"],
+              [8, 9, "warn", "R2 · 4 sizes to make again"],
+              [9, 10, "warn", "R3 · 12 sizes to make again"],
+              [10, 11, "ok", "R3 · 13 sizes made · A | B"],
+              [11, 12, "ok", "13 sizes · 4 tags on 8 sizes"],
+              [12, 13, "err", "Preflight: 2 to fix, 2 to look at"],
+              [13, 14, "warn", "13 sizes to release · $13"],
+              [14, null, "ok", "Released and sent. 13 sizes, 20 files"]
+            ] %}
+            {%- for s in S %}<span class="aj-st aj-st-{{ s[2] or 'idle' }}"{{ on(s[0], s[1]) }}><i></i>{{ s[3] }}</span>{% endfor %}
+          </span>
+          <span class="aj-play" id="aj-play"><svg viewBox="0 0 16 16"><path d="M4.5 2.6v10.8L13 8z" fill="currentColor"/></svg></span>
+          <span class="aj-tbtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M12 1.8v2.9H9.1"/></svg></span>
+          <span class="aj-tbtn aj-tbtn-plain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+          <span class="aj-tbtn aj-tbtn-plain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></span>
+        </header>
+
+        {#- What the cards and nodes show (the focus chips), and the tag row under them. #}
+        <div class="aj-focus" id="aj-focus" data-in="{{ j.at.made }}">
+          <span class="aj-chip aj-f-pre" data-st="{{ j.at.pre }}:on {{ j.at.rel }}:-on">Preflight</span><span class="aj-chip">Review <em>3</em></span><span class="aj-chip">Setup</span><span class="aj-chip">Changes</span>
+        </div>
+        <div class="aj-tagrow" id="aj-tagrow" data-in="{{ j.at.made }}">
+          <svg class="aj-eye" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8Z"/><circle cx="8" cy="8" r="1.8" fill="currentColor" stroke="none"/></svg>
+          <span class="aj-chip">Master <em>12</em></span><span class="aj-chip">Auto Layout <em>12</em></span><span class="aj-chip">BURGER <em>7</em></span><span class="aj-chip">THICKSHAKE <em>5</em></span><span class="aj-chip">InDesign <em>5</em></span><span class="aj-chip">Figma <em>7</em></span>
+          <span class="aj-chip" data-in="{{ j.at.ab }}">Variant: B <em>1</em></span>
+          {%- for t in j.tags %}<span class="aj-chip aj-tag-user" data-in="{{ j.at.tags }}" style="--tc: {{ t.colour }}"><i></i>{{ t.name }} <em>{{ t.count }}</em></span>{% endfor %}
+        </div>
+
+        {#- The job's rounds: a circle a round, the one now ringed, its points as dots after it, "+" the next. #}
+        <div class="aj-rounds" id="aj-rounds">
+          <span class="aj-r" data-st="6:past">R1</span>
+          <span class="aj-r" data-in="{{ j.at.edit }}" data-st="{{ j.at.mail }}:past">R2</span>
+          <span class="aj-points" data-in="{{ j.at.edit }}" data-out="{{ j.at.mail }}"><i></i><i data-in="{{ j.at.logo }}"></i><i data-in="{{ j.at.price }}"></i></span>
+          <span class="aj-r" data-in="{{ j.at.mail }}" data-out="{{ j.at.ab }}">R3</span>
+          <span class="aj-r aj-ab" data-in="{{ j.at.ab }}">R3 · <b>A</b> | <b>B</b></span>
+          <span class="aj-r aj-plus">+</span>
+        </div>
+
+        {#- Nothing loaded: the word and what to do. #}
+        <div class="aj-intro" data-out="1">
+          <svg class="aj-word"><use href="#aj-logo-word"/></svg>
+          <p>Open the Brief and type the sizes, choose your Masters, then Run. The whole rollout shows here: creatives, masters, channels, resizes and where each file goes.</p>
+        </div>
+
+        {#- The plan: column titles, links, nodes. #}
+        <div class="aj-graph" data-st="{{ j.at.sheet }}:under {{ j.at.ab }}:-under">
+          {%- for t in j.titles %}<span class="aj-title" style="left: {{ t.x }}px; top: {{ t.y }}px"{{ on(t.in) }}>{{ t.t }}</span>{% endfor %}
+          <svg class="aj-edges" viewBox="0 0 {{ j.win.w }} {{ j.win.h }}" width="{{ j.win.w }}" height="{{ j.win.h }}">
+            {%- for e in j.edges %}<path d="{{ e.d }}"{{ on(e.in) }}{% if e.st %} data-st="{{ e.st }}"{% endif %}/>{% endfor %}
+          </svg>
+          {%- for n in j.nodes %}
+          {%- if n.size == "b-sq" %}
+          {#- Its B, drawn a few px behind and below A, badged. #}
+          <div class="aj-n aj-n-size aj-n-bnode made" style="left: {{ n.x + 6 }}px; top: {{ n.y + 6 }}px; width: {{ n.w }}px; height: {{ n.h }}px"{{ on(j.at.ab) }}><span class="aj-abmark">B</span></div>
+          {%- endif %}
+          <div class="aj-n aj-n-{{ n.kind }}" id="{{ n.id }}" style="left: {{ n.x }}px; top: {{ n.y }}px; width: {{ n.w }}px; height: {{ n.h }}px{% if n.d or n.d === 0 %}; --d: {{ n.d }}{% endif %}"{{ on(n.in) }}{% if n.st %} data-st="{{ n.st }}"{% endif %}>
+            {%- if n.kind == "brief" or n.kind == "creative" %}<b>{{ n.label }}</b><small>{{ n.sub }}</small>
+            {%- elif n.kind == "ch" %}<b>{{ n.label }}</b><small>{{ n.sub }} · <span class="aj-tool">{{ n.tool }}</span></small>
+            {%- elif n.kind == "out" or n.kind == "dest" %}<b>{{ n.label }}</b><i class="aj-dot"></i>
+            {%- else %}<i class="aj-ratio" style="width: {{ n.ratio.w }}px; height: {{ n.ratio.h }}px"></i><b>{{ n.label }}</b>
+            {%- if n.unit %}<small>mm</small>{% endif %}
+            {%- if n.kind == "master" %}<span class="aj-end">{% if n.tool == "Figma" %}<i class="aj-tool-fg">Fg</i>{% else %}<i class="aj-tool-id">Id</i>{% endif %}</span>{% endif %}
+            {%- if n.kind == "size" %}<span class="aj-end"><span class="aj-marks">{% for t in n.tags %}<i style="--tc: {{ t.colour }}"></i>{% endfor %}</span><i class="aj-pre-mark"></i><i class="aj-dot"></i></span><span class="aj-abmark">A</span>{% endif %}
+            {%- endif %}
+          </div>
+          {%- endfor %}
+        </div>
+
+        {#- The widgets down the left, each its glyph on a dark tile. #}
+        <nav class="aj-rail">
+          {%- for w in [["brief", "tables", "2:act 4:-act"], ["masters", "pages", "1:act 2:-act"], ["roles", "roles", ""], ["brand", "overlays", "7:act 8:-act"], ["output", "folders", "14:act"], ["ai", "ai", "8:act 10:-act"]] %}
+          <span class="aj-w" id="aj-r-{{ w[0] }}"{% if w[2] %} data-st="{{ w[2] }}"{% endif %}><svg viewBox="0 0 62 62"><use href="#aj-glyph-{{ w[1] }}"/></svg></span>
+          {%- endfor %}
+        </nav>
+
+        {#- Masters: the four files, read, their creatives by the tag in their names. #}
+        {#- Masters: both apps set up in the one card, InDesign's files above, Figma's page read through the bridge below. #}
+        <section class="aj-card" id="aj-card-masters" style="top: 96px"{{ on(1, 2) }}>
+          <h4>Masters <em>12 · 2 creatives</em></h4>
+          {%- set mi = j.masters[0] %}{% set mf = j.masters[1] %}
+          <div class="aj-ms aj-ms-id">
+            <h5><i class="aj-tool-id">Id</i> InDesign <em>{{ mi.files.length }} masters</em></h5>
+            <div class="aj-btns"><span class="aj-btn aj-import">Choose folder…</span><span class="aj-btn aj-import">Add files…</span></div>
+            <ul class="aj-files">{% for f in mi.files %}<li><span>{{ f }}</span><em>INDD</em></li>{% endfor %}</ul>
+          </div>
+          <div class="aj-ms aj-ms-fg">
+            <h5><i class="aj-tool-fg">Fg</i> Figma <em>{{ mf.files.length }} masters</em></h5>
+            <p class="aj-meta aj-bridge"><i class="aj-okdot"></i>Ad Agent Bridge connected: Summer Stack · [Masters] page</p>
+            <ul class="aj-files">{% for f in mf.files %}<li><span>{{ f }}</span><em>FRAME</em></li>{% endfor %}</ul>
+            <div class="aj-btns"><span class="aj-btn">Read again</span></div>
+          </div>
+          <h5>Group the masters</h5>
+          <div class="aj-seg"><span class="is-on">By [CREATIVE] tag</span><span>By hero</span><span>All as one</span></div>
+        </section>
+
+        {#- Brief: the spreadsheet read, a row a size; then the media specs book under it. #}
+        <section class="aj-card" id="aj-card-brief" style="top: 150px"{{ on(2, 4) }}>
+          <h4>Brief <em>brief.xlsx</em></h4>
+          <div class="aj-btns"><span class="aj-btn aj-import">Open brief…</span></div>
+          <div class="aj-swap">
+            <div data-out="3">
+              <table class="aj-xl">
+                <tr><th>Creative</th><th>Channel</th><th>Format</th><th>W</th><th>H</th><th>Unit</th></tr>
+                {%- for r in [["BURGER", "OOH", "48 Sheet", 6096, 3048, "mm"], ["BURGER", "OOH", "6 Sheet", 1200, 1800, "mm"], ["BURGER", "DOOH", "Portrait", 1080, 1920, "px"], ["BURGER", "Social", "Feed", 1080, 1080, "px"], ["BURGER", "Social", "Feed 4:5", 1080, 1350, "px"], ["BURGER", "Display", "MREC", 300, 250, "px"], ["BURGER", "Display", "Leaderboard", 728, 90, "px"], ["THICKSHAKE", "DOOH", "Portrait", 1080, 1920, "px"], ["THICKSHAKE", "Social", "Feed", 1080, 1080, "px"], ["THICKSHAKE", "Social", "Feed 4:5", 1080, 1350, "px"], ["THICKSHAKE", "Display", "MREC", 300, 250, "px"], ["THICKSHAKE", "Display", "Skyscraper", 160, 600, "px"]] %}
+                <tr>{% for c in r %}<td>{{ c }}</td>{% endfor %}</tr>
+                {%- endfor %}
+              </table>
+              <p class="aj-meta">12 rows read from the sheet Sizes. Columns found by their headers: Creative, Channel, Format, Width, Height, Unit.</p>
+            </div>
+            <div class="aj-specs" data-in="3">
+              <h5>Media specs <em>9 formats · Media specs.xlsx</em></h5>
+              {%- for g in [["OOH", [["48 Sheet", "6096 × 3048 mm · bleed 5 mm · 1:4 · PDF/X-4"], ["6 Sheet", "1200 × 1800 mm · bleed 5 mm · 1:1 · PDF/X-4"]]], ["DOOH", [["Portrait", "1080 × 1920 · JPG · safe 60 px · 2 MB"]]], ["Social", [["Feed", "1080 × 1080 · JPG + PNG"], ["Feed 4:5", "1080 × 1350 · JPG + PNG"]]], ["Display", [["MREC", "300 × 250 · JPG · 150 KB"], ["Leaderboard", "728 × 90 · JPG · 150 KB"], ["Skyscraper", "160 × 600 · JPG · 150 KB"]]]] %}
+              <p class="aj-spec-ch">{{ g[0] }} · {{ g[1].length }}</p>
+              {%- for f in g[1] %}<p class="aj-spec"><b>{{ f[0] }}</b> · {{ f[1] }}</p>{% endfor %}
+              {%- endfor %}
+              <p class="aj-meta"><i class="aj-okdot"></i>Each size took its format: its bleed, scale and file type.</p>
+            </div>
+          </div>
+        </section>
+
+        {#- Brand: the logo profiles, OOH's chosen. #}
+        <section class="aj-card" id="aj-card-brand" style="top: 150px"{{ on(7, 8) }}>
+          <h4>Logo profiles <em>2</em></h4>
+          <div class="aj-profs">
+            <p><b>Master</b><span>10 sizes</span><br><small>as each master places it: no one rule to match</small></p>
+            <p class="aj-prof-on"><b>OOH 3%</b><span>2 sizes</span><br><small>ink 3 % · inset 23 % of the logo's height · bottom right</small></p>
+          </div>
+          <h5>Profile: OOH 3%</h5>
+          <div class="aj-prev"><i></i></div>
+          <h5>Corner</h5>
+          <div class="aj-seg"><span>Top left</span><span>Top right</span><span>Bottom left</span><span class="is-on">Bottom right</span></div>
+          <h5>Size by</h5>
+          <div class="aj-seg"><span class="is-on">Ink area</span><span>Width</span><span>Height</span></div>
+          <div class="aj-num"><span>Ink area</span><b>−</b><em>3</em><b>+</b></div>
+          <h5>Inset by</h5>
+          <div class="aj-seg"><span class="is-on">Logo height</span><span>Logo width</span><span>Page</span></div>
+          <div class="aj-num"><span>Inset</span><b>−</b><em>23</em><b>+</b></div>
+          <p class="aj-meta">Applies to the OOH channel. The size is the logo's ink: what its shapes cover, in % of the layout, not its frame.</p>
+        </section>
+
+        {#- The viewer: each creative's sizes, as made, each with where it was built. #}
+        <section class="aj-sheet" id="aj-sheet"{{ on(j.at.sheet, j.at.ab) }}>
+          <h4>Sizes <em class="aj-swap"><span data-out="{{ j.at.edit }}">R1</span><span data-in="{{ j.at.edit }}" data-out="{{ j.at.mail }}">R2</span><span data-in="{{ j.at.mail }}">R3</span></em> <em>12 sizes</em><span class="aj-lowres">Low-res previews · free to review</span><span class="aj-legend"><i class="aj-tool-id">Id</i>InDesign 5<i class="aj-tool-fg">Fg</i>Figma 7</span></h4>
+          {%- for row in j.sheet %}
+          <div class="aj-row">
+            <p class="aj-row-name">{{ row.name }}</p>
+            <div class="aj-row-items">
+              {%- for s in row.items %}
+              <figure class="aj-th aj-th-{{ s.ch | lower }}" id="aj-th-{{ s.id }}">
+                <div class="aj-th-box"><div class="aj-th-art" style="width: {{ s.dw }}px; height: {{ s.dh }}px">
+                  {%- for l in s.layers %}<div class="aj-layer"{{ on(l.in, l.out) }}>{{ l.svg | safe }}</div>{% endfor %}
+                </div></div>
+                <figcaption>{{ s.label }} <i class="aj-tool-{{ 'id' if s.tool == 'InDesign' else 'fg' }}">{{ "Id" if s.tool == "InDesign" else "Fg" }}</i></figcaption>
+                {%- if s.edits %}<p class="aj-edits" data-in="{{ j.at.edit }}">{% for e in s.edits %}<span>{{ e }}</span>{% endfor %}</p>{% endif %}
+              </figure>
+              {%- endfor %}
+            </div>
+          </div>
+          {%- endfor %}
+        </section>
+
+        {#- The square post's A and B. #}
+        <section class="aj-card aj-card-right" id="aj-card-ab" style="top: 140px"{{ on(j.at.ab, j.at.tags) }}>
+          <h4>1080 × 1080 <em>Social · BURGER</em></h4>
+          <div class="aj-seg aj-seg-ab"><span class="is-on">R3 · A | B</span><span>Test</span></div>
+          <div class="aj-ab-pair">
+            <figure class="aj-ab-a">{{ j.ab.a | safe }}<figcaption><b>A</b> 123456_BURGER_1080x1080_a</figcaption></figure>
+            <figure class="aj-ab-b">{{ j.ab.b | safe }}<figcaption><b>B</b> 123456_BURGER_1080x1080_b</figcaption><span class="aj-ov">B: PRICE colour <i>×</i></span></figure>
+          </div>
+          <div class="aj-btns"><span class="aj-btn">Retire A</span><span class="aj-btn">Retire B</span><span class="aj-btn">Split B into its own creative</span></div>
+          <p class="aj-meta">B follows A's changes; a change of B's own wins over A's.</p>
+        </section>
+
+        {#- Tagging: the offer open on four sizes Shift-clicked together. #}
+        <section class="aj-menu" id="aj-tagmenu" style="left: 1314px; top: 380px"{{ on(j.at.tags, j.at.pre) }}>
+          <h5>Tag 4 sizes</h5>
+          {%- for t in j.tags %}<p style="--tc: {{ t.colour }}"><i></i>{{ t.name }}{% if t.id == "creative" or t.id == "client" %}<b>✓</b>{% endif %}</p>{% endfor %}
+          <p class="aj-menu-new">+ New tag…</p>
+        </section>
+
+        {#- Preflight: what the rules found, a size each. #}
+        <section class="aj-card aj-card-right" id="aj-card-pre" style="top: 140px"{{ on(j.at.pre, j.at.rel) }}>
+          <h4>Preflight <em>2 to fix, 2 to look at</em></h4>
+          <div class="aj-seg"><span class="is-on">To fix</span><span>All</span></div>
+          <ul class="aj-pre-list">
+            {%- for p in j.preflight %}<li class="aj-pre-{{ p.level }}"><b>{{ p.what }}</b><span>{{ p.words }}</span></li>{% endfor %}
+          </ul>
+          <div class="aj-btns"><span class="aj-btn">Review with Claude</span></div>
+          <p class="aj-meta">The rules check every size a run writes, free. The AI can look as well, a channel at a time beside its masters.</p>
+        </section>
+
+        {#- The release: every size taken from the licence server at $1, its working file and full-resolution exports made. #}
+        <section class="aj-card aj-card-right" id="aj-card-rel" style="top: 140px"{{ on(j.at.rel, j.at.sent) }}>
+          <h4>Release <em>{{ j.release.n }} sizes selected</em></h4>
+          <p class="aj-meta aj-rel-now">Not released: low-res previews, free. Their working files are held back.</p>
+          <ul class="aj-rel-list">
+            {%- for c in j.release.channels %}<li><span>{{ c.ch }}</span><em>{{ c.k }} size{% if c.k > 1 %}s{% endif %}</em><b>${{ c.k }}</b></li>{% endfor %}
+          </ul>
+          <div class="aj-take">Release {{ j.release.n }} sizes · ${{ j.release.n }}</div>
+          <p class="aj-meta">$1 a size. Released: its .indd or Figma frame saved, its exports made at full resolution and sent as its specs ask. Every later amend to it free.</p>
+        </section>
+
+        {#- The AI's conversation over the plan, its prompt at the foot. #}
+        <div class="aj-chat">
+          <div class="aj-turn" id="aj-chat-1"{{ on(j.at.price, j.at.ab) }} data-st="{{ j.at.mail }}:old">
+            <p class="aj-q">Make the price 20% bigger on every Social size</p>
+            <div class="aj-a"><p class="aj-did">scaled a component</p><p>Done: the price is 20 % larger on the four Social sizes, and still clear of the logo.</p></div>
+            <p class="aj-took">Took 4s</p>
+          </div>
+          <div class="aj-turn" id="aj-chat-2"{{ on(j.at.mail, j.at.ab) }}>
+            <div class="aj-q aj-q-mail"><p class="aj-mail-h">Pasted · Re: Summer Stack R2 proofs</p><p>Hi team, thanks for R2. A few notes:</p><p>– Burger headline should now read STACK IT HIGH.</p><p>– Shake price drops to $4.90</p><p>– Logo feels a bit lost on the banners?</p><p>Thanks, Jess</p></div>
+            <div class="aj-a"><p class="aj-did">changed words, changed words</p>
+              <p>Three notes in the email. Done: BURGER's headline on its 7 sizes, THICKSHAKE's price on its 5.</p>
+              <div class="aj-ask"><span>Suggests:</span><p>Scale the logo to 120 % on the 4 Display sizes</p><b class="aj-approve">Approve</b><b>Decline</b></div></div>
+          </div>
+        </div>
+        <div class="aj-prompt">
+          <p><span>›</span> Ask about this job</p>
+          <p class="aj-swap"><small data-out="{{ j.at.price }}">Choose Claude or a local model ›</small><small data-in="{{ j.at.price }}">Claude · Sonnet 5.5 · may change components and copy ›</small></p>
+        </div>
+
+        <div class="aj-hls"></div>
+      </div>
+    </div>
+    <div class="aj-cap" aria-live="polite">
+      <p class="aj-cap-n"><span class="aj-cap-k">01</span> / {{ j.steps.length | pad }}</p>
+      <div class="aj-cap-body"><h3 class="aj-cap-t"></h3><p class="aj-cap-x"></p></div>
+      <span class="aj-dots">{% for s in j.steps %}<i></i>{% endfor %}</span>
+    </div>
+  </div>
+  <ol class="aj-steps">
+    {%- for s in j.steps %}
+    <li class="aj-step" data-step="{{ loop.index0 }}" data-cam="{{ s.cam }}" data-mcam="{{ s.mcam }}" data-hl="{{ s.hl | dump }}"><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>
+    {%- endfor %}
+  </ol>
+</div>

@@ -1,0 +1,4 @@
+name: Ad Agent
+kind: Mac app
+subhead: AI powered layout & file management system.
+intro: Open the brief and type the sizes, choose your masters, then run. The whole rollout shows in one view: creatives, masters, channels, sizes and where each file goes.

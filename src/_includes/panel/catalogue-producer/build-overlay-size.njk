@@ -1,0 +1,16 @@
+{#- How the spread is made, step 12 (build.njk): Products ▸ Overlays, the Party pack's price corner at a size of its
+    own. -#}
+{%- from "panel/ui.njk" import sel %}
+<div class="pt-card">
+  <p class="pt-label">Products ▸ Overlays</p>
+  <span class="pt-chip is-on">Product: 410204 Party pack</span>
+  <div class="pt-line"><span class="pt-title">Bottom left</span><span class="pt-seg pt-corners pt-right"><span class="c-tl"></span><span class="c-tr"></span><span class="c-bl is-on"></span><span class="c-br"></span></span></div>
+  <div class="pt-form">
+    <span class="pt-flabel">Inset X</span>{{ sel("8 pt") }}<span class="pt-flabel">Inset Y</span>{{ sel("8 pt") }}
+  </div>
+  <div class="pt-field"><span class="pt-flabel">Max size</span><span class="pt-seg"><span class="is-on">pt</span><span>%</span></span></div>
+  <div class="pt-form cb-set">
+    <span class="pt-flabel">Max width</span>{{ sel("96 pt") }}<span class="pt-flabel">Max height</span>{{ sel("96 pt") }}
+  </div>
+  <p class="pt-meta">The document's corners stay at 56 pt.</p>
+</div>

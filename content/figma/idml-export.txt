@@ -1,0 +1,4 @@
+name: IDML Export
+tagline: Send your files to InDesign.
+description: Your files are re-created as IDML files with maximum compatibility. Options include RGB or CMYK, bleed, pagination, overprint and paragraph styles.
+price: $7 a month

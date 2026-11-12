@@ -1,0 +1,17 @@
+name: Frame Multiplier
+tagline: Automate your advertising.
+description: Build and manage a whole campaign with only a handful of master layouts.
+price: $99 a month
+trial: 7 days of full access
+cardImageAlt: Frame Multiplier's plugin windows: setup with its masters and components, the frames it will multiply, and a verified frame.
+
+# tour
+
+frame-multiplier-tour-1: Frame Multiplier.
+frame-multiplier-tour-2: Turn this: a handful of burger ad masters.
+frame-multiplier-tour-3: Into this: hundreds of ads, one for every size.
+frame-multiplier-tour-4: How the plugin works: a key finds the master each size inherits its layers from, from the closest one or two ratios, blending between two.
+frame-multiplier-tour-5: Infinite frames, easy setup, precise control, lightning fast, AI assistance and multiple designs.
+frame-multiplier-tour-6: Component setup: give each layer of a component its role.
+frame-multiplier-tour-7: Optional: a collision path and a focal path round the product, and pins that hold objects to an edge.
+frame-multiplier-tour-8: Frame Multiplier's panels: the setup, the sizes, and a finished frame.

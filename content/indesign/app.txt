@@ -1,0 +1,15 @@
+name: InDesign
+kind: Plugins for InDesign
+subhead: Layout tools and automation.
+intro: Set a document up once, then let InDesign do the heavy lifting on catalogs, reports and long-form layouts.
+
+# install
+
+## Download the plugin.
+Use the Get button on the plugin's page to download its installer file.
+
+## Double-click to install.
+Creative Cloud installs the plugin for you.
+
+## Open it from the Plugins menu.
+Restart InDesign and find it in the Plugins menu.

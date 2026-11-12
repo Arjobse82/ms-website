@@ -1,0 +1,17 @@
+// Headings and button words that repeat on the app pages and the product pages.
+// {name} becomes the product's (or the site's) name.
+appLineupTitle: Explore the lineup
+learnMore: Learn more
+whyTitle: Why Monochrome
+installTitle: How to install
+tourTitle: Take the tour
+tryTitle: Line up the objects
+tryIntro: A modified version of Assemblr, made to run in your browser. Try each arrangement, drag the frame or the line-up's handle, and hang badges on its corners. Drop your own cut-outs on the page: they never leave your computer.
+tryNote: This demo is a simplified version built for the website and doesn't include all the features available in Assemblr for InDesign. For the full experience, try the plugin free for 7 days.
+helpTitle: Quick help
+rolloutTitle: The whole rollout, in one view
+highlightsTitle: Get the highlights
+specsTitle: {name} at a glance
+getTitle: Get {name}
+exploreTitle: Keep exploring
+alsoWorksWith: Mac app, works with {name}

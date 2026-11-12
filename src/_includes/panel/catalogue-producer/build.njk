@@ -1,0 +1,46 @@
+{#- How the hero's spread is made, as you scroll (panels.js `how.build`, src/_lib/catalogue-art.js `build`): the spread
+    held in the top half of the window, empty, and under it the panel's settings, a step each, scrolling up; as each
+    step comes up, what it sets is added to the pages, and then the made spread is edited (site.js initBuilds sets
+    s1, s2 … on the frame, the steps reached). Without the script, or before it runs, the spread shows made.
+    Expects `panelId`. -#}
+{%- from "panel/catalogue-producer/spread-ui.njk" import cell, at, pc %}
+{%- set b = panels[panelId].how.build %}
+{%- set art = panels[panelId].art.build %}
+<div class="cb" data-build>
+  <div class="cb-stage" aria-hidden="true">
+    <div class="cb-board">
+      <div class="cs-frame cs-spread cb-frame" style="--units: {{ art.w }}; aspect-ratio: {{ art.w }} / {{ art.h }}">
+        {%- for p in art.pages %}
+        <div class="cs-page cs-page-{{ p.side }}">
+          <span class="cs-margins" style="{{ at(p.margins, p.w, p.h) }}"></span>
+          {%- for c in p.cells %}{{ cell(c, p.w, p.h) }}{% endfor %}
+          {%- for s in p.grid %}<span class="cb-slot cb-grid" style="{{ at(s, p.w, p.h) }}"></span>{% endfor %}
+          {%- for s in p.slots %}<span class="cb-slot cb-joined{% if s.insert %} is-insert{% endif %}" style="{{ at(s, p.w, p.h) }}">
+            {%- if s.insert %}<b class="cs-joined">Insert</b>{% elif s.joined[0] > 1 or s.joined[1] > 1 %}<b class="cs-joined">{{ s.joined[0] }} × {{ s.joined[1] }}</b>{% endif -%}
+          </span>{% endfor %}
+          <span class="cs-folio">{{ p.number }}</span>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+    <p class="cb-cap"><span class="cb-cap-n">00</span><span class="cb-cap-t">{{ b.start.cap }}</span></p>
+  </div>
+  <ol class="cb-steps">
+    <li class="cb-step cb-step-start" data-step="0" data-cap="{{ b.start.cap }}">
+      <div class="cb-text">
+        <h3 class="hw-name"><span class="hw-num">00</span>{{ b.start.name }}</h3>
+        <p class="hw-text">{{ b.start.text }}</p>
+      </div>
+    </li>
+    {%- for s in b.steps %}
+    <li class="cb-step" data-step="{{ loop.index }}" data-cap="{{ s.cap }}">
+      <div class="cb-text">
+        {%- if s.group %}<p class="cb-group">{{ s.group }}</p>{% endif %}
+        <h3 class="hw-name"><span class="hw-num">{{ loop.index | pad }}</span>{{ s.name }}</h3>
+        <p class="hw-text">{{ s.text }}</p>
+      </div>
+      <div class="cb-ui pt-panel" aria-hidden="true">{% include "panel/" + panelId + "/build-" + s.id + ".njk" %}</div>
+    </li>
+    {%- endfor %}
+  </ol>
+</div>

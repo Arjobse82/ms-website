@@ -3,5 +3,5 @@
 {%- if p.getUrl -%}
 <a class="button {{ 'button-small' if compact else 'button-primary' }}" href="{{ p.getUrl }}">Get{% if not compact %} {{ p.name }}{% endif %}</a>
 {%- else -%}
-<span class="status status-waiting{% if compact %} status-small{% endif %}"><span class="status-dot" aria-hidden="true"></span>Coming soon</span>
+<span class="status status-waiting{% if p.statusLed %} status-led{% endif %}{% if compact %} status-small{% endif %}"><span class="status-dot" aria-hidden="true"></span>Coming soon</span>
 {%- endif -%}

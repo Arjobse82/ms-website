@@ -1,0 +1,15 @@
+{#- How the spread is made, step 3 (build.njk): Setup ▸ Folders, the brief and the images, matched and placed. -#}
+{%- from "panel/ui.njk" import box, btn %}
+<div class="pt-card">
+  <p class="pt-label">Setup ▸ Folders</p>
+  <div class="pt-head"><span class="pt-flabel">Brief</span>{{ btn("Change…") }}</div>
+  <p class="pt-title">Summer catalogue.xlsx</p>
+  <p class="pt-meta">Sheet “Products” | 12 products</p>
+  <div class="pt-line"><span class="pt-flabel">Image folders</span><span class="pt-strong">/Packshots</span><span class="pt-meta pt-right">24 image files</span></div>
+  <div class="pt-table">
+    <div class="pt-tr cb-set">{{ box() }}<span>Product code in file names</span><span class="pt-right">24</span></div>
+    <div class="pt-tr">{{ box() }}<span>Product code in folder names</span><span class="pt-right">0</span></div>
+  </div>
+  <div class="pt-btns">{{ btn("Analyse links") }}{{ btn("Place images", true) }}</div>
+  <p class="pt-meta">Together: 12 of 12 products have images.</p>
+</div>

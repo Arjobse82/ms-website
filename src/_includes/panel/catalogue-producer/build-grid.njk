@@ -1,0 +1,12 @@
+{#- How the spread is made, step 2 (build.njk): Products ▸ Grid, a product given more than one slot. -#}
+{%- from "panel/ui.njk" import step %}
+<div class="pt-card">
+  <p class="pt-label">Products ▸ Grid</p>
+  <div class="pt-line"><span class="pt-title">Page 2</span><span class="pt-seg pt-right"><span class="is-on">Managed</span><span>Free</span></span></div>
+  <div class="pt-line cb-set"><span class="pt-strong">Party pack</span><span class="pt-flabel pt-right">Size</span>{{ step("3 × 1") }}</div>
+  <div class="pt-line"><span class="pt-strong">Cola</span><span class="pt-flabel pt-right">Size</span>{{ step("1 × 1") }}</div>
+  <hr class="pt-rule">
+  <div class="pt-line"><span class="pt-title">Page 3</span><span class="pt-seg pt-right"><span class="is-on">Managed</span><span>Free</span></span></div>
+  <div class="pt-line cb-set"><span class="pt-strong">Mixed case</span><span class="pt-flabel pt-right">Size</span>{{ step("2 × 2") }}</div>
+  <p class="pt-meta">The products round them flow on.</p>
+</div>

@@ -1,0 +1,45 @@
+name: Ad Agent
+tagline: AI powered layout & file management system.
+description: Our latest release brings AI into automated campaign rollouts, allowing you to control both InDesign and Figma directly from one app. A modern, node-based visual mapping interface connects your creative tools, workflows and AI in one place.
+price: From $19.99 a month
+
+# highlights
+
+## Your masters stay closed.
+Ad Agent never opens your masters in InDesign. It works on copies.
+
+## Every size from the brief.
+Type the sizes, or open the brief's spreadsheet and take them from there.
+
+## Each channel, its own files.
+PDF, JPG or PNG for each channel, sent to the folders you choose.
+
+## Rounds, kept.
+Pull the brief's update and see only the sizes it adds or takes away.
+
+# pricing
+// A "column:" line a price column, in order: the words before the colon its heading, those after it what it is.
+// A plan a "##": its first line its prices, a column each, split by "|"; the lines under it what it gets.
+title: Pricing
+intro: A subscription runs every campaign, resized by hand or not. Releasing the files the rollout engine lays out is paid per file, only on the campaigns that use it.
+column: Standard AI: Text based capabilities.
+column: Multimodal AI: Text and visual capabilities.
+column: Auto rollout: Previews are free.
+note: The AI runs on your own Claude key or a local model on your Mac. Preflight checks are free on every plan, no key needed.
+
+## Studio
+$19.99 a month | $29.99 a month | +$1 per resize
+Up to 50 sizes per project.
+
+## Agency
+$29.99 a month | $49.99 a month | +$1 per resize
+Unlimited sizes per project.
+
+# specs
+
+Masters: InDesign and Figma
+Brief: Excel or CSV
+Files: PDF, JPG and PNG
+Platform: macOS
+Availability: Coming soon
+Price: From $19.99 a month, plus $1 per resize

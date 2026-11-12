@@ -1,0 +1,13 @@
+{#- How the spread is made, step 4 (build.njk): Setup ▸ Copy, the brief's columns and their paragraph styles. -#}
+{%- from "panel/ui.njk" import sel, box, btn %}
+<div class="pt-card">
+  <p class="pt-label">Setup ▸ Copy</p>
+  <div class="pt-line"><span class="pt-flabel">Copy fitting</span><span class="pt-seg pt-right"><span>Off</span><span>Per product</span><span class="is-on">Match the row</span></span></div>
+  <hr class="pt-rule">
+  {%- for f in [["Name", "Product name"], ["Pack", "Pack size"], ["Price", "Price"]] %}
+  <div class="pt-fieldhead">{{ box() }}<span class="pt-strong">{{ f[0] }}</span><span class="pt-arrows" aria-hidden="true">˄ ˅</span></div>
+  <div class="pt-pair cb-set">{{ sel("New paragraph") }}{{ sel(f[1]) }}</div>
+  {%- endfor %}
+  <div class="pt-fieldhead is-off">{{ box(false) }}<span>Supplier</span></div>
+  <div class="pt-btns">{{ btn("Write copy", true) }}</div>
+</div>

@@ -12,8 +12,8 @@ layout: layouts/base.njk
     </ul>
     <p class="t-subhead home-hero-subhead">{{ site.tagline }}</p>
     <div class="cta-row">
-      <a class="button button-primary" href="#lineup">Explore the lineup</a>
-      <a class="button" href="/about/">About us</a>
+      <a class="button button-primary" href="#lineup">{{ pages.home.primaryButton }}</a>
+      <a class="button" href="/about/">{{ pages.home.secondaryButton }}</a>
     </div>
   </div>
 </section>
@@ -47,7 +47,7 @@ layout: layouts/base.njk
 <section class="section theme-light" id="lineup">
   <div class="container container-wide">
     <div class="section-head reveal"><span class="section-index">01</span><span class="label">Lineup</span></div>
-    <h2 class="t-l section-title reveal">Every tool, at a glance</h2>
+    <h2 class="t-l section-title reveal">{{ pages.home.lineupTitle }}</h2>
     <ul class="lineup-row">
       {%- for p in catalog.lineup %}
       <li class="reveal">
@@ -66,6 +66,6 @@ layout: layouts/base.njk
 <section class="section section-statement theme-dark">
   <div class="container">
     <p class="t-xl statement reveal">{{ site.statement }}</p>
-    <p class="statement-link reveal"><a class="link-chevron" href="/about/">About {{ site.name }}{% include "icons/chevron-right.svg" %}</a></p>
+    <p class="statement-link reveal"><a class="link-chevron" href="/about/">{{ pages.home.aboutLink | replace("{name}", site.name) }}{% include "icons/chevron-right.svg" %}</a></p>
   </div>
 </section>

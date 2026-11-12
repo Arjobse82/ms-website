@@ -1,0 +1,46 @@
+{#- How it works, the overlays: the hero's product with a setup on each corner, stacked by Assemblr's engine
+    (src/_lib/assemblr-panel.js `how.overlays`), in points: its settings marked in blue, each corner named beside it;
+    then Max size's one example, Ink. -#}
+{%- from "panel/assemblr/overlay-ui.njk" import dim, pill, badge, product %}
+{%- set o = panels[panelId].art.how.overlays %}
+{#- A corner's name and what it shows, beside the product. #}
+{%- macro note(x, y, anchor, name, text) %}<text class="hw-ov-note" x="{{ x }}" y="{{ y }}" text-anchor="{{ anchor }}"><tspan class="hw-ov-name">{{ name }}</tspan><tspan x="{{ x }}" dy="15">{{ text }}</tspan></text>{% endmacro %}
+{%- set m = o.main %}{% set L = 168 %}{% set R = 168 %}{% set T = 40 %}{% set B = 24 %}
+<div class="hw-ov">
+  <svg class="hw-ov-svg hw-ov-main" viewBox="{{ -L }} {{ -T }} {{ m.w + L + R }} {{ m.h + T + B }}">
+    {{ product(m) }}
+    {{ badge(m.tl[0], "ECO", "#2e9e5b") }}{{ badge(m.tl[1], "AU", "#e8a33d") }}{{ badge(m.tl[2], "1 YR", "#555") }}
+    {%- set b = m.br[0] %}
+    <g class="hw-ov-badge"><rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" rx="{{ b.h / 2 }}" fill="#111"/><text x="{{ b.cx }}" y="{{ b.cy + b.h * 0.13 }}" font-size="{{ b.h * 0.38 }}">BEST BUY</text></g>
+    <rect class="hw-ov-max" x="{{ m.maxBox.x }}" y="{{ m.maxBox.y }}" width="{{ m.maxBox.w }}" height="{{ m.maxBox.h }}"/>
+    {#- Top right: Inset Y and Inset X of the corner badge, the Gap between the two. #}
+    {%- set a = m.tr[0] %}{% set n = m.tr[1] %}
+    {{ dim(a.cx, 0, a.cx, a.y) }}{{ dim(a.x + a.w, a.cy, m.w, a.cy) }}
+    {{ dim(n.x + n.w, a.y - 5, a.x, a.y - 5) }}<path class="hw-dim" d="M{{ (n.x + n.w + a.x) / 2 }} -10V{{ a.y - 5 }}"/>
+    {{ pill(m.w + 10, a.y / 2, "start", "Inset Y " + o.inset + " mm") }}
+    {{ pill(m.w + 10, a.cy, "start", "Inset X " + o.inset + " mm") }}
+    {{ pill((n.x + n.w + a.x) / 2, -18, "middle", "Gap " + o.gap + " mm") }}
+    {#- Stack: an arrow from the corner along each stack. #}
+    {%- set t = m.tl %}
+    <path class="hw-ov-arrow" d="M{{ t[0].x + t[0].w + 8 }} {{ t[0].y }}V{{ t[2].y + t[2].h }}m-4 -6 4 6 4 -6"/>
+    <path class="hw-ov-arrow" d="M{{ a.x + a.w }} {{ a.y + a.h + 8 }}H{{ n.x }}m6 -4 -6 4 6 4"/>
+    {{ note(-16, t[1].cy - 4, "end", "Top left", "Three badges, Stack Down") }}
+    {{ note(m.w + 16, a.cy + 32, "start", "Top right", "Two badges, Stack Across") }}
+    {{ note(-16, m.bl[0].cy - 4, "end", "Bottom left", "A price, in your own design") }}
+    {{ note(m.w + 16, m.maxBox.y + m.maxBox.h / 2 - 4, "start", "Bottom right", "Max " + o.max.w + " × " + o.max.h + " mm: it fits inside") }}
+  </svg>
+  {#- Max size, one example (the owner, 2026-11-11): Ink, the way InDesign has none. The same badge and price on three
+      products of different sizes and shapes, at one scale, each badge the same share of its area (`how.sizes`); over
+      them Max size's chips as the panel has them, Ink on. pt and % are in the step's words. #}
+  <div class="hw-sz">
+    <div class="hw-sz-head"><span class="pt-flabel">Max size</span><span class="pt-seg"><span>mm</span><span>%</span><span class="is-on">Ink</span></span><span class="pt-sel">4 %</span></div>
+    <div class="hw-sz-cells">
+      {%- for c in panels[panelId].art.how.sizes %}
+      <figure class="hw-sz-cell" style="--w: {{ c.w + 16 }}">
+        <svg class="hw-ov-svg" viewBox="-8 -8 {{ c.w + 16 }} {{ c.h + 16 }}">{{ product(c) }}</svg>
+        <figcaption>Badge: <b>{{ c.share }} %</b> of the area</figcaption>
+      </figure>
+      {%- endfor %}
+    </div>
+  </div>
+</div>

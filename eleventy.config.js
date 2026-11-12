@@ -8,6 +8,8 @@ const photos = {
   "granite-tall": { widths: [800, 1600], width: 1600, height: 2415, turn: -90 },
   "frame-multiplier": { widths: [800, 1600, 2400], width: 2400, height: 1589, turn: -90 },
   bloom: { widths: [800, 1600, 2400], width: 2400, height: 1589, turn: 90 },
+  // The About page's hero, upright.
+  about: { widths: [800, 1600, 2400], width: 2400, height: 1589 },
   // A video's poster stays upright: it carries the product's name.
   "assemblr-intro": { widths: [800, 1280], width: 1280, height: 720 },
 };

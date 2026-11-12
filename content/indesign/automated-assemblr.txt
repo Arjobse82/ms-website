@@ -1,0 +1,30 @@
+name: Automated Assemblr
+tagline: Multi page layouts, built from your Excel file.
+description: Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of images, and keeps the pages and the brief in sync both ways.
+price: $99 a month
+
+# highlights
+
+## Smart matching.
+Each image file finds its row in the spreadsheet by the product code in its file or folder name, or by the product's name. A near match is placed and marked Check.
+
+## Images auto-place with cropping.
+Each matched file goes into its product's cell, auto-cropped, and arranges itself there with the product's other images.
+
+## Drop in, arranged.
+Drag an image into a cell and it joins that product, arranged with the rest. Nothing to place, fit or line up by hand.
+
+## Freestyle pages.
+Set a page to Freestyle and make any image area any size. Its images and text stay linked to their product, and in step with the brief.
+
+## Reorder in one move.
+Swap two products or change the whole order, and the plugin re-flows the pages to follow, in one undo step.
+
+# specs
+
+Works with: InDesign 2026 (21.0 or later)
+Brief: Excel
+Images: Any file InDesign places: PSD, TIFF, PNG, JPEG, HEIC, AI, PDF, EPS, SVG and more
+Platform: macOS
+Availability: Adobe Exchange
+Price: $99 a month

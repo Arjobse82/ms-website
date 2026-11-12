@@ -170,6 +170,86 @@ function spread() {
   return { w: PAGE.w * 2, h: PAGE.h, pages: [left, right], features };
 }
 
+/**
+ * How the hero's spread is made (panel/catalogue-producer/build.njk), a step a setting: the same two pages, and what
+ * each step adds to them. `grid`: the 3 × 3 slots of each page; `slots`: the cells as the Grid tile joins them, each its
+ * span and whether an insert takes it. The two products set by hand carry each image's plain Line-up place (`from`,
+ * as the plugin starts a product) so they can move from it to their own arrangement.
+ */
+function build() {
+  const s = spread();
+  const g = { across: 3, down: 3 };
+  const c0 = contentOf("left");
+  const cw = (c0.w - GAP * (g.across - 1)) / g.across, ch = (c0.h - GAP * (g.down - 1)) / g.down;
+  const span = (c) => [Math.round((c.w + GAP) / (cw + GAP)), Math.round((c.h + GAP) / (ch + GAP))];
+  const pages = s.pages.map((p) => ({
+    ...p,
+    grid: Array.from({ length: g.across * g.down }, (_, k) => round(slot(p.side, g, k % g.across, Math.floor(k / g.across)))),
+    slots: p.cells.map((c) => ({ x: c.x, y: c.y, w: c.w, h: c.h, joined: span(c), insert: c.kind !== "product" })),
+    cells: p.cells.map((c) => {
+      if (c.kind !== "product" || !SETTINGS[c.p.code]) return c;
+      const plain = laidOut(c.img.w, c.img.h, c.p.cans.map((n) => `${n}.psd`), PLAIN).cans;
+      return { ...c, cans: c.cans.map((k) => ({ ...k, from: plain.find((q) => q.index === k.index) })) };
+    }),
+  }));
+
+  // Then the spread edited, a step each from step 8 (`cls` cb-k<step> and `vars` --x<step> … --h<step>: where an
+  // element goes at that step, as a share of its parent; cb-in<step> / cb-out<step>: what comes in or goes out).
+  const [L, R] = pages;
+  const at = (b, W, H, k) => `--x${k}: ${pct(b.x, W)}%; --y${k}: ${pct(b.y, H)}%; --w${k}: ${pct(b.w, W)}%; --h${k}: ${pct(b.h, H)}%`;
+  const edit = (el, cls, vars = "") => {
+    el.cls = [el.cls, cls].filter(Boolean).join(" ");
+    el.vars = [el.vars, vars].filter(Boolean).join("; ");
+  };
+  const find = (page, code) => page.cells.find((c) => c.p?.code === code);
+
+  // 8. Two products swap cells: the Cola and the Duo pack, each taking the other's place.
+  const cola = find(L, "410201"), duo = find(L, "410203");
+  edit(cola, "cb-k8", at(duo, PAGE.w, PAGE.h, 8));
+  edit(duo, "cb-k8", at(cola, PAGE.w, PAGE.h, 8));
+
+  // 9. Two of a product's images swap: the Mixed case's first and last, the arrangement laid out again round them.
+  const mixed = find(R, "410207");
+  const names = mixed.p.cans.map((n) => `${n}.psd`);
+  const swapped = [...names];
+  [swapped[0], swapped[5]] = [swapped[5], swapped[0]];
+  const relaid = laidOut(mixed.img.w, mixed.img.h, swapped, SETTINGS["410207"]).cans;
+  const newIndex = (i) => (i === 0 ? 5 : i === 5 ? 0 : i);
+  mixed.cans = mixed.cans.map((k) => {
+    const to = relaid.find((q) => q.index === newIndex(k.index));
+    const can = { ...k };
+    edit(can, "cb-k9", `${at(to, mixed.img.w, mixed.img.h, 9)}; --z9: ${relaid.indexOf(to) + 1}`);
+    return can;
+  });
+  const strip = swapped.map((n, i) => ({ src: CAN[n.replace(".psd", "")], on: i === 0 || i === 5 }));
+
+  // 10. A product hidden: Lemon soda leaves, and Ginger beer, the next product, flows up into its cell.
+  const lemon = find(R, "410206");
+  edit(lemon, "cb-out10");
+  const ginger = productCell("410208", { x: lemon.x, y: lemon.y, w: lemon.w, h: lemon.h });
+  edit(ginger, "cb-in10 cb-out11");
+  R.cells.push(ginger);
+
+  // 11. A cell's size changed: Sparkling water one across and two down, its image laid out again for the new shape;
+  // Ginger beer flows on to the next page.
+  const water = find(R, "410205");
+  const tall = productCell("410205", slot("right", g, 2, 1, 1, 2));
+  edit(water, "cb-k11", `${at(tall, PAGE.w, PAGE.h, 11)}; --ih11: ${pct(tall.img.h, tall.h)}%`);
+  water.cans = water.cans.map((k) => {
+    const can = { ...k };
+    edit(can, "cb-k11", at(tall.cans.find((q) => q.index === k.index), tall.img.w, tall.img.h, 11));
+    return can;
+  });
+
+  // 12. An overlay at a size of its own: the Party pack's price device, Max width and height 96 pt instead of 56.
+  const party = find(L, "410204");
+  const [bigPrice] = cornerStack(party.img.w, party.img.h, "bl", [PRICE_ASPECT], { insetX: 8, insetY: 8, maxW: 96, maxH: 96 });
+  party.price = { ...party.price };
+  edit(party.price, "cb-k12", at(bigPrice, party.img.w, party.img.h, 12));
+
+  return { w: s.w, h: s.h, pages, strip };
+}
+
 /** How it works's drawings (panel/catalogue-producer/how-*.njk). */
 function how() {
   // Built from the brief: its first rows, the image folder, and the Duo pack's cell, its two files found by its code.
@@ -256,7 +336,7 @@ function how() {
 }
 
 export function catalogueArt() {
-  return { spread: spread(), how: how() };
+  return { spread: spread(), build: build(), how: how() };
 }
 
 export { CAN };

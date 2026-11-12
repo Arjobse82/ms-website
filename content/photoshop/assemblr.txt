@@ -1,0 +1,26 @@
+name: Assemblr
+tagline: Arrange layers by what you see.
+description: Every packshot carries a different amount of transparent space round the product, so layers aligned by their edges leave the products out of line. Assemblr measures each layer's visible subject and arranges by that, and your Layers panel keeps its structure.
+
+# highlights
+
+## Lined up by what shows.
+Each layer is arranged by its visible subject, measured from its transparency, not by its layer box.
+
+## Five arrangements.
+Line-up, Grid, Mosaic, Pins or Puzzle, inside an invisible rectangle. Resize it and the layers re-fit.
+
+## Your edits, respected.
+Scale a layer by hand and its size is kept; lock one and it stays where it is while the others fit round it.
+
+## One history step.
+Every action is one named history step, and the product is saved in the document itself.
+
+# specs
+
+Works with: Photoshop
+Documents: RGB, CMYK, Grayscale and Lab, 8 or 16 bits
+Arrangements: Line-up, Grid, Mosaic, Pins and Puzzle
+Platform: macOS, no account, no network
+Availability: Coming soon
+Price: To be announced

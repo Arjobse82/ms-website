@@ -1,0 +1,14 @@
+{#- How the spread is made, step 1 (build.njk): Setup ▸ Pages, the grid the spread is built on. -#}
+{%- from "panel/ui.njk" import step, sel, btn %}
+<div class="pt-card">
+  <p class="pt-label">Setup ▸ Pages</p>
+  <div class="pt-line"><span class="pt-flabel">Grid</span><span class="pt-seg pt-right"><span>Auto</span><span class="is-on">Consistent</span></span></div>
+  <div class="pt-form cb-set">
+    <span class="pt-flabel">Across</span>{{ step("3") }}<span class="pt-flabel">Down</span>{{ step("3") }}
+    <span class="pt-flabel">Gap</span>{{ step("12 pt") }}
+  </div>
+  <p class="pt-label pt-sub">Masters</p>
+  <div class="pt-form pt-form-2"><span class="pt-flabel">Left master</span>{{ sel("A-Product left") }}<span class="pt-flabel">Right master</span>{{ sel("A-Product right") }}</div>
+  <div class="pt-form"><span class="pt-flabel">Start on page</span>{{ step("2") }}</div>
+  <div class="pt-btns">{{ btn("Apply changes", true) }}{{ btn("Discard") }}</div>
+</div>
