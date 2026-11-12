@@ -33,7 +33,7 @@ Command a project with up to 50 files
 
 ## Agency
 $29.99 a month | $49.99 a month | +$1 per resize
-Command a project with no limits
+Command a project with no file limits
 
 # specs
 
