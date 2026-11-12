@@ -29,11 +29,11 @@ note: The AI runs on your own Claude key or a local model on your Mac. Preflight
 
 ## Studio
 $19.99 a month | $29.99 a month | +$1 per resize
-Up to 50 sizes per project.
+Command a project with up to 50 files
 
 ## Agency
 $29.99 a month | $49.99 a month | +$1 per resize
-Unlimited sizes per project.
+Command a project with no limits
 
 # specs
 
