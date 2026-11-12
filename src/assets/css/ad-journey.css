@@ -286,7 +286,8 @@
 @keyframes aj-hl { from { opacity: 0; transform: scale(1.06); } }
 
 /* The caption under the view: the step, its title and what it does, a line of progress over it. */
-.aj-cap { position: relative; order: -1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 22px; width: 100%; max-width: 980px; margin: 0 auto; padding-bottom: 14px; }
+/* The caption inverted against the dark section (the owner, 2026-11-12: "so it stands out a lot more"). */
+.aj-cap { --fg: #111; --fg-2: #555; --fg-3: #888; --line: #d4d4d4; position: relative; order: -1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 22px; width: 100%; max-width: 980px; margin: 0 auto; padding: 18px 24px 16px; box-sizing: border-box; border-radius: 14px; background: #fff; color: var(--fg); }
 .aj-cap-n { margin: 0; padding-top: 4px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--fg-3); }
 .aj-cap-k { color: var(--fg); }
 .aj-cap-t { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg); }
@@ -301,7 +302,7 @@
 @media (max-width: 734px) {
   .aj { --nav: 48px; margin-top: 24px; }
   .js .aj-stage { gap: 10px; padding-bottom: 14px; }
-  .aj-cap { gap: 2px 12px; padding-bottom: 10px; }
+  .aj-cap { gap: 2px 12px; padding: 12px 14px 10px; border-radius: 10px; }
   .aj-cap-t { font-size: 16px; }
   .aj-cap-x { min-height: 4.5em; font-size: 13px; }
 }
