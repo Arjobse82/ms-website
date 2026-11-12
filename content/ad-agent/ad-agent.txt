@@ -5,8 +5,8 @@ price: From $19.99 a month
 
 # highlights
 
-## Your masters stay closed.
-Ad Agent never opens your masters in InDesign. It works on copies.
+## Your files stay safe.
+Ad Agent never edits your working files. It works on copies.
 
 ## Every size from the brief.
 Type the sizes, or open the brief's spreadsheet and take them from there.
