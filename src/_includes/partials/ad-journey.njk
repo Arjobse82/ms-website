@@ -41,21 +41,23 @@
           <svg class="aj-word"><use href="#aj-logo-word"/></svg>
           <span class="aj-job" data-in="1">123456 SUMMER STACK · BURGER · THICKSHAKE</span>
           <span class="aj-status aj-swap" id="aj-status">
+            {%- set A = j.at %}
             {%- set S = [
               [0, 1, "", "Choose your masters"],
               [1, 2, "", "Open the brief, or type the sizes"],
               [2, 3, "warn", "12 sizes planned · 2 creatives · 4 channels"],
-              [3, 4, "warn", "Specs applied to 12 sizes · 20 files to make"],
-              [4, 6, "ok", "12 low-res previews made in 41 s · InDesign 5 · Figma 7"],
-              [6, 7, "warn", "R2 · 1 size to make again"],
-              [7, 8, "warn", "R2 · 2 sizes to make again"],
-              [8, 9, "warn", "R2 · 4 sizes to make again"],
-              [9, 10, "warn", "R3 · 12 sizes to make again"],
-              [10, 11, "ok", "R3 · 13 sizes made · A | B"],
-              [11, 12, "ok", "13 sizes · 4 tags on 8 sizes"],
-              [12, 13, "err", "Preflight: 2 to fix, 2 to look at"],
-              [13, 14, "warn", "13 sizes to release · $13"],
-              [14, null, "ok", "Released and sent. 13 sizes, 20 files"]
+              [3, A.logo, "warn", "Specs applied to 12 sizes · 20 files to make"],
+              [A.logo, A.made, "warn", "Logo profile OOH 3% · on the 2 OOH sizes"],
+              [A.made, A.edit, "ok", "12 low-res previews made in 41 s · InDesign 5 · Figma 7"],
+              [A.edit, A.compare, "warn", "R2 · 1 size to make again"],
+              [A.compare, A.price, "ok", "R2 · 1 size made again · its changes written"],
+              [A.price, A.mail, "warn", "R2 · 4 sizes to make again"],
+              [A.mail, A.ab, "warn", "R3 · 12 sizes to make again"],
+              [A.ab, A.tags, "ok", "R3 · 13 sizes made · A | B"],
+              [A.tags, A.pre, "ok", "13 sizes · 4 tags on 8 sizes"],
+              [A.pre, A.rel, "err", "Preflight: 2 to fix, 2 to look at"],
+              [A.rel, A.sent, "warn", "13 sizes to release · $13"],
+              [A.sent, null, "ok", "Released and sent. 13 sizes, 20 files"]
             ] %}
             {%- for s in S %}<span class="aj-st aj-st-{{ s[2] or 'idle' }}"{{ on(s[0], s[1]) }}><i></i>{{ s[3] }}</span>{% endfor %}
           </span>
@@ -78,9 +80,9 @@
 
         {#- The job's rounds: a circle a round, the one now ringed, its points as dots after it, "+" the next. #}
         <div class="aj-rounds" id="aj-rounds">
-          <span class="aj-r" data-st="6:past">R1</span>
+          <span class="aj-r" data-st="{{ j.at.edit }}:past">R1</span>
           <span class="aj-r" data-in="{{ j.at.edit }}" data-st="{{ j.at.mail }}:past">R2</span>
-          <span class="aj-points" data-in="{{ j.at.edit }}" data-out="{{ j.at.mail }}"><i></i><i data-in="{{ j.at.logo }}"></i><i data-in="{{ j.at.price }}"></i></span>
+          <span class="aj-points" data-in="{{ j.at.edit }}" data-out="{{ j.at.mail }}"><i></i><i data-in="{{ j.at.price }}"></i></span>
           <span class="aj-r" data-in="{{ j.at.mail }}" data-out="{{ j.at.ab }}">R3</span>
           <span class="aj-r aj-ab" data-in="{{ j.at.ab }}">R3 · <b>A</b> | <b>B</b></span>
           <span class="aj-r aj-plus">+</span>
@@ -118,7 +120,7 @@
 
         {#- The widgets down the left, each its glyph on a dark tile. #}
         <nav class="aj-rail">
-          {%- for w in [["brief", "tables", "2:act 4:-act"], ["masters", "pages", "1:act 2:-act"], ["roles", "roles", ""], ["brand", "overlays", "7:act 8:-act"], ["output", "folders", "14:act"], ["ai", "ai", "8:act 10:-act"]] %}
+          {%- for w in [["brief", "tables", "2:act 4:-act"], ["masters", "pages", "1:act 2:-act"], ["roles", "roles", ""], ["brand", "overlays", j.at.logo ~ ":act " ~ j.at.made ~ ":-act"], ["output", "folders", j.at.sent ~ ":act"], ["ai", "ai", j.at.price ~ ":act " ~ j.at.ab ~ ":-act"]] %}
           <span class="aj-w" id="aj-r-{{ w[0] }}"{% if w[2] %} data-st="{{ w[2] }}"{% endif %}><svg viewBox="0 0 62 62"><use href="#aj-glyph-{{ w[1] }}"/></svg></span>
           {%- endfor %}
         </nav>
@@ -169,7 +171,7 @@
         </section>
 
         {#- Brand: the logo profiles, OOH's chosen. #}
-        <section class="aj-card" id="aj-card-brand" style="top: 150px"{{ on(7, 8) }}>
+        <section class="aj-card" id="aj-card-brand" style="top: 150px"{{ on(j.at.logo, j.at.made) }}>
           <h4>Logo profiles <em>2</em></h4>
           <div class="aj-profs">
             <p><b>Master</b><span>10 sizes</span><br><small>as each master places it: no one rule to match</small></p>
@@ -210,6 +212,36 @@
         </section>
 
         {#- The square post's A and B. #}
+        {#- Step 8, rounds compared (the app's View tab, ad-journey.js compare): one size's R2 laid over its R1, wiped
+            across while the step is on, the rounds' eyes, and the round's Changes, a line a component. #}
+        {%- set cm = j.compare %}
+        <section class="aj-card aj-card-cmp" id="aj-card-cmp" style="top: 96px"{{ on(j.at.compare, j.at.price) }}>
+          <h4>{{ cm.size }} <em>{{ cm.channel }} · {{ cm.creative }}</em></h4>
+          <div class="aj-seg aj-seg-view"><span>Info</span><span class="is-on">View</span></div>
+          <div class="aj-cmp">
+            <div class="aj-cmp-art">
+              <div class="aj-cmp-r1">{{ cm.r1 | safe }}</div>
+              <div class="aj-cmp-r2">{{ cm.r2 | safe }}</div>
+              <span class="aj-cmp-tag aj-cmp-tag-1">R1</span><span class="aj-cmp-tag aj-cmp-tag-2">R2</span>
+              <span class="aj-cmp-handle"><i></i></span>
+            </div>
+            <div class="aj-cmp-side">
+              <h5>Rounds</h5>
+              <ul class="aj-cmp-layers">
+                <li><svg class="aj-cmp-eye" viewBox="0 0 16 16"><path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></svg><b>R2</b><small>{{ cm.file }}.pdf</small></li>
+                <li><svg class="aj-cmp-eye" viewBox="0 0 16 16"><path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></svg><b>R1</b><small>delivered</small></li>
+              </ul>
+              <div class="aj-cmp-ch">
+                <h5>Changes since R1</h5>
+                <ul>
+                  {%- for l in cm.lines %}<li><b>{{ l.name }}</b><span>{{ l.what }}</span></li>{% endfor %}
+                  <li class="aj-cmp-same">No change: {{ cm.same | join(", ") }}</li>
+                </ul>
+                <p class="aj-meta">R2/Changes.md</p>
+              </div>
+            </div>
+          </div>
+        </section>
         <section class="aj-card aj-card-right" id="aj-card-ab" style="top: 140px"{{ on(j.at.ab, j.at.tags) }}>
           <h4>1080 × 1080 <em>Social · BURGER</em></h4>
           <div class="aj-seg aj-seg-ab"><span class="is-on">R3 · A | B</span><span>Test</span></div>

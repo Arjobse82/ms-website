@@ -130,7 +130,7 @@
         {% include "partials/tile.njk" %}
         {%- endif %}
         <div class="lineup-card-body">
-          {%- if p.also %}<p class="label">{{ pages.labels.alsoWorksWith | replace("{name}", app.name) }}</p>{% endif %}
+          {%- if p.also %}<p class="label">{{ pages.labels.alsoWorksWith | replace("{name}", p.worksWith or app.name) }}</p>{% endif %}
           <h3 class="lineup-card-title">{{ p.name }}</h3>
           <p class="lineup-card-tagline">{{ p.tagline }}</p>
           <p class="lineup-card-text">{{ p.description }}</p>

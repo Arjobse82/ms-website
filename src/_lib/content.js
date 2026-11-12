@@ -96,6 +96,37 @@ export function applyProduct(app, product) {
       })),
     };
   }
+  // The full feature list under the tech specs: its pairs (title, intro), then a group a "##", a feature a line under
+  // it, "Name: what it does". (Not `features`: that is the highlights.)
+  // The same shape for # safety: what it can reach, what it asks of the Mac, and what the AI may and may not do.
+  const grouped = (sec) => ({
+    ...Object.fromEntries(sec.pairs),
+    groups: sec.items.map((it) => ({
+      title: it.title,
+      rows: it.lines.map((line) => {
+        const at = line.indexOf(":");
+        return at < 0 ? { name: line, text: "" } : { name: line.slice(0, at).trim(), text: line.slice(at + 1).trim() };
+      }),
+    })),
+  });
+  if (s.features) out.featureList = grouped(s.features);
+  if (s.safety) out.safety = grouped(s.safety);
+  // The AI's capabilities by plan: its pairs (title, intro, note, and a "column: Name" a plan, in order), then a
+  // capability a "##", its first line a cell a plan split by "|" ("yes" a tick, "no" a dash, other words as they
+  // are), the lines under it an example of asking for it.
+  if (s.ai) {
+    const pairs = s.ai.pairs;
+    const cell = (x) => (/^yes$/i.test(x) ? { tick: true } : /^no$/i.test(x) ? { dash: true } : { words: x });
+    out.aiTable = {
+      ...Object.fromEntries(pairs.filter(([k]) => k !== "column")),
+      columns: pairs.filter(([k]) => k === "column").map(([, v]) => v),
+      rows: s.ai.items.map((it) => ({
+        name: it.title,
+        cells: it.lines[0].split("|").map((x) => cell(x.trim())),
+        example: it.lines.slice(1).join(" "),
+      })),
+    };
+  }
   if (s.tour) out.tour = s.tour.pairs.map(([image, alt], i) => ({ ...product.tour?.[i], image, alt }));
   if (s.video && product.video) out.video = { ...product.video, ...Object.fromEntries(s.video.pairs) };
   return out;

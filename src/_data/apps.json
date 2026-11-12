@@ -167,6 +167,7 @@
         "icon": "ad-agent",
         "tile": "black",
         "getUrl": "",
+        "getLabel": "Download for Mac",
         "glyphs": {
           "form": "globe",
           "speed": 2,

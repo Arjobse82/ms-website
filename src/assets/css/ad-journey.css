@@ -111,8 +111,8 @@
 .aj-n-size.owed .aj-dot { border-color: var(--warn); background: var(--warn); }
 .aj-n-size.owed .aj-ratio { border-color: var(--warn); }
 /* The run: the sizes made one after another, top to bottom. */
-.aj[data-at="4"] .aj-n-size.made { animation: aj-made 0.5s calc(var(--d) * 120ms + 0.6s) both; }
-.aj[data-at="4"] .aj-n-size.made .aj-dot { animation: aj-dot 0.4s calc(var(--d) * 120ms + 0.8s) both; }
+.aj[data-at="5"] .aj-n-size.made { animation: aj-made 0.5s calc(var(--d) * 120ms + 0.6s) both; }
+.aj[data-at="5"] .aj-n-size.made .aj-dot { animation: aj-dot 0.4s calc(var(--d) * 120ms + 0.8s) both; }
 @keyframes aj-made { from { border-style: dashed; color: #8c8c8c; box-shadow: 0 0 0 0 rgba(51, 114, 246, 0); } 50% { box-shadow: 0 0 0 3px rgba(51, 114, 246, 0.6); } }
 @keyframes aj-dot { from { border-color: #888; background: transparent; } }
 .aj-n-dest.sent { border-color: var(--ok); }
@@ -131,7 +131,7 @@
 .aj-bridge { margin: 0 0 8px !important; }
 /* Tags, preflight and the A/B on a size. */
 .aj-marks { display: none; gap: 2px; }
-.aj.s11 .aj-marks { display: flex; }
+.aj.s12 .aj-marks { display: flex; } /* from the tags step on (ad-journey.js AT.tags) */
 .aj-marks i { width: 5px; height: 11px; border-radius: 1.5px; background: var(--tc); }
 .aj-pre-mark { display: none; width: 0; height: 0; border-right: 5px solid transparent; border-bottom: 9px solid var(--err); border-left: 5px solid transparent; }
 .aj-n-size.pre-err { border-color: var(--err); box-shadow: 0 0 0 1px var(--err); }
@@ -310,3 +310,37 @@
 @media (prefers-reduced-motion: reduce) {
   .aj-win, .aj-hl, .aj-cap-body.is-new, .aj-turn.is-on { transition: none; animation: none; }
 }
+
+/* Step 8, rounds compared (#aj-card-cmp): R2 laid over R1 and wiped across while the step is on, the rounds, and
+   the round's Changes beside them. */
+.aj-card-cmp { width: 600px; }
+.aj-seg-view { width: 120px; margin-bottom: 12px; }
+.aj-cmp { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; align-items: start; }
+.aj-cmp-art { position: relative; aspect-ratio: 4 / 5; }
+.aj-cmp-r1, .aj-cmp-r2 { position: absolute; inset: 0; box-shadow: 0 0 0 1px #333; }
+.aj-cmp-r2 { clip-path: inset(0 0 0 50%); }
+.aj-cmp-tag { position: absolute; top: 7px; padding: 1px 6px; border-radius: 999px; background: rgba(0, 0, 0, 0.72); font-size: 9.5px; font-weight: 700; color: #fff; }
+.aj-cmp-tag-1 { left: 7px; }
+.aj-cmp-tag-2 { right: 7px; }
+.aj-cmp-handle { position: absolute; top: -6px; bottom: -6px; left: 50%; width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
+.aj-cmp-handle i { position: absolute; top: 50%; left: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45); }
+.aj-cmp-handle i::before, .aj-cmp-handle i::after { content: ""; position: absolute; top: 7px; border: 4px solid transparent; }
+.aj-cmp-handle i::before { left: 2px; border-right-color: #111; }
+.aj-cmp-handle i::after { right: 2px; border-left-color: #111; }
+.aj-card-cmp.is-on .aj-cmp-r2 { animation: aj-wipe 4.2s 0.9s ease-in-out infinite; }
+.aj-card-cmp.is-on .aj-cmp-handle { animation: aj-wipe-at 4.2s 0.9s ease-in-out infinite; }
+@keyframes aj-wipe { 0%, 100% { clip-path: inset(0 0 0 50%); } 30% { clip-path: inset(0 0 0 18%); } 70% { clip-path: inset(0 0 0 82%); } }
+@keyframes aj-wipe-at { 0%, 100% { left: 50%; } 30% { left: 18%; } 70% { left: 82%; } }
+.aj-cmp-side h5 { margin-top: 0; }
+.aj-cmp-layers { margin: 0 0 14px; padding: 0; list-style: none; }
+.aj-cmp-layers li { display: flex; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 7px; background: #181818; box-shadow: 0 0 0 1px #2a2a2a; }
+.aj-cmp-layers li + li { margin-top: 5px; }
+.aj-cmp-layers small { overflow: hidden; margin-left: auto; font-family: var(--font-mono); font-size: 8.5px; color: #777; text-overflow: ellipsis; white-space: nowrap; }
+.aj-cmp-eye { flex: none; width: 13px; height: 13px; fill: none; stroke: #fff; stroke-width: 1.4; }
+.aj-cmp-ch { padding: 2px 0 0; }
+.aj-cmp-ch ul { margin: 0; padding: 0; list-style: none; }
+.aj-cmp-ch li { display: grid; gap: 1px; padding: 6px 0; border-bottom: 1px solid #222; }
+.aj-cmp-ch b { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: #fff; }
+.aj-cmp-ch span { color: #b5b5b5; }
+.aj-cmp-ch .aj-cmp-same { border-bottom: 0; color: #777; }
+@media (prefers-reduced-motion: reduce) { .aj-card-cmp.is-on .aj-cmp-r2, .aj-card-cmp.is-on .aj-cmp-handle { animation: none; } }

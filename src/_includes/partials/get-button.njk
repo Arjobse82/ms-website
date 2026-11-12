@@ -1,7 +1,8 @@
 {#- The Get button for product `p`; until it has a getUrl, its status instead: the house's grey pulsing dot and
-    "Coming soon". Set `compact` for the local nav's size. -#}
+    "Coming soon". Set `compact` for the local nav's size. A product downloaded from us, not a store (Ad Agent, a
+    notarised DMG), names its button by `getLabel` ("Download for Mac"), "Download" in the compact nav. -#}
 {%- if p.getUrl -%}
-<a class="button {{ 'button-small' if compact else 'button-primary' }}" href="{{ p.getUrl }}">Get{% if not compact %} {{ p.name }}{% endif %}</a>
+<a class="button {{ 'button-small' if compact else 'button-primary' }}" href="{{ p.getUrl }}">{% if p.getLabel %}{{ 'Download' if compact else p.getLabel }}{% else %}Get{% if not compact %} {{ p.name }}{% endif %}{% endif %}</a>
 {%- else -%}
 <span class="status status-waiting{% if p.statusLed %} status-led{% endif %}{% if compact %} status-small{% endif %}"><span class="status-dot" aria-hidden="true"></span>Coming soon</span>
 {%- endif -%}

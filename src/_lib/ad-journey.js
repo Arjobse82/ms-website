@@ -44,7 +44,7 @@ const DEST_OF = { pdf: ["despatch"], lores: ["approvals"], jpg: ["despatch", "ap
 // The steps each change reaches (see STEPS): a size edited by hand in R2, the OOH logo profile, the AI's bigger price
 // on Social, the client's email (BURGER's headline, THICKSHAKE's price; a bigger logo on the banners suggested), then
 // the sizes released for despatch, $1 each, and sent.
-const AT = { made: 4, sheet: 5, edit: 6, logo: 7, price: 8, mail: 9, ab: 10, tags: 11, pre: 12, rel: 13, sent: 14 };
+const AT = { logo: 4, made: 5, sheet: 6, edit: 7, compare: 8, price: 9, mail: 10, ab: 11, tags: 12, pre: 13, rel: 14, sent: 15 };
 
 // ── The graph, as the app lays it out (nodes.ts): a column each, titled; tall nodes for the brief and creatives.
 // It starts right of where a widget's card opens (x 88–428), so a card never hides a node; the node cards on the
@@ -139,7 +139,6 @@ function link(a, b, step, st = "") {
 function changesOf(s) {
   const at = [];
   if (s.id === "b-pt") at.push(AT.edit);
-  if (s.ch === "OOH") at.push(AT.logo);
   if (s.ch === "Social") at.push(AT.price);
   at.push(AT.mail);
   return at;
@@ -178,6 +177,24 @@ const r1 = (v) => +v.toFixed(1);
 /** A size's drawing at a state: `edit` (R2, by hand), `logo` (the OOH profile), `big` (the AI's price), `mail` (the
  *  client's email), `b` (its B). */
 export function art(s, st = {}) {
+  const { b, W, H, price, head, hero, roundel, logo, legal } = geom(s, st);
+  const R = (o) => `x="${r1(o.x)}" y="${r1(o.y)}" width="${r1(o.w)}" height="${r1(o.h)}"`;
+  const text = head.lines.map((l, i) => `<tspan x="${r1(head.x)}" dy="${i ? r1(head.fs * 0.92) : 0}">${l}</tspan>`).join("");
+  const rf = roundel.r * (price.length > 4 ? 0.62 : 0.7);
+  const parts = [
+    `<rect width="${r1(W)}" height="${r1(H)}" fill="${b.bg}"/>`,
+    `<use href="#${b.hero}" ${R(hero)}/>`,
+    `<text class="aj-a-head" x="${r1(head.x)}" y="${r1(head.y)}" font-size="${r1(head.fs)}" fill="${b.ink}">${text}</text>`,
+    `<circle cx="${r1(roundel.cx)}" cy="${r1(roundel.cy)}" r="${r1(roundel.r)}" fill="${st.b ? "#e5484d" : b.ink}"/>`,
+    `<text class="aj-a-price" x="${r1(roundel.cx)}" y="${r1(roundel.cy + rf * 0.36)}" font-size="${r1(rf)}">${price}</text>`,
+    `<rect ${R(logo)} rx="${r1(logo.h * 0.5)}" fill="${b.ink}"/>`,
+    `<text class="aj-a-logo" x="${r1(logo.x + logo.w / 2)}" y="${r1(logo.y + logo.h * 0.66)}" font-size="${r1(logo.h * 0.5)}">STACK'D</text>`,
+    `<text class="aj-a-legal" x="${r1(legal.x)}" y="${r1(legal.y)}" font-size="${r1(legal.fs)}" text-anchor="${legal.anchor}" fill="${b.ink}">At participating stores. Prices may vary.</text>`,
+  ];
+  return `<svg class="aj-art" viewBox="0 0 ${r1(W)} ${r1(H)}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${parts.join("")}</svg>`;
+}
+
+function geom(s, st = {}) {
   const b = BRAND[CREATIVES.find((c) => c.id === s.c).key];
   const { W, H } = s, u = Math.min(W, H), r = W / H, pad = u * 0.07;
   const words = st.mail && b.line2 ? b.line2 : b.line;
@@ -197,10 +214,13 @@ export function art(s, st = {}) {
     legal = { x: W / 2, y: H - pad * 0.8, anchor: "middle", fs: W * 0.06 };
   } else if (r <= 1.25) {
     // Portrait and square: the headline top left, the hero below it, the price on the hero's right, logo bottom left.
-    const fs = fit(words, W - 2 * pad, u * 0.2) * (st.edit ? 1.12 : 1);
+    // Enlarged by hand (`edit`) up to 112 %, never past the width the headline has.
+    const fs = Math.min(fit(words, W - 2 * pad, u * 0.2) * (st.edit ? 1.12 : 1), fit(words, W - 2 * pad, Infinity));
     head = { x: pad, y: pad + fs * 0.82, fs, lines: words };
     const top = head.y + fs * (words.length - 1) + fs * 0.45, bottom = H - pad - logoH - pad * 0.6;
-    let hh = Math.min(bottom - top, (W * 0.86) / b.heroR) * (st.edit ? 1.08 : 1);
+    // The hero sized as if the headline had not grown, then by hand (`edit`) to 108 %: its own scale, as the size card says.
+    const fs0 = fit(words, W - 2 * pad, u * 0.2), top0 = pad + fs0 * 0.82 + fs0 * (words.length - 1) + fs0 * 0.45;
+    let hh = Math.min(bottom - top0, (W * 0.86) / b.heroR) * (st.edit ? 1.08 : 1);
     hero = { x: (W - hh * b.heroR) / 2, y: bottom - hh, w: hh * b.heroR, h: hh };
     const rr = u * 0.12;
     roundel = { cx: W - pad - rr, cy: Math.max(top + rr, hero.y + hh * 0.25), r: rr };
@@ -235,26 +255,14 @@ export function art(s, st = {}) {
     if (r <= 1.25) roundel = { ...roundel, cy: Math.min(roundel.cy, logo.y - roundel.r * 1.2) };
   }
   if (st.big) roundel = { ...roundel, r: roundel.r * 1.4, cx: r < 3.5 && r > 1.25 ? roundel.cx + roundel.r * 0.4 : roundel.cx - (r <= 1.25 ? roundel.r * 0.4 : 0) };
-  const R = (o) => `x="${r1(o.x)}" y="${r1(o.y)}" width="${r1(o.w)}" height="${r1(o.h)}"`;
-  const text = head.lines.map((l, i) => `<tspan x="${r1(head.x)}" dy="${i ? r1(head.fs * 0.92) : 0}">${l}</tspan>`).join("");
-  const rf = roundel.r * (price.length > 4 ? 0.62 : 0.7);
-  const parts = [
-    `<rect width="${r1(W)}" height="${r1(H)}" fill="${b.bg}"/>`,
-    `<use href="#${b.hero}" ${R(hero)}/>`,
-    `<text class="aj-a-head" x="${r1(head.x)}" y="${r1(head.y)}" font-size="${r1(head.fs)}" fill="${b.ink}">${text}</text>`,
-    `<circle cx="${r1(roundel.cx)}" cy="${r1(roundel.cy)}" r="${r1(roundel.r)}" fill="${st.b ? "#e5484d" : b.ink}"/>`,
-    `<text class="aj-a-price" x="${r1(roundel.cx)}" y="${r1(roundel.cy + rf * 0.36)}" font-size="${r1(rf)}">${price}</text>`,
-    `<rect ${R(logo)} rx="${r1(logo.h * 0.5)}" fill="${b.ink}"/>`,
-    `<text class="aj-a-logo" x="${r1(logo.x + logo.w / 2)}" y="${r1(logo.y + logo.h * 0.66)}" font-size="${r1(logo.h * 0.5)}">STACK'D</text>`,
-    `<text class="aj-a-legal" x="${r1(legal.x)}" y="${r1(legal.y)}" font-size="${r1(legal.fs)}" text-anchor="${legal.anchor}" fill="${b.ink}">At participating stores. Prices may vary.</text>`,
-  ];
-  return `<svg class="aj-art" viewBox="0 0 ${r1(W)} ${r1(H)}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${parts.join("")}</svg>`;
+  return { b, W, H, words, price, head, hero, roundel, logo, legal };
 }
 
 // A size's drawings across the steps: a layer a state, each in from the step it starts at and out at the next.
 function layers(s) {
-  const changes = [{ at: AT.sheet, st: {} }];
-  const KEY = { [AT.edit]: "edit", [AT.logo]: "logo", [AT.price]: "big", [AT.mail]: "mail" };
+  // The OOH sizes are made with their logo profile (step 5, set before the rollout): it is in their first drawing.
+  const changes = [{ at: AT.sheet, st: s.ch === "OOH" ? { logo: true } : {} }];
+  const KEY = { [AT.edit]: "edit", [AT.price]: "big", [AT.mail]: "mail" };
   for (const at of changesOf(s)) changes.push({ at, st: { ...changes[changes.length - 1].st, [KEY[at]]: true } });
   return changes.map((c, i) => ({ in: c.at, out: changes[i + 1]?.at, svg: art(s, c.st) }));
 }
@@ -280,10 +288,11 @@ export const STEPS = [
   { id: "masters", title: "Import your masters", text: "Build your masters in Figma and InDesign, and connect them to the app. Ad Agent can read and write to both programs.", cam: "#aj-card-masters, .aj-n-creative, .aj-n-master", hl: ["#aj-card-masters .aj-ms-id", "#aj-card-masters .aj-ms-fg", "#n-b-m0, #n-b-m5", "#n-t-m0, #n-t-m5"] },
   { id: "brief", title: "Preview your campaign rollout from the brief", text: "Import your brief. AI will begin a plan to roll out the files into InDesign or Figma.", cam: "#aj-card-brief, .aj-n-brief, .aj-n-ch, .aj-n-size", hl: [".aj-n-ch, .aj-n-size"] },
   { id: "specs", title: "Load your spec sheets", text: "AI will ensure your provided specs are applied to the rollout.", cam: "#aj-card-brief, .aj-n-size, .aj-n-out, .aj-n-dest", hl: ["#aj-card-brief"] },
+  { id: "logo", title: "Apply Brand guidelines", text: "The app can store your brand guidelines and apply measurable changes like logo sizes and positions automatically.", cam: "#aj-card-brand", hl: ["#aj-card-brand .aj-prof-on"] },
   { id: "run", title: "Roll out to InDesign and Figma", text: "Press play. Ad Agent generates every size from the master: a low-res preview, free to review and amend as often as you like.", cam: "#aj-play, .aj-n-master, .aj-n-ch, .aj-n-size", hl: [".aj-n-size"] },
   { id: "sheet", title: "Twelve sizes, each from its nearest master", text: "Every size starts from the master nearest its shape and adapts its layout: headline, hero, price and logo moved and scaled, not squashed. Five came from the InDesign masters and seven from Figma's. All are low-res previews: free to review, their working files held back until you release them.", cam: "#aj-sheet", hl: ["#aj-sheet .aj-lowres"] },
   { id: "edit", title: "Edits managed with rounds", text: "Each change is a point in the round you can go back to.", cam: "#aj-th-b-pt, #aj-rounds", hl: ["#aj-th-b-pt", "#aj-rounds .aj-points"] },
-  { id: "logo", title: "Apply Brand guidelines", text: "The app can store your brand guidelines and apply measurable changes like logo sizes and positions automatically.", cam: "#aj-card-brand, #aj-th-b-48, #aj-th-b-6s", hl: ["#aj-card-brand .aj-prof-on", "#aj-th-b-48", "#aj-th-b-6s"] },
+  { id: "compare", title: "Compare rounds", text: "Lay R2 over R1 to see the difference. Each round writes a report of what changed: every component reworded, resized or moved, in the document's own units.", cam: "#aj-card-cmp", hl: ["#aj-card-cmp .aj-cmp-ch"] },
   { id: "ai", title: "Amends, manually or with AI", text: "Ask the AI: make the price 20 % bigger on every Social size. It changes the price component on the four sizes and checks it still clears the logo.", cam: "#aj-chat-1, .aj-th-social", hl: ["#aj-chat-1 .aj-q", "#aj-th-b-sq", "#aj-th-b-pt", "#aj-th-t-sq", "#aj-th-t-pt"] },
   { id: "mail", title: "AI can handle a range of feedback", text: "Paste the client's feedback. The AI processes it into changes for your approval: BURGER's new headline on seven sizes, THICKSHAKE's new price on five. **Standard AI Plan** reads text feedback; **Multimodal AI Plan** also reads images, such as a marked-up proof or a screenshot.", cam: "#aj-chat-2, #aj-sheet", hl: ["#aj-chat-2 .aj-q", "#aj-chat-2 .aj-ask"] },
   { id: "ab", title: "An A/B round", text: "Make a B of the square Social post to test one difference: the price in red. B is drawn behind A, and it follows A's changes except its own. Its files end _a and _b while both live.", cam: "#aj-card-ab, #n-b-sq, #aj-rounds", hl: ["#aj-rounds .aj-ab", "#n-b-sq", "#aj-card-ab .aj-ab-b"] },
@@ -297,9 +306,42 @@ export const STEPS = [
 const MOBILE_CAM = {
   start: "all", masters: "#aj-card-masters", brief: ".aj-n-brief, .aj-n-ch, .aj-n-size", specs: "#aj-card-brief",
   run: ".aj-n-ch, .aj-n-size", sheet: "#aj-th-b-48, #aj-th-b-6s, #aj-th-b-d, #aj-th-t-d, #aj-th-t-sq", edit: "#aj-th-b-pt",
-  logo: "#aj-th-b-48, #aj-th-b-6s", ai: "#aj-chat-1, #aj-th-t-sq, #aj-th-t-pt", mail: "#aj-chat-2", ab: "#aj-card-ab",
+  compare: "#aj-card-cmp", logo: "#aj-card-brand", ai: "#aj-chat-1, #aj-th-t-sq, #aj-th-t-pt", mail: "#aj-chat-2", ab: "#aj-card-ab",
   tags: "#aj-tagmenu, .aj-n-size", preflight: "#aj-card-pre", release: "#aj-card-rel", sent: ".aj-n-size, .aj-n-out, .aj-n-dest",
 };
+
+// Step 8, rounds compared (the app's View tab: a size's rounds stacked as layers, its Changes listed beside them, a
+// line a component, in the document's unit): BURGER's Social 4:5 in R1, and in R2 after step 7's edit by hand (its
+// headline and hero enlarged). The changes are read off the two layouts, so the list and the drawings agree.
+function compare(sizes) {
+  const s = sizes.find((x) => x.id === "b-pt");
+  const r1st = {}, r2st = { edit: true };
+  const a = geom(s, r1st), b = geom(s, r2st), k = s.w / s.W; // drawing units to the size's own px
+  const px = (v) => Math.round(Math.abs(v) * k);
+  const pct = (x, y) => Math.round((y / x) * 100);
+  const resized = (x, y) => (pct(x, y) === 100 ? "" : `resized ${pct(x, y)} %`);
+  const moved = (dx, dy) => {
+    const m = [];
+    if (px(dx) >= 2) m.push(`${px(dx)} px ${dx < 0 ? "left" : "right"}`);
+    if (px(dy) >= 2) m.push(`${px(dy)} px ${dy < 0 ? "up" : "down"}`);
+    return m.length ? `moved ${m.join(", ")}` : "";
+  };
+  const mid = (o) => [o.x + o.w / 2, o.y + o.h / 2];
+  const words = (w) => `“${w.join(" ")}”`;
+  const all = [
+    { name: "HEADLINE", what: [a.words.join() === b.words.join() ? "" : `reworded ${words(a.words)} → ${words(b.words)}`, resized(a.head.fs, b.head.fs), moved(b.head.x - a.head.x, b.head.y - a.head.y)] },
+    { name: "HERO", what: [resized(a.hero.w, b.hero.w), moved(mid(b.hero)[0] - mid(a.hero)[0], mid(b.hero)[1] - mid(a.hero)[1])] },
+    { name: "PRICE", what: [resized(a.roundel.r, b.roundel.r), moved(b.roundel.cx - a.roundel.cx, b.roundel.cy - a.roundel.cy)] },
+    { name: "LOGO", what: [resized(a.logo.w, b.logo.w), moved(mid(b.logo)[0] - mid(a.logo)[0], mid(b.logo)[1] - mid(a.logo)[1])] },
+  ].map((l) => ({ ...l, what: l.what.filter(Boolean).join(", ") }));
+  return {
+    size: `${s.w} × ${s.h}`, channel: "Social", creative: "BURGER",
+    file: "123456_BURGER_1080x1350",
+    r1: art(s, r1st), r2: art(s, r2st),
+    lines: all.filter((l) => l.what),
+    same: [...all.filter((l) => !l.what).map((l) => l.name), "LEGAL"],
+  };
+}
 
 export function adJourney() {
   const sizes = sizesOf();
@@ -329,5 +371,6 @@ export function adJourney() {
     })(),
     steps: STEPS.map((s) => ({ ...s, mcam: MOBILE_CAM[s.id] })),
     sizes: sizes.length,
+    compare: compare(sizes),
   };
 }

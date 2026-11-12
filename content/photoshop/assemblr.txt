@@ -1,6 +1,6 @@
 name: Assemblr
-tagline: Arrange layers by what you see.
-description: Every packshot carries a different amount of transparent space round the product, so layers aligned by their edges leave the products out of line. Assemblr measures each layer's visible subject and arranges by that, and your Layers panel keeps its structure.
+tagline: Arrange layers
+description: Quickly manage complex layout formations with just 5 arrangement options. Fully editable and automatic once setup.
 
 # highlights
 

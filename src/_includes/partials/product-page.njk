@@ -26,6 +26,8 @@
         {%- if product.panel and panels[product.panel].help %}<li><a href="#help">Help</a></li>{% endif %}
         {%- if product.rollout %}<li><a href="#rollout">Rollout</a></li>{% endif %}
         <li><a href="#features">Highlights</a></li>
+        {%- if product.aiTable %}<li><a href="#ai">{{ product.aiTable.label or "AI" }}</a></li>{% endif %}
+        {%- if product.safety %}<li><a href="#safety">{{ product.safety.label or "Safety" }}</a></li>{% endif %}
         {%- if product.pricing %}<li><a href="#pricing">Pricing</a></li>{% endif %}
         <li><a href="#specs">Tech specs</a></li>
       </ul>
@@ -283,10 +285,63 @@
   </div>
 </section>
 
+{#- One with `ai` (its text file's # ai): what its AI does, a column a plan; a tick, a dash, or what it does on that
+    plan. Straight after the highlights, so the plans' names are met before the pricing, and Safety answers what it
+    raises. #}
+{%- if product.aiTable %}
+{%- set n = n + 1 %}{% set at = product.aiTable %}
+<section class="section theme-light" id="ai">
+  <div class="container">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ at.label or "AI" }}</span></div>
+    <h2 class="t-l section-title reveal">{{ at.title or "AI" }}</h2>
+    {%- if at.intro %}<p class="pricing-intro reveal">{{ at.intro }}</p>{% endif %}
+    <table class="aitable reveal">
+      <thead><tr><th scope="col">Capability</th>{% for c in at.columns %}<th scope="col">{{ c }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {%- for r in at.rows %}
+        <tr>
+          <th scope="row">{{ r.name }}{% if r.example %}<small>{{ r.example }}</small>{% endif %}</th>
+          {%- for c in at.columns %}{% set x = r.cells[loop.index0] %}
+          <td data-label="{{ c }}">{% if x.tick %}<span class="ai-tick" role="img" aria-label="Yes"></span>{% elif x.dash or not x %}<span class="ai-none" role="img" aria-label="No"></span>{% else %}{{ x.words }}{% endif %}</td>
+          {%- endfor %}
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    {%- if at.note %}<p class="pricing-note">{{ at.note }}</p>{% endif %}
+  </div>
+</section>
+{%- endif %}
+
+{#- One with `safety` (its text file's # safety): what it can reach, what it asks of the Mac, what its AI may do and
+    what it cannot; the feature list's layout, a group's name on the left. #}
+{%- if product.safety %}
+{%- set n = n + 1 %}{% set sf = product.safety %}
+<section class="section {{ look }}" id="safety">
+  <div class="container">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ sf.label or "Safety" }}</span></div>
+    <h2 class="t-l section-title reveal">{{ sf.title }}</h2>
+    {%- if sf.intro %}<p class="pricing-intro reveal">{{ sf.intro }}</p>{% endif %}
+    <div class="feat">
+      {%- for g in sf.groups %}
+      <div class="feat-group">
+        <h3>{{ g.title }}</h3>
+        <dl>
+          {%- for r in g.rows %}
+          <div class="feat-row"><dt>{{ r.name }}</dt>{% if r.text %}<dd>{{ r.text }}</dd>{% endif %}</div>
+          {%- endfor %}
+        </dl>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
 {#- One with `pricing` (its text file's # pricing): its plans, a row each, a price a column. #}
 {%- if product.pricing %}
 {%- set n = n + 1 %}{% set pr = product.pricing %}
-<section class="section {{ look }}" id="pricing">
+<section class="section theme-light" id="pricing">
   <div class="container">
     <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Pricing</span></div>
     <h2 class="t-l section-title reveal">{{ pr.title or "Pricing" }}</h2>
@@ -319,6 +374,23 @@
       </div>
       {%- endfor %}
     </dl>
+    {#- The full feature list (its text file's # features): a group a row, its features down the right. #}
+    {%- if product.featureList %}{% set fl = product.featureList %}
+    <h3 class="t-m feat-title reveal">{{ fl.title or "Features" }}</h3>
+    {%- if fl.intro %}<p class="feat-intro reveal">{{ fl.intro }}</p>{% endif %}
+    <div class="feat">
+      {%- for g in fl.groups %}
+      <div class="feat-group">
+        <h4>{{ g.title }}</h4>
+        <dl>
+          {%- for r in g.rows %}
+          <div class="feat-row"><dt>{{ r.name }}</dt>{% if r.text %}<dd>{{ r.text }}</dd>{% endif %}</div>
+          {%- endfor %}
+        </dl>
+      </div>
+      {%- endfor %}
+    </div>
+    {%- endif %}
   </div>
 </section>
 

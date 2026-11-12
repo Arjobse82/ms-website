@@ -1145,6 +1145,42 @@ a.tile:hover .tile-photo { --lift: 1.05; }
 .specs dd { font-size: 19px; font-weight: 500; letter-spacing: -0.014em; font-variant-numeric: tabular-nums; }
 @media (max-width: 734px) { .specs-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; } .specs dt { padding-top: 0; } }
 
+/* The full feature list under the specs (product-page.njk): the specs' grid, a group's name on the left and its
+   features down the right, each its name over what it does. */
+.feat-title { margin: 96px 0 0; font-size: 32px; font-weight: 600; letter-spacing: -0.02em; }
+.feat-intro { max-width: 720px; margin: 12px 0 0; font-size: 17px; line-height: 1.5; color: var(--fg-2); }
+.feat { margin-top: 32px; border-top: 1px solid var(--fg); }
+.feat-group { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.feat-group h3, .feat-group h4 { margin: 0; padding-top: 4px; font-size: 12px; line-height: 1.33; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--fg-3); }
+.feat-group dl { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 32px; margin: 0; }
+.feat-row dt { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.feat-row dd { margin: 4px 0 0; font-size: 14.5px; line-height: 1.45; color: var(--fg-2); }
+/* The AI's capabilities by plan: a capability a row (an example of asking for it under its name), a plan a column,
+   a tick, a dash or a few words in each. */
+.aitable { width: 100%; margin-top: 32px; border-collapse: collapse; border-top: 1px solid var(--fg); text-align: left; }
+.aitable th, .aitable td { padding: 20px 16px 20px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.aitable thead th { font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--fg-3); }
+.aitable thead th:first-child { width: 50%; }
+.aitable tbody th { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.aitable tbody th small { display: block; max-width: 460px; margin-top: 5px; font-size: 14px; font-weight: 400; font-style: italic; line-height: 1.45; letter-spacing: 0; color: var(--fg-3); }
+.aitable td { font-size: 14.5px; line-height: 1.45; color: var(--fg-2); }
+.ai-tick, .ai-none { display: inline-block; vertical-align: middle; }
+.ai-tick { width: 14px; height: 8px; margin: 4px 0 0 2px; border: solid var(--fg); border-width: 0 0 2px 2px; transform: rotate(-45deg); }
+.ai-none { width: 12px; height: 2px; margin-top: 10px; background: var(--fg-3); opacity: 0.6; }
+@media (max-width: 734px) {
+  .aitable thead { display: none; }
+  .aitable, .aitable tbody, .aitable tr, .aitable th, .aitable td { display: block; }
+  .aitable tr { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .aitable th, .aitable td { padding: 0; border: 0; }
+  .aitable td { display: flex; justify-content: space-between; gap: 16px; margin-top: 8px; text-align: right; }
+  .aitable td::before { content: attr(data-label); flex: none; font-size: 13px; font-weight: 500; color: var(--fg-3); text-align: left; }
+}
+@media (max-width: 734px) {
+  .feat-title { margin-top: 64px; font-size: 26px; }
+  .feat-group { grid-template-columns: 1fr; gap: 14px; padding: 22px 0; }
+  .feat-group dl { grid-template-columns: 1fr; gap: 16px; }
+}
+
 .section-cta { padding-top: 0; text-align: center; }
 
 /* Rollout: Ad Agent's node view, in the app's own look (Ad Agent src/app/app.css) --------------- */
