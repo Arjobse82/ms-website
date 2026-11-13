@@ -170,21 +170,92 @@ export default {
       ],
     },
   ],
-  // Quick help (partials/panel-help.njk), so far one large card: making the price devices the plugin writes each
-  // product's price into (the owner, 2026-11-02). catalague-producer src/core/overlay/device.ts, docs/price-sets.md and
-  // PLAN.md D81, D85 at HEAD.
+  // Quick help (partials/panel-help.njk): the overlay folders and their price sets (the owner, 2026-11-13), making the
+  // price devices the plugin writes each product's price into (the owner, 2026-11-02), and tagging a device's text
+  // frame for a brief column (the owner, 2026-11-13). catalague-producer src/core/overlay/device.ts (`readDevice`: a
+  // column's tag on a whole frame only), src/core/overlay/sets.ts, docs/price-sets.md and PLAN.md D81, D85 at HEAD.
+  // Reading a column's name from the frame's text, no tag, is noted for the next release (docs/next-release.md item 1).
+  // Prepare your files and folders (the owner, 2026-11-13: "start the help page on how the user needs to prepare their
+  // files and folders"): the help page's first section (partials/help-page.njk), its cards drawn by panel-help.njk, and
+  // the Quick help's groups after them (`withHelp`), so the help page shows the price cards once, here. The rules are
+  // catalague-producer's at HEAD: src/core/brief/header.ts (ROLE_ALIASES, EXACT_ONLY_ALIASES, the header in the first 30
+  // rows), brief.ts (a code column required; a row without a code skipped; merged cells; formulas), price/parse.ts,
+  // match/match.ts (defaultCriteria, MIN_FILE_KEY / MIN_FOLDER_KEY 5, trailingVariant), match/files.ts
+  // (EXCLUDED_FOLDERS, pickNewest), match/belt.ts (imageOrder, cellKeys, preferType), image/format.ts, overlay/names.ts,
+  // host/files/folders.ts (cloud placeholders), host/store/xlsx-store.ts (Excel's lock file).
+  prepare: {
+    heading: "Prepare your files and folders",
+    intro: "Before you open the panel: one Excel brief, your images named by product code, and a folder of badges and price artwork. Keep a job's files together, and the plugin finds the rest.",
+    withHelp: true,
+    groups: [{
+      id: "job", label: "Your job's files",
+      items: [{
+        id: "job-folders", q: "Lay out a job's folders", art: "catalogue-producer/job-folders",
+        intro: "One folder a job holds everything the catalogue is built from. Each part is linked once in the panel, by the button beside it in the drawing, and read again whenever you build or check.",
+        points: [
+          { name: "The brief", text: "An Excel workbook, one row a product, with a product code column. Link brief… in the Folders tile links it; it is what the pages are built from, and edits on the pages can be written back to it." },
+          { name: "Image folders", text: "Your packshots, each named with its product's code, in as many folders as you like: Add folder… links each one, and its subfolders are searched too." },
+          { name: "The overlays folder", text: "Badges, and InDesign files the prices are written into. Choose folder… in Overlays links it (Set up your overlay folders, below)." },
+          { name: "Price sets", text: "Optional: another folder of price artwork for another look, a sale say. Add price set… links it as Set 1." },
+        ],
+      }, {
+        id: "prepare-brief", q: "Prepare the brief", wide: true,
+        a: [
+          "Save it as an Excel workbook (.xlsx). From Numbers or Google Sheets, export or download it as .xlsx. The first sheet is read unless you choose another.",
+          "One row a product, under a row of column headers. Title rows above the headers are fine, within the first 30 rows.",
+          "Give it a product code column, the one column it needs: headed Product code, Code, SKU, SAP, Article or Item. A row with no code, a section title say, is skipped. The code is the product: change it and it is a new product.",
+          "Name, Description, Price, Page and Hero are found by their headers (Product name or Title; Description or Desc; Price, RRP, Retail price or Cost; Page or Pg; Hero or Featured). Every other column, Pack or Unit say, is read under its own header, for you to show as copy or use for overlays.",
+          "One price a cell: $12.50, 12.5, 99c, €4,99 and AUD 12.50 all read. A cell the plugin cannot read as one price, 2 for $5 say, is reported.",
+          "A badge column names files in the overlays folder: New, Australian grown finds new.png and australian grown.png. Separate names with commas, semicolons or line breaks.",
+          "A line break inside a cell (Option+Return on a Mac, Alt+Enter on Windows) is a line break on the page.",
+          "Keep merged cells out of the product rows, and close the workbook in Excel when the plugin writes to it: it waits while Excel has it open.",
+        ],
+      }, {
+        id: "prepare-images", q: "Name your images", wide: true,
+        a: [
+          "Put the product's code in each file's name: 410201.psd, 410201 front.psd and SKU410201-back.tif all find product 410201. Or name a folder for the code and put its shots inside.",
+          "A code under five characters must start the file's name (12 front.jpg), or be the folder's whole name, so it is never found inside another number.",
+          "Several images of one product are placed in the order of the number after the code: 410201 first, then 410201 2, 410201 3, and on to 10.",
+          "Subfolders are searched. Folders named old, archive, exports or _exports are not, so keep retired shots there.",
+          "PSD, PSB, TIFF, PNG, JPEG, JPEG 2000, HEIC, AI, PDF, EPS, SVG, GIF and BMP are placed. A PSD, or a PNG or TIFF with transparency, is fitted by its cut-out shape; a JPEG by its whole picture.",
+          "The same picture saved as both PSD and JPEG is placed twice until you choose one type under Prefer file types.",
+          "Files kept in iCloud or Dropbox must be on the Mac or PC: choose Make Available Offline or Download Now for the folder first.",
+          "Names that carry no code? Tick a column under Matching instead: a column of file names in the brief, or the product's name (marked Check, for you to confirm).",
+        ],
+      }],
+    }],
+  },
   help: {
     intro: "What the settings alone do not tell you.",
     groups: [{
-      id: "prices", label: "Price devices",
+      id: "prices", label: "Badges and prices",
       items: [{
-        id: "price-devices", q: "Make your price devices", art: "shared/price-devices",
+        id: "price-folders", q: "Set up your overlay folders", art: "catalogue-producer/price-folders",
+        intro: "Badges and prices come from folders of artwork on disk. Keep a job's folders together, link each one once in the panel, and each corner with a price chooses the folder its prices are drawn from.",
+        points: [
+          { name: "The overlays folder", text: "Choose folder… in Overlays links it. It holds the badges, and the price devices for the regular look: every corner draws its price from these until it chooses a set." },
+          { name: "A price set", text: "Another folder of price devices, another look, a sale say. Add price set… links the first as Set 1, the next as Set 2. Change… points a set at another folder and keeps the corners that chose it; × removes it, and what chose it goes back to the overlays folder." },
+          { name: "Which set a price uses", text: "On a corner with a price, Price set chooses the overlays folder or a set, for the document, a range of pages or one product. A page or a product that chooses a set still follows every other setting of the corner above it." },
+          { name: "Folders the plugin cannot reach", text: "The document remembers every device it has used, so a folder renamed, moved or on a drive not plugged in goes on working from what the document holds, and the panel says so once. Choose folder… or Change… links it again." },
+        ],
+      }, {
+        id: "price-devices", q: "Make your price devices", art: "shared/price-devices", folders: [["Overlays", "Overlays folder"], ["Sale prices", "Set 1"]],
         intro: "Each price device is an InDesign file of its own, kept in the overlays folder or in a folder of its own as a price set. Automated Assemblr writes each product's price from the brief into the device that fits it.",
         points: [
           { name: "One file, one device", text: "Save each device as an .indd, .idml or .idms file. Build it as you like, on as many layers as it needs: a panel or a shape behind, images, and the text frames for the price. It is placed as one, on the product's corner, and follows the product." },
           { name: "Text mapping", text: "Type X where the digits go: $X.XX for dollars and cents, XXc for cents alone. Each product's price is written into those runs only, so the $, the point, the c and every paragraph and character style round them stay as you set them; superscript cents stay superscript. No tagging needed." },
-          { name: "More fields from the brief", text: "Tag a text frame, or a run of its text, with the name of a column of your brief, Unit say, in InDesign's Tags panel: each product's value in that column is written there. A tag that names no column is left as you typed it." },
-          { name: "A folder a set, a file a kind", text: "One folder holds a device for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a device its text leaves open. Keep another look, a sale price say, in a folder of its own: Add price set… makes it Set 2, and each corner with a price chooses its set, for the document, a range of pages or one product. Two devices of one shape and size in one folder clash, and neither is used." },
+          { name: "More fields from the brief", text: "Put a word like per kg in a text frame of its own and tag the frame with the name of a column of your brief, Unit say, in InDesign's Tags panel: each product's value in that column replaces the frame's text, in the frame's styles. Tag the whole frame, not a run of its text (Link a text frame to a brief column, below)." },
+          { name: "A folder a set, a file a kind", text: "One folder holds a device for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a device its text leaves open. Keep another look, a sale price say, in a folder of its own, a price set (Set up your overlay folders, above). Two devices of one shape and size in one folder clash, and neither is used; in two folders they never do." },
+        ],
+      }, {
+        id: "price-tags", q: "Link a text frame to a brief column", wide: true,
+        a: [
+          "In the price device's file, put the words to be replaced, per kg say, in a text frame of their own, styled as they should print.",
+          "Open Window ▸ Utilities ▸ Tags, choose New Tag from the panel's menu and name it as the brief's column header: Unit. Case does not matter; a tag cannot hold a space, so a column headed Unit of measure takes the tag Unit_of_measure.",
+          "With the Selection tool, select the text frame and click the tag in the Tags panel. View ▸ Structure ▸ Show Tagged Frames colours a tagged frame, so you can see it took.",
+          "Save the file in the overlays folder or a price set. The next Build reads it again.",
+          "Each product's value in that column replaces the frame's text, in the frame's styles. A blank cell leaves the frame empty; a tag that names no column is left as you typed it, and the panel says so.",
+          "The price itself needs no tag. If the panel reads a device's price wrongly, tag it the same way: the whole frame price, or select its digits with the Type tool and tag them dollars and cents.",
         ],
       }],
     }],

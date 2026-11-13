@@ -1,9 +1,12 @@
-{#- A plugin's help page (src/help/*.njk, layouts/help.njk): How it works if its panel has `how`, its user guide and its
-    quick help, the same sections as on its product page (partials/panel-how.njk, partials/panel-tour.njk,
-    partials/panel-help.njk, from its panel's module), on a page of their own
-    to publish with the plugin (scripts/export-help.mjs). Expects `panelKey`, `kind` ("Plugin for InDesign") and `heading`
+{#- A plugin's help page (src/help/*.njk, layouts/help.njk): Prepare your files if its panel has `prepare`, How it works
+    if it has `how`, its user guide and its quick help, the same sections as on its product page
+    (partials/panel-how.njk, partials/panel-tour.njk, partials/panel-help.njk, from its panel's module), on a page of
+    their own to publish with the plugin (scripts/export-help.mjs). A `prepare` with `withHelp` draws the quick help's
+    groups after its own, and the page then has no Quick help section (Automated Assemblr's: its quick help is the
+    price artwork, which is preparing files too). Expects `panelKey`, `kind` ("Plugin for InDesign") and `heading`
     ("Assemblr help"). -#}
-{%- set panel = panels[panelKey] %}{% set panelId = panelKey %}{% set help = panel.help %}{% set how = panel.how %}
+{%- set panel = panels[panelKey] %}{% set panelId = panelKey %}{% set how = panel.how %}{% set prepare = panel.prepare %}
+{%- set quick = panel.help if not (prepare and prepare.withHelp) else null %}
 {%- set n = 1 %}
 <nav class="localnav theme-light" aria-label="{{ heading }}">
   <span class="localnav-progress" aria-hidden="true"></span>
@@ -12,9 +15,10 @@
     <div class="localnav-menu">
       <ul class="localnav-links">
         <li><a href="#overview">Overview</a></li>
+        {%- if prepare %}<li><a href="#prepare">Prepare</a></li>{% endif %}
         {%- if how %}<li><a href="#how">How it works</a></li>{% endif %}
         <li><a href="#panel">User guide</a></li>
-        <li><a href="#help">Quick help</a></li>
+        {%- if quick %}<li><a href="#help">Quick help</a></li>{% endif %}
       </ul>
     </div>
   </div>
@@ -24,9 +28,26 @@
   <div class="container">
     <p class="label product-hero-kind">{{ kind }}</p>
     <h1 class="t-hero">{{ heading }}</h1>
-    <p class="t-subhead product-hero-subhead">{% if how %}How it works, every{% else %}Every{% endif %} control in the panel, and the everyday jobs step by step.</p>
+    <p class="t-subhead product-hero-subhead">{% if prepare %}Preparing your files, how{% elif how %}How{% endif %}{% if prepare or how %} it works, every{% else %}Every{% endif %} control in the panel, and the everyday jobs step by step.</p>
   </div>
 </section>
+
+{%- if prepare %}
+<section class="section theme-gray" id="prepare">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Prepare</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ prepare.heading }}</h2>
+    <p class="pt-intro reveal">{{ prepare.intro }}</p>
+    {%- set help = prepare %}
+    {% include "partials/panel-help.njk" %}
+    {%- if prepare.withHelp and panel.help %}
+    {%- set help = panel.help %}
+    <div class="hp-then">{% include "partials/panel-help.njk" %}</div>
+    {%- endif %}
+  </div>
+</section>
+{%- set n = n + 1 %}
+{%- endif %}
 
 {%- if how %}
 <section class="section theme-light" id="how">
@@ -49,7 +70,9 @@
   </div>
 </section>
 
+{%- if quick %}
 {%- set n = n + 1 %}
+{%- set help = quick %}
 
 <section class="section theme-light" id="help">
   <div class="container container-wide">
@@ -59,3 +82,4 @@
     {% include "partials/panel-help.njk" %}
   </div>
 </section>
+{%- endif %}

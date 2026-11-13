@@ -6,9 +6,12 @@
     the drawing keeps a size its labels read at, and pans. -#}
 {#- A price as the design sets it: a small $, the dollars large, the cents small and raised, each a run of its own. #}
 {%- macro price(dollars, cents, y) %}<text class="pd-price" x="75" y="{{ y }}"><tspan class="pd-cur" dy="-14">$</tspan><tspan class="pd-dol" dy="14">{{ dollars }}</tspan><tspan class="pd-cts" dy="-15">{{ cents }}</tspan></text>{% endmacro %}
+{#- The two folders' names and chips: Assemblr's two sets by default; an item may name its own (`it.folders`, two
+    [name, chip] pairs): Automated Assemblr's are its overlays folder and Set 1 (catalague-producer docs/price-sets.md). #}
+{%- set named = it.folders if it and it.folders else [["Prices", "Set 1"], ["Prices sale", "Set 2"]] %}
 {%- set sets = [
-  { name: "Prices", set: "Set 1", look: "regular", files: [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] },
-  { name: "Prices sale", set: "Set 2", look: "sale", files: [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] }
+  { name: named[0][0], set: named[0][1], look: "regular", files: [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] },
+  { name: named[1][0], set: named[1][1], look: "sale", files: [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] }
 ] %}
 <div class="pd" aria-hidden="true">
   <div class="pd-folders">

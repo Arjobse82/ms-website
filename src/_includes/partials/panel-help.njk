@@ -15,7 +15,7 @@
       <dl class="hp-big-points">{% for pt in it.points %}<div><dt>{{ pt.name }}</dt><dd>{{ pt.text }}</dd></div>{% endfor %}</dl>
     </li>
     {%- else %}
-    <li class="hp-item reveal" id="help-{{ it.id }}">
+    <li class="hp-item{% if it.wide %} hp-wide{% endif %} reveal" id="help-{{ it.id }}">
       <h4 class="hp-q">{{ it.q }}</h4>
       {%- if it.or %}
       <ul class="hp-steps hp-ways">{% for s in it.a %}<li>{{ s }}</li>{% endfor %}</ul>

@@ -1,0 +1,60 @@
+{#- Automated Assemblr's folders for its overlays, for Quick help (panels/catalogue-producer.js `help`, an item with `art`):
+    on the left one job's folder as it sits on disk — the brief, the packshots, the overlays folder (its badges and the
+    regular price devices) and a second folder of devices, the sale look, added as Set 1 — each with the panel's button
+    that links it; on the right four pages, each product's price drawn from the folder its corner chose: the document on
+    the overlays folder, page 4 on Set 1, one product on page 2 on Set 1 of its own. catalague-producer docs/price-sets.md
+    (D85) rules 1–4 and 7, src/core/overlay/sets.ts (the first set added is Set 1). Still; on a phone the pages pan. -#}
+{%- set regular = [["x-xx.indd", "$X.XX"], ["xx-xx.indd", "$XX.XX"], ["xx-c.indd", "XXc"]] %}
+{%- set pages = [
+  { n: 1, cells: [["r", "$5.50"], ["r", "$12.50"], ["r", "95c"], ["r", "$8.00"]] },
+  { n: 2, cells: [["r", "$4.20"], ["s", "$9.90", true], ["r", "$14.00"], ["r", "60c"]] },
+  { n: 3, cells: [["r", "$6.75"], ["r", "$11.00"], ["r", "$3.30"], ["r", "85c"]] },
+  { n: 4, cells: [["s", "$4.99"], ["s", "$9.99"], ["s", "79c"], ["s", "$19.99"]] }
+] %}
+{%- macro file(name, spells, look) %}<li class="pf-row"><svg class="pd-thumb pd-{{ look }}" viewBox="0 0 150 80"><rect width="150" height="80" rx="22"/><text x="75" y="52">{{ spells }}</text></svg><span class="pd-file">{{ name }}</span><span class="pd-spells">{{ spells }}</span></li>{% endmacro %}
+{%- macro folder(name, chip, button, cls) %}<p class="pf-row pf-folder{{ ' ' + cls if cls }}"><svg class="pd-folder-icon" viewBox="0 0 20 16"><path d="M1 3a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2z"/></svg><span class="pf-name">{{ name }}</span>{% if chip %}<span class="pd-set">{{ chip }}</span>{% endif %}{% if button %}<span class="pf-btn">{{ button }}</span>{% endif %}</p>{% endmacro %}
+<div class="pd pf" aria-hidden="true">
+  <div class="pf-tree">
+    {{ folder("Spring catalogue", null, null, "pf-root") }}
+    <ul class="pf-in">
+      <li class="pf-row"><svg class="pf-sheet-icon" viewBox="0 0 16 18"><path d="M1 2a1 1 0 0 1 1-1h8l5 5v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/><path class="pf-sheet-grid" d="M4 9h8M4 12h8M4 15h8M8 7v10"/></svg><span class="pd-file">Brief.xlsx</span><span class="pf-btn">Link brief…</span></li>
+      <li>{{ folder("Packshots", null, "Add folder…") }}</li>
+      <li>
+        {{ folder("Overlays", "Overlays folder", "Choose folder…") }}
+        <ul class="pf-in">
+          <li class="pf-row"><span class="pf-badge-icon" aria-hidden="true">★</span><span class="pd-file">new.png</span><span class="pd-spells">badge</span></li>
+          <li class="pf-row"><span class="pf-badge-icon" aria-hidden="true">★</span><span class="pd-file">australian grown.png</span><span class="pd-spells">badge</span></li>
+          {%- for f in regular %}{{ file(f[0], f[1], "regular") }}{% endfor %}
+        </ul>
+      </li>
+      <li>
+        {{ folder("Sale prices", "Set 1", "Add price set…") }}
+        <ul class="pf-in">
+          {%- for f in regular %}{{ file(f[0], f[1], "sale") }}{% endfor %}
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="pd-scroll"><svg class="pf-pages" viewBox="0 0 500 236">
+    {#- The callout: one product on page 2 with a set of its own. #}
+    <text class="pf-cap pf-mid" x="210" y="13"><tspan class="pf-cap-scope">This product</tspan> → Set 1</text>
+    <path class="pf-lead" d="M210 18v22"/>
+    {%- for p in pages %}{% set px = (p.n - 1) * 130 %}
+    <g transform="translate({{ px }} 34)">
+      <rect class="pd-sheet" width="110" height="140" rx="3"/>
+      {%- for c in p.cells %}{% set cx = 8 + (loop.index0 % 2) * 50 %}{% set cy = 8 + (loop.index0 // 2) * 65 %}
+      <rect class="pd-area" x="{{ cx }}" y="{{ cy }}" width="44" height="44" rx="2"/>
+      <rect class="pd-copy" x="{{ cx }}" y="{{ cy + 49 }}" width="30" height="4" rx="2"/><rect class="pd-copy" x="{{ cx }}" y="{{ cy + 56 }}" width="20" height="3.5" rx="1.75"/>
+      <g class="pd-{{ 'sale' if c[0] == 's' else 'regular' }}"><rect x="{{ cx + 2 }}" y="{{ cy + 26 }}" width="32" height="16" rx="5"/><text class="pf-chip" x="{{ cx + 18 }}" y="{{ cy + 37.5 }}">{{ c[1] }}</text></g>
+      {%- if c[2] %}<rect class="pf-own" x="{{ cx - 2 }}" y="{{ cy - 2 }}" width="48" height="63" rx="4"/>{% endif %}
+      {%- endfor %}
+      <text class="pf-num" x="55" y="156">Page {{ p.n }}</text>
+    </g>
+    {%- endfor %}
+    {#- What each part of the document chose. #}
+    <path class="pf-brace" d="M0 202v6h370v-6M185 208v6"/>
+    <g transform="translate(185 230)"><rect class="pf-swatch pf-swatch-regular" x="-96" y="-10" width="12" height="12" rx="3"/><text class="pf-cap" x="-78" y="0"><tspan class="pf-cap-scope">Document</tspan> → Overlays folder</text></g>
+    <path class="pf-brace" d="M390 202v6h110v-6M445 208v6"/>
+    <g transform="translate(445 230)"><rect class="pf-swatch pf-swatch-sale" x="-48" y="-10" width="12" height="12" rx="3"/><text class="pf-cap" x="-30" y="0"><tspan class="pf-cap-scope">Page 4</tspan> → Set 1</text></g>
+  </svg></div>
+</div>

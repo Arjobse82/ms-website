@@ -1,0 +1,56 @@
+{#- A job's files as Automated Assemblr wants them, for Prepare your files (panels/catalogue-producer.js `prepare`, an item
+    with `art`): on the left the job's folder on disk — the brief, the packshots named by product code (a file each, a
+    folder named for a code, a short code at the start of a name, a folder named old never searched), the overlays folder
+    and a price set — each with the panel's button that links it; on the right the brief, a title row above its header,
+    each recognised column with what it needs. catalague-producer src/core/brief/header.ts (ROLE_ALIASES, the header found
+    in the first 30 rows), src/core/match/match.ts (MIN_FILE_KEY 5), src/core/match/files.ts (EXCLUDED_FOLDERS),
+    src/core/match/belt.ts (imageOrder), src/core/price/parse.ts, src/core/overlay/names.ts. Still. -#}
+{%- macro folder(name, chip, button, cls) %}<p class="pf-row pf-folder{{ ' ' + cls if cls }}"><svg class="pd-folder-icon" viewBox="0 0 20 16"><path d="M1 3a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2z"/></svg><span class="pf-name">{{ name }}</span>{% if chip %}<span class="pd-set">{{ chip }}</span>{% endif %}{% if button %}<span class="pf-btn">{{ button }}</span>{% endif %}</p>{% endmacro %}
+{%- macro img(name, says, cls) %}<li class="pf-row{{ ' ' + cls if cls }}"><span class="jf-pic" aria-hidden="true"></span><span class="pd-file">{{ name }}</span><span class="pd-spells">{{ says }}</span></li>{% endmacro %}
+<div class="pd jf" aria-hidden="true">
+  <div class="pf-tree">
+    {{ folder("Spring catalogue", null, null, "pf-root") }}
+    <ul class="pf-in">
+      <li class="pf-row"><svg class="pf-sheet-icon" viewBox="0 0 16 18"><path d="M1 2a1 1 0 0 1 1-1h8l5 5v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/><path class="pf-sheet-grid" d="M4 9h8M4 12h8M4 15h8M8 7v10"/></svg><span class="pd-file">Brief.xlsx</span><span class="pf-btn">Link brief…</span></li>
+      <li>
+        {{ folder("Packshots", null, "Add folder…") }}
+        <ul class="pf-in">
+          {{ img("410201 Cola.psd", "410201, image 1") }}
+          {{ img("410201 Cola 2.psd", "410201, image 2") }}
+          <li>
+            {{ folder("410202", "a code", null, "jf-sub") }}
+            <ul class="pf-in">
+              {{ img("front.psd", "410202") }}
+              {{ img("back.psd", "410202") }}
+            </ul>
+          </li>
+          {{ img("12 front.jpg", "12, code first") }}
+          <li>{{ folder("old", null, null, "jf-off") }}<p class="jf-note">never searched</p></li>
+        </ul>
+      </li>
+      <li>{{ folder("Overlays", "Overlays folder", "Choose folder…") }}<p class="jf-note">badges and price devices</p></li>
+      <li>{{ folder("Sale prices", "Set 1", "Add price set…") }}<p class="jf-note">another look for the prices</p></li>
+    </ul>
+  </div>
+  <div class="pd-scroll">
+    <div class="jf-book">
+      <p class="jf-book-name"><svg class="pf-sheet-icon" viewBox="0 0 16 18"><path d="M1 2a1 1 0 0 1 1-1h8l5 5v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/><path class="pf-sheet-grid" d="M4 9h8M4 12h8M4 15h8M8 7v10"/></svg>Brief.xlsx</p>
+      <table class="jf-sheet">
+        <tbody>
+          <tr class="jf-title"><th>1</th><td colspan="5">Spring catalogue 2027</td></tr>
+          <tr class="jf-head"><th>2</th><td class="jf-key">Code</td><td>Name</td><td>Description</td><td>Price</td><td>Badges</td></tr>
+          <tr><th>3</th><td class="jf-key">410201</td><td>Cola</td><td>6 × 330 ml</td><td>$12.50</td><td>New</td></tr>
+          <tr><th>4</th><td class="jf-key">410202</td><td>Lemon soda</td><td>6 × 330 ml<br>Low sugar</td><td>13</td><td>New, Australian grown</td></tr>
+          <tr><th>5</th><td class="jf-key">12</td><td>Tonic</td><td>1 L</td><td>99c</td><td></td></tr>
+        </tbody>
+      </table>
+      <ul class="jf-notes">
+        <li><span class="jf-n">Code</span> the one column it needs; a row without one is skipped</li>
+        <li><span class="jf-n">Title rows</span> above the headers are fine</li>
+        <li><span class="jf-n">Price</span> $12.50, 13 and 99c all read</li>
+        <li><span class="jf-n">Badges</span> names of files in the overlays folder</li>
+        <li><span class="jf-n">A line break</span> in a cell is a line break on the page</li>
+      </ul>
+    </div>
+  </div>
+</div>
