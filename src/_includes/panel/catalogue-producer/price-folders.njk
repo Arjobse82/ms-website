@@ -1,6 +1,6 @@
 {#- Automated Assemblr's folders for its overlays, for Quick help (panels/catalogue-producer.js `help`, an item with `art`):
     on the left one job's folder as it sits on disk — the brief, the packshots, the overlays folder (its badges and the
-    regular price devices) and a second folder of devices, the sale look, added as Set 1 — each with the panel's button
+    one price set the overlays folder may hold) and a folder of additional price device styles, added as Set 1 — each with the panel's button
     that links it; on the right four pages, each product's price drawn from the folder its corner chose: the document on
     the overlays folder, page 4 on Set 1, one product on page 2 on Set 1 of its own. catalague-producer docs/price-sets.md
     (D85) rules 1–4 and 7, src/core/overlay/sets.ts (the first set added is Set 1). Still; on a phone the pages pan. -#}
@@ -28,7 +28,7 @@
         </ul>
       </li>
       <li>
-        {{ folder("Sale prices", "Set 1", "Add price set…") }}
+        {{ folder("Additional price device styles", "Set 1", "Add price set…") }}
         <ul class="pf-in">
           {%- for f in regular %}{{ file(f[0], f[1], "sale") }}{% endfor %}
         </ul>

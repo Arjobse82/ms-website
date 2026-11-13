@@ -125,7 +125,7 @@ export default {
             { name: "Sources", text: "What goes on the corner: badges from the overlays folder, or + Column, a column of the brief whose cells name what goes there." },
             { name: "Size and spacing", text: "Gap and Inset X and Y in points, or scaled with the product by Resize scale; each overlay fitted into a Max width by Max height, in points or as a share of the product." },
             { name: "Overlays folder", text: "One folder of artwork: badges, and price devices, InDesign files the plugin writes each product's price into." },
-            { name: "Price sets", text: "Another folder of price devices, another look for the prices. Each corner with a price chooses the set it is drawn from." },
+            { name: "Price sets", text: "The overlays folder holds one price set; each additional price device style is a folder of its own, Set 1, Set 2. Each corner with a price chooses the set it is drawn from." },
           ],
         },
         {
@@ -195,8 +195,8 @@ export default {
         points: [
           { name: "The brief", text: "An Excel workbook, one row a product, with a product code column. Link brief… in the Folders tile links it; it is what the pages are built from, and edits on the pages can be written back to it." },
           { name: "Image folders", text: "Your packshots, each named with its product's code, in as many folders as you like: Add folder… links each one, and its subfolders are searched too." },
-          { name: "The overlays folder", text: "Badges, and InDesign files the prices are written into. Choose folder… in Overlays links it (Set up your overlay folders, below)." },
-          { name: "Price sets", text: "Optional: another folder of price artwork for another look, a sale say. Add price set… links it as Set 1." },
+          { name: "The overlays folder", text: "Badges, and one price set only: one InDesign file for each kind of price. Choose folder… in Overlays links it (Set up your overlay folders, below)." },
+          { name: "Additional price device styles", text: "Optional: every other style of price device goes in a folder of its own, one price set a folder. Add price set… links the first as Set 1." },
         ],
       }, {
         id: "prepare-brief", q: "Prepare the brief", wide: true,
@@ -233,19 +233,19 @@ export default {
         id: "price-folders", q: "Set up your overlay folders", art: "catalogue-producer/price-folders",
         intro: "Badges and prices come from folders of artwork on disk. Keep a job's folders together, link each one once in the panel, and each corner with a price chooses the folder its prices are drawn from.",
         points: [
-          { name: "The overlays folder", text: "Choose folder… in Overlays links it. It holds the badges, and the price devices for the regular look: every corner draws its price from these until it chooses a set." },
-          { name: "A price set", text: "Another folder of price devices, another look, a sale say. Add price set… links the first as Set 1, the next as Set 2. Change… points a set at another folder and keeps the corners that chose it; × removes it, and what chose it goes back to the overlays folder." },
+          { name: "The overlays folder", text: "Choose folder… in Overlays links it. It holds the badges and one price set only, the main style: one device for each kind of price. Every corner draws its price from these until it chooses another set." },
+          { name: "Additional price device styles", text: "Each other style, a sale look say, is a price set in a folder of its own. Add price set… links the first as Set 1, the next as Set 2. Change… points a set at another folder and keeps the corners that chose it; × removes it, and what chose it goes back to the overlays folder." },
           { name: "Which set a price uses", text: "On a corner with a price, Price set chooses the overlays folder or a set, for the document, a range of pages or one product. A page or a product that chooses a set still follows every other setting of the corner above it." },
           { name: "Folders the plugin cannot reach", text: "The document remembers every device it has used, so a folder renamed, moved or on a drive not plugged in goes on working from what the document holds, and the panel says so once. Choose folder… or Change… links it again." },
         ],
       }, {
-        id: "price-devices", q: "Make your price devices", art: "shared/price-devices", folders: [["Overlays", "Overlays folder"], ["Sale prices", "Set 1"]],
-        intro: "Each price device is an InDesign file of its own, kept in the overlays folder or in a folder of its own as a price set. Automated Assemblr writes each product's price from the brief into the device that fits it.",
+        id: "price-devices", q: "Make your price devices", art: "shared/price-devices", folders: [["Overlays", "Overlays folder"], ["Additional price device styles", "Set 1"]],
+        intro: "Each price device is an InDesign file of its own. The overlays folder holds one price set; each additional style is a price set in a folder of its own. Automated Assemblr writes each product's price from the brief into the device that fits it.",
         points: [
           { name: "One file, one device", text: "Save each device as an .indd, .idml or .idms file. Build it as you like, on as many layers as it needs: a panel or a shape behind, images, and the text frames for the price. It is placed as one, on the product's corner, and follows the product." },
           { name: "Text mapping", text: "Type X where the digits go: $X.XX for dollars and cents, XXc for cents alone. Each product's price is written into those runs only, so the $, the point, the c and every paragraph and character style round them stay as you set them; superscript cents stay superscript. No tagging needed." },
-          { name: "More fields from the brief", text: "Put a word like per kg in a text frame of its own and tag the frame with the name of a column of your brief, Unit say, in InDesign's Tags panel: each product's value in that column replaces the frame's text, in the frame's styles. Tag the whole frame, not a run of its text (Link a text frame to a brief column, below)." },
-          { name: "A folder a set, a file a kind", text: "One folder holds a device for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a device its text leaves open. Keep another look, a sale price say, in a folder of its own, a price set (Set up your overlay folders, above). Two devices of one shape and size in one folder clash, and neither is used; in two folders they never do." },
+          { name: "The “each” under the price, from the brief", text: "Give the brief a Unit column: “each”, “per kg”, “per 100 g”, a value a product. In the device, type “each” in a text frame of its own, styled as it should print, and tag that frame Unit in InDesign's Tags panel (Link a text frame to a brief column, below). Each product's Unit then replaces “each”: “$12.50 each”, “$4.99 per kg”. A product with no Unit leaves the frame empty. Any other column works the same way: tag a frame with its header. Tag the whole frame, not a run of its text." },
+          { name: "A folder a set, a file a kind", text: "One folder holds a device for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a device its text leaves open. A folder holds one style only: put each additional style in a folder of its own, a price set (Set up your overlay folders, above). Two devices of one shape and size in one folder clash, and neither is used; in two folders they never do." },
         ],
       }, {
         id: "price-tags", q: "Link a text frame to a brief column", wide: true,
