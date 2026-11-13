@@ -129,8 +129,27 @@ export default {
           points: [
             { name: "One file, one design", text: "Save each design as an .indd, .idml or .idms file. Build it as you like, on as many layers as it needs: a panel or a shape behind, images, and the text frames for the price. It is placed as one, on the product's corner, and follows the product." },
             { name: "Text mapping", text: "Type X where the digits go: $X.XX for dollars and cents, XXc for cents alone. Assemblr writes each price's digits into those runs only, so the $, the point, the c and every paragraph and character style round them stay as you set them; superscript cents stay superscript. No tagging needed." },
-            { name: "More fields", text: "Tag a text frame, or a run of its text, with a name of your own in InDesign's Tags panel, Unit say. The price then gets a box of its own for it under the price, typed per product: each, or per kg." },
+            { name: "The “each” under the price", text: "Words beside the price that change from product to product, “each” or “per kg”, go in a text frame of their own, tagged: the price then gets a box for them under it on each product's corner (The “each” under the price, below)." },
             { name: "A folder a set, a file a kind", text: "One folder holds a design for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a design its text leaves open. Keep another look, a sale price say, in a folder of its own and load it as Set 2. Two designs of one shape and size in one folder clash, and neither is used." },
+          ],
+        }, {
+          id: "price-unit", q: "The “each” under the price", art: "shared/unit-field", unitFrom: "corner",
+          intro: "A price design can carry more than the price: the “each” or “per kg” under it, typed for each product on its corner, beside its price.",
+          points: [
+            { name: "In the design", text: "Type “each” in a text frame of its own, styled as it should print, and tag the frame in InDesign's Tags panel with a name of your own, Unit say (Name a text field in a price design, below). Tag the whole frame, not a run of its text." },
+            { name: "On the corner", text: "Type a product's price and, once its design is chosen, a Unit box appears under it, named for the tag. Type “each”, “per kg” or “per 100 g”: each product keeps its own." },
+            { name: "On the page", text: "The Unit replaces “each”, in the frame's styles: “$12.50 each”, “$4.99 per kg”. A product whose Unit box is left empty gets an empty frame, and the panel names it." },
+            { name: "More than one", text: "Tag as many frames as the design needs, each with its own name: each gets its own box under the price." },
+          ],
+        }, {
+          id: "price-tags", q: "Name a text field in a price design", wide: true,
+          a: [
+            "In the price design's file, put the words to be replaced, “each” say, in a text frame of their own, styled as they should print.",
+            "Open Window ▸ Utilities ▸ Tags, choose New Tag from the panel's menu and name it for what the field holds: Unit. The name is the label of its box in the panel; a tag cannot hold a space, so use Unit_of_measure rather than Unit of measure.",
+            "With the Selection tool, select the text frame and click the tag in the Tags panel. View ▸ Structure ▸ Show Tagged Frames colours a tagged frame, so you can see it took.",
+            "Save the file in the set's folder, and choose Load price… with that folder again so Assemblr reads it.",
+            "On a product's corner, type the price: the box named Unit appears under it. What you type there replaces the frame's text, in the frame's styles; left empty, the frame is empty.",
+            "The price itself needs no tag. If a design's price is read wrongly, tag it the same way: the whole frame price, or select its digits with the Type tool and tag them dollars and cents.",
           ],
         }],
       },

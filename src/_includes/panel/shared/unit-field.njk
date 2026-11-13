@@ -1,14 +1,35 @@
-{#- The "each" under a price, for the badges and prices cards (panels/catalogue-producer.js `help`, an item with `art`):
-    left, the brief's rows with the Unit column lit; middle, the price device in InDesign, "each" typed in a text frame
-    of its own and tagged Unit, outlined; right, three products' price points as placed, each with its Unit where "each"
-    was, and a product with no Unit, its frame empty. catalague-producer src/core/overlay/device.ts (`readDevice`: a
-    frame tagged with a column's name is that field; `fieldValues`: a blank cell empties it), src/core/overlay/plan.ts
-    (`lookup` → `columnForToken`). Still; on a phone it pans. -#}
+{#- The "each" under a price, for the price cards of both InDesign plugins' help (panels/*.js `help`, an item with `art`).
+    Left, where each product's Unit is typed: Automated Assemblr's brief, the Unit column lit (the default); Assemblr's
+    product corners, a Unit box under each price (`it.unitFrom` "corner": Assemblr has no brief; catalague-producer
+    src/assemblr/ui/overlays.ts `priceRow`, one box per other field of the style the price goes to, typed per product).
+    Middle, the price device in InDesign, "each" typed in a text frame of its own and tagged Unit, outlined. Right, three
+    products' price points as placed, each with its Unit where "each" was, and a product with no Unit, its frame empty.
+    catalague-producer src/core/overlay/device.ts (`readDevice`: a frame tagged with a name other than the price's is
+    that field; `fieldValues`: a blank value empties it), src/core/overlay/plan.ts (`lookup` → `columnForToken`),
+    src/core/unit/overlays.ts (`planUnitOverlays`: the typed extras). Still; on a phone it pans. -#}
+{%- set fromCorner = it and it.unitFrom == "corner" %}
 {%- macro price(dollars, cents, y) %}<text class="pd-price" x="75" y="{{ y }}"><tspan class="pd-cur" dy="-14">$</tspan><tspan class="pd-dol" dy="14">{{ dollars }}</tspan><tspan class="pd-cts" dy="-15">{{ cents }}</tspan></text>{% endmacro %}
+{%- if fromCorner %}
+{%- set rows = [["Product 1", "$12.50", "each", "12", "50"], ["Product 2", "$4.99", "per kg", "4", "99"], ["Product 3", "$2.20", "", "2", "20"]] %}
+{%- else %}
 {%- set rows = [["410201", "$12.50", "each", "12", "50"], ["410305", "$4.99", "per kg", "4", "99"], ["410411", "$2.20", "", "2", "20"]] %}
+{%- endif %}
 <div class="pd uf" aria-hidden="true">
   <div class="pd-scroll"><div class="uf-row">
     <div class="uf-col">
+      {%- if fromCorner %}
+      <p class="jf-book-name">Overlays ▸ a product’s corner</p>
+      <div class="uf-corners">
+        {%- for r in rows %}
+        <div class="uf-corner">
+          <p class="uf-corner-name">{{ r[0] }}</p>
+          <div class="uf-field"><span class="uf-box">{{ r[1] }}</span><span class="uf-set">Set 1</span></div>
+          <div class="uf-field"><span class="uf-label">Unit</span><span class="uf-box uf-lit">{{ r[2] }}</span></div>
+        </div>
+        {%- endfor %}
+      </div>
+      <p class="uf-cap"><b>1</b> Under each product’s price, a Unit box, typed per product</p>
+      {%- else %}
       <p class="jf-book-name"><svg class="pf-sheet-icon" viewBox="0 0 16 18"><path d="M1 2a1 1 0 0 1 1-1h8l5 5v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/><path class="pf-sheet-grid" d="M4 9h8M4 12h8M4 15h8M8 7v10"/></svg>Brief.xlsx</p>
       <table class="jf-sheet uf-sheet">
         <tbody>
@@ -17,6 +38,7 @@
         </tbody>
       </table>
       <p class="uf-cap"><b>1</b> A Unit column, a value a product</p>
+      {%- endif %}
     </div>
     <svg class="uf-go" viewBox="0 0 40 20"><path class="pd-go" d="M4 10h30M29 5l5 5-5 5"/></svg>
     <div class="uf-col">
@@ -33,7 +55,7 @@
     <svg class="uf-go" viewBox="0 0 40 20"><path class="pd-go" d="M4 10h30M29 5l5 5-5 5"/></svg>
     <div class="uf-col">
       <p class="jf-book-name">On the page</p>
-      <svg class="uf-placed" viewBox="0 0 170 236">
+      <svg class="uf-placed" viewBox="0 0 {{ 196 if fromCorner else 170 }} 236">
         {%- for r in rows %}{% set w = (r[2] | length) * 7.6 + 10 %}
         <g transform="translate(0 {{ loop.index0 * 80 }})">
           <rect class="pd-panel" width="150" height="70" rx="20"/>{{ price(r[3], r[4], 44) }}

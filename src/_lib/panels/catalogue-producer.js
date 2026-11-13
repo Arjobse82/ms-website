@@ -248,7 +248,7 @@ export default {
           { name: "A folder a set, a file a kind", text: "One folder holds a device for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a device its text leaves open. A folder holds one style only: put each additional style in a folder of its own, a price set (Set up your overlay folders, above). Two devices of one shape and size in one folder clash, and neither is used; in two folders they never do." },
         ],
       }, {
-        id: "price-unit", q: "The “each” under the price", art: "catalogue-producer/unit-field",
+        id: "price-unit", q: "The “each” under the price", art: "shared/unit-field",
         intro: "A price device can carry more than the price: the “each” or “per kg” under it, written from the brief for every product.",
         points: [
           { name: "In the brief", text: "A column headed Unit, holding “each”, “per kg”, “per 100 g”: whatever goes under that product's price." },
