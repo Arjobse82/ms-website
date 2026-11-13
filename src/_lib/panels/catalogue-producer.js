@@ -244,8 +244,17 @@ export default {
         points: [
           { name: "One file, one device", text: "Save each device as an .indd, .idml or .idms file. Build it as you like, on as many layers as it needs: a panel or a shape behind, images, and the text frames for the price. It is placed as one, on the product's corner, and follows the product." },
           { name: "Text mapping", text: "Type X where the digits go: $X.XX for dollars and cents, XXc for cents alone. Each product's price is written into those runs only, so the $, the point, the c and every paragraph and character style round them stay as you set them; superscript cents stay superscript. No tagging needed." },
-          { name: "The “each” under the price, from the brief", text: "Give the brief a Unit column: “each”, “per kg”, “per 100 g”, a value a product. In the device, type “each” in a text frame of its own, styled as it should print, and tag that frame Unit in InDesign's Tags panel (Link a text frame to a brief column, below). Each product's Unit then replaces “each”: “$12.50 each”, “$4.99 per kg”. A product with no Unit leaves the frame empty. Any other column works the same way: tag a frame with its header. Tag the whole frame, not a run of its text." },
+          { name: "The “each” under the price, from the brief", text: "Words beside the price that change from product to product, “each” or “per kg”, come from a column of the brief, Unit say, written into a tagged frame of the device (The “each” under the price, below)." },
           { name: "A folder a set, a file a kind", text: "One folder holds a device for each kind of price: x-xx, xx-xx and xx-c side by side, $5.50 takes the first, $12.50 the second and 95c the third. Name a file for its shape to settle a device its text leaves open. A folder holds one style only: put each additional style in a folder of its own, a price set (Set up your overlay folders, above). Two devices of one shape and size in one folder clash, and neither is used; in two folders they never do." },
+        ],
+      }, {
+        id: "price-unit", q: "The “each” under the price", art: "catalogue-producer/unit-field",
+        intro: "A price device can carry more than the price: the “each” or “per kg” under it, written from the brief for every product.",
+        points: [
+          { name: "In the brief", text: "A column headed Unit, holding “each”, “per kg”, “per 100 g”: whatever goes under that product's price." },
+          { name: "In the device", text: "Type “each” in a text frame of its own, styled as it should print, and tag the frame Unit in InDesign's Tags panel (Link a text frame to a brief column, below). Tag the whole frame, not a run of its text." },
+          { name: "On the page", text: "Each product's Unit replaces “each”, in the frame's styles: “$12.50 each”, “$4.99 per kg”. A product whose Unit cell is blank leaves the frame empty, and the panel names it." },
+          { name: "Any column", text: "The same works for any column of the brief: name the tag for the column's header. A tag that names no column is left as you typed it." },
         ],
       }, {
         id: "price-tags", q: "Link a text frame to a brief column", wide: true,

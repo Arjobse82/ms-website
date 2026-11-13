@@ -1,0 +1,49 @@
+{#- The "each" under a price, for the badges and prices cards (panels/catalogue-producer.js `help`, an item with `art`):
+    left, the brief's rows with the Unit column lit; middle, the price device in InDesign, "each" typed in a text frame
+    of its own and tagged Unit, outlined; right, three products' price points as placed, each with its Unit where "each"
+    was, and a product with no Unit, its frame empty. catalague-producer src/core/overlay/device.ts (`readDevice`: a
+    frame tagged with a column's name is that field; `fieldValues`: a blank cell empties it), src/core/overlay/plan.ts
+    (`lookup` → `columnForToken`). Still; on a phone it pans. -#}
+{%- macro price(dollars, cents, y) %}<text class="pd-price" x="75" y="{{ y }}"><tspan class="pd-cur" dy="-14">$</tspan><tspan class="pd-dol" dy="14">{{ dollars }}</tspan><tspan class="pd-cts" dy="-15">{{ cents }}</tspan></text>{% endmacro %}
+{%- set rows = [["410201", "$12.50", "each", "12", "50"], ["410305", "$4.99", "per kg", "4", "99"], ["410411", "$2.20", "", "2", "20"]] %}
+<div class="pd uf" aria-hidden="true">
+  <div class="pd-scroll"><div class="uf-row">
+    <div class="uf-col">
+      <p class="jf-book-name"><svg class="pf-sheet-icon" viewBox="0 0 16 18"><path d="M1 2a1 1 0 0 1 1-1h8l5 5v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/><path class="pf-sheet-grid" d="M4 9h8M4 12h8M4 15h8M8 7v10"/></svg>Brief.xlsx</p>
+      <table class="jf-sheet uf-sheet">
+        <tbody>
+          <tr class="jf-head"><td>Code</td><td>Price</td><td class="uf-lit">Unit</td></tr>
+          {%- for r in rows %}<tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td><td class="uf-lit">{{ r[2] }}</td></tr>{% endfor %}
+        </tbody>
+      </table>
+      <p class="uf-cap"><b>1</b> A Unit column, a value a product</p>
+    </div>
+    <svg class="uf-go" viewBox="0 0 40 20"><path class="pd-go" d="M4 10h30M29 5l5 5-5 5"/></svg>
+    <div class="uf-col">
+      <p class="jf-book-name">x-xx.indd</p>
+      <svg class="uf-device" viewBox="-6 -6 250 112">
+        <rect class="pd-panel" width="150" height="80" rx="22"/>{{ price("X", "XX", 50) }}<text class="pd-unit" x="75" y="70">each</text>
+        <rect class="uf-frame" x="54" y="58" width="42" height="17" rx="2"/>
+        <path class="uf-lead" d="M96 66.5h66"/>
+        <rect class="uf-tag" x="162" y="57" width="52" height="19" rx="4"/><text class="uf-tag-text" x="188" y="70.5">Unit</text>
+        <text class="uf-note" x="162" y="92">tagged frame</text>
+      </svg>
+      <p class="uf-cap"><b>2</b> “each” in a frame of its own, tagged Unit</p>
+    </div>
+    <svg class="uf-go" viewBox="0 0 40 20"><path class="pd-go" d="M4 10h30M29 5l5 5-5 5"/></svg>
+    <div class="uf-col">
+      <p class="jf-book-name">On the page</p>
+      <svg class="uf-placed" viewBox="0 0 170 236">
+        {%- for r in rows %}{% set w = (r[2] | length) * 7.6 + 10 %}
+        <g transform="translate(0 {{ loop.index0 * 80 }})">
+          <rect class="pd-panel" width="150" height="70" rx="20"/>{{ price(r[3], r[4], 44) }}
+          {%- if r[2] %}<rect class="uf-hit" x="{{ 75 - w / 2 }}" y="50" width="{{ w }}" height="17" rx="4"/><text class="pd-unit" x="75" y="63">{{ r[2] }}</text>
+          {%- else %}<rect class="uf-empty" x="54" y="50" width="42" height="17" rx="2"/>{% endif %}
+          <text class="uf-code" x="158" y="40">{{ r[0] }}</text>
+        </g>
+        {%- endfor %}
+      </svg>
+      <p class="uf-cap"><b>3</b> Each product’s Unit in its place; none, the frame empty</p>
+    </div>
+  </div></div>
+</div>
