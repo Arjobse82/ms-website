@@ -1,6 +1,6 @@
 name: Ad Agent
-tagline: Campaign rollouts for InDesign and Figma, run from one Mac app.
-description: Ad Agent resizes a campaign to every size in the brief, driving InDesign and Figma from one Mac app. You connect masters, channels and folders on a node view, and its AI makes the changes you ask for in plain English. There's no MCP server to set up.
+tagline: Runs the whole campaign job in InDesign and Figma, from the brief to the delivered files.
+description: Ad Agent runs a campaign job from one Mac app. It reads the brief, builds every size from your InDesign and Figma masters, keeps each round of amends, preflights the files and sends them to the right folders. You connect masters, channels and folders on a node view, and its AI makes the changes you ask for in plain English. There's no MCP server to set up.
 price: From $19.99 a month
 // The label on another app's page that lists it ("Mac app, works with …", content/pages/labels.txt alsoWorksWith).
 worksWith: InDesign & Figma

@@ -138,8 +138,8 @@ function modes() {
     lay("line", "Line-up", "One row, with an angle and perspective.", [["pink-box", 6]], LINEUP),
     lay("grid", "Grid", "Rows and columns.", [["blue-slab", 6]], { ...E.modeStart("grid"), cols: 3, gap: -0.4, gapY: -0.4, alignX: "centre", alignY: "centre" }),
     lay("mosaic", "Mosaic", "Arranged and scaled to fill the space.", [["yellow-disc", 1], ["grey-cube", 1], ["red-tile", 1], ["rose-cylinder", 1], ["blue-arch", 1]], E.modeStart("mosaic")),
-    lay("pins", "Pins", "A bowling-pins formation.", [["yellow-disc", 6]], { ...E.modeStart("pins"), gapY: -0.55, perspective: 0.25, alignY: "centre" }),
-    lay("puzzle", "Puzzle", "Tightly packed round each other, at equal area or at the sizes you give them.", [["grey-cube", 8], ["yellow-disc", 5], ["red-tile", 3]], E.modeStart("puzzle"), puzzleHand),
+    lay("pins", "Pins", "Rows arranged like bowling pins.", [["yellow-disc", 6]], { ...E.modeStart("pins"), gapY: -0.55, perspective: 0.25, alignY: "centre" }),
+    lay("puzzle", "Puzzle", "Packed tightly around each other, at equal area or at the sizes you set.", [["grey-cube", 8], ["yellow-disc", 5], ["red-tile", 3]], E.modeStart("puzzle"), puzzleHand),
   ];
 }
 

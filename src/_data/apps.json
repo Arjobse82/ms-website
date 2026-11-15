@@ -139,12 +139,11 @@
         "slug": "assemblr",
         "panel": "assemblr-photoshop",
         "cardPlugin": "assemblr",
-        "cardNoPrice": true,
         "icon": "assemblr",
         "photo": "facade",
         "centre": "33% 24%",
         "zoom": 2.3,
-        "getUrl": "",
+        "getUrl": "https://exchange.adobe.com/apps/cc/ac95f6df/assemblr-for-photoshop",
         "features": [
           {},
           {},

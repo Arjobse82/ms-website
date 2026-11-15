@@ -1,6 +1,6 @@
 // The About page. The statement under the title and the four principles are in ../site.txt.
 makeTitle: What we make
-makeText: Plugins for Figma, InDesign and Photoshop, and Ad Agent, a Mac app that resizes a campaign to every size on the brief. Each plugin does one job, inside the app you already work in.
+makeText: Plugins for Figma, InDesign and Photoshop, and Ad Agent, a Mac app that runs a campaign job from the brief to the delivered files. Each plugin does one job, inside the app you already work in.
 workTitle: How we work
 workText: A short paragraph about the team, how the tools get made and what matters to you. Replace this with your own words.
 principlesTitle: How the tools are built
