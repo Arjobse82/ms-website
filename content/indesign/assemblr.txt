@@ -1,30 +1,30 @@
 name: Assemblr
-tagline: A page layout engine.
-description: A page layout engine that can arrange images into various formations with the ability to add overlay graphics or price devices to each corner. Everything automatically resizes and readjusts using a single bounding rectangle. 
+tagline: Product layouts in InDesign, from one frame.
+description: Assemblr arranges pack shots inside a single frame on your InDesign page. Pick an arrangement, put a badge on any corner, then resize the frame and Assemblr lays everything out again to fit.
 
 # highlights
 
-## Lined up by what shows.
-Each image is arranged by its visible subject, read from the file's transparency, so the products line up, not just their frames.
+## Aligned on the product
+Assemblr reads the transparency in each image and lines products up by their visible edges, so empty canvas around a pack shot doesn't throw out the spacing.
 
-## One rectangle drives it all.
-Assemble puts the images on a layer of their own and draws an empty rectangle round them. Move it, or drag it from landscape to portrait, and they are laid out again for the new shape.
+## One frame controls the layout
+Click Assemble and the images go on a layer of their own, inside an empty rectangle. Resize the rectangle, even from landscape to portrait, and Assemblr lays the images out again.
 
-## Five arrangements.
-Line-up, Grid, Mosaic, Pins or Puzzle, each keeping its own settings for when you switch back. Change a setting and the page follows.
+## Five arrangements
+Line-up, Grid, Mosaic, Pins and Puzzle. Each one remembers its own settings, so you can switch and come back without starting over.
 
-## Badges and prices on the corners.
-Load a badge onto any corner, or a price in your own InDesign design: the digits go where its Xs are, its styles kept. Each keeps its distance from the edges as the product changes shape.
+## Corner badges
+Put a badge on any corner: a logo, a graphic or a price device. Price devices use your own InDesign design: type Xs where the digits go and Assemblr fills them in, keeping your styles. Each badge holds its distance from the edges as the layout changes.
 
-## Your edits, kept.
-Crop, scale or turn an image by hand. Assemblr waits until you deselect, then lays the product out once: the crop is kept, and the scale and turn in Line-up, Grid and Puzzle.
+## Hand edits are kept
+Crop, scale or rotate an image yourself. Assemblr waits until you deselect, then updates the layout once. Your crop is always kept; scale and rotation are kept in Line-up, Grid and Puzzle.
 
 # specs
 
 Works with: InDesign 2026 (21.0 or later)
 Arrangements: Line-up, Grid, Mosaic, Pins and Puzzle
-Undo: One step for every action
-Platform: macOS, no account, no network
+Undo: Every action is one undo step
+Platform: macOS. No account, no internet connection needed
 Availability: Adobe Exchange
 Price: To be announced
 

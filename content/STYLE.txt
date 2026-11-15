@@ -1,0 +1,11 @@
+HOW THE SITE SHOULD SOUND
+=========================
+
+The writing guide is shared by every Monochrome Systems project (this site,
+the plugins' panels and help pages), so it lives in one place:
+
+    ~/.claude/skills/trade-copy/SKILL.md
+
+Short version: write like a plugin maker or a senior artworker on the
+InDesign forum. Use plain sentences, exact UI names and real numbers. No
+slogans, no "not X but Y", no groups of three.

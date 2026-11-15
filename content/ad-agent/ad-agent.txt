@@ -1,59 +1,59 @@
 name: Ad Agent
-tagline: AI powered layout & file management system.
-description: Our latest release brings AI into automated campaign rollouts, allowing you to control both InDesign and Figma directly from one app. A modern, node-based visual mapping interface connects your creative tools, workflows and AI in one place. No MCP required.
+tagline: Campaign rollouts for InDesign and Figma, run from one Mac app.
+description: Ad Agent resizes a campaign to every size in the brief, driving InDesign and Figma from one Mac app. You connect masters, channels and folders on a node view, and its AI makes the changes you ask for in plain English. There's no MCP server to set up.
 price: From $19.99 a month
 // The label on another app's page that lists it ("Mac app, works with …", content/pages/labels.txt alsoWorksWith).
 worksWith: InDesign & Figma
 
 # highlights
 
-## Your files stay safe.
+## Works on copies
 Ad Agent never edits your working files. It works on copies.
 
-## Your InDesign settings, per channel.
-Each channel can run the InDesign Preflight profile and PDF preset you choose, a printer's .joboptions file included.
+## InDesign settings per channel
+Each channel can run its own InDesign Preflight profile and PDF preset, including a printer's .joboptions file.
 
-## Smart tagging system.
-Every size is tagged by its creative, channel and tool as it is made. Add your own, like Retouching or Creative review, and filter the job by any of them.
+## Tags on every size
+Each size is tagged with its creative, channel and tool as it's made. Add your own tags, like Retouching or Creative review, and filter the job by any of them.
 
-## Smart folder workflows.
-Route files by their tags. Tag a size Approved and its high-res PDF is made with your High res preset and sent to the folder you choose.
+## Files routed by tag
+Tag a size Approved and Ad Agent makes its high-res PDF with your High res preset, then sends it to the folder you chose.
 
 # safety
 // What it can reach, what it asks of the Mac, and what the AI may and may not do. A group a "##"; a line under it
 // "Name: what it means". From the Ad Agent repo (CLAUDE.md, src-tauri/Info.plist, src/core/ai/permissions.ts,
 // src-tauri/src/ai.rs), 2026-11-12: only what the app does today.
 label: Safety
-title: You stay in control.
-intro: Ad Agent works on copies, asks macOS once before it touches InDesign, and its AI changes only what you allow. Here is what it can reach, and what it cannot.
+title: What it can and can't touch
+intro: Ad Agent works on copies, asks macOS once before it controls InDesign, and its AI changes only what you allow. This is what it can reach.
 
 ## The AI
-You set its reach: Each of its abilities on or off, or one of three settings: Look only, Default or Full control.
-Nothing changes unasked: What you ask for is done. What the AI suggests on its own waits for your approval.
-Before and after: Every change to copy or layout is shown before and after first.
+You set its reach: Turn each ability on or off, or pick one of three levels: Look only, Default or Full control.
+Nothing changes unasked: The AI does what you ask. Anything it suggests on its own waits for your approval.
+Before and after: Every change to copy or layout shows its before and after first.
 Client documents: Once the AI has read an email or a document, every change it proposes waits for your approval.
-No runs on its own: Making sizes again is off until you allow it.
+No runs on its own: The AI can't remake sizes until you allow it.
 What it cannot do: Run InDesign scripts, edit your brief's spreadsheet, or pick the winner of an A/B.
 
 ## Your files
 Masters untouched: Ad Agent never opens or edits your masters. It works on copies.
 Nothing deleted: A replaced file moves to its round's Archive folder. Nothing in a round is deleted.
-Past rounds kept: Earlier rounds are look only, kept as delivered.
+Past rounds kept: Earlier rounds are read-only, kept as delivered.
 Its own files only: A send touches only the job's own files, and two jobs can never write to the same folder.
 Shared jobs: One Mac edits a job at a time. Everyone else opens it read-only.
 InDesign as you left it: Your PDF export settings are put back after every job.
 
 ## Folder access
-Where it writes: New sizes go in an Ad Agent sizes folder beside your masters, a folder for each round.
-Folders you choose: Files are sent only to the folders you add to the job, each with its own on and off switch.
-Checked when chosen: When you add a folder, Ad Agent checks it can save there, so a problem shows then, not at despatch.
+Where it writes: New sizes go in an Ad Agent sizes folder next to your masters, with a folder for each round.
+Folders you choose: Files are sent only to the folders you add to the job, and each one has its own on/off switch.
+Checked when chosen: When you add a folder, Ad Agent checks it can save there, so you find out straight away rather than at despatch.
 macOS asks first: The first time Ad Agent reaches a protected place, like Documents, Desktop or a server, macOS asks you once.
-What the AI can open: Only a file you give it, or one in the job's, the masters' or the Notes folder.
+What the AI can open: Only files you give it, and files in the job folder, the masters folder or the Notes folder.
 In Figma: Ad Agent writes only to its own page, Ad Agent sizes, and changes only the frames it made.
 
 ## Your Mac
 One permission: macOS asks once before Ad Agent controls InDesign: "Ad Agent opens your masters and the sizes it writes in InDesign, to measure their text and export each size."
-Yours to take back: Turn it off at any time in System Settings, Privacy & Security, Automation.
+Yours to take back: Turn it off at any time in System Settings > Privacy & Security > Automation.
 Nothing added to InDesign: No plugins or scripts are installed in it.
 Figma by your choice: Figma works through Ad Agent Bridge, a plugin you add to Figma yourself.
 Works offline: Making and previewing sizes needs no internet. Only releasing a size goes online.
@@ -61,26 +61,26 @@ Works offline: Making and previewing sizes needs no internet. Only releasing a s
 ## Your data
 Your key, in your Keychain: A Claude API key is kept in the macOS Keychain and sent only to Anthropic.
 Local models stay local: With a model on your Mac, nothing leaves it.
-Pictures on request: The AI asks before sending more than four pictures in one question.
-Text only on Standard AI: On the Standard AI plan, no pictures are sent at all.
+Images on request: The AI asks before sending more than four images in one request.
+Text only on Standard AI: On the Standard AI plan, no images are sent at all.
 
 # pricing
 // A "column:" line a price column, in order: the words before the colon its heading, those after it what it is.
 // A plan a "##": its first line its prices, a column each, split by "|"; the lines under it what it gets.
 title: Pricing
-intro: A subscription runs every campaign, resized by hand or not. Releasing the files the rollout engine lays out is paid per file, only on the campaigns that use it.
-column: Standard AI: Text based capabilities.
-column: Multimodal AI: Text and visual capabilities.
+intro: The subscription covers every campaign, whether you resize it by hand or not. If the rollout engine lays out a size, you pay for that file when you release it. Previews are free.
+column: Standard AI: Text only.
+column: Multimodal AI: Text and images.
 column: Auto rollout: Previews are free.
-note: AI comes free on every plan, up to a monthly token limit. Connect your own Claude API key, or a local model on your Mac, to extend it. Preflight checks are free on every plan.
+note: Every plan includes AI up to a monthly token limit. To go past it, connect your own Claude API key or a local model on your Mac. Preflight checks are free on every plan.
 
 ## Studio
 $19.99 /mo | $29.99 /mo | +$1 per resize
-Command a project with up to 50 deliverables
+Projects of up to 50 deliverables
 
 ## Agency
 $29.99 /mo | $49.99 /mo | +$1 per resize
-Command a project with no limits
+Unlimited deliverables per project
 
 # specs
 
@@ -98,77 +98,77 @@ Price: From $19.99 a month, plus $1 per resize
 title: Features
 
 ## Brief and specs
-Spreadsheet briefs: Excel, CSV, TSV or text, any sheet of the book.
-Print and screen units: px for screens; mm, cm or inches for print.
-Scale, bleed and safe area: Typed with a size, or taken from its spec.
-Media specs book: Each size matched to its format, never guessed.
-Brief updates: Pull a new version of the brief and apply only what changed.
-Brief columns as tags: Any column, like Market, becomes a tag.
+Spreadsheet briefs: Excel, CSV, TSV or text, from any sheet in the workbook.
+Print and screen units: px for screen; mm, cm or inches for print.
+Scale, bleed and safe area: Typed in with a size, or taken from its spec.
+Media specs book: Each size is matched to its format in the specs book, never guessed.
+Brief updates: Pull in a new version of the brief and apply only what changed.
+Brief columns as tags: Any column, like Market, can become a tag.
 
 ## Masters
 InDesign masters: Open .indd or .idml. Ad Agent only ever works on copies.
 Figma masters: Linked through the Ad Agent Bridge plugin.
 Nothing to install in InDesign: Ad Agent drives it directly.
 Your own files: Drop in finished files and they join the job.
-Books and multi-page files: Every page delivered.
-Colour read: RGB, CMYK, spot and LAB, linked artwork included.
+Books and multi-page files: Every page is delivered.
+Colour: RGB, CMYK, spot and Lab are read, including in linked artwork.
 
 ## Rollout engine
-Every size laid out: From the master nearest its shape, moved and scaled, not squashed.
-An .indd for every size: Edits made in it are kept when it is made again.
-Component settings: Pin, clamp, stretch, cover and collision, layer by layer.
-Logo profiles: The logo in a set corner at a set size, per channel or size.
-Copy changes: Change the words on a master, a channel or a size, checked before and after.
+Every size laid out: Each size is built from the master closest to its shape. Elements are moved and scaled, never distorted.
+An .indd for every size: Edits you make in it are kept when the size is made again.
+Component settings: Pin, clamp, stretch, cover and collision, set layer by layer.
+Logo profiles: The logo goes in a set corner at a set size, per channel or per size.
+Copy changes: Change the words on a master, a channel or a single size, with a before-and-after check.
 File naming: Built from the channel, job number, creative, size or any brief column.
 
 ## Rounds and review
-Rounds: Each round in its own folder, the past ones kept as delivered.
+Rounds: Each round has its own folder, and past rounds are kept as delivered.
 Live rounds: Close a file in InDesign and its exports are made again.
-Compare rounds: Rounds stacked like layers, with a list of what changed.
+Compare rounds: Rounds stack like layers, with a list of what changed.
 Change lists: Each round writes down what changed.
-A/B variants: Make a B of any size, then retire one or split it out.
+A/B variants: Make a B version of any size, then retire one or split it out.
 Archive: Replaced files move to the round's archive. Nothing is deleted.
 
 ## Tags and workflows
-Tag filters: Show or hide by tag; filters never change what gets made.
-System, user and AI tags: Each on its own row.
-Tag tools: Colour, rename, merge, note, and select everything with a tag.
+Tag filters: Show or hide sizes by tag. Filters never change what gets made.
+System, user and AI tags: Each kind on its own row.
+Tag tools: Colour, rename, merge and add notes to tags, or select everything with a tag.
 Routing by tag: Tags decide which files each size gets and where they go.
 Folders as tags: A folder's subfolders become tags.
-Job files: Each job autosaves. One Mac edits it at a time; others can read it.
+Job files: Each job autosaves. One Mac edits it at a time; others can open it read-only.
 
 ## Preflight and quality
-Layout checks: Off-page elements, collisions, small legal text and crossed safe areas.
+Layout checks: Elements off the page, collisions, small legal text and elements over the safe area.
 Image resolution: Estimated ppi for every size, print and screen.
 Masters check: Fonts, RGB, overprint, thin strokes, spelling and missing links.
-InDesign Preflight: Your chosen profile runs on every size of a channel.
-One preflight list: InDesign's, Ad Agent's and the AI's findings together.
+InDesign Preflight: Your chosen profile runs on every size in a channel.
+One preflight list: Findings from InDesign, Ad Agent and the AI in one list.
 Held back: Sizes with problems can be kept out of a folder.
 
 ## Output and delivery
-PDF, JPG and PNG: PDF by InDesign preset; JPG with quality and a KB cap.
+PDF, JPG and PNG: PDF from an InDesign preset; JPG with a quality setting and a KB limit.
 Printer's presets: Load a .joboptions file.
-Approval PDFs: A channel's sizes joined in one PDF, or a sheet a size a page.
-Figma exports: JPG, PNG or PDF from Figma-built sizes.
+Approval PDFs: A channel's sizes on one sheet, or one size per page.
+Figma exports: JPG, PNG or PDF from sizes built in Figma.
 Destination folders: Local or on a server, each with its own send switch.
-Colour sends: RGB and CMYK files to their own folders.
+Colour sends: RGB and CMYK files go to their own folders.
 
 ## System
-Mac app: macOS 13 or later, light and dark.
+Mac app: macOS 13 or later, light and dark mode.
 InDesign: Needed for .indd masters and exports. Without it, IDML only.
 Figma: The desktop app with the Ad Agent Bridge plugin.
 Works offline: Only releasing a size needs the internet.
-Low-res previews: Free. Working files and exports come with release.
+Low-res previews: Free. Working files and exports come when you release a size.
 
 # ai
 // The AI by plan. A "column:" line a plan, in order. A capability a "##": its first line a cell a plan split by "|"
 // ("yes" a tick, "no" a dash, other words as they are); a line under it an example of asking for it.
 // From the Ad Agent repo (src/core/ai/tools.ts, CLAUDE.md, docs/rollout-release-figma.md, 2026-11-12).
 title: AI capabilities
-intro: Ask in plain words. What you ask for is done; what the AI suggests waits for your approval, and every change to copy or layout shows its before and after.
+intro: Ask in plain English. The AI does what you ask, anything it suggests itself waits for your approval, and every change to copy or layout shows its before and after.
 column: Standard AI
 column: Multimodal AI
-note: AI comes free on every plan, up to a monthly token limit. To extend it, connect your own Claude API key (Sonnet, Opus or Haiku) or a local model in LM Studio.
+note: Every plan includes AI up to a monthly token limit. To go past it, connect your own Claude API key (Sonnet, Opus or Haiku) or a local model in LM Studio.
 
 ## Answer questions about the job
 yes | yes
@@ -190,12 +190,12 @@ yes | yes
 yes | yes
 "Tag the 300x250 size Alpha"
 
-## Turn client feedback into changes
+## Turn client feedback into amends
 yes | yes
 "Here's the client's email, make their changes"
 
-## Process PDF of brand guidelines
-Process text | Process text and visuals
+## Read brand guideline PDFs
+Text only | Text and images
 "Read the brand guidelines and note the logo rules"
 
 ## Review the layouts

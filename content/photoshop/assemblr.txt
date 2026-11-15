@@ -1,26 +1,26 @@
 name: Assemblr
-tagline: Arrange layers
-description: Quickly manage complex layout formations with just 5 arrangement options. Fully editable and automatic once setup.
+tagline: Pack shot layouts in Photoshop.
+description: Assemblr arranges pack shots on their layers inside an invisible rectangle. Pick one of five arrangements, resize the rectangle and the layers are fitted again. Every layer stays editable.
 
 # highlights
 
-## Lined up by what shows.
-Each layer is arranged by its visible subject, measured from its transparency, not by its layer box.
+## Aligned on the product
+Assemblr lines products up by their visible pixels, measured from each layer's transparency, so empty space in the layer doesn't affect the spacing.
 
-## Five arrangements.
-Line-up, Grid, Mosaic, Pins or Puzzle, inside an invisible rectangle. Resize it and the layers re-fit.
+## Five arrangements
+Line-up, Grid, Mosaic, Pins and Puzzle, inside an invisible rectangle. Resize the rectangle and the layers are fitted again.
 
-## Your edits, respected.
-Scale a layer by hand and its size is kept; lock one and it stays where it is while the others fit round it.
+## Hand edits are kept
+Scale a layer yourself and Assemblr keeps its size. Lock a layer and it stays put while the others fit around it.
 
-## One history step.
-Every action is one named history step, and the product is saved in the document itself.
+## One history step per action
+Every action is a single named history step, and the layout is saved in the document.
 
 # specs
 
 Works with: Photoshop
 Documents: RGB, CMYK, Grayscale and Lab, 8 or 16 bits
 Arrangements: Line-up, Grid, Mosaic, Pins and Puzzle
-Platform: macOS, no account, no network
+Platform: macOS. No account, no internet connection needed
 Availability: Coming soon
 Price: To be announced

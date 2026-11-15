@@ -1,24 +1,24 @@
 name: Automated Assemblr
-tagline: Multi page layouts, built from your Excel file.
-description: Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of images, and keeps the pages and the brief in sync both ways.
+tagline: Catalogue pages, built from an Excel brief.
+description: Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of pack shots, and keeps the pages and the brief in sync both ways.
 price: $99 a month
 
 # highlights
 
-## Smart matching.
-Each image file finds its row in the spreadsheet by the product code in its file or folder name, or by the product's name. A near match is placed and marked Check.
+## Images matched to the brief
+Each image finds its row in the brief by the product code in its file or folder name, or by the product name. A near match is still placed, and marked Check.
 
-## Images auto-place with cropping.
-Each matched file goes into its product's cell, auto-cropped, and arranges itself there with the product's other images.
+## Placed and cropped
+Each matched image goes into its product's cell, cropped, and is arranged with that product's other images.
 
-## Drop in, arranged.
-Drag an image into a cell and it joins that product, arranged with the rest. Nothing to place, fit or line up by hand.
+## Drag in to add
+Drag an image into a cell and it joins that product, arranged with the rest. There's no placing, fitting or lining up by hand.
 
-## Freestyle pages.
-Set a page to Freestyle and make any image area any size. Its images and text stay linked to their product, and in step with the brief.
+## Free pages
+Switch a page from Managed to Free and you can make image areas any size. Their images and text stay linked to the product, and in sync with the brief.
 
-## Reorder in one move.
-Swap two products or change the whole order, and the plugin re-flows the pages to follow, in one undo step.
+## Reorder products
+Swap two products or change the whole order, and the pages reflow to match in one undo step.
 
 # specs
 

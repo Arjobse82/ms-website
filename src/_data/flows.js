@@ -10,7 +10,7 @@ const MATCH = '<svg viewBox="0 0 62 62"><rect x="12" y="16" width="16" height="2
 export default {
   "catalogue-producer": {
     title: "From brief to catalogue, and back",
-    summary: "The brief, the image folders and the overlays folder go in; the files are matched to products; the pages are built, laid out, written and badged; and changes on either side are kept in step, both ways.",
+    summary: "The brief, the image folders and the overlays folder go in. Each file is matched to its product, then the pages are built, the images laid out, the copy placed and the badges added. An edit on the page or in the brief can be taken either way.",
     columns: [
       {
         step: "In",
@@ -30,7 +30,7 @@ export default {
         step: "Build",
         nodes: [
           { icon: ICONS.pages, name: "Pages", text: "Grid, page breaks, masters" },
-          { icon: ICONS.layout, name: "Layout", text: "Each product's images, by what is in them" },
+          { icon: ICONS.layout, name: "Layout", text: "Lays out each product's images by what is in them" },
           { icon: ICONS.copy, name: "Copy", text: "The brief's columns, in your styles" },
           { icon: ICONS.overlays, name: "Badges and prices", text: "On each product's corners, price points styled from a master" },
           { icon: ICONS.tables, name: "Tables", text: "Price lists and spec tables, styled from a master" },
@@ -40,10 +40,10 @@ export default {
         step: "Out",
         catalogue: true,
         nodes: [
-          { name: "The catalogue", text: "InDesign pages, every step one undo" },
+          { name: "The catalogue", text: "InDesign pages; each step is one undo" },
         ],
       },
     ],
-    loop: { name: "Changes", text: "An edit on the page or in the brief is listed, and taken whichever way you choose." },
+    loop: { name: "Changes", text: "An edit on the page or in the brief is listed, and you choose which way to take it." },
   },
 };

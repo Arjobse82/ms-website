@@ -8,7 +8,7 @@ const fm = frameMultiplierDiagram();
 
 export default {
   "frame-multiplier": {
-    title: "A few masters, every size",
+    title: "Every size from a few masters",
     summary: "Six masters, tall to wide, each with its components in roles. Every other size is laid out from the one or two masters nearest its ratio, blended between them, and where the blend would put the hero under the headline, the hero is nudged clear and then scaled.",
     steps: [
       { id: "masters", name: "Build", svg: fm.masters,

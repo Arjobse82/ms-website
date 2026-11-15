@@ -1,5 +1,5 @@
 // The home page. The big title, the tagline under it and the statement near the bottom are in ../site.txt.
-primaryButton: Explore the lineup
+primaryButton: See the tools
 secondaryButton: About us
-lineupTitle: Every tool, at a glance
+lineupTitle: All the tools
 aboutLink: About {name}

@@ -1,17 +1,17 @@
 name: Studio Tools
-tagline: All our plugins, one app.
-description: Get Bloom, Frame Multiplier, IDML Export and 7 more apps in the one plugin.
+tagline: All our Figma plugins in one.
+description: Bloom, Frame Multiplier and IDML Export, plus seven smaller widgets, in one Figma plugin.
 
 # highlights
 
-## Logo size and position, on every frame.
-Each frame’s logo is measured against the brand’s rules: its size, its clear space and its corner, for every channel and every size. A double-click puts it right, one frame or the whole chart.
+## Logo checks on every frame
+Studio Tools measures each frame's logo against the brand rules: its size, clear space and corner, for every channel and size. Double-click to fix it on one frame or across the whole chart.
 
-## Three apps, one plugin.
-Bloom, Frame Multiplier and IDML Export, each a tile on the dashboard.
+## One dashboard
+Bloom, Frame Multiplier and IDML Export each sit on the dashboard as a tile, alongside seven widgets.
 
-## The page at a glance.
-Its creatives, its channels and what is measured in each frame, as soon as the plugin opens.
+## Page summary
+When the plugin opens it lists the page's creatives and channels, and what's measured in each frame.
 
-## In step with your folders.
-Images, exports and the Excel brief kept in sync through Monochrome Bridge.
+## Synced with your folders
+Images, exports and the Excel brief stay in sync with your folders through Monochrome Bridge.

@@ -17,25 +17,25 @@ export default {
     // the window, the panel's settings scrolling under it, each step adding what it sets to the pages. A step's `cap`
     // names the spread at that step; its drawing is build-<id>.njk.
     build: {
-      start: { cap: "Pages 2 and 3, empty", name: "An empty spread", text: "A new document: two facing pages on your parent pages, their margins and nothing else. Scroll, and build the spread at the top of this page, one setting at a time." },
+      start: { cap: "Pages 2 and 3, empty", name: "An empty spread", text: "A new document with two facing pages on your parent pages, showing only their margins. Scroll to build the spread at the top of this page, one setting at a time." },
       steps: [
-        { id: "pages", cap: "A 3 × 3 grid inside the margins", name: "Set the grid", text: "In Setup ▸ Pages: three across, three down and 12 pt between, inside each page's margins, inside and outside swapped on facing pages. Apply changes builds the pages." },
-        { id: "grid", cap: "Cells joined", name: "Join cells", text: "In the Grid tile, give a product more than one slot: the Party pack the width of the page, the Mixed case two across and two down. Two rows are kept for inserts, and the products round them flow on." },
-        { id: "folders", cap: "Images placed", name: "Place the images", text: "Point it at the brief and your image folders. Each file finds its product by the code in its name, and Place images puts it in the product's cell, laid out by Assemblr's engine." },
-        { id: "copy", cap: "Copy written", name: "Write the copy", text: "Pick the brief's columns for the copy and the paragraph style each starts in. Write copy fills every cell, and Match the row starts the captions level." },
-        { id: "layout", cap: "Products arranged", name: "Arrange a product", text: "Select a product and set its arrangement: the Party pack in Line-up with perspective, the Mixed case in Pins, three rows of two. The images move; the cell stays." },
-        { id: "overlays", cap: "Badges and prices on the corners", name: "Badges and prices", text: "Put overlays on a product's corners: a NEW badge top right, and bottom left a price device, the price written from the brief into your own InDesign design." },
+        { id: "pages", cap: "A 3 × 3 grid inside the margins", name: "Set the grid", text: "In Setup ▸ Pages, set three across, three down and 12 pt between. The grid sits inside each page's margins, with inside and outside swapped on facing pages. Apply changes builds the pages." },
+        { id: "grid", cap: "Cells joined", name: "Join cells", text: "In the Grid tile, give a product more than one slot. The Party pack takes the width of the page and the Mixed case takes two across and two down. Two rows are kept for inserts, and the products round them flow on." },
+        { id: "folders", cap: "Images placed", name: "Place the images", text: "Link the brief and your image folders. Each file finds its product by the code in its name, and Place images puts it in the product's cell and lays it out with Assemblr's engine." },
+        { id: "copy", cap: "Copy written", name: "Write the copy", text: "Pick the brief's columns for the copy and the paragraph style each one starts in. Write copy fills every cell, and Match the row starts the captions at the same height." },
+        { id: "layout", cap: "Products arranged", name: "Arrange a product", text: "Select a product and set its arrangement. The Party pack goes in Line-up with perspective and the Mixed case in Pins, three rows of two. The images move and the cell stays where it is." },
+        { id: "overlays", cap: "Badges and prices on the corners", name: "Badges and prices", text: "Put overlays on a product's corners: a NEW badge top right and a price device bottom left. The price is written from the brief into your own InDesign design." },
         { id: "inserts", cap: "Inserts in, the spread made", name: "Add the inserts", text: "Anything that is not a product goes in as an insert: a PDF advert across the top of page 3, and a price list filled from its own sheet and styled by a table you drew." },
         // Then the spread edited (catalogue-art.js `build`, steps 8 to 12). `group` heads the first of them.
         { id: "swap", group: "Then edit it", cap: "Cola and Duo pack swapped", name: "Swap two products", text: "Drag a product in the Catalogue tile onto another: the Cola and the Duo pack change cells, each with its images, its copy and its corners. Changes lists the new order against the brief." },
         { id: "images", cap: "Two images swapped", name: "Swap a product's images", text: "In a product's strip of images, drag one onto another: the Mixed case's first and last change places, and the engine lays the arrangement out again round them." },
-        { id: "hide", cap: "Lemon soda hidden", name: "Hide a product, show it again", text: "Hide a product and it leaves the pages, the products after it flowing up: Ginger beer comes up from the next page into its cell. Show it, and it goes back in its place in the brief's order." },
-        { id: "size", cap: "Sparkling water 1 × 2", name: "Change a cell's size", text: "Give a product a bigger or a smaller cell: Sparkling water one across and two down. Its image is laid out again for the new shape, and Ginger beer flows on to the next page." },
-        { id: "overlay-size", cap: "A bigger price device", name: "Size an overlay your own way", text: "Each corner sets its own size: a Max width and a Max height in points, or as a share of the product. The Party pack's price device goes to 96 pt; every other product keeps its own." },
+        { id: "hide", cap: "Lemon soda hidden", name: "Hide a product, show it again", text: "Hide a product and it leaves the pages, and the products after it flow up: Ginger beer comes up from the next page into its cell. Show it and it goes back to its place in the brief's order." },
+        { id: "size", cap: "Sparkling water 1 × 2", name: "Change a cell's size", text: "Give a product a bigger or smaller cell: Sparkling water takes one across and two down. Its image is laid out again for the new shape, and Ginger beer flows on to the next page." },
+        { id: "overlay-size", cap: "A bigger price device", name: "Size an overlay your own way", text: "Each corner has its own size, set as a Max width and a Max height in points or as a share of the product. The Party pack's price device goes to 96 pt, and every other product keeps its own size." },
       ],
     },
     steps: [
-      { id: "brief", name: "Built from your brief", wide: true, text: "The Excel brief is the catalogue, one row a product. Each product's images are found in your folders by the code in the file or folder name, or by the product's name, a near match marked Check for you to confirm, and laid out in its cell; its copy is written from the brief's columns, in your paragraph styles. Product and row stay tied: an edit on either side, a new price in the brief or a renamed product on the page, is listed in Changes, to take whichever way you choose." },
+      { id: "brief", name: "Built from your brief", wide: true, text: "The Excel brief is the catalogue, one row a product. Assemblr finds each product's images in your folders by the product code in the file or folder name, or by the product's name. A near match is marked Check for you to confirm. The images are laid out in the product's cell, and its copy is written from the brief's columns in your paragraph styles. Product and row stay linked: an edit on either side, a new price in the brief or a renamed product on the page, is listed in Changes, and you choose which way it goes." },
       { id: "grid", name: "Pages on a live grid or no grid", text: "Every page is built on a grid: products across and down, and the gap between them, set in Setup ▸ Pages. Change it and Apply changes builds the pages again in one undo step, the products flowing on in the brief's order. Cells can be joined, across and down: here the Party pack takes the width of the page, Sparkling water two cells across and two down, and Lemon soda two across, and the products round them flow on. On Auto a short page gets a smaller grid, and a page break starts a new page wherever a column of the brief changes. Set a page to Free and it is yours to arrange: each product is placed once and never moved again, and its images are still laid out for its cell, wherever you put it and whatever its size." },
       { id: "product", name: "Products managed by Assemblr layout engine", link: { href: "/indesign/assemblr/", label: "More on Assemblr" }, text: "Each product is a cell: an image area over its copy. In the image area Assemblr's layout engine arranges the images by what you can see in them, in Line-up, Grid, Mosaic, Pins or Puzzle, and Copy fitting gives the copy the room it needs and the image area the rest. Badges and prices go on its corners, each price written into your own price design. Drag an image into a cell and it joins the product, arranged with the rest; copy you edit on the page is kept until you choose to overwrite it." },
       { id: "margins", name: "Inside your margins, with inserts", text: "The grid fills each page inside its margins, inside and outside swapped on facing pages, on the parent pages you choose. Anything that is not a product goes in as an insert: an InDesign file, a PDF, any image InDesign places, or a table filled from its own sheet and styled by a design you draw. It takes a full page, with or without bleed, half or a quarter of one, or any block of cells; it keeps its place in the product order or is pinned to a page, and the products flow round it. The panel tells you what size to make the file." },
@@ -53,7 +53,7 @@ export default {
           summary: "Where the catalogue comes from: the brief, the folders of images, and how each file finds its product.",
           notes: [
             { name: "Brief", text: "The Excel workbook the catalogue is built from, one row per product. Change… picks another; anything it cannot use is listed as a warning." },
-            { name: "Image folders", text: "The folders your packshots live in, and how many files each holds. A folder that has gone missing says so." },
+            { name: "Image folders", text: "The folders your pack shots live in, and how many files each holds. A folder that has gone missing says so." },
             { name: "Analyse links", text: "Reads the brief and the folders again and matches the files to products. Nothing on the pages changes until you apply it in Changes." },
             { name: "Place images", text: "Puts every product's images on its page and re-fits them all, in steps you can stop; one undo step. Update reads changed files again and re-fits their products, leaving locked or turned images as they are." },
             { name: "Matching", text: "The ways a file can find its product: the product code in the file name, in the folder name, or the product's name. Untick a way to stop using it, and drag to choose which one wins when two disagree: the higher one decides." },
@@ -105,7 +105,7 @@ export default {
       tiles: [
         {
           id: "layout", label: "Layout", icon: ICONS.layout,
-          summary: "How the selected product's images are arranged, by what you can see in them rather than their frames: Assemblr's layout engine, inside the catalogue.",
+          summary: "How the selected product's images are arranged by Assemblr's layout engine, which works from what you can see in each image and ignores its frame.",
           notes: [
             { name: "The drawing", text: "The product drawn over the panel: drag the line's end to turn the row and set its size, and pick a dot to choose the edge or corner the product holds to." },
             { name: "Arrangements", text: "Line-up, Grid, Mosaic, Pins and Puzzle: five ways to lay out a product's images, each fitted to the visible subject of every image." },
@@ -124,7 +124,7 @@ export default {
             { name: "Corner and Stack", text: "Pick a corner, on the drawing or here; its overlays stack across or down from it. Click another corner to move them there, or swap them with what is there." },
             { name: "Sources", text: "What goes on the corner: badges from the overlays folder, or + Column, a column of the brief whose cells name what goes there." },
             { name: "Size and spacing", text: "Gap and Inset X and Y in points, or scaled with the product by Resize scale; each overlay fitted into a Max width by Max height, in points or as a share of the product." },
-            { name: "Overlays folder", text: "One folder of artwork: badges, and price devices, InDesign files the plugin writes each product's price into." },
+            { name: "Overlays folder", text: "One folder of artwork: badges and price devices. The price devices are InDesign files the plugin writes each product's price into." },
             { name: "Price sets", text: "The overlays folder holds one price set; each additional price device style is a folder of its own, Set 1, Set 2. Each corner with a price chooses the set it is drawn from." },
           ],
         },
@@ -152,11 +152,11 @@ export default {
     },
     {
       id: "changes", label: "Changes",
-      summary: "The brief and the document kept in step both ways: what changed on which side, and which way each change should go.",
+      summary: "Keeps the brief and the document in step both ways. It shows what changed on which side, and you choose which way each change goes.",
       tiles: [
         {
           id: "changes", label: "Changes",
-          summary: "The brief and the document kept in step both ways: what changed on which side, and which way each change should go.",
+          summary: "Keeps the brief and the document in step both ways. It shows what changed on which side, and you choose which way each change goes.",
           notes: [
             { name: "Check", text: "Reads the spreadsheet again and compares it with the pages; the tables' sheets are read too." },
             { name: "Apply spreadsheet changes", text: "Brings every edit made in the brief into the document." },
@@ -164,7 +164,7 @@ export default {
             { name: "One change at a time", text: "Each difference shows both sides. Update document, Write to spreadsheet or Use spreadsheet takes it one way or the other, and × dismisses it until either side changes again." },
             { name: "Changed in both", text: "When the brief and the page both changed the same thing, both are shown and you choose." },
             { name: "Pages and images", text: "Products not on the pages yet, an order that differs, a page that overflows, files that now match another product: each listed with what Apply will do." },
-            { name: "When it cannot finish", text: "It says why, and what to do: the brief is open in Excel, close it and try again." },
+            { name: "When it cannot finish", text: "It says why and what to do. If the brief is open in Excel, close it and try again." },
           ],
         },
       ],
@@ -185,17 +185,17 @@ export default {
   // host/files/folders.ts (cloud placeholders), host/store/xlsx-store.ts (Excel's lock file).
   prepare: {
     heading: "Prepare your files and folders",
-    intro: "Before you open the panel: one Excel brief, your images named by product code, and a folder of badges and price artwork. Keep a job's files together, and the plugin finds the rest.",
+    intro: "Before you open the panel, have one Excel brief, your images named by product code, and a folder of badges and price artwork. Keep a job's files together, and the plugin finds the rest.",
     withHelp: true,
     groups: [{
       id: "job", label: "Your job's files",
       items: [{
         id: "job-folders", q: "Lay out a job's folders", art: "catalogue-producer/job-folders",
-        intro: "One folder a job holds everything the catalogue is built from. Each part is linked once in the panel, by the button beside it in the drawing, and read again whenever you build or check.",
+        intro: "Keep everything the catalogue is built from in one folder for the job. Link each part once in the panel, with the button beside it in the drawing. It is read again whenever you build or check.",
         points: [
-          { name: "The brief", text: "An Excel workbook, one row a product, with a product code column. Link brief… in the Folders tile links it; it is what the pages are built from, and edits on the pages can be written back to it." },
-          { name: "Image folders", text: "Your packshots, each named with its product's code, in as many folders as you like: Add folder… links each one, and its subfolders are searched too." },
-          { name: "The overlays folder", text: "Badges, and one price set only: one InDesign file for each kind of price. Choose folder… in Overlays links it (Set up your overlay folders, below)." },
+          { name: "The brief", text: "An Excel workbook, one row a product, with a product code column. Link brief… in the Folders tile links it. The pages are built from it, and edits on the pages can be written back to it." },
+          { name: "Image folders", text: "Your pack shots, each named with its product's code, in as many folders as you like. Add folder… links each one, and its subfolders are searched too." },
+          { name: "The overlays folder", text: "Badges and one price set, with one InDesign file for each kind of price. Choose folder… in Overlays links it (Set up your overlay folders, below)." },
           { name: "Additional price device styles", text: "Optional: every other style of price device goes in a folder of its own, one price set a folder. Add price set… links the first as Set 1." },
         ],
       }, {
@@ -220,7 +220,7 @@ export default {
           "PSD, PSB, TIFF, PNG, JPEG, JPEG 2000, HEIC, AI, PDF, EPS, SVG, GIF and BMP are placed. A PSD, or a PNG or TIFF with transparency, is fitted by its cut-out shape; a JPEG by its whole picture.",
           "The same picture saved as both PSD and JPEG is placed twice until you choose one type under Prefer file types.",
           "Files kept in iCloud or Dropbox must be on the Mac or PC: choose Make Available Offline or Download Now for the folder first.",
-          "Names that carry no code? Tick a column under Matching instead: a column of file names in the brief, or the product's name (marked Check, for you to confirm).",
+          "If the names carry no code, tick a column under Matching instead: a column of file names in the brief, or the product's name (marked Check, for you to confirm).",
         ],
       }],
     }],
@@ -233,10 +233,10 @@ export default {
         id: "price-folders", q: "Set up your overlay folders", art: "catalogue-producer/price-folders",
         intro: "Badges and prices come from folders of artwork on disk. Keep a job's folders together, link each one once in the panel, and each corner with a price chooses the folder its prices are drawn from.",
         points: [
-          { name: "The overlays folder", text: "Choose folder… in Overlays links it. It holds the badges and one price set only, the main style: one device for each kind of price. Every corner draws its price from these until it chooses another set." },
+          { name: "The overlays folder", text: "Choose folder… in Overlays links it. It holds the badges and one price set, the main style, with one device for each kind of price. Every corner draws its price from these until it chooses another set." },
           { name: "Additional price device styles", text: "Each other style, a sale look say, is a price set in a folder of its own. Add price set… links the first as Set 1, the next as Set 2. Change… points a set at another folder and keeps the corners that chose it; × removes it, and what chose it goes back to the overlays folder." },
           { name: "Which set a price uses", text: "On a corner with a price, Price set chooses the overlays folder or a set, for the document, a range of pages or one product. A page or a product that chooses a set still follows every other setting of the corner above it." },
-          { name: "Folders the plugin cannot reach", text: "The document remembers every device it has used, so a folder renamed, moved or on a drive not plugged in goes on working from what the document holds, and the panel says so once. Choose folder… or Change… links it again." },
+          { name: "Folders the plugin cannot reach", text: "The document remembers every device it has used, so a folder that has been renamed, moved or is on an unplugged drive keeps working from what the document holds. The panel says so once. Choose folder… or Change… links it again." },
         ],
       }, {
         id: "price-devices", q: "Make your price devices", art: "shared/price-devices", folders: [["Overlays", "Overlays folder"], ["Additional price device styles", "Set 1"]],
@@ -249,7 +249,7 @@ export default {
         ],
       }, {
         id: "price-unit", q: "The “each” under the price", art: "shared/unit-field",
-        intro: "A price device can carry more than the price: the “each” or “per kg” under it, written from the brief for every product.",
+        intro: "A price device can also carry the “each” or “per kg” under the price, written from the brief for every product.",
         points: [
           { name: "In the brief", text: "A column headed Unit, holding “each”, “per kg”, “per 100 g”: whatever goes under that product's price." },
           { name: "In the device", text: "Type “each” in a text frame of its own, styled as it should print, and tag the frame Unit in InDesign's Tags panel (Link a text frame to a brief column, below). Tag the whole frame, not a run of its text." },
