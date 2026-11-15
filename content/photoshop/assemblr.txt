@@ -1,11 +1,11 @@
 name: Assemblr
-tagline: Pack shot layouts in Photoshop.
-description: Assemblr arranges pack shots on their layers inside an invisible rectangle. Pick one of five arrangements, resize the rectangle and the layers are fitted again. Every layer stays editable.
+tagline: Arrange layers in Photoshop, inside one rectangle.
+description: Assemblr arranges images on their layers inside an invisible rectangle. Pick one of five arrangements, resize the rectangle and the layers are fitted again. Every layer stays editable.
 
 # highlights
 
-## Aligned on the product
-Assemblr lines products up by their visible pixels, measured from each layer's transparency, so empty space in the layer doesn't affect the spacing.
+## Aligned on visible edges
+Assemblr lines layers up by their visible pixels, measured from each layer's transparency, so empty space in the layer doesn't affect the spacing.
 
 ## Five arrangements
 Line-up, Grid, Mosaic, Pins and Puzzle, inside an invisible rectangle. Resize the rectangle and the layers are fitted again.

@@ -1,7 +1,7 @@
 name: Photoshop
 kind: Photoshop plugin
 subhead: Layout tools for Photoshop.
-intro: Plugins for laying out pack shots on layers in Photoshop.
+intro: Plugins for laying out images on layers in Photoshop.
 
 # install
 

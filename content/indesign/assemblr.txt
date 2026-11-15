@@ -1,11 +1,11 @@
 name: Assemblr
-tagline: Product layouts in InDesign, from one frame.
-description: Assemblr arranges pack shots inside a single frame on your InDesign page. Pick an arrangement, put a badge on any corner, then resize the frame and Assemblr lays everything out again to fit.
+tagline: Image layouts in InDesign, from one frame.
+description: Assemblr arranges images inside a single frame on your InDesign page. Pick an arrangement, put a badge on any corner, then resize the frame and Assemblr lays everything out again to fit.
 
 # highlights
 
-## Aligned on the product
-Assemblr reads the transparency in each image and lines products up by their visible edges, so empty canvas around a pack shot doesn't throw out the spacing.
+## Aligned on visible edges
+Assemblr reads the transparency in each image and lines them up by their visible edges, so empty canvas around a cut-out doesn't throw out the spacing.
 
 ## One frame controls the layout
 Click Assemble and the images go on a layer of their own, inside an empty rectangle. Resize the rectangle, even from landscape to portrait, and Assemblr lays the images out again.

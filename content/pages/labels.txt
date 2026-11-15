@@ -6,7 +6,7 @@ whyTitle: Why Monochrome
 installTitle: How to install
 tourTitle: How it works
 tryTitle: Try it in your browser
-tryIntro: A cut-down version of Assemblr that runs in your browser. Try each arrangement, drag the frame or the line-up's handle, and hang badges on its corners. You can drop your own pack shots on the page; they stay on your computer.
+tryIntro: A cut-down version of Assemblr that runs in your browser. Try each arrangement, drag the frame or the line-up's handle, and hang badges on its corners. You can drop your own cut-outs on the page; they stay on your computer.
 tryNote: The demo leaves out many of the plugin's settings. Assemblr for InDesign has a free 7-day trial.
 helpTitle: Quick help
 rolloutTitle: The rollout view

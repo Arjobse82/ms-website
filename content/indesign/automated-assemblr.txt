@@ -1,6 +1,6 @@
 name: Automated Assemblr
 tagline: Catalogue pages, built from an Excel brief.
-description: Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of pack shots, and keeps the pages and the brief in sync both ways.
+description: Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of images, and keeps the pages and the brief in sync both ways.
 price: $99 a month
 
 # highlights

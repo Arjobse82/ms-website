@@ -53,7 +53,7 @@ export default {
           summary: "Where the catalogue comes from: the brief, the folders of images, and how each file finds its product.",
           notes: [
             { name: "Brief", text: "The Excel workbook the catalogue is built from, one row per product. Change… picks another; anything it cannot use is listed as a warning." },
-            { name: "Image folders", text: "The folders your pack shots live in, and how many files each holds. A folder that has gone missing says so." },
+            { name: "Image folders", text: "The folders your images live in, and how many files each holds. A folder that has gone missing says so." },
             { name: "Analyse links", text: "Reads the brief and the folders again and matches the files to products. Nothing on the pages changes until you apply it in Changes." },
             { name: "Place images", text: "Puts every product's images on its page and re-fits them all, in steps you can stop; one undo step. Update reads changed files again and re-fits their products, leaving locked or turned images as they are." },
             { name: "Matching", text: "The ways a file can find its product: the product code in the file name, in the folder name, or the product's name. Untick a way to stop using it, and drag to choose which one wins when two disagree: the higher one decides." },
@@ -194,7 +194,7 @@ export default {
         intro: "Keep everything the catalogue is built from in one folder for the job. Link each part once in the panel, with the button beside it in the drawing. It is read again whenever you build or check.",
         points: [
           { name: "The brief", text: "An Excel workbook, one row a product, with a product code column. Link brief… in the Folders tile links it. The pages are built from it, and edits on the pages can be written back to it." },
-          { name: "Image folders", text: "Your pack shots, each named with its product's code, in as many folders as you like. Add folder… links each one, and its subfolders are searched too." },
+          { name: "Image folders", text: "Your images, each named with its product's code, in as many folders as you like. Add folder… links each one, and its subfolders are searched too." },
           { name: "The overlays folder", text: "Badges and one price set, with one InDesign file for each kind of price. Choose folder… in Overlays links it (Set up your overlay folders, below)." },
           { name: "Additional price device styles", text: "Optional: every other style of price device goes in a folder of its own, one price set a folder. Add price set… links the first as Set 1." },
         ],

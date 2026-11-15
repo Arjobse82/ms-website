@@ -1,7 +1,7 @@
 name: InDesign
 kind: Plugins for InDesign
 subhead: Layout tools and automation.
-intro: Plugins that lay out pack shots and build catalogue pages from an Excel brief.
+intro: Plugins that lay out images and build catalogue pages from an Excel brief.
 
 # install
 

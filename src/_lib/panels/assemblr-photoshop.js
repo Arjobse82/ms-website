@@ -72,7 +72,7 @@ export default {
       {
         id: "how", label: "How do I…",
         items: [
-          { id: "assemble", q: "Make a product", a: ["Put your pack shots on transparent layers, on one artboard.", "Select the layers in the Layers panel and open Plugins ▸ Assemblr.", "Click Assemble. The layers become one product, with an invisible rectangle around them. Nothing on the canvas moves yet."] },
+          { id: "assemble", q: "Make a product", a: ["Put your images on transparent layers, on one artboard.", "Select the layers in the Layers panel and open Plugins ▸ Assemblr.", "Click Assemble. The layers become one product, with an invisible rectangle around them. Nothing on the canvas moves yet."] },
           { id: "arrange", q: "Arrange it", a: ["Pick Line-up, Grid, Mosaic, Pins or Puzzle at the top of the Layout tile. Until you do, nothing moves.", "Drag the drawing or change a setting; the canvas follows when you let go."] },
           { id: "resize", q: "Make a product bigger or smaller", a: ["Click the product's name in the Products tile: it selects the product's rectangle.", "Resize it with Edit ▸ Free Transform. The layers re-fit a moment later, as a history step of their own, so one Undo takes the re-fit off and keeps your resize.", "Move the rectangle and the layers move with it."] },
           { id: "add", q: "Add a layer", or: true, a: ["Select the layers in the Layers panel and click Add selected in the Layout tile. They join where they stand.", "Or click + at the end of any product's strip in the Products tile, without choosing the product first.", "Or drag a tile from another product's strip: the layer moves to that product, onto another artboard too."] },
