@@ -7,6 +7,7 @@ pagination:
 permalink: "{{ app.url }}"
 eleventyComputed:
   title: "{{ app.name }}"
+  ogImage: "{{ 'og-ad-agent.png' if app.slug == 'ad-agent' else '' }}"
   description: "{{ app.subhead }} {{ app.intro }}"
 ---
 {%- if app.standalone %}
