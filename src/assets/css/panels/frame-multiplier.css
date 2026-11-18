@@ -86,3 +86,14 @@
   .fm-br-2 { min-width: 52px; }
   .fm-size { min-width: 68px; }
 }
+
+/* Help page drawings (src/_lib/fm-help-art.js, panel/frame-multiplier/how-*.njk). */
+.fh-svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; font-family: var(--font); }
+.hw-step-wide .fh-svg { max-width: 900px; }
+.fh-roles { width: 100%; max-width: 340px; margin: 0 auto; }
+.fh-roles .fm-rolecell { position: relative; }
+.fh-open { background: #e8e8e8; }
+.fh-menu { position: absolute; z-index: 1; top: 22px; left: -4px; display: flex; flex-direction: column; min-width: 96px; padding: 4px; border-radius: 6px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 6px 18px rgba(0, 0, 0, 0.14); }
+.fh-item { padding: 2px 8px; border-radius: 3px; font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: #111; }
+.fh-item.is-on { background: #3372f6; color: #fff; }
+.fh-roles .fm-table { padding-bottom: 120px; }

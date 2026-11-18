@@ -1,0 +1,18 @@
+{#- Frame Multiplier help, the basics: the Setup tab's Components list, each layer with its role, the hero's role
+    menu open (the plugin's glyphs and role names, src/_lib/fm-panel.js). -#}
+{%- set a = panels[panelId].art %}
+<div class="pt-card fm fh-roles">
+  <div class="fm-sec"><span class="fm-chev" aria-hidden="true">▼</span><span class="fm-sec-title">Components</span><span class="fm-meta">{{ a.layers.length }} layers</span></div>
+  <div class="fm-table">
+    {%- for l in a.layers %}
+    <div class="fm-row fm-layer">
+      <span class="fm-ic">{{ a.roles[l.role] | safe }}</span>
+      <span class="fm-name">{{ l.name }}</span>
+      <span class="fm-rolecell"><span class="fm-role{% if l.role == 'hero' %} fh-open{% endif %}">{{ l.role }}</span>
+      {%- if l.role == "hero" %}
+        <span class="fh-menu">{% for r in ["bg", "hero", "bg/hero", "headline", "logo", "legal", "other"] %}<span class="fh-item{% if r == 'hero' %} is-on{% endif %}">{{ r }}</span>{% endfor %}</span>
+      {%- endif %}</span>
+    </div>
+    {%- endfor %}
+  </div>
+</div>

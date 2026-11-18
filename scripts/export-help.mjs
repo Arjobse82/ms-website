@@ -38,6 +38,7 @@ for (const f of files) {
 const SIBLINGS = {
   "/indesign/assemblr/": "https://monochromesystems.github.io/assemblr-help/",
   "/photoshop/assemblr/": "https://monochromesystems.github.io/assemblr-photoshop-help/",
+  "/figma/frame-multiplier/": "https://monochromesystems.github.io/frame-multiplier-help/",
 };
 html = html.replace(/href="(\/[^"#?]*\/)"/g, (m, href) => (SIBLINGS[href] ? `href="${SIBLINGS[href]}"` : m));
 // The page at the folder's root, its paths relative to it.

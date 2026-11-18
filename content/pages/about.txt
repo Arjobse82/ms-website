@@ -2,6 +2,6 @@
 makeTitle: What we make
 makeText: Plugins for Figma, InDesign and Photoshop, and Ad Agent, a Mac app that runs a campaign job from the brief to the delivered files. Each plugin does one job, inside the app you already work in.
 workTitle: How we work
-workText: A short paragraph about the team, how the tools get made and what matters to you. Replace this with your own words.
+workText: Monochrome Systems was started by a finished artist with 26 years in production and advertising, from prepress and print to leading an agency studio. Each tool takes on a production job that used to be done by hand, such as resizing a campaign, building catalogue pages or lining up cut-outs. Questions and bug reports go straight to the people who write the code.
 principlesTitle: How the tools are built
 appsTitle: The apps

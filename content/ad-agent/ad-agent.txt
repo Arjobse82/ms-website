@@ -36,7 +36,7 @@ No runs on its own: The AI can't remake sizes until you allow it.
 What it cannot do: Run InDesign scripts, edit your brief's spreadsheet, or pick the winner of an A/B.
 
 ## Your files
-Masters untouched: Ad Agent never opens or edits your masters. It works on copies.
+Originals protected: Ad Agent never opens or edits your originals. It works on copies.
 Nothing deleted: A replaced file moves to its round's Archive folder. Nothing in a round is deleted.
 Past rounds kept: Earlier rounds are read-only, kept as delivered.
 Its own files only: A send touches only the job's own files, and two jobs can never write to the same folder.
@@ -109,7 +109,7 @@ Brief columns as tags: Any column, like Market, can become a tag.
 InDesign masters: Open .indd or .idml. Ad Agent only ever works on copies.
 Figma masters: Linked through the Ad Agent Bridge plugin.
 Nothing to install in InDesign: Ad Agent drives it directly.
-Your own files: Drop in finished files and they join the job.
+Your originals: Drop in finished files and they join the job.
 Books and multi-page files: Every page is delivered.
 Colour: RGB, CMYK, spot and Lab are read, including in linked artwork.
 

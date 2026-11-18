@@ -4,7 +4,9 @@
     their own to publish with the plugin (scripts/export-help.mjs). A `prepare` with `withHelp` draws the quick help's
     groups after its own, and the page then has no Quick help section (Automated Assemblr's: its quick help is the
     price artwork, which is preparing files too). Expects `panelKey`, `kind` ("Plugin for InDesign") and `heading`
-    ("Assemblr help"). -#}
+    ("Assemblr help"). A panel's `guide`, if it has one, comes first: sections of steps, each step a drawing, drawn like
+    How it works (partials/panel-how.njk), each with its own `id`, `label`, `nav`, `heading` and `intro` (Frame
+    Multiplier's: the basic setup, then the settings for the frames that need more). -#}
 {%- set panel = panels[panelKey] %}{% set panelId = panelKey %}{% set how = panel.how %}{% set prepare = panel.prepare %}
 {%- set quick = panel.help if not (prepare and prepare.withHelp) else null %}
 {%- set n = 1 %}
@@ -15,7 +17,8 @@
     <div class="localnav-menu">
       <ul class="localnav-links">
         <li><a href="#overview">Overview</a></li>
-        {%- if prepare %}<li><a href="#prepare">Prepare</a></li>{% endif %}
+        {%- for g in panel.guide %}<li><a href="#{{ g.id }}">{{ g.nav }}</a></li>{% endfor %}
+        {%- if prepare %}<li><a href="#prepare">{{ prepare.nav or "Prepare" }}</a></li>{% endif %}
         {%- if how %}<li><a href="#how">How it works</a></li>{% endif %}
         <li><a href="#panel">User guide</a></li>
         {%- if quick %}<li><a href="#help">Quick help</a></li>{% endif %}
@@ -28,14 +31,28 @@
   <div class="container">
     <p class="label product-hero-kind">{{ kind }}</p>
     <h1 class="t-hero">{{ heading }}</h1>
-    <p class="t-subhead product-hero-subhead">{% if prepare %}Start by preparing your files. The page then explains how the plugin works and what each control in the panel does, and takes you through the everyday jobs.{% elif how %}This page explains how the plugin works and what each control in the panel does, and takes you through the everyday jobs.{% else %}This page explains what each control in the panel does and takes you through the everyday jobs.{% endif %}</p>
+    <p class="t-subhead product-hero-subhead">{% if panel.guide %}{{ panel.guide[0].subhead }}{% elif prepare and how %}Start by preparing your files. The page then explains how the plugin works and what each control in the panel does, and takes you through the everyday jobs.{% elif prepare %}Start by preparing your files. The page then explains what each control in the panel does and takes you through the everyday jobs.{% elif how %}This page explains how the plugin works and what each control in the panel does, and takes you through the everyday jobs.{% else %}This page explains what each control in the panel does and takes you through the everyday jobs.{% endif %}</p>
   </div>
 </section>
+
+{%- for g in panel.guide %}
+{%- set how = g %}
+<section class="section {{ 'theme-light' if loop.index0 % 2 == 0 else 'theme-gray' }}" id="{{ g.id }}">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">{{ (n + loop.index0) | pad }}</span><span class="label">{{ g.label }}</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ g.heading }}</h2>
+    <p class="pt-intro reveal">{{ g.intro }}</p>
+    {% include "partials/panel-how.njk" %}
+  </div>
+</section>
+{%- endfor %}
+{%- set how = panel.how %}
+{%- if panel.guide %}{% set n = n + panel.guide.length %}{% endif %}
 
 {%- if prepare %}
 <section class="section theme-gray" id="prepare">
   <div class="container container-wide">
-    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">Prepare</span></div>
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ prepare.label or "Prepare" }}</span></div>
     <h2 class="t-l section-title pt-heading reveal">{{ prepare.heading }}</h2>
     <p class="pt-intro reveal">{{ prepare.intro }}</p>
     {%- set help = prepare %}
@@ -63,8 +80,8 @@
 
 <section class="section theme-gray" id="panel">
   <div class="container container-wide">
-    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ panel.label }}</span></div>
-    <h2 class="t-l section-title pt-heading reveal">{{ panel.heading }}</h2>
+    <div class="section-head reveal"><span class="section-index">{{ n | pad }}</span><span class="label">{{ panel.label or "The panel" }}</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ panel.heading or "Every setting, explained" }}</h2>
     <p class="pt-intro reveal">{{ panel.intro }}</p>
     {% include "partials/panel-tour.njk" %}
   </div>
