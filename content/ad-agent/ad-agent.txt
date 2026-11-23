@@ -68,7 +68,7 @@ Text only on Standard AI: On the Standard AI plan, no images are sent at all.
 // A "column:" line a price column, in order: the words before the colon its heading, those after it what it is.
 // A plan a "##": its first line its prices, a column each, split by "|"; the lines under it what it gets.
 title: Pricing
-intro: The subscription covers every campaign, whether you resize it by hand or not. If the rollout engine lays out a size, you pay for that file when you release it. Previews are free.
+intro: The beta will be free to test. The one charge will be auto rollout, at $1 per resize, paid when you release the file. After the beta, the subscription covers every campaign, whether you resize it by hand or not. Previews are free.
 column: Standard AI: Text only.
 column: Multimodal AI: Text and images.
 column: Auto rollout: Previews are free.
@@ -88,8 +88,8 @@ AI connectivity: InDesign and Figma
 Brief: Excel or CSV
 Export: PDF, JPG and PNG
 Platform: macOS
-Availability: Coming soon
-Price: From $19.99 a month, plus $1 per resize
+Availability: Beta coming soon
+Price: Free during the beta, plus $1 per resize
 
 # features
 // The full feature list under the specs. A group a "##"; a feature a line under it, "Name: what it does".

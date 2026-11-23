@@ -162,11 +162,12 @@
       {
         "slug": "ad-agent",
         "statusLed": true,
+        "status": "Beta coming soon",
         "journey": true,
         "icon": "ad-agent",
         "tile": "black",
         "getUrl": "",
-        "getLabel": "Download for Mac",
+        "getLabel": "Download the beta",
         "glyphs": {
           "form": "globe",
           "speed": 2,
