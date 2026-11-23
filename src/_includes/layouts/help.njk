@@ -1,7 +1,8 @@
 <!doctype html>
 {#- A plugin's help page on its own (src/help/*.njk): its panel explained and its quick help, nothing that links to the
-    rest of the site, so it can be published on its own (scripts/export-help.mjs). Expects `panelKey`, a key of
-    panels.js, for the panel's look. -#}
+    rest of the site, so it can be published on its own (scripts/export-help.mjs). `panelKey`, a key of panels.js,
+    loads the panel's look. A page without a panel (Monochrome Bridge's download page, src/bridge.njk) leaves it out
+    and can name a `stylesheet` of its own, assets/css/<stylesheet>.css. -#}
 <html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
@@ -12,10 +13,15 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/main.css?v={{ build.version }}">
+  {%- if panelKey %}
   {%- if panels[panelKey].uses %}
   <link rel="stylesheet" href="/assets/css/panels/{{ panels[panelKey].uses }}.css?v={{ build.version }}">
   {%- endif %}
   <link rel="stylesheet" href="/assets/css/panels/{{ panelKey }}.css?v={{ build.version }}">
+  {%- endif %}
+  {%- if stylesheet %}
+  <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css?v={{ build.version }}">
+  {%- endif %}
   <script>document.documentElement.classList.replace("no-js", "js")</script>
   <script type="module" src="/assets/js/site.js?v={{ build.version }}"></script>
 </head>

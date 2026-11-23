@@ -1,0 +1,129 @@
+---
+layout: layouts/help.njk
+permalink: /bridge/
+stylesheet: bridge
+eleventyComputed:
+  title: "{{ bridge.title }}"
+  description: "{{ bridge.description }}"
+---
+{#- Monochrome Bridge's download page, its words in src/_data/bridge.js. Published on its own as the home page of
+    monochrome-downloads.github.io/monochrome-services: `npm run bridge` builds the site and copies this page into
+    ../monochrome-services (scripts/export-help.mjs). Privacy and Support are that site's own pages, beside it, so
+    their links are relative. The download link must stay the latest release's Monochrome-bridge.dmg: IDML Export's
+    banner and Figma listing send people here for it. -#}
+{%- set b = bridge %}
+<nav class="localnav theme-light" aria-label="{{ b.name }}">
+  <span class="localnav-progress" aria-hidden="true"></span>
+  <div class="localnav-content">
+    <a class="localnav-title" href="#overview">{{ b.name }}</a>
+    <div class="localnav-menu">
+      <ul class="localnav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#setup">{{ b.setup.label }}</a></li>
+        <li><a href="#safety">{{ b.safety.label }}</a></li>
+        <li><a href="#questions">{{ b.questions.label }}</a></li>
+        <li><a href="#specs">Tech specs</a></li>
+      </ul>
+      <a class="button button-small" href="{{ b.download }}">Download</a>
+    </div>
+  </div>
+</nav>
+
+<section class="product-hero br-hero theme-light" id="overview">
+  <div class="container">
+    <p class="label product-hero-kind">{{ b.hero.kind }}</p>
+    <h1 class="t-hero">{{ b.name }}</h1>
+    <p class="t-subhead product-hero-subhead">{{ b.hero.subhead }}</p>
+    <div class="cta-row">
+      <a class="button button-primary" id="download-link" href="{{ b.download }}">{{ b.hero.button }}</a>
+    </div>
+    <p class="br-meta">{% for m in b.hero.meta %}<span>{{ m }}</span>{% endfor %}</p>
+  </div>
+  <div class="container container-wide">
+    <figure class="br-art reveal">
+      <div class="br-stage" aria-hidden="true">
+        <div class="br-menubar">{% include "tiles/bridge-menubar.svg" %}
+        <ul class="br-menu">
+          {%- for i in b.hero.menu %}
+          {%- if i.rule %}<li class="br-menu-rule"></li>
+          {%- else %}<li class="br-menu-item{% if i.dim %} br-menu-dim{% endif %}{% if i.key %} br-menu-key{% endif %}">{{ i.text }}</li>{% endif %}
+          {%- endfor %}
+        </ul>
+        </div>
+      </div>
+      <figcaption class="br-caption">{{ b.hero.caption }}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section theme-gray" id="setup">
+  <div class="container container-wide">
+    <div class="section-head reveal"><span class="section-index">01</span><span class="label">{{ b.setup.label }}</span></div>
+    <h2 class="t-l section-title pt-heading reveal">{{ b.setup.heading }}</h2>
+    <p class="pt-intro reveal">{{ b.setup.intro }}</p>
+    <ol class="steps br-steps">
+      {%- for step in b.setup.steps %}
+      <li class="step reveal">
+        <span class="step-number">{{ loop.index | pad }}</span>
+        <h3 class="step-title">{{ step.title }}</h3>
+        <p class="step-text">{{ step.text }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section theme-light" id="safety">
+  <div class="container">
+    <div class="section-head reveal"><span class="section-index">02</span><span class="label">{{ b.safety.label }}</span></div>
+    <h2 class="t-l section-title reveal">{{ b.safety.heading }}</h2>
+    <p class="pricing-intro reveal">{{ b.safety.intro }}</p>
+    <div class="feat">
+      {%- for g in b.safety.groups %}
+      <div class="feat-group">
+        <h3>{{ g.title }}</h3>
+        <dl>
+          {%- for r in g.rows %}
+          <div class="feat-row"><dt>{{ r.name }}</dt><dd>{{ r.text }}</dd></div>
+          {%- endfor %}
+        </dl>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section theme-gray" id="questions">
+  <div class="container">
+    <div class="section-head reveal"><span class="section-index">03</span><span class="label">{{ b.questions.label }}</span></div>
+    <h2 class="t-l section-title reveal">{{ b.questions.heading }}</h2>
+    <dl class="br-qa">
+      {%- for item in b.questions.items %}
+      <div class="br-qa-row reveal"><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>
+      {%- endfor %}
+    </dl>
+  </div>
+</section>
+
+<section class="section theme-light" id="specs">
+  <div class="container">
+    <div class="section-head reveal"><span class="section-index">04</span><span class="label">Tech specs</span></div>
+    <h2 class="t-l section-title reveal">{{ b.name }}</h2>
+    <dl class="specs">
+      {%- for s in b.specs %}
+      <div class="specs-row"><dt>{{ s.label }}</dt><dd>{{ s.value }}</dd></div>
+      {%- endfor %}
+      <div class="specs-row"><dt>Earlier versions</dt><dd><a class="br-link" href="{{ b.releases }}">On GitHub</a></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section section-cta theme-light">
+  <div class="container">
+    <h2 class="t-l reveal">{{ b.cta.heading }}</h2>
+    <div class="cta-row reveal">
+      <a class="button button-primary" href="{{ b.download }}">{{ b.hero.button }}</a>
+    </div>
+    <p class="br-links"><a href="privacy/">Privacy</a><a href="support/">Support</a></p>
+  </div>
+</section>

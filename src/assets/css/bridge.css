@@ -1,0 +1,44 @@
+/* Monochrome Bridge's download page (src/bridge.njk), loaded only there. Everything else on the page is main.css:
+   the local nav, the product hero, the numbered section heads, .steps, .feat (as Safety on a product page) and
+   .specs. This file adds the three things the site had no part for: the line under the Download button, the menu-bar
+   drawing, and the questions list. */
+
+.br-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 0; margin: 18px 0 0; font-size: 13px; color: var(--fg-3); }
+.br-meta span + span::before { content: "·"; padding: 0 10px; }
+
+/* The menu bar, drawn from IDML Export's own banner art, with the bridge's menu open under its M. The M sits at 66.4 %
+   of the bar's width in that art (x 1201.4 of 260.4–1676.85), so the menu's left edge is set from it. */
+.br-art { margin: 64px 0 0; }
+.br-stage { position: relative; padding: 56px 56px 0; height: 400px; overflow: hidden; border-radius: 18px; background: var(--card); }
+.br-menubar { --br-bar-ink: #fff; position: relative; color: #111; }
+.br-menubar-svg { display: block; width: 100%; height: auto; }
+.br-menu {
+  position: absolute; top: calc(100% + 6px); left: calc(66.4% - 16px);
+  margin: 0; padding: 6px; width: 288px; list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.12); border-radius: 10px; background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-size: 13px; line-height: 1; color: #111; text-align: left;
+}
+.br-menu-item { padding: 6px 10px; border-radius: 5px; white-space: nowrap; }
+.br-menu-dim { color: #9a9a9a; }
+.br-menu-key { background: var(--signal); color: #fff; }
+.br-menu-rule { height: 1px; margin: 5px 10px; background: rgba(0, 0, 0, 0.1); }
+.br-caption { margin: 18px 0 0; text-align: center; font-size: 14px; color: var(--fg-3); }
+@media (max-width: 1068px) { .br-stage { height: 380px; padding: 40px 40px 0; } .br-menu { left: auto; right: 0; } }
+@media (max-width: 734px) { .br-stage { height: 360px; padding: 24px 16px 0; } .br-menu { width: 256px; font-size: 12px; } }
+
+.br-steps { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1068px) { .br-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 734px) { .br-steps { grid-template-columns: 1fr; } }
+
+/* Questions: the question on the left, its answer on the right, as .feat-group lays out a group. */
+.br-qa { margin: 0; border-top: 1px solid var(--fg); }
+.br-qa-row { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.br-qa dt { font-size: 17px; font-weight: 600; letter-spacing: -0.012em; }
+.br-qa dd { margin: 0; font-size: 16px; line-height: 1.5; color: var(--fg-2); }
+@media (max-width: 734px) { .br-qa-row { grid-template-columns: 1fr; gap: 8px; } }
+
+.br-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.br-links { display: flex; justify-content: center; gap: 24px; margin: 28px 0 0; font-size: 14px; }
+.br-links a { color: var(--fg-2); }
+.br-links a:hover { color: var(--fg); }
