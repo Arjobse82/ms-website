@@ -1,6 +1,6 @@
 name: Figma
 kind: Figma plugin
-subhead: Plugins for campaign resizing and preflight.
+subhead: Plugins for campaign resizing, management and preflight.
 intro: Plugins that resize campaigns, preflight frames and send your files on to InDesign.
 
 # install
