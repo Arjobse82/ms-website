@@ -1,26 +1,26 @@
 name: Monochrome Systems
 tagline: Apps for Figma, InDesign, Photoshop and Mac.
 description: Monochrome Systems makes plugins and agents for Figma, InDesign and Photoshop.
-statement: Production tools for advertising, artworking, print and UI design.
+statement: Production tools for advertising, artworking, print and digital channels.
 
 # principles
 // Each one: the small label above (the ## line), then its headline, then its text.
 
-## Native
-Works like the app it runs in
-Each tool follows the conventions of its host app, so there's very little new to learn.
+## Curious
+Always exploring
+We question established workflows, experiment with new possibilities and look for better ways to approach familiar problems.
 
-## Scale
-Written for big jobs
-Large files, long catalogues and big batches are the normal case these tools are built for.
+## Intentional
+Nothing unnecessary
+Every interaction, feature and decision has a purpose. We value simplicity without sacrificing capability.
 
-## Predictable
-The same result every time
-Run it again on the same files and you get the same layout, so anyone on the team can repeat the job.
+## Connected
+No isolated workflows
+We build beyond individual applications, creating tools that bring different parts of the creative process together.
 
-## Quiet
-Stays out of the way
-The panel shows the settings for the job in hand and nothing else.
+## Capable
+Designed for real work
+Powerful enough for demanding production environments, without making everyday tasks unnecessarily complicated.
 
 # features
 // The default highlights of every product page. {app} becomes the app's name.
