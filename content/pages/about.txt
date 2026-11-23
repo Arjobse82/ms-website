@@ -1,7 +1,7 @@
 // The About page. The statement under the title and the four principles are in ../site.txt.
 makeTitle: What we make
 makeText: We explore what's possible when creative software, connected workflows and AI come together. Building tools and applications that go beyond traditional ways of working, opening up new capabilities and making complex creative processes feel more seamless.
-workTitle: How we work
+workTitle: Built on experience
 workText: Our ideas come from years spent working inside creative studios, navigating the software, workflows and challenges that shape everyday production. We understand where existing tools fall short, where disconnected workflows create friction and where entirely new approaches can make a difference. We build from that experience, turning real problems into new possibilities.
 principlesTitle: How the tools are built
 appsTitle: The apps
