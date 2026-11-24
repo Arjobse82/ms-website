@@ -43,7 +43,7 @@ const DEST_OF = { pdf: ["despatch"], lores: ["approvals"], jpg: ["despatch", "ap
 
 // The steps each change reaches (see STEPS): a size edited by hand in R2, the OOH logo profile, the AI's bigger price
 // on Social, the client's email (BURGER's headline, THICKSHAKE's price; a bigger logo on the banners suggested), then
-// the sizes released for despatch, $1 each, and sent.
+// the sizes released for despatch, US$1 each, and sent.
 const AT = { logo: 4, made: 5, sheet: 6, edit: 7, compare: 8, price: 9, mail: 10, ab: 11, tags: 12, pre: 13, rel: 14, sent: 15 };
 
 // ── The graph, as the app lays it out (nodes.ts): a column each, titled; tall nodes for the brief and creatives.
@@ -290,7 +290,7 @@ export const STEPS = [
   { id: "specs", title: "Load your spec sheets", text: "AI will ensure your provided specs are applied to the rollout.", cam: "#aj-card-brief, .aj-n-size, .aj-n-out, .aj-n-dest", hl: ["#aj-card-brief"] },
   { id: "logo", title: "Apply Brand guidelines", text: "The app can store your brand guidelines and apply measurable changes like logo sizes and positions automatically.", cam: "#aj-card-brand", hl: ["#aj-card-brand .aj-prof-on"] },
   { id: "run", title: "Roll out to InDesign and Figma", text: "Press play. Ad Agent generates every size from the master: a low-res preview, free to review and amend as often as you like.", cam: "#aj-play, .aj-n-master, .aj-n-ch, .aj-n-size", hl: [".aj-n-size"] },
-  { id: "sheet", title: "Twelve sizes, each from its nearest master", text: "Every size starts from the master nearest its shape and adapts its layout: headline, hero, price and logo moved and scaled, not squashed. Five came from the InDesign masters and seven from Figma's. All are low-res previews: free to review, their working files held back until you release them.", cam: "#aj-sheet", hl: ["#aj-sheet .aj-lowres"] },
+  { id: "sheet", title: "Twelve sizes, each from its nearest master", text: "Every size starts from the master nearest its shape and adapts its layout: headline, hero, price and logo moved and scaled, not squashed. Five came from the InDesign masters and seven from Figma's. All are low-res previews, free to review. The editable files and final exports come when you release them.", cam: "#aj-sheet", hl: ["#aj-sheet .aj-lowres"] },
   { id: "edit", title: "Edits managed with rounds", text: "Each change is a point in the round you can go back to.", cam: "#aj-th-b-pt, #aj-rounds", hl: ["#aj-th-b-pt", "#aj-rounds .aj-points"] },
   { id: "compare", title: "Compare rounds", text: "Lay R2 over R1 to see the difference. Each round writes a report of what changed: every component reworded, resized or moved, in the document's own units.", cam: "#aj-card-cmp", hl: ["#aj-card-cmp .aj-cmp-ch"] },
   { id: "ai", title: "Amends, manually or with AI", text: "Ask the AI: make the price 20 % bigger on every Social size. It changes the price component on the four sizes and checks it still clears the logo.", cam: "#aj-chat-1, .aj-th-social", hl: ["#aj-chat-1 .aj-q", "#aj-th-b-sq", "#aj-th-b-pt", "#aj-th-t-sq", "#aj-th-t-pt"] },
@@ -298,8 +298,8 @@ export const STEPS = [
   { id: "ab", title: "An A/B round", text: "Make a B of the square Social post to test one difference: the price in red. B is drawn behind A, and it follows A's changes except its own. Its files end _a and _b while both live.", cam: "#aj-card-ab, #n-b-sq, #aj-rounds", hl: ["#aj-rounds .aj-ab", "#n-b-sq", "#aj-card-ab .aj-ab-b"] },
   { id: "tags", title: "Tagged for review", text: "Tag sizes for whoever looks next: the billboards for retouching, the social posts for creative review and the client's approval, the small display sizes for a legal check. The tag row filters the view by any of them.", cam: "#aj-tagrow, #aj-tagmenu, .aj-n-size", hl: ["#aj-tagrow .aj-tag-user", "#aj-tagmenu"] },
   { id: "preflight", title: "Preflight, on every size", text: "Every size made is checked, free: pictures too low in resolution for their print size, legal text too small to read, type over a screen's safe area, elements that meet where no master lets them. Two to fix, two to look at.", cam: ".aj-n-ch, .aj-n-size, #aj-card-pre", hl: ["#aj-card-pre .aj-pre-list"] },
-  { id: "release", title: "Release for despatch: US$1 a size", text: "Reviewing is free. When the round is approved, release the sizes you need, US$1 each: Ad Agent saves each one's working file, the .indd or the Figma frame, and makes its full-resolution exports for despatch. Every later amend to a released size is free.", cam: "#aj-card-rel, .aj-n-size", hl: ["#aj-card-rel .aj-take", "#aj-card-rel .aj-rel-list"] },
-  { id: "sent", title: "Delivered", text: "Released, you get each size's working file, in InDesign or Figma, at full resolution. Each channel's files go out as its specs ask: print PDFs to DESPATCH, proof PDFs and JPGs to APPROVALS, named by the job's tags.", cam: "all", hl: ["#n-despatch, #n-approvals", "#aj-status .is-on"] },
+  { id: "release", title: "Release: US$1 a size", text: "Reviewing is free. When the round is approved, release the sizes you need at US$1 each. Ad Agent saves each size's working file, the .indd or the Figma frame, and makes its final PDF, JPG or PNG files. Every later amend to a released size is free.", cam: "#aj-card-rel, .aj-n-size", hl: ["#aj-card-rel .aj-take", "#aj-card-rel .aj-rel-list"] },
+  { id: "sent", title: "Delivered", text: "Once released, each size comes with its working file, in InDesign or Figma, and its final exports. Each channel's files go out as its specs ask: print PDFs to DESPATCH, proof PDFs and JPGs to APPROVALS, named by the job's tags.", cam: "all", hl: ["#n-despatch, #n-approvals", "#aj-status .is-on"] },
 ];
 
 // On a phone the whole window is too small to read: each step's camera there frames a tighter part of what it shows.
@@ -347,8 +347,8 @@ export function adJourney() {
   const sizes = sizesOf();
   const g = graph(sizes);
   return {
-    heading: "From brief to despatch",
-    intro: "A job made in Ad Agent's window, start to finish: the masters and a spreadsheet brief, the despatch specs, the rollout to InDesign and Figma, rounds of edits by hand and by the AI, an A/B, review tags and preflight, all on free low-res previews, then the release for despatch at $1 a size. Scroll, and each step zooms in on what it does.",
+    heading: "From brief to delivery",
+    intro: "Set up the masters and the brief, then roll out every size to InDesign and Figma. Work through rounds of amends by hand or with the AI, compare versions, and review and preflight on free low-res previews. Then release the files you need at US$1 a size. Scroll, and each step zooms in on what it does.",
     win: WIN,
     at: AT,
     nodes: g.nodes,

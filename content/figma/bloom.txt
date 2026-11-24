@@ -1,5 +1,5 @@
 name: Bloom
-tagline: Preflight for Figma frames.
+tagline: Preflight for Figma designs.
 description: Bloom checks your Figma frames for low-res images, off-pixel positions, detached instances, raw colours and other errors, and offers a fix where it can.
 price: US$4 a month
 

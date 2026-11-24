@@ -274,12 +274,12 @@
         {#- The release: every size taken from the licence server at $1, its working file and full-resolution exports made. #}
         <section class="aj-card aj-card-right" id="aj-card-rel" style="top: 140px"{{ on(j.at.rel, j.at.sent) }}>
           <h4>Release <em>{{ j.release.n }} sizes selected</em></h4>
-          <p class="aj-meta aj-rel-now">Not released: low-res previews, free. Their working files are held back.</p>
+          <p class="aj-meta aj-rel-now">Not released: low-res previews, free. The editable files and final exports come when you release them.</p>
           <ul class="aj-rel-list">
-            {%- for c in j.release.channels %}<li><span>{{ c.ch }}</span><em>{{ c.k }} size{% if c.k > 1 %}s{% endif %}</em><b>${{ c.k }}</b></li>{% endfor %}
+            {%- for c in j.release.channels %}<li><span>{{ c.ch }}</span><em>{{ c.k }} size{% if c.k > 1 %}s{% endif %}</em><b>US${{ c.k }}</b></li>{% endfor %}
           </ul>
-          <div class="aj-take">Release {{ j.release.n }} sizes · ${{ j.release.n }}</div>
-          <p class="aj-meta">$1 a size. Released: its .indd or Figma frame saved, its exports made at full resolution and sent as its specs ask. Every later amend to it free.</p>
+          <div class="aj-take">Release {{ j.release.n }} sizes · US${{ j.release.n }}</div>
+          <p class="aj-meta">US$1 a size. Once released, its .indd or Figma frame is saved and its final exports are made and sent as its specs ask. Every later amend to a released size is free.</p>
         </section>
 
         {#- The AI's conversation over the plan, its prompt at the foot. #}

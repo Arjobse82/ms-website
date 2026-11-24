@@ -1,4 +1,4 @@
 name: IDML Export
-tagline: Figma frames to InDesign, as IDML.
+tagline: Figma layouts, ready for InDesign.
 description: IDML Export rebuilds your Figma frames as IDML files that open in InDesign. You can set RGB or CMYK, bleed, pagination, overprint and paragraph styles.
 price: US$7 a month

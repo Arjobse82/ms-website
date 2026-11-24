@@ -1,6 +1,6 @@
 name: Photoshop
 kind: Photoshop plugin
-subhead: Layout tools for Photoshop.
+subhead: Image layouts on layers in Photoshop.
 intro: Plugins for laying out images on layers in Photoshop.
 
 # install

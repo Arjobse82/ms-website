@@ -16,7 +16,7 @@
 
 <section class="app-hero theme-light{% if app.slug in ["figma", "indesign", "photoshop"] %} app-hero-plain{% endif %}">
   <div class="container">
-    <p class="label app-hero-kind">{{ app.kind }}s</p>
+    <p class="label app-hero-kind">{{ app.kind }}{% if not app.standalone %}s{% endif %}</p>
     <h1 class="t-hero app-hero-title">{{ app.name }}</h1>
     <p class="t-subhead app-hero-subhead">{{ app.subhead }}</p>
   </div>
