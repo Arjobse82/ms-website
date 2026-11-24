@@ -1,0 +1,23 @@
+{#- The way to further help, at the end of a plugin's Help. On its product page (partials/product-page.njk), with
+    `guideUrl`: its help guide (src/help/*.njk), which has more than the page shows, and the support email under it.
+    On the guide itself (partials/help-page.njk): the support email. Expects `supportName` ("Assemblr") and, where it
+    helps tell plugins apart, `supportApp` ("Photoshop"), for the email's subject (site.txt `support`). -#}
+{%- set subject = supportName + (' for ' + supportApp if supportApp else '') + ' help' %}
+{%- set mail = 'mailto:' + site.support + '?subject=' + (subject | urlencode) %}
+<div class="more-help reveal">
+  <div class="more-help-text">
+    {%- if guideUrl %}
+    <h3 class="more-help-title">The full {{ supportName }} guide</h3>
+    <p>The help guide has it all on one page: setting up your files, every setting in the panel and the everyday jobs. Keep it open beside the app.</p>
+    <p class="more-help-mail">Still stuck? <a href="{{ mail }}">Email support</a></p>
+    {%- else %}
+    <h3 class="more-help-title">Still stuck?</h3>
+    <p>Questions and bug reports about {{ supportName }} go to the people who wrote it. Say what you were doing and, if you can, attach a screenshot of the panel.</p>
+    {%- endif %}
+  </div>
+  {%- if guideUrl %}
+  <a class="button button-primary" href="{{ guideUrl }}">Open the help guide</a>
+  {%- else %}
+  <a class="button button-primary" href="{{ mail }}">Email support</a>
+  {%- endif %}
+</div>

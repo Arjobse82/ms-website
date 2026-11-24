@@ -22,7 +22,8 @@
         "cardImage": "frame-multiplier-tour-8",
         "getUrl": "https://www.figma.com/community/plugin/1680043052278547639/frame-multiplier",
         "diagram": "frame-multiplier",
-        "panel": "frame-multiplier"
+        "panel": "frame-multiplier",
+        "guide": "/help/frame-multiplier/"
       },
       {
         "slug": "idml-export",
@@ -67,6 +68,7 @@
       {
         "slug": "assemblr",
         "panel": "assemblr",
+        "guide": "/help/assemblr/",
         "cardPlugin": "assemblr",
         "icon": "assemblr",
         "photo": "facade",
@@ -109,6 +111,7 @@
         "highlightsTile": "black",
         "spread": true,
         "panel": "catalogue-producer",
+        "guide": "/help/automated-assemblr/",
         "cardPlugin": "automated-assemblr",
         "features": [
           {
@@ -138,6 +141,7 @@
       {
         "slug": "assemblr",
         "panel": "assemblr-photoshop",
+        "guide": "/help/assemblr-photoshop/",
         "cardPlugin": "assemblr",
         "icon": "assemblr",
         "photo": "facade",

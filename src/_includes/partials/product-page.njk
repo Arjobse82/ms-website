@@ -234,6 +234,9 @@
     <h2 class="t-l section-title pt-heading reveal">{{ pages.labels.helpTitle }}</h2>
     <p class="pt-intro reveal">{{ help.intro }}</p>
     {% include "partials/panel-help.njk" %}
+    {%- set supportName = product.name %}{% set supportApp = null if product.standalone else product.appName %}
+    {%- set guideUrl = product.guide %}
+    {% include "partials/more-help.njk" %}
   </div>
 </section>
 {%- set n = n + 1 %}
