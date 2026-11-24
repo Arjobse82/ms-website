@@ -1,7 +1,7 @@
 name: Automated Assemblr
 tagline: Catalogue pages, built from an Excel brief.
 description: Automated Assemblr builds catalogue pages in InDesign from an Excel brief and your folders of images, and keeps the pages and the brief in sync both ways.
-price: $99 a month
+price: US$99 a month
 
 # highlights
 
@@ -27,4 +27,4 @@ Brief: Excel
 Images: Any file InDesign places: PSD, TIFF, PNG, JPEG, HEIC, AI, PDF, EPS, SVG and more
 Platform: macOS
 Availability: Adobe Exchange
-Price: $99 a month
+Price: US$99 a month

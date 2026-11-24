@@ -1,7 +1,7 @@
 name: Assemblr
 tagline: Arrange layers in Photoshop, inside one rectangle.
 description: Assemblr arranges images on their layers inside an invisible rectangle. Pick one of five arrangements, resize the rectangle and the layers are fitted again. Every layer stays editable.
-price: $9 a month
+price: US$9 a month
 
 # highlights
 
@@ -24,4 +24,4 @@ Documents: RGB, CMYK, Grayscale and Lab, 8 or 16 bits
 Arrangements: Line-up, Grid, Mosaic, Pins and Puzzle
 Platform: macOS. No account, no internet connection needed
 Availability: Adobe Exchange
-Price: $9 a month
+Price: US$9 a month

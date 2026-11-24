@@ -374,7 +374,7 @@ export default {
       id: "trial", label: "Trial and price",
       items: [
         { id: "price", q: "Trial and price", wide: true, a: [
-          "Seven days of full access from the first time you run Frame Multiplier. After that, filling frames is the paid part, at $49 a month: Multiply, Import updates and Multiply this one. Scan, Setup and every setting, the plan and score for every frame, the card and its preview, Import brief with AI, Clear frames and Promote to master stay free. The subscription is through Figma.",
+          "Seven days of full access from the first time you run Frame Multiplier. After that, filling frames is the paid part, at US$49 a month: Multiply, Import updates and Multiply this one. Scan, Setup and every setting, the plan and score for every frame, the card and its preview, Import brief with AI, Clear frames and Promote to master stay free. The subscription is through Figma.",
         ] },
         { id: "privacy", q: "Where your work goes", a: [
           "Nowhere. Frame Multiplier makes no network connections. Everything it works out is stored in your Figma file.",

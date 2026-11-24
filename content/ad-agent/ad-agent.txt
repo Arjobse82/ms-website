@@ -1,7 +1,7 @@
 name: Ad Agent
 tagline: Runs the whole campaign job in InDesign and Figma, from the brief to the delivered files.
 description: Ad Agent runs a campaign job from one Mac app. It reads the brief, builds every size from your InDesign and Figma masters, keeps each round of amends, preflights the files and sends them to the right folders. You connect masters, channels and folders on a node view, and AI can assist with the whole process. There's no MCP server to connect.
-price: From $19.99 a month
+price: From US$19.99 a month
 // The label on another app's page that lists it ("Mac app, works with …", content/pages/labels.txt alsoWorksWith).
 worksWith: InDesign & Figma
 
@@ -68,11 +68,11 @@ Text only on Standard AI: On the Standard AI plan, no images are sent at all.
 // A "column:" line a price column, in order: the words before the colon its heading, those after it what it is.
 // A plan a "##": its first line its prices, a column each, split by "|"; the lines under it what it gets.
 title: Pricing
-intro: The beta will be free to test. The one charge will be auto rollout, at $1 per resize, paid when you release the file. After the beta, the subscription covers every campaign, whether you resize it by hand or not. Previews are free.
+intro: The beta will be free to test. The one charge will be auto rollout, at US$1 per resize, paid when you release the file. After the beta, the subscription covers every campaign, whether you resize it by hand or not. Previews are free.
 column: Standard AI: Text only.
 column: Multimodal AI: Text and images.
 column: Auto rollout: Previews are free.
-note: Every plan includes AI up to a monthly token limit. To go past it, connect your own Claude API key or a local model on your Mac. Preflight checks are free on every plan.
+note: Prices are in US dollars. Every plan includes AI up to a monthly token limit. To go past it, connect your own Claude API key or a local model on your Mac. Preflight checks are free on every plan.
 
 ## Studio
 $19.99 /mo | $29.99 /mo | +$1 per resize
@@ -89,7 +89,7 @@ Brief: Excel or CSV
 Export: PDF, JPG and PNG
 Platform: macOS
 Availability: Beta coming soon
-Price: Free during the beta, plus $1 per resize
+Price: Free during the beta, plus US$1 per resize
 
 # features
 // The full feature list under the specs. A group a "##"; a feature a line under it, "Name: what it does".

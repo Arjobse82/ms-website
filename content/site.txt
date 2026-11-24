@@ -2,6 +2,7 @@ name: Monochrome Systems
 tagline: Apps for Figma, InDesign, Photoshop and Mac.
 description: Monochrome Systems makes plugins and agents for Figma, InDesign and Photoshop.
 statement: Production tools for advertising, artworking, print and digital channels.
+support: support@monochromesystems.com.au
 
 # principles
 // Each one: the small label above (the ## line), then its headline, then its text.
@@ -35,4 +36,4 @@ Large documents and long batches are the normal case it's built for.
 Run it again on the same files and you get the same result.
 
 ## Support from the people who wrote it
-Questions and bug reports go straight to the developers.
+Questions and bug reports go straight to the developers, at support@monochromesystems.com.au.

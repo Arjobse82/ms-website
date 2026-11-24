@@ -1,7 +1,7 @@
 name: Frame Multiplier
 tagline: Every ad size, from a few masters.
 description: Frame Multiplier builds every size of a Figma campaign from a handful of master layouts.
-price: $49 a month
+price: US$49 a month
 trial: 7 days of full access
 cardImageAlt: Frame Multiplier's plugin windows: setup with its masters and components, the frames it will build, and a checked frame.
 
