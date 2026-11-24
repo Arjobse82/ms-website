@@ -23,7 +23,7 @@ export default {
 
   hero: {
     kind: "Mac app for IDML Export",
-    subhead: "The free Mac app that writes IDML Export's files to your disk. Figma plugins can't save files themselves, so IDML Export hands each export to the bridge.",
+    subhead: "The free Mac app that writes IDML Export's files to your disk. Plugins for Figma can't save files themselves, so IDML Export hands each export to the bridge.",
     button: "Download for Mac",
     meta: ["Free", "macOS 14 Sonoma or later", "Apple silicon", "Signed and notarised by Apple"],
     caption: "The bridge has no window. It sits in the menu bar as an M, and this menu is all there is to it.",
@@ -97,7 +97,7 @@ export default {
     label: "Questions",
     heading: "Questions",
     items: [
-      { q: "Why does a Figma plugin need an app?", a: "Figma plugins can't write to your disk. IDML Export works out the layout in Figma and sends it to the bridge, which builds the IDML file, writes it and its images to your output folder, and copies in files from your Links folder." },
+      { q: "Why does a plugin for Figma need an app?", a: "Plugins for Figma can't write to your disk. IDML Export works out the layout in Figma and sends it to the bridge, which builds the IDML file, writes it and its images to your output folder, and copies in files from your Links folder." },
       { q: "IDML Export says the bridge is offline", a: "Open Monochrome Bridge from Applications. If the M is already in the menu bar, click it: the bridge stops after 60 minutes with no requests, and Start bridge runs it again." },
       { q: "IDML Export says the bridge needs pairing", a: "The token in IDML Export doesn't match the bridge's, usually after a reset. Click the M, choose Copy pairing token to clipboard, and paste it into IDML Export again." },
       { q: "IDML Export shows Approve beside a folder", a: "Since version 1.9.0 the bridge only works in folders chosen in its own picker. Click Approve and choose the folder. Each folder needs this once." },

@@ -1,5 +1,6 @@
 name: InDesign
-kind: InDesign plugin
+kind: Plugin for InDesign
+kinds: Plugins for InDesign
 subhead: Image layouts and catalogue production.
 intro: Plugins that lay out images and build catalogue pages from an Excel brief.
 

@@ -1,6 +1,6 @@
 name: Studio Tools
 tagline: Every Monochrome Figma tool, in one plugin.
-description: Bloom, Frame Multiplier and IDML Export, plus seven smaller widgets, in one Figma plugin.
+description: Bloom, Frame Multiplier and IDML Export, plus seven smaller widgets, in one plugin for Figma.
 
 # highlights
 

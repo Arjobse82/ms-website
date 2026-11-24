@@ -1,6 +1,6 @@
 {#- An app's overview page: the products as the house's widget tiles, hero, lineup, gallery, install steps. -#}
 {%- from "dashboard/ui.njk" import widget %}
-<nav class="chapternav" aria-label="{{ app.name }} plugins">
+<nav class="chapternav" aria-label="Plugins for {{ app.name }}">
   <ul class="chapternav-items">
     {#- A featured app (alsoFeatures) is not this app's own plugin: its tile is filled black. -#}
     {%- for p in app.lineup %}
@@ -16,7 +16,7 @@
 
 <section class="app-hero theme-light{% if app.slug in ["figma", "indesign", "photoshop"] %} app-hero-plain{% endif %}">
   <div class="container">
-    <p class="label app-hero-kind">{{ app.kind }}{% if not app.standalone %}s{% endif %}</p>
+    <p class="label app-hero-kind">{{ app.kinds or app.kind }}</p>
     <h1 class="t-hero app-hero-title">{{ app.name }}</h1>
     <p class="t-subhead app-hero-subhead">{{ app.subhead }}</p>
   </div>

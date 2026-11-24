@@ -1,5 +1,6 @@
 name: Photoshop
-kind: Photoshop plugin
+kind: Plugin for Photoshop
+kinds: Plugins for Photoshop
 subhead: Image layouts on layers in Photoshop.
 intro: Plugins for laying out images on layers in Photoshop.
 

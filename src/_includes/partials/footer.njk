@@ -20,7 +20,7 @@
         <h3 class="footer-column-title">{{ item.name }}</h3>
         <ul>
           {%- if not item.standalone %}
-          <li><a href="{{ item.url }}">All {{ item.name }} plugins</a></li>
+          <li><a href="{{ item.url }}">All plugins for {{ item.name }}</a></li>
           {%- endif %}
           {%- for p in item.products %}
           <li><a href="{{ p.url }}">{{ p.name }}</a></li>

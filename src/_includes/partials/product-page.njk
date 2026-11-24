@@ -44,7 +44,7 @@
     <div class="cta-row">
       {% set p = product %}{% include "partials/get-button.njk" %}
       {%- if not product.standalone %}
-      <a class="button" href="{{ product.appUrl }}">All {{ product.appName }} plugins</a>
+      <a class="button" href="{{ product.appUrl }}">All plugins for {{ product.appName }}</a>
       {%- endif %}
     </div>
   </div>
@@ -409,7 +409,7 @@
 {%- if product.related.length %}
 <section class="section {{ band }}">
   <div class="container container-wide">
-    <div class="section-head reveal"><span class="section-index">{{ (n + 2) | pad }}</span><span class="label">{% if product.standalone %}More from Monochrome{% else %}More {{ product.appName }} plugins{% endif %}</span></div>
+    <div class="section-head reveal"><span class="section-index">{{ (n + 2) | pad }}</span><span class="label">{% if product.standalone %}More from Monochrome{% else %}More plugins for {{ product.appName }}{% endif %}</span></div>
     <h2 class="t-l section-title reveal">{{ pages.labels.exploreTitle }}</h2>
     <div class="tile-grid">
       {%- for p in product.related %}
