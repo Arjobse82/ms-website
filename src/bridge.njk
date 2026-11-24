@@ -31,7 +31,7 @@ eleventyComputed:
 
 <section class="product-hero br-hero theme-light" id="overview">
   <div class="container">
-    <p class="label product-hero-kind">{{ b.hero.kind }}</p>
+    <p class="label product-hero-kind">{{ b.hero.kind | labelText | safe }}</p>
     <h1 class="t-hero">{{ b.name }}</h1>
     <p class="t-subhead product-hero-subhead">{{ b.hero.subhead }}</p>
     <div class="cta-row">

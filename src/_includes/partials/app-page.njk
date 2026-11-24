@@ -16,7 +16,7 @@
 
 <section class="app-hero theme-light{% if app.slug in ["figma", "indesign", "photoshop"] %} app-hero-plain{% endif %}">
   <div class="container">
-    <p class="label app-hero-kind">{{ app.kinds or app.kind }}</p>
+    <p class="label app-hero-kind">{{ (app.kinds or app.kind) | labelText | safe }}</p>
     <h1 class="t-hero app-hero-title">{{ app.name }}</h1>
     <p class="t-subhead app-hero-subhead">{{ app.subhead }}</p>
   </div>
@@ -130,7 +130,7 @@
         {% include "partials/tile.njk" %}
         {%- endif %}
         <div class="lineup-card-body">
-          {%- if p.also %}<p class="label">{{ pages.labels.alsoWorksWith | replace("{name}", p.worksWith or app.name) }}</p>{% endif %}
+          {%- if p.also %}<p class="label">{{ pages.labels.alsoWorksWith | replace("{name}", p.worksWith or app.name) | labelText | safe }}</p>{% endif %}
           <h3 class="lineup-card-title">{{ p.name }}</h3>
           <p class="lineup-card-tagline">{{ p.tagline }}</p>
           <p class="lineup-card-text">{{ p.description }}</p>

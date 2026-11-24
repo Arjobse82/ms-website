@@ -22,7 +22,7 @@ export default {
   releases: "https://github.com/Monochrome-downloads/monochrome-services/releases",
 
   hero: {
-    kind: "Mac app for IDML Export",
+    kind: "macOS app for IDML Export",
     subhead: "The free Mac app that writes IDML Export's files to your disk. Plugins for Figma can't save files themselves, so IDML Export hands each export to the bridge.",
     button: "Download for Mac",
     meta: ["Free", "macOS 14 Sonoma or later", "Apple silicon", "Signed and notarised by Apple"],

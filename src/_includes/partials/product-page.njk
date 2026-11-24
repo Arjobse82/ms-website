@@ -38,7 +38,7 @@
 
 <section class="product-hero {{ look }}" id="overview">
   <div class="container">
-    <p class="label product-hero-kind">{{ product.kind }}</p>
+    <p class="label product-hero-kind">{{ product.kind | labelText | safe }}</p>
     <h1 class="t-hero">{{ product.name }}</h1>
     <p class="t-subhead product-hero-subhead">{{ product.tagline }}</p>
     <div class="cta-row">

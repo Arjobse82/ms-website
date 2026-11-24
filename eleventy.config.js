@@ -33,6 +33,10 @@ export default function (eleventyConfig) {
   // 1 -> "01", for step and feature numbers.
   eleventyConfig.addFilter("pad", (n) => String(n).padStart(2, "0"));
 
+  // A label's words (.label is set in capitals), with "macOS" kept in its own case (.keep-case, main.css).
+  const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  eleventyConfig.addFilter("labelText", (s) => escapeHtml(s).replaceAll("macOS", '<span class="keep-case">macOS</span>'));
+
   // {% photo "granite", { class: "tile-photo", sizes: "50vw", turn: 90, centre: "40% 25%" } %}   (turn: the photo's own
   // unless given; centre, for a turned photo: the point of it, in its own fractions before it is turned, that sits in the
   // middle of its box, site.js placing it there as far as the photo's edges allow)

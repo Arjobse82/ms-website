@@ -29,7 +29,7 @@
 
 <section class="product-hero hp-hero theme-light" id="overview">
   <div class="container">
-    <p class="label product-hero-kind">{{ kind }}</p>
+    <p class="label product-hero-kind">{{ kind | labelText | safe }}</p>
     <h1 class="t-hero">{{ heading }}</h1>
     <p class="t-subhead product-hero-subhead">{% if panel.guide %}{{ panel.guide[0].subhead }}{% elif prepare and how %}Start by preparing your files. The page then explains how the plugin works and what each control in the panel does, and takes you through the everyday jobs.{% elif prepare %}Start by preparing your files. The page then explains what each control in the panel does and takes you through the everyday jobs.{% elif how %}This page explains how the plugin works and what each control in the panel does, and takes you through the everyday jobs.{% else %}This page explains what each control in the panel does and takes you through the everyday jobs.{% endif %}</p>
   </div>

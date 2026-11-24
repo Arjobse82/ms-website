@@ -21,7 +21,7 @@ layout: layouts/base.njk
 <section class="promos" aria-label="Apps">
   {%- for app in catalog.apps %}
   <article class="promo {{ 'theme-dark' if loop.index in [1, 4] else 'theme-pool' }}">
-    <p class="label promo-kind">{{ app.kinds or app.kind }}</p>
+    <p class="label promo-kind">{{ (app.kinds or app.kind) | labelText | safe }}</p>
     <h2 class="promo-title">{{ app.name }}</h2>
     <p class="promo-subhead">{{ app.subhead }}</p>
     <div class="cta-row">

@@ -14,4 +14,4 @@ highlightsTitle: What it does
 specsTitle: {name} specs
 getTitle: Get {name}
 exploreTitle: Other tools
-alsoWorksWith: Mac app, works with {name}
+alsoWorksWith: macOS app, works with {name}
