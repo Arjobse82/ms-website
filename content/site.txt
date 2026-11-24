@@ -1,5 +1,5 @@
 name: Monochrome Systems
-tagline: Plugins for Figma, InDesign and Photoshop, and a Mac app for campaign production.
+tagline: Creative production tools for Figma, Adobe and Mac.
 description: Monochrome Systems makes plugins and agents for Figma, InDesign and Photoshop.
 statement: Production tools for advertising, artworking, print and digital channels.
 support: support@monochromesystems.com.au
