@@ -70,7 +70,7 @@ const componentManager = () => svg("723.27 302.75 474.03 474.03",
 const idmlIcon = readFileSync(new URL("../_includes/icons/idml-export.svg", import.meta.url), "utf8");
 const indesignExport = () => svg("371.17 70.92 623.65 626.16",
   `<svg x="449.13" y="149.19" width="467.74" height="469.62" viewBox="${idmlIcon.match(/viewBox="([^"]+)"/)[1]}" fill="currentColor" overflow="visible">`
-  + '<rect fill="var(--w-fixed-light)" x="838.6" y="277.71" width="213.41" height="211.66"/>'
+  + '<rect fill="var(--w-fixed-light)" x="1034.93" y="345.44" width="371.89" height="371.89"/>'
   + idmlIcon.slice(idmlIcon.indexOf(">") + 1, idmlIcon.lastIndexOf("</svg>"))
   + "</svg>");
 
