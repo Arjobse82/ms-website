@@ -2,7 +2,7 @@
 layout: layouts/help.njk
 permalink: /help/frame-multiplier/request/
 stylesheet: docpage
-title: Frame Multiplier — Request setup
+title: Request setup for Frame Multiplier
 description: "Send us your Figma file and we set up the masters and run the rollout. Setup is free; you pay $1 a frame to release, $99 minimum."
 eleventyExcludeFromCollections: true
 ---
@@ -39,9 +39,13 @@ eleventyExcludeFromCollections: true
     .req-note { font-size: 14px; color: var(--fg-3); }
     .req-result { display: none; }
     .req-result.is-shown { display: block; }
+    /* The product's own mark over the title, at the size the site's line-up shows it. */
+    .req-icon { display: block; margin: 0 0 22px; color: var(--fg); }
+    .req-icon .icon { display: block; width: 56px; height: 56px; }
   </style>
 
-  <h1>Frame Multiplier — Request setup</h1>
+{% endraw %}  <span class="req-icon">{% include "icons/frame-multiplier.svg" %}</span>{% raw %}
+  <h1>Request setup</h1>
   <p class="updated">Setup is free. You pay only if you release the frames.</p>
 
   <p>Send us your Figma file and we set up the masters and run the rollout for you. You see every
