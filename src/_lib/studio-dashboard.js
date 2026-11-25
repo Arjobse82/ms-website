@@ -6,6 +6,8 @@
 // says what it does when you open it, from its panel in the plugin.
 // Kept out of src/_data, as a data file's named exports change what Eleventy reads from it.
 
+import { readFileSync } from "node:fs";
+
 const f = (n) => +n.toFixed(2);
 
 // A seeded random, so the Grid glyph's cells are the same on every build (the plugin picks its own once a session).
@@ -63,13 +65,14 @@ const componentManager = () => svg("723.27 302.75 474.03 474.03",
   + '<rect x="839.01" y="494.92" width="89.69" height="89.69" transform="translate(-122.8 783.07) rotate(-45)"/>'
   + '</g>');
 
-// InDesign Export: the Id mark in a frame with its corner marks (_indesignExportSvg).
+// InDesign Export: IDML Export's icon, .idml in a frame with its corner marks (icons/idml-export.svg, read from there so
+// the two never differ), on a light square, in the box the plugin's Id mark had (_indesignExportSvg).
+const idmlIcon = readFileSync(new URL("../_includes/icons/idml-export.svg", import.meta.url), "utf8");
 const indesignExport = () => svg("371.17 70.92 623.65 626.16",
-  '<rect fill="var(--w-fixed-light)" x="470.25" y="170.59" width="426.01" height="426.01"/>'
-  + '<path fill="currentColor" d="M894.99,171.86v423.46h-423.46V171.86h423.46M897.54,169.31h-428.56v428.56h428.56V169.31h0Z"/>'
-  + '<path fill="currentColor" d="M537.39,516.8V249.29h54.01v267.51h-54.01Z"/>'
-  + '<path fill="currentColor" d="M827.69,516.8h-47.63v-28.47c-7.91,11.07-17.24,19.31-28.01,24.73-10.77,5.41-21.62,8.12-32.57,8.12-22.26,0-41.33-8.97-57.21-26.91-15.88-17.94-23.81-42.97-23.81-75.09s7.72-57.81,23.17-74.91c15.45-17.09,34.97-25.64,58.57-25.64,21.65,0,40.39,9,56.2,27.01v-96.35h51.28v267.51ZM690.84,415.71c0,20.68,2.86,35.64,8.58,44.89,8.27,13.38,19.83,20.07,34.67,20.07,11.8,0,21.83-5.02,30.11-15.05,8.27-10.04,12.41-25.03,12.41-44.98,0-22.26-4.01-38.29-12.04-48.08-8.03-9.79-18.31-14.69-30.84-14.69s-22.35,4.84-30.56,14.51-12.32,24.12-12.32,43.34Z"/>'
-  + '<g fill="currentColor"><rect x="449.13" y="149.19" width="42.35" height="42.35"/><rect x="874.52" y="149.19" width="42.35" height="42.35"/><rect x="449.13" y="576.46" width="42.35" height="42.35"/><rect x="874.52" y="576.46" width="42.35" height="42.35"/></g>');
+  `<svg x="449.13" y="149.19" width="467.74" height="469.62" viewBox="${idmlIcon.match(/viewBox="([^"]+)"/)[1]}" fill="currentColor" overflow="visible">`
+  + '<rect fill="var(--w-fixed-light)" x="838.6" y="277.71" width="213.41" height="211.66"/>'
+  + idmlIcon.slice(idmlIcon.indexOf(">") + 1, idmlIcon.lastIndexOf("</svg>"))
+  + "</svg>");
 
 // Frame Multiplier: its emblem, eight bars from one square (_rolloutSvg).
 const frameMultiplier = () => svg("0 0 474 474",
