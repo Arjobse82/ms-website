@@ -54,16 +54,25 @@ eleventyExcludeFromCollections: true
   <h2>How it works</h2>
 
   <ol>
-    <li><strong>Share the file.</strong> In Figma, click Share, set the link to
-      <strong>Anyone with the link · can view</strong>, and paste it below. View access is enough:
-      we work on our own copy, so nobody is added to your team and your file is not edited.</li>
+    <li><strong>Share the file.</strong> In Figma, click Share, invite {% endraw %}{{ site.support }}{% raw %} with
+      <strong>Can edit</strong>, and paste the file's link below. We work in your file, so the setup and
+      the release stay with it and you run the later rounds yourself. We keep no copy.</li>
     <li><strong>We check the artwork.</strong> If it doesn't suit a rollout we reply and say why,
       and that is the end of it.</li>
-    <li><strong>We send previews.</strong> You get a view-only link to our copy, with every size
-      filled by a low-res JPEG of its layout.</li>
+    <li><strong>We make previews.</strong> Every size in your file gets a low-res JPEG of its layout,
+      so you see the rollout before you pay.</li>
     <li><strong>You release the frames.</strong> Releasing costs $1 a frame, with a $99 minimum
-      per rollout. On payment we replace the JPEGs with the working frames and hand the file over.</li>
+      per rollout. On payment the working frames are delivered on a new page in your file. The release
+      also covers three more rounds within 40 days, which you run yourself with the plugin.</li>
   </ol>
+
+  <p><strong>On a paid Figma plan,</strong> an editor takes a paid seat on your team. Remove us when the
+    job is done and the seat goes with us. To avoid the seat, move the file into a free Figma team for
+    the job and back afterwards; moving keeps it the same file.</p>
+
+  <p>If you'd rather not give edit access, set the link to <strong>Anyone with the link · can
+    view</strong> instead. We then work on a copy in our own account, you duplicate the finished file
+    into your project, and we delete our copy 30 days after handing it back.</p>
 
   <h2>What to have ready</h2>
 
@@ -84,7 +93,7 @@ eleventyExcludeFromCollections: true
     <input type="email" id="req-email" name="email" autocomplete="email" required>
 
     <label for="req-link">Figma file link
-      <span class="hint">Set to "Anyone with the link · can view".</span></label>
+      <span class="hint">Invite {% endraw %}{{ site.support }}{% raw %} with Can edit, or set the link to "Anyone with the link · can view".</span></label>
     <input type="url" id="req-link" name="figma_link" placeholder="https://www.figma.com/design/…" required>
 
     <label for="req-note">Sizes and notes
@@ -111,8 +120,9 @@ eleventyExcludeFromCollections: true
     you arrive from the plugin, the plugin's release number and the line shown in its summary bar.
     No part of your design is sent by the plugin or by this form.</p>
 
-  <p class="req-note">To do the work we copy your file into our own Figma account. We keep that copy
-    for 30 days after the file is handed back to you, then delete it.</p>
+  <p class="req-note">With edit access we work in your file and keep no copy: remove our access when the
+    job is done. With a view link we work on a copy in our own Figma account, keep it for 30 days after
+    the file is handed back to you, then delete it.</p>
 
   <script>
     (function () {
