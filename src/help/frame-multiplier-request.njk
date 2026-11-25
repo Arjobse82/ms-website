@@ -1,0 +1,141 @@
+---
+layout: layouts/help.njk
+permalink: /help/frame-multiplier/request/
+stylesheet: docpage
+title: Frame Multiplier — Request setup
+description: "Send us your Figma file and we set up the masters and run the rollout. Setup is free; you pay $1 a frame to release, $99 minimum."
+eleventyExcludeFromCollections: true
+---
+{#- Frame Multiplier's setup request form (the setup service, monocode.campaign-manager
+    docs/fable_frame-multiplier-setup-service-plan.md). Reached from the plugin's "Request setup" link,
+    which adds ?v=<release>&s=<summary line>; the form posts to Formspree. Moved here from
+    monochrome-services (src/frame-multiplier-request-body.html, never published there) on 2026-11-26 so
+    the address is www.monochromesystems.com.au (operator). Not in the nav until the service opens. -#}
+<nav class="localnav theme-light" aria-label="Frame Multiplier">
+  <div class="localnav-content">
+    <a class="localnav-title" href="/help/frame-multiplier/">Frame Multiplier</a>
+    <div class="localnav-menu">
+      <ul class="localnav-links"><li><a href="/help/frame-multiplier/">Help</a></li></ul>
+    </div>
+  </div>
+</nav>
+<div class="doc theme-light">
+<div class="container doc-col">
+{% raw %}
+  <style>
+    /* The request form. Kept in this fragment so the other pages' shared CSS is unchanged. */
+    .req-form { margin: 0 0 32px; }
+    .req-form label { display: block; margin: 0 0 6px; font-size: 14px; font-weight: 600; color: var(--fg); }
+    .req-form .hint { display: block; margin: 0 0 8px; font-size: 13px; font-weight: 400; color: var(--fg-3); }
+    .req-form input[type="text"], .req-form input[type="email"], .req-form input[type="url"], .req-form textarea {
+      display: block; width: 100%; box-sizing: border-box; margin: 0 0 22px; padding: 11px 13px;
+      border: 1px solid var(--btn-line); border-radius: 10px; background: var(--bg); color: var(--fg);
+      font: inherit; font-size: 16px; line-height: 1.4;
+    }
+    .req-form textarea { min-height: 120px; resize: vertical; }
+    .req-form input:focus, .req-form textarea:focus { outline: 2px solid var(--focus, #0a84ff); outline-offset: 1px; }
+    .req-form .req-trap { position: absolute; left: -9999px; }
+    .req-form button[disabled] { opacity: 0.5; cursor: default; }
+    .req-note { font-size: 14px; color: var(--fg-3); }
+    .req-result { display: none; }
+    .req-result.is-shown { display: block; }
+  </style>
+
+  <h1>Frame Multiplier — Request setup</h1>
+  <p class="updated">Setup is free. You pay only if you release the frames.</p>
+
+  <p>Send us your Figma file and we set up the masters and run the rollout for you. You see every
+    size as a low-res JPEG preview before you decide anything.</p>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li><strong>Share the file.</strong> In Figma, click Share, set the link to
+      <strong>Anyone with the link · can view</strong>, and paste it below. View access is enough:
+      we work on our own copy, so nobody is added to your team and your file is not edited.</li>
+    <li><strong>We check the artwork.</strong> If it doesn't suit a rollout we reply and say why,
+      and that is the end of it.</li>
+    <li><strong>We send previews.</strong> You get a view-only link to our copy, with every size
+      filled by a low-res JPEG of its layout.</li>
+    <li><strong>You release the frames.</strong> Releasing costs $1 a frame, with a $99 minimum
+      per rollout. On payment we replace the JPEGs with the working frames and hand the file over.</li>
+  </ol>
+
+  <h2>What to have ready</h2>
+
+  <ul>
+    <li>Your finished master layouts on one page of the file.</li>
+    <li>The list of sizes you need, in the file or in the note below.</li>
+    <li>The names of the fonts used. If one is not a Google or Adobe font, say so and we will ask
+      how to get it.</li>
+  </ul>
+
+  <h2>Your request</h2>
+
+  <form class="req-form" id="req-form" action="https://formspree.io/f/xljbayey" method="POST">
+    <label for="req-name">Your name</label>
+    <input type="text" id="req-name" name="name" autocomplete="name" required>
+
+    <label for="req-email">Email</label>
+    <input type="email" id="req-email" name="email" autocomplete="email" required>
+
+    <label for="req-link">Figma file link
+      <span class="hint">Set to "Anyone with the link · can view".</span></label>
+    <input type="url" id="req-link" name="figma_link" placeholder="https://www.figma.com/design/…" required>
+
+    <label for="req-note">Sizes and notes
+      <span class="hint">The sizes you need, the fonts used, and anything we should know about the artwork.</span></label>
+    <textarea id="req-note" name="notes"></textarea>
+
+    <input type="hidden" name="plugin_release" id="req-v" value="">
+    <input type="hidden" name="plugin_summary" id="req-s" value="">
+    <input type="hidden" name="_subject" value="Frame Multiplier setup request">
+    <input type="text" name="_gotcha" class="req-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <button type="submit" class="button button-primary" id="req-send">Send request</button>
+  </form>
+
+  <div class="callout req-result" id="req-ok" role="status">
+    <p><strong>Request sent.</strong> We reply by email once we have looked at the file.</p>
+  </div>
+  <div class="callout req-result" id="req-fail" role="alert">
+    <p><strong>The request did not send.</strong> Check your connection and try again, or email the
+      same details to <a href="mailto:{% endraw %}{{ site.support }}{% raw %}">{% endraw %}{{ site.support }}{% raw %}</a>.</p>
+  </div>
+
+  <p class="req-note">This form is sent through Formspree. It carries what you type above and, when
+    you arrive from the plugin, the plugin's release number and the line shown in its summary bar.
+    No part of your design is sent by the plugin or by this form.</p>
+
+  <p class="req-note">To do the work we copy your file into our own Figma account. We keep that copy
+    for 30 days after the file is handed back to you, then delete it.</p>
+
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      document.getElementById('req-v').value = (q.get('v') || '').slice(0, 40);
+      document.getElementById('req-s').value = (q.get('s') || '').slice(0, 200);
+      var form = document.getElementById('req-form');
+      var send = document.getElementById('req-send');
+      var show = function (id) {
+        document.getElementById('req-ok').classList.toggle('is-shown', id === 'req-ok');
+        document.getElementById('req-fail').classList.toggle('is-shown', id === 'req-fail');
+      };
+      // Without script the form still posts and Formspree shows its own confirmation page.
+      form.addEventListener('submit', function (ev) {
+        if (!window.fetch) return;
+        ev.preventDefault();
+        send.disabled = true;
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+          .then(function (r) {
+            if (!r.ok) throw new Error('refused');
+            form.hidden = true;
+            show('req-ok');
+          })
+          .catch(function () { send.disabled = false; show('req-fail'); });
+      });
+    })();
+  </script>
+{% endraw %}
+</div>
+</div>
