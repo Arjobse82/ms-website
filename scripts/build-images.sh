@@ -30,7 +30,7 @@ build granite-tall L1061422.JPG 270 800 1600
 build frame-multiplier frame-multiplier-heroL1062024.JPG 0 800 1600 2400
 build bloom      bloom-preflight-L1060980.JPG 0 800 1600 2400
 # The About page's hero.
-build about      L1061270.JPG 0 800 1600 2400
+build about      L1061823_MONO.png 0 800 1600 2320
 # The poster of Assemblr's intro video: the video's own thumbnail (i.ytimg.com/vi/fQn1EZXqsBs/maxresdefault.jpg).
 build assemblr-intro assemblr-intro.jpg 0 800 1280
 

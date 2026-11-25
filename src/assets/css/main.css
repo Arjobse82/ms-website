@@ -1032,7 +1032,7 @@ a.tile:hover .tile-photo { --lift: 1.05; }
   transform: rotate(var(--turn, 0deg)) scale(calc(var(--cover, 1) * var(--zoom, 1) * var(--lift, 1)));
   transform-origin: var(--origin, var(--focus));
 }
-/* The About photo is already dark and misty: no grey tint (the default 0.42 lifts its blacks), so it keeps its depth. */
+/* The About photo, the Ad Agent poster on a street wall: no grey tint (the default 0.42 lifts its blacks), so the poster stays black. */
 .banner-vivid { --photo-tint: transparent; }
 .banner:has(.banner-icons)::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0, 0, 0, 0.36); }
 .banner-icons { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 6%; }
