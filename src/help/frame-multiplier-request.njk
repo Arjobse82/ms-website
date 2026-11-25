@@ -101,7 +101,6 @@ eleventyExcludeFromCollections: true
     <textarea id="req-note" name="notes"></textarea>
 
     <input type="hidden" name="plugin_release" id="req-v" value="">
-    <input type="hidden" name="plugin_summary" id="req-s" value="">
     <input type="hidden" name="_subject" value="Frame Multiplier setup request">
     <input type="text" name="_gotcha" class="req-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -117,7 +116,7 @@ eleventyExcludeFromCollections: true
   </div>
 
   <p class="req-note">This form is sent through Formspree. It carries what you type above and, when
-    you arrive from the plugin, the plugin's release number and the line shown in its summary bar.
+    you arrive from the plugin, the plugin's release number.
     No part of your design is sent by the plugin or by this form.</p>
 
   <p class="req-note">With edit access we work in your file and keep no copy: remove our access when the
@@ -128,7 +127,6 @@ eleventyExcludeFromCollections: true
     (function () {
       var q = new URLSearchParams(location.search);
       document.getElementById('req-v').value = (q.get('v') || '').slice(0, 40);
-      document.getElementById('req-s').value = (q.get('s') || '').slice(0, 200);
       var form = document.getElementById('req-form');
       var send = document.getElementById('req-send');
       var show = function (id) {
