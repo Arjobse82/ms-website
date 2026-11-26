@@ -1,0 +1,116 @@
+---
+layout: layouts/help.njk
+permalink: /help/frame-multiplier/terms/
+stylesheet: docpage
+title: Frame Multiplier terms
+description: "What a Frame Multiplier release buys, what it costs, how the rounds work, and refunds."
+eleventyExcludeFromCollections: true
+---
+{#- The terms of Frame Multiplier VERSION 2, the free plugin with paid releases (monocode.campaign-manager
+    rollout-v2-app/; release.ts holds the numbers, tools/fm2-order-worker/worker.js the server's rules; audit G12
+    and O3 in docs/fable_fm2-release-audit-plan.md). Written 2026-11-26. Keep the prices, rounds and days in step
+    with release.ts and the request page. The refund rule is the owner's to confirm. Not in the nav until
+    version 2 is published. -#}
+<nav class="localnav theme-light" aria-label="Frame Multiplier">
+  <div class="localnav-content">
+    <a class="localnav-title" href="/help/frame-multiplier/">Frame Multiplier</a>
+    <div class="localnav-menu">
+      <ul class="localnav-links"><li><a href="/help/frame-multiplier/">Help</a></li><li><a href="/help/frame-multiplier/privacy/">Privacy</a></li></ul>
+    </div>
+  </div>
+</nav>
+<div class="doc theme-light">
+<div class="container doc-col">
+{% raw %}
+  <h1>Terms</h1>
+  <p class="updated">Last updated: 26 November 2026</p>
+
+  <p>These terms cover Frame Multiplier, the free Figma plugin where you pay to release frames, and our
+    setup service for it. By releasing frames you agree to them. Monochrome Systems makes the plugin
+    and runs the service.</p>
+
+  <h2>Previews are free</h2>
+
+  <p>The plugin is free to install and use. Multiply makes a low-res, watermarked JPEG preview of each
+    frame's layout, as often as you like, at no cost. Previews are for checking the rollout; they are
+    not working artwork.</p>
+
+  <h2>What a release buys</h2>
+
+  <ul>
+    <li><strong>The frames in the order.</strong> Releasing turns the previews of the frames you chose
+      into working frames, laid out from your masters and delivered on a new page in your file. The
+      page you work on keeps its previews.</li>
+    <li><strong>Four rounds.</strong> A release is four deliveries of the same frames: the release itself
+      and three more. Each round is delivered on its own new page, so you can change the masters, check
+      the previews and deliver again.</li>
+    <li><strong>40 days.</strong> Rounds 2 to 4 must be delivered within 40 days of payment, and the
+      plugin shows the last day. Round 1 has no time limit.</li>
+    <li><strong>Per frame.</strong> A round is counted for each frame delivered. A duplicate of a frame
+      is a new frame and is not covered. A copy of the file shares the original's rounds; it doesn't
+      get its own.</li>
+    <li><strong>Delivered pages are yours.</strong> They stay in your file whatever happens to the order
+      later, and you can use them as you like.</li>
+  </ul>
+  <p>We can add rounds or days to an order, for example when something went wrong on our side. The
+    plugin shows them the next time it is opened.</p>
+
+  <h2>Price</h2>
+
+  <p>A$1 a frame, with an A$9 minimum per order, in Australian dollars. The price is shown on the
+    Release button before you order, and any tax is shown at checkout. There is no subscription and
+    no credit is kept: you pay for each order.</p>
+
+  <h2>Payment</h2>
+
+  <p>Payment is taken by Lemon Squeezy, which is the merchant of record for the sale: it charges you,
+    handles any tax and sends the receipt. Its
+    <a href="https://www.lemonsqueezy.com/buyer-terms">buyer terms</a> apply to the payment as well as
+    these. Paying outside Figma is how this plugin works; Figma does not take or hold the payment.</p>
+
+  <h2>Delivering</h2>
+
+  <p>Each delivery is counted by our order server, so delivering needs an internet connection. If you
+    are offline, one round can be delivered and is counted when you are back online; the next waits.
+    If a delivery fails to lay out, its round is kept and the next Deliver tries again. Undoing a
+    delivery in Figma does not give the round back.</p>
+  <p>Frame Multiplier lays out each frame from your masters. Always check the delivered frames before
+    you send them to print or publish them.</p>
+
+  <h2>Refunds</h2>
+
+  <p>If a release doesn't work and we can't fix it, email us within 30 days of payment with the order
+    number on your receipt and we will refund it in full. A refunded order ends its remaining rounds;
+    pages already delivered stay in your file.</p>
+  <p>Nothing in these terms limits your rights under the Australian Consumer Law, or the consumer laws
+    of your own country.</p>
+
+  <h2>Setup service</h2>
+
+  <p>If you <a href="/help/frame-multiplier/request/">ask us to set up a file</a>, setup is free. You
+    see every size as a preview before you decide. If you release the frames, the release costs A$1 a
+    frame with an A$49 minimum, and covers the same four rounds in 40 days. If you don't release,
+    you pay nothing. With edit access we work in your file; remove our access when the job is done.</p>
+
+  <h2>Your work</h2>
+
+  <p>Your designs, images and text stay yours. We use your file only to do what you ask, and the
+    plugin sends none of your artwork anywhere (see <a href="/help/frame-multiplier/privacy/">Privacy</a>).
+    You need the rights to the artwork you lay out with the plugin.</p>
+
+  <h2>Limits</h2>
+
+  <p>The plugin runs inside Figma, so it depends on Figma and on Figma's terms. We may change or stop
+    the plugin or the service; rounds already paid for are honoured within their 40 days. Except where
+    the law says otherwise, our liability for an order is limited to what you paid for it.</p>
+
+  <h2>Changes</h2>
+
+  <p>If these terms change, this page changes first, with a new date at the top. The terms on the day
+    you paid apply to that order.</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:{% endraw %}{{ site.support }}{% raw %}">{% endraw %}{{ site.support }}{% raw %}</a></p>
+{% endraw %}
+</div>
+</div>

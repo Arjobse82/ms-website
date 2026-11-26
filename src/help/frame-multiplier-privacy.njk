@@ -1,0 +1,132 @@
+---
+layout: layouts/help.njk
+permalink: /help/frame-multiplier/privacy/
+stylesheet: docpage
+title: Frame Multiplier privacy
+description: "What Frame Multiplier sends, to whom, what the order server keeps and for how long, and what stays in your Figma file."
+eleventyExcludeFromCollections: true
+---
+{#- The privacy policy of Frame Multiplier VERSION 2, the free plugin with paid releases (monocode.campaign-manager
+    rollout-v2-app/, docs/fable_frame-multiplier-setup-service-plan.md §7; audit G12 in
+    docs/fable_fm2-release-audit-plan.md). The live subscription plugin has its own policy, hosted from
+    monochrome-services (src/frame-multiplier-privacy-body.html). Written 2026-11-26. Check it against the order
+    server (tools/fm2-order-worker/worker.js) and release-gate.ts whenever either changes what is sent or kept.
+    Not in the nav until version 2 is published. -#}
+<nav class="localnav theme-light" aria-label="Frame Multiplier">
+  <div class="localnav-content">
+    <a class="localnav-title" href="/help/frame-multiplier/">Frame Multiplier</a>
+    <div class="localnav-menu">
+      <ul class="localnav-links"><li><a href="/help/frame-multiplier/">Help</a></li><li><a href="/help/frame-multiplier/terms/">Terms</a></li></ul>
+    </div>
+  </div>
+</nav>
+<div class="doc theme-light">
+<div class="container doc-col">
+{% raw %}
+  <h1>Privacy</h1>
+  <p class="updated">Last updated: 26 November 2026</p>
+
+  <p>This page covers Frame Multiplier, the free Figma plugin where you pay to release frames. The
+    subscription version of the plugin makes no network connections and has
+    <a href="https://monochrome-downloads.github.io/monochrome-services/frame-multiplier/privacy/">its own policy</a>.</p>
+
+  <p>In short: previews are made on your computer. The plugin connects to the internet only to order,
+    pay for and deliver a release, and what it sends is the ids of the frames, never the artwork. Your
+    payment details go to Lemon Squeezy, not to us.</p>
+
+  <h2>What stays on your computer</h2>
+
+  <p>Multiply, the previews and every layout calculation run inside the plugin on your own computer.
+    The plugin reads your images' pixels there to find the subject of each picture, and keeps the
+    outline or box it finds, not the pixels. No layer, image, text, frame name or frame size leaves
+    your file.</p>
+
+  <h2>What the plugin sends, and to whom</h2>
+
+  <p>The plugin talks to one address, our order server, hosted on Cloudflare. It sends:</p>
+  <ul>
+    <li><strong>When you release frames:</strong> a token that identifies the Figma file (a random id
+      the plugin makes and keeps in the file) and the Figma ids of the frames you are releasing, such
+      as <code>12:345</code>. The server makes a Lemon Squeezy checkout for that order and the plugin
+      opens it in your browser.</li>
+    <li><strong>While it waits for a payment:</strong> the order's id, to ask whether it has been paid.</li>
+    <li><strong>For each delivery:</strong> the order's id, the file's token, the ids of the frames being
+      delivered and a random number for that delivery, so the server can count the round once.</li>
+  </ul>
+  <p>Like any website, Cloudflare sees the internet address each request comes from. The order server
+    uses it to limit how many calls one address can make in a minute, and does not store it.</p>
+
+  <h2>Payments</h2>
+
+  <p>Lemon Squeezy runs the checkout and is the merchant of record, so the sale is made through it: it
+    takes your name, email, billing country and payment details, charges you, handles any tax, and
+    sends your receipt. Its own
+    <a href="https://www.lemonsqueezy.com/privacy">privacy policy</a> covers what it does with them.
+    We never see your card details.</p>
+  <p>We can see in Lemon Squeezy the name, email and country on each order, and the amount. We use them to answer your support and refund questions, and for our own accounts. The
+    order server stores Lemon Squeezy's order number, not your name or email.</p>
+
+  <h2>What the order server keeps</h2>
+
+  <p>For each order: its id, the file's token, the frame ids, the price, when it was made and paid,
+    Lemon Squeezy's order number, whether it was refunded, and how many rounds and days it allows. For
+    each frame in it: how many rounds have been delivered. For each delivery: its random number, the
+    frames it counted and when. Nothing in this identifies you without Lemon Squeezy's records.</p>
+  <ul>
+    <li><strong>An unpaid order</strong> is deleted 7 days after it was made.</li>
+    <li><strong>A paid order</strong> is kept, because the server counts its rounds and every copy of
+      the file draws on the same count. Once its rounds have ended, email us and we will delete it.</li>
+  </ul>
+
+  <h2>What is written into your Figma file</h2>
+
+  <p>The plugin keeps its working notes as plugin data inside the file, so they are saved, versioned,
+    shared and deleted with it. A copy of the file carries them too.</p>
+  <ul>
+    <li><strong>On your masters:</strong> the settings you choose in Setup, such as a layer's role, a pin
+      or a clamp.</li>
+    <li><strong>On each frame:</strong> a description of its layers so the next Scan can skip frames that
+      haven't changed; its low-res preview image; and, once it is released, which order covers it and
+      how many rounds have been delivered.</li>
+    <li><strong>On the file:</strong> the masters page you chose; the subject outlines of your images; the
+      file's token and the orders still waiting for payment; and the server's signed proof of payment
+      for each paid order.</li>
+    <li><strong>Delivered rounds</strong> are new pages in the file, named after the page and the round.</li>
+  </ul>
+
+  <h2>What is kept on your computer</h2>
+
+  <p>A few display preferences (light or dark, and which optional controls are shown) are kept in
+    the plugin panel's own storage. If a round is delivered while you are offline, the plugin also
+    keeps a note of it in Figma's storage for this plugin on your computer until the order server has
+    counted it. Neither is copied with the file.</p>
+
+  <h2>Request setup</h2>
+
+  <p>If you ask us to set up a file, the <a href="/help/frame-multiplier/request/">request form</a>
+    sends what you type in it (your name, email, the file's link and your notes) through Formspree, by
+    email to us. We then work in your file with the access you give us. That page says what we keep and
+    for how long.</p>
+
+  <h2>Who else is involved</h2>
+
+  <ul>
+    <li><strong>Cloudflare</strong> hosts the order server.</li>
+    <li><strong>Lemon Squeezy</strong> runs the checkout and payment.</li>
+    <li><strong>Formspree</strong> carries the setup request form, only if you use it.</li>
+    <li><strong>Figma</strong> runs the plugin, under Figma's own terms.</li>
+  </ul>
+  <p>The plugin has no analytics, no crash reporting, no advertising and no tracking of any kind.</p>
+
+  <h2>Children</h2>
+  <p>Frame Multiplier is a tool for design work and is not aimed at children.</p>
+
+  <h2>Changes</h2>
+  <p>If what the plugin sends or what the server keeps changes, this page changes first, with a new
+    date at the top.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this page or your data: <a href="mailto:{% endraw %}{{ site.support }}{% raw %}">{% endraw %}{{ site.support }}{% raw %}</a>.</p>
+{% endraw %}
+</div>
+</div>
