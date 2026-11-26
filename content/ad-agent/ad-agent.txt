@@ -1,5 +1,5 @@
 name: Ad Agent
-tagline: Connects your InDesign and Figma masters, rolls out every size, keeps each round of amends and prepares the files for delivery.
+tagline: Automate campaign production across InDesign and Figma. Build every size from your masters, apply client amends across the campaign, track revisions and prepare files for delivery.
 description: A job starts with the brief. You connect the masters, channels and output specs on a node view, and Ad Agent builds every size. You review and amend each round, then it preflights the files and sends them to the folders you chose. AI can assist with the whole process.
 price: From US$19.99 a month after the beta
 // The label on another app's page that lists it ("macOS app, works with …", content/pages/labels.txt alsoWorksWith).
