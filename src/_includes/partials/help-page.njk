@@ -84,7 +84,7 @@
     <h2 class="t-l section-title pt-heading reveal">{{ panel.heading or "Every setting, explained" }}</h2>
     <p class="pt-intro reveal">{{ panel.intro }}</p>
     {% include "partials/panel-tour.njk" %}
-    {%- if not quick %}{% set supportName = heading | replace(" help", "") %}{% include "partials/more-help.njk" %}{% endif %}
+    {%- if not quick %}{% set supportName = heading | replace(" Help", "") | replace(" help", "") %}{% include "partials/more-help.njk" %}{% endif %}
   </div>
 </section>
 
@@ -98,7 +98,7 @@
     <h2 class="t-l section-title pt-heading reveal">Quick help</h2>
     <p class="pt-intro reveal">{{ help.intro }}</p>
     {% include "partials/panel-help.njk" %}
-    {%- set supportName = heading | replace(" help", "") %}
+    {%- set supportName = heading | replace(" Help", "") | replace(" help", "") %}
     {% include "partials/more-help.njk" %}
   </div>
 </section>
