@@ -76,6 +76,9 @@
   .sd > .sd-window { position: sticky; top: 84px; }
   .js .sd-detail { opacity: 0.35; transition: opacity 0.4s ease; }
   .js .sd-detail.is-current { opacity: 1; }
+  /* In the window, too: the current entry's widget at full strength, the rest faded back until pointed at. */
+  .sd > .sd-window a.widget { transition: opacity 0.4s ease; }
+  .sd > .sd-window .widget-grid:has(.is-active) a.widget:not(.is-active, :hover, :focus-visible) { opacity: 0.3; }
 }
 /* What a widget opens to, under its entry, the full width of it. Each is drawn in its own file. */
 .sd-detail { flex-wrap: wrap; }
