@@ -1,4 +1,4 @@
 name: Ad Agent
 kind: macOS app
-subhead: From brief to delivery, campaign production across InDesign and Figma.
+subhead: AI-connected campaign production across InDesign and Figma.
 intro: Open the brief, add the sizes and pick your masters, then run it. One window shows the whole rollout: each creative, master, channel and size, and the folder each file goes to.
