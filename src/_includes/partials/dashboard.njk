@@ -20,8 +20,8 @@
       </div>
     </div>
   </div>
-  {#- What each widget is, beside the window: a click on a widget shows its entry here (site.js, initDashboards); without script every entry shows, each tile's link taking you to its own. -#}
-  <div class="sd-details" aria-live="polite">
+  {#- What each widget is, beside the window, one entry under the other. Scrolling steps through them: the window stays in view and the entry at the reading line rings its widget (site.js, initDashboardDetails). Each tile's link scrolls to its entry. -#}
+  <div class="sd-details">
     {%- for w in d.list %}
     <div class="sd-item sd-detail" id="widget-{{ w.id }}" data-detail>
       <span class="sd-mini sd-ui sd-mini-{{ w.kind }}" aria-hidden="true">{{ widget(w, d, false) }}</span>

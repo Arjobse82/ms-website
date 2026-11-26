@@ -68,9 +68,15 @@
   .sd { margin-top: 40px; padding: 20px 0; }
   .sd-window { zoom: 0.78; }
 }
-/* Beside the window: the entry for the widget picked (site.js, initDashboards), the page's own words for it. */
-.sd-details { display: flex; flex-direction: column; gap: 16px; min-width: 0; text-align: left; }
-.sd-detail[hidden] { display: none; }
+/* Beside the window: every widget's entry, the page's own words for it, one under the other. On a screen wide and tall
+   enough the window stays put while they scroll past; the entry at the reading line is the current one, its
+   widget ringed (site.js, initDashboardDetails), the rest faded back. */
+.sd-details { display: flex; flex-direction: column; gap: 24px; min-width: 0; text-align: left; }
+@media (min-width: 901px) and (min-height: 600px) {
+  .sd > .sd-window { position: sticky; top: 84px; }
+  .js .sd-detail { opacity: 0.35; transition: opacity 0.4s ease; }
+  .js .sd-detail.is-current { opacity: 1; }
+}
 /* What a widget opens to, under its entry, the full width of it. Each is drawn in its own file. */
 .sd-detail { flex-wrap: wrap; }
 .sd-detail-ui { flex: 1 0 100%; min-width: 0; margin-top: 18px; }
@@ -89,7 +95,6 @@
 .sd-measure-note { font-size: 11px; color: #888; }
 .sd-item-note { max-width: 36em; font-size: 14px; }
 .sd-item-cta { justify-content: flex-start; margin-top: 16px; }
-.sd-ui a.widget.is-active { outline: 5px solid var(--tab-underline); outline-offset: 1px; }
 @media (max-width: 380px) { .sd-window { zoom: 0.7; } }
 
 /* Figma's bar over a plugin's window: its name, and its close. */
@@ -141,9 +146,10 @@
 /* A widget: its surface and ink are tokens, so a variant only swaps them. */
 .sd-ui .widget { position: relative; display: flex; flex-direction: column; grid-column: span var(--w-span, 1); min-width: 0; min-height: 0; overflow: hidden; padding: var(--w-pad-y) var(--w-pad-x) var(--w-pad-b); border-radius: var(--w-radius); background: var(--w-surface); color: var(--w-ink); text-decoration: none; }
 .sd-ui .widget--tile { --w-radius: var(--w-radius-tile); aspect-ratio: 1 / 1; align-items: center; justify-content: center; padding: 9px 2px 16px; }
-/* On the page, each widget is a link: the house blue round it under the pointer or the keyboard. */
+/* On the page, each widget is a link: the house blue round it, at one weight, for the current entry's widget and under
+   the pointer or the keyboard. */
 .sd-ui a.widget { cursor: pointer; }
-.sd-ui a.widget:hover, .sd-ui a.widget:focus-visible { outline: 2px solid var(--tab-underline); outline-offset: 1px; }
+.sd-ui a.widget.is-active, .sd-ui a.widget:hover, .sd-ui a.widget:focus-visible { outline: 5px solid var(--tab-underline); outline-offset: 1px; }
 
 /* Creatives: white, the page's creatives listed over a drifting cloud of dots, their count large. */
 .sd-ui .w-creatives { --w-surface: var(--w-fixed-light); --w-ink: var(--w-fixed-dark); aspect-ratio: 1 / 1; }

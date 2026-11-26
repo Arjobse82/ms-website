@@ -627,35 +627,50 @@ function initLiveJobs() {
 // A dashboard's widgets, each a link to its entry beside the window (partials/dashboard.njk): rolling over one, or a click, shows that entry
 // and hides the others, the widget outlined; the first widget's is shown to begin with. Without script every entry
 // shows and each tile jumps to its own.
+// A plugin's dashboard (partials/dashboard.njk): every widget's entry is listed beside the window, and the window stays
+// in view while they scroll past it (css/dashboards/*.css). The entry at the reading line, 60 % down the screen, is
+// the current one: its widget is ringed in the window and the other entries fade back. A click on a widget scrolls to
+// its entry. (The entries' ids are found among the entries themselves: the Included row uses the same app-* ids.)
 function initDashboardDetails() {
   for (const root of document.querySelectorAll(".sd")) {
     const details = [...root.querySelectorAll("[data-detail]")];
-    const links = [...root.querySelectorAll(".sd-window a.widget")];
-    if (!details.length || !links.length) continue;
-    const show = (id) => {
-      details.forEach((d) => { d.hidden = d.id !== id; });
+    if (!details.length) continue;
+    const entryOf = (a) => details.find((d) => `#${d.id}` === a.getAttribute("href"));
+    const links = [...root.querySelectorAll(".sd-window a.widget")].filter(entryOf);
+    let at = null, queued = false;
+    const show = (entry) => {
+      if (entry === at) return;
+      at = entry;
+      details.forEach((d) => d.classList.toggle("is-current", d === entry));
       links.forEach((a) => {
-        const on = a.getAttribute("href") === `#${id}`;
+        const on = entryOf(a) === entry;
         a.classList.toggle("is-active", on);
         a.toggleAttribute("aria-current", on);
       });
     };
+    const update = () => {
+      queued = false;
+      const line = innerHeight * 0.6;
+      let entry = details[0];
+      for (const d of details) if (d.getBoundingClientRect().top <= line) entry = d;
+      show(entry);
+    };
+    const queue = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
     for (const a of links) {
-      // Rolling over a widget (or tabbing to it) shows its entry; it stays until another is picked, so moving the
-      // pointer off the window to read it does not lose it. A tap or click still opens it, for touch.
-      const open = () => { const id = a.getAttribute("href").slice(1); if (details.some((d) => d.id === id)) show(id); };
-      a.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" || e.pointerType === "pen") open(); });
-      a.addEventListener("focus", open);
       a.addEventListener("click", (e) => {
-        const id = a.getAttribute("href").slice(1);
-        if (!details.some((d) => d.id === id)) return;
+        const entry = entryOf(a);
         e.preventDefault();
-        show(id);
+        entry.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+        history.replaceState(null, "", `#${entry.id}`);
       });
     }
-    // A link to a widget's entry (#widget-template) opens on it; otherwise the first widget's.
-    const wanted = location.hash.slice(1);
-    show(details.some((d) => d.id === wanted) ? wanted : links[0].getAttribute("href").slice(1));
+    addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    update();
   }
 }
 
