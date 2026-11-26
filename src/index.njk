@@ -55,7 +55,7 @@ layout: layouts/base.njk
           <span class="lineup-icon">{% include "icons/" + p.icon + ".svg" %}</span>
           <span class="lineup-name">{{ p.name }}</span>
           <span class="lineup-app">{{ p.appNames | join(" · ") }}</span>
-          <span class="lineup-text">{{ p.tagline }}</span>
+          <span class="lineup-text">{{ p.cardLine or p.tagline }}</span>
         </a>
       </li>
       {%- endfor %}

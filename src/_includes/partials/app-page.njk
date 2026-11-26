@@ -132,7 +132,7 @@
         <div class="lineup-card-body">
           {%- if p.also %}<p class="label">{{ pages.labels.alsoWorksWith | replace("{name}", p.worksWith or app.name) | labelText | safe }}</p>{% endif %}
           <h3 class="lineup-card-title">{{ p.name }}</h3>
-          <p class="lineup-card-tagline">{{ p.tagline }}</p>
+          <p class="lineup-card-tagline">{{ p.cardLine or p.tagline }}</p>
           <p class="lineup-card-text">{{ p.description }}</p>
           <div class="cta-row">
             <a class="button button-primary button-compact" href="{{ p.url }}">{{ pages.labels.learnMore }}</a>

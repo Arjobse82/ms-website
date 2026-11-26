@@ -173,7 +173,7 @@
         <a href="{{ p.url }}" class="lineup-item">
           <span class="lineup-icon">{% include "icons/" + p.icon + ".svg" %}</span>
           <span class="lineup-name">{{ p.name }}</span>
-          <span class="lineup-text">{{ p.tagline }}</span>
+          <span class="lineup-text">{{ p.cardLine or p.tagline }}</span>
         </a>
       </li>
       {%- endif %}{% endfor %}{% endfor %}
