@@ -167,22 +167,27 @@ export async function startDemo(root) {
   const panel = root.querySelector("[data-demo-panel]");
   const toolbar = root.querySelector("[data-demo-toolbar]");
   const liveRegion = root.querySelector("[data-demo-live]");
-  const cans = await Promise.all(CANS.map(async (c) => ({ ...c, m: measure(await loaded(c.src)) })));
+  // A test page's own start (src/dev/assemblr-test.njk), as JSON on the root: { shapes: ["pink-box", …] (img/shape-*.webp),
+  // per (how many of one before the next), count, even (no hand sizes), params (onto the line-up's) }. Absent on the site.
+  const setup = root.dataset.demoSet ? JSON.parse(root.dataset.demoSet) : {};
+  const startCans = setup.shapes ? setup.shapes.map((name) => ({ src: new URL(`../img/shape-${name}.webp`, import.meta.url).href, label: name })) : CANS;
+  const cans = await Promise.all(startCans.map(async (c) => ({ ...c, m: measure(await loaded(c.src)) })));
 
   /* State ------------------------------------------------------------------------------------------------------------ */
 
   let S;
   let uid = 0;
   const canPicture = (i, hand) => {
-    const can = cans[Math.floor(i / 3) % cans.length], p = padded(can.m, PADS[i % PADS.length]);
+    const can = cans[Math.floor(i / (setup.per || 3)) % cans.length], p = padded(can.m, PADS[i % PADS.length]);
     return { key: `can-${i}`, label: can.label, src: can.src, subject: p.subject, inner: p.inner, on: true, hand };
   };
   const overlay = (kind, id, extra = {}) => ({ kind, id, key: `ov-${++uid}`, ...extra });
   function fresh() {
-    const hand = handOf(7, MAX);
+    const hand = setup.even ? Array(MAX).fill(UNTOUCHED) : handOf(7, MAX);
+    const count = Math.min(MAX, setup.count || 6);
     S = {
-      nextCan: 6, seed: 7,
-      pictures: Array.from({ length: 6 }, (_, i) => canPicture(i, hand[i])),
+      nextCan: count, seed: 7,
+      pictures: Array.from({ length: count }, (_, i) => canPicture(i, hand[i])),
       area: { ...AREA_START },
       modes: Object.fromEntries(E.MODES.map((mode) => [mode, startOf(mode)])),
       overlays: { tl: [], tr: [overlay("badge", "new")], bl: [overlay("price", "price")], br: [] },
@@ -190,6 +195,7 @@ export async function startDemo(root) {
       setups: Object.fromEntries(E.CORNERS.map((c) => [c, { ...E.DEFAULT_CORNER, sizing: "pct", maxWPct: 18, maxHPct: 18 }])),
       corner: "tr", price: "2.50", tile: "layout", evidence: [], handleSide: 1,
     };
+    if (setup.params) Object.assign(S.modes.line, setup.params);
     S.params = S.modes.line;
   }
   const on = () => S.pictures.filter((p) => p.on);
