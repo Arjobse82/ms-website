@@ -21,7 +21,7 @@ const guide = [
     ],
   },
   {
-    id: "further", label: "Going further", nav: "Going further", heading: "Four settings for the frames the basics don't get right",
+    id: "further", label: "Going further", nav: "Going further", heading: "Advanced frame controls",
     intro: "Most frames come right from the basics. When one doesn't, these four settings fix it layer by layer. Each one is saved on the layer in your Figma file, so everyone who opens the file gets the same frames. The Setup table has a fifth column, C for Clamp, which stops an image edge from coming into the frame. Clamp is read from the masters and seldom needs setting by hand; In detail covers it.",
     steps: [
       { id: "focal", name: "Focal path", text: "A focal path marks the part of a hero photo that must stay in view. Draw a box around it inside the layer, in the main component, and name it focal. Every size then keeps that box in view. Without one, Frame Multiplier guesses the subject from the pixels and the Fo column shows A. Draw one when the Fo cell turns red." },
