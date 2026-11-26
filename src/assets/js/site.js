@@ -637,40 +637,54 @@ function initDashboardDetails() {
     if (!details.length) continue;
     const entryOf = (a) => details.find((d) => `#${d.id}` === a.getAttribute("href"));
     const links = [...root.querySelectorAll(".sd-window a.widget")].filter(entryOf);
-    let at = null, queued = false;
-    const show = (entry) => {
-      if (entry === at) return;
-      at = entry;
-      details.forEach((d) => d.classList.toggle("is-current", d === entry));
-      links.forEach((a) => {
-        const on = entryOf(a) === entry;
-        a.classList.toggle("is-active", on);
-        a.toggleAttribute("aria-current", on);
-      });
-    };
-    const update = () => {
-      queued = false;
-      const line = innerHeight * 0.6;
-      let entry = details[0];
-      for (const d of details) if (d.getBoundingClientRect().top <= line) entry = d;
-      show(entry);
-    };
-    const queue = () => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(update);
-    };
-    for (const a of links) {
-      a.addEventListener("click", (e) => {
-        const entry = entryOf(a);
-        e.preventDefault();
-        entry.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
-        history.replaceState(null, "", `#${entry.id}`);
-      });
-    }
-    addEventListener("scroll", queue, { passive: true });
-    addEventListener("resize", queue);
-    update();
+    followScroll(details, links, entryOf, (a, on) => {
+      a.classList.toggle("is-active", on);
+      a.toggleAttribute("aria-current", on);
+    });
+  }
+}
+
+// Entries stepped through by scrolling (the dashboard's, a panel's tiles): the current entry is the last whose top has
+// passed the reading line, 60 % down the screen (the first until one has). It gets is-current; `mark` is told which of
+// the links points at it. A click on a link scrolls to its entry (`entryOf`).
+function followScroll(entries, links, entryOf, mark) {
+  let at = null, queued = false;
+  const update = () => {
+    queued = false;
+    const line = innerHeight * 0.6;
+    let entry = entries[0];
+    for (const e of entries) if (e.getBoundingClientRect().top <= line) entry = e;
+    if (entry === at) return;
+    at = entry;
+    entries.forEach((e) => e.classList.toggle("is-current", e === entry));
+    links.forEach((a) => mark(a, entryOf(a) === entry));
+  };
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+  for (const a of links) {
+    a.addEventListener("click", (e) => {
+      const entry = entryOf(a);
+      e.preventDefault();
+      entry.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", `#${entry.id}`);
+    });
+  }
+  addEventListener("scroll", queue, { passive: true });
+  addEventListener("resize", queue);
+  update();
+}
+
+// A panel's tiles as steps (partials/panel-tour.njk, a panel with `steps`): every tile's drawing and notes one under
+// another, its tab's tile bar held at the top while they scroll past (main.css). Each tile is its own panel tour.
+function initPanelSteps() {
+  for (const run of document.querySelectorAll("[data-panel-steps]")) {
+    const blocks = [...run.querySelectorAll("[data-step-block]")];
+    const tiles = [...run.querySelectorAll("[data-step]")];
+    const entryOf = (a) => blocks.find((b) => `#${b.id}` === a.getAttribute("href"));
+    followScroll(blocks, tiles, entryOf, (a, on) => a.setAttribute("aria-current", String(on)));
   }
 }
 
@@ -757,6 +771,7 @@ initRollouts();
 initVideos();
 initDemos();
 initPanelTours();
+initPanelSteps();
 initBuilds();
 initJourney();
 initLiveJobs();

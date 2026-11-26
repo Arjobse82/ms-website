@@ -1,14 +1,49 @@
 {#- A plugin's panel, explained (panels.js): a section for each of its tabs, each with its tiles, the open tile drawn as
     the plugin draws it with a number on each setting, and beside it what each numbered setting does. The open tile has a
     thick blue outline; site.js (initPanelTours) opens another and lights a setting and its note together. Without it,
-    each tab's first tile shows. Expects `panel` (one of panels.js) and `panelId` (its key). -#}
+    each tab's first tile shows. Expects `panel` (one of panels.js) and `panelId` (its key).
+    A panel with `steps` shows every tile of a tab one under another instead, the tile bar held at the top while they
+    scroll past; the tile at the reading line has the blue outline (site.js, initPanelSteps), and a tile links to its
+    own. -#}
 {%- for tab in panel.tabs %}
 {%- set many = tab.tiles.length > 1 %}
+{%- set stepped = many and panel.steps %}
 <section class="pt-group reveal" aria-labelledby="pt-{{ tab.id }}">
   <div class="pt-group-head">
     <h3 class="pt-group-name" id="pt-{{ tab.id }}">{{ tab.label }}</h3>
-    <p class="pt-group-text">{{ tab.summary }}{% if many %} <span class="pt-hint">Pick a tile to see its settings.</span>{% endif %}</p>
+    <p class="pt-group-text">{{ tab.summary }}{% if many and not stepped %} <span class="pt-hint">Pick a tile to see its settings.</span>{% endif %}</p>
   </div>
+  {%- if stepped %}
+  <div class="pt-run" data-panel-steps>
+    <div class="pt-bar">
+      <div class="pt-tiles" role="group" aria-label="{{ tab.label }} tiles">
+        {%- for tile in tab.tiles %}
+        <a class="pt-tile" href="#pt-{{ tab.id }}-{{ tile.id }}" data-step aria-current="{{ 'true' if loop.first else 'false' }}"><span class="pt-tile-art" aria-hidden="true">{{ tile.icon | safe }}</span><span class="pt-tile-name">{{ tile.label }}</span></a>
+        {%- endfor %}
+      </div>
+    </div>
+    {%- for tile in tab.tiles %}
+    <div class="pt pt-block{% if loop.first %} is-current{% endif %}" id="pt-{{ tab.id }}-{{ tile.id }}" data-panel-tour data-step-block>
+      <div class="pt-side">
+        <div class="pt-panel">
+          <div class="pt-view" data-view-panel="{{ tile.id }}">{% include "panel/" + panelId + "/" + tile.id + ".njk" %}</div>
+        </div>
+      </div>
+      <div class="pt-text">
+        <div class="pt-explain" data-view-notes="{{ tile.id }}">
+          <h4 class="t-s pt-name">{{ tile.label }}</h4>
+          <p class="pt-summary">{{ tile.summary }}</p>
+          <ol class="pt-notes">
+            {%- for note in tile.notes %}
+            <li class="pt-note" data-note="{{ loop.index }}"><span class="pt-num" aria-hidden="true">{{ loop.index }}</span><div><p class="pt-note-name">{{ note.name }}</p><p class="pt-note-text">{{ note.text }}</p></div></li>
+            {%- endfor %}
+          </ol>
+        </div>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+  {%- else %}
   <div class="pt" data-panel-tour>
     <div class="pt-side">
       <div class="pt-panel">
@@ -38,5 +73,6 @@
       {%- endfor %}
     </div>
   </div>
+  {%- endif %}
 </section>
 {%- endfor %}

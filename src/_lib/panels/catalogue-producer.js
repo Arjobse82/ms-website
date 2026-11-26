@@ -42,7 +42,9 @@ export default {
       { id: "list", name: "The product list", text: "The list shows every product in the brief, in page order. Drag a product to move it. The pages are built again in the new order, and Changes lists how the order now differs from the brief. You can also work inside a product. Drag its images to change their order, or drag one in from another product or from the files no product matched. Take an image out with × or add one with +. ¶ starts a new page before a product, and + adds an insert after it." },
     ],
   },
-  intro: "Automated Assemblr works from one panel in InDesign, with three tabs: Setup, Products and Changes. Pick a tile in any tab to see its settings. Each number says what a setting does, and the note beside it lights up as you point at it.",
+  // Each tab's tiles are shown one after another, stepped through as you scroll (partials/panel-tour.njk).
+  steps: true,
+  intro: "Automated Assemblr works from one panel in InDesign, with three tabs: Setup, Products and Changes. Scroll down to go through each tab's tiles in turn, or click a tile to jump to it. Each number says what a setting does, and the note beside it lights up as you point at it.",
   tabs: [
     {
       id: "setup", label: "Setup",

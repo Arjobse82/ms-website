@@ -1705,6 +1705,20 @@ a.tile:hover .tile-photo { --lift: 1.05; }
 .pt-num { width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--signal); font-size: 12px; font-weight: 700; line-height: 22px; text-align: center; color: #fff; }
 .pt-note-name { margin-bottom: 2px; font-size: 16px; font-weight: 600; }
 .pt-note-text { font-size: 15px; line-height: 1.45; color: var(--fg-2); }
+/* A panel with `steps` (panel-tour.njk): a tab's tile bar held under the local nav, smaller tiles, while every tile's
+   drawing and notes scroll past under it. The tile at the reading line is ringed and the others fade back (site.js,
+   initPanelSteps). A tile's link lands its block clear of the bar. */
+.pt-bar { position: sticky; top: 52px; z-index: 5; margin-bottom: 32px; padding: 14px 0 12px; background: var(--bg); box-shadow: 0 1px 0 var(--line); }
+.pt-bar .pt-tiles { display: flex; flex-wrap: wrap; gap: 22px; margin: 0; }
+.pt-bar .pt-tile-art { width: 64px; border-radius: 14px; }
+.pt-tile[aria-current="true"] .pt-tile-art { outline-color: var(--signal); }
+.pt-tile[aria-current="true"] .pt-tile-name { font-weight: 600; color: var(--fg); }
+.pt-tile:link, .pt-tile:visited { text-decoration: none; }
+.pt-block { scroll-margin-top: 200px; }
+.pt-block + .pt-block { margin-top: 80px; }
+.pt-block .pt-text { top: 200px; }
+.js .pt-block { opacity: 0.35; transition: opacity 0.4s ease; }
+.js .pt-block.is-current { opacity: 1; }
 @media (max-width: 1068px) {
   .pt { grid-template-columns: 380px minmax(0, 1fr); gap: 40px; }
 }
