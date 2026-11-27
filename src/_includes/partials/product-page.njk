@@ -109,7 +109,14 @@
 {%- if not product.hideStatement %}
 <section class="section section-statement {{ look }}">
   <div class="container">
+    {#- The name in bold, then the description. A description that starts with the name ("Bloom checks…") has its
+        own first words set bold instead, so the name isn't said twice. #}
+    {%- set lead = product.name + " " %}
+    {%- if product.description.startsWith(lead) %}
+    <p class="t-xl statement statement-muted reveal"><strong>{{ product.name }}</strong> {{ product.description.slice(lead.length) }}</p>
+    {%- else %}
     <p class="t-xl statement statement-muted reveal"><strong>{{ product.name }}.</strong> {{ product.description }}</p>
+    {%- endif %}
   </div>
 </section>
 {%- endif %}
