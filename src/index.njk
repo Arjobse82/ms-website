@@ -26,9 +26,6 @@ layout: layouts/base.njk
     <p class="promo-subhead">{{ app.subhead }}</p>
     <div class="cta-row">
       <a class="button button-primary" href="{{ app.url }}">Learn more</a>
-      {%- if not app.standalone %}
-      <a class="button" href="{{ app.url }}#lineup">View plugins</a>
-      {%- endif %}
     </div>
     <ul class="promo-visual{% if app.products.length == 1 %} promo-visual-single{% endif %}">
       {%- for p in app.products %}
