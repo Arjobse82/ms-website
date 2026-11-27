@@ -1307,8 +1307,8 @@ a.tile:hover .tile-photo { --lift: 1.05; }
 
 .about-columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 64px; }
 .about-text { margin-top: 16px; color: var(--fg-2); font-size: 19px; line-height: 1.5; letter-spacing: -0.014em; }
-.about-contact .cta-row { justify-content: flex-start; }
-.about-contact .about-text { max-width: 720px; }
+.about-hero-contact { max-width: 36em; margin-top: 24px; }
+.about-hero-cta { justify-content: flex-start; margin-top: 20px; }
 @media (max-width: 734px) { .about-columns { grid-template-columns: 1fr; gap: 40px; } }
 
 .principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }

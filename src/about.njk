@@ -9,6 +9,8 @@ permalink: /about/
     <p class="label about-hero-kind">About</p>
     <h1 class="t-hero">{{ site.name }}</h1>
     <p class="t-subhead about-hero-subhead">{{ site.statement }}</p>
+    <p class="about-text about-hero-contact">{{ pages.about.contactText }}</p>
+    <div class="cta-row about-hero-cta"><a class="button button-primary" href="mailto:{{ site.support }}">{{ site.support }}</a></div>
   </div>
   <div class="container container-wide">
     <div class="banner banner-vivid reveal" style="--focus: 50% 45%">
@@ -63,14 +65,5 @@ permalink: /about/
       </li>
       {%- endfor %}
     </ul>
-  </div>
-</section>
-
-<section class="section theme-gray about-contact" id="contact">
-  <div class="container">
-    <div class="section-head reveal"><span class="section-index">03</span><span class="label">Contact</span></div>
-    <h2 class="t-l section-title reveal">{{ pages.about.contactTitle }}</h2>
-    <p class="about-text reveal">{{ pages.about.contactText }}</p>
-    <div class="cta-row reveal"><a class="button button-primary" href="mailto:{{ site.support }}">{{ site.support }}</a></div>
   </div>
 </section>
