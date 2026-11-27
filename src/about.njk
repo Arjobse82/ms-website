@@ -9,8 +9,8 @@ permalink: /about/
     <p class="label about-hero-kind">About</p>
     <h1 class="t-hero">{{ site.name }}</h1>
     <p class="t-subhead about-hero-subhead">{{ site.statement }}</p>
-    <p class="about-text about-hero-contact">{{ pages.about.contactText }}</p>
-    <div class="cta-row about-hero-cta"><a class="button button-primary" href="mailto:{{ site.support }}">{{ site.support }}</a></div>
+    {#- {email} in the sentence becomes the support address, as a link. #}
+    <p class="about-text about-hero-contact">{{ pages.about.contactText | escape | replace("{email}", '<a href="mailto:' + site.support + '">' + site.support + '</a>') | safe }}</p>
   </div>
   <div class="container container-wide">
     <div class="banner banner-vivid reveal" style="--focus: 50% 45%">

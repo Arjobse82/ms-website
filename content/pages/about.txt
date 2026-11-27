@@ -5,4 +5,4 @@ workTitle: Built on experience
 workText: Our ideas come from years spent working inside creative studios, navigating the software, workflows and challenges that shape everyday production. We understand where existing tools fall short, where disconnected workflows create friction and where entirely new approaches can make a difference. We build from that experience, turning real problems into new possibilities.
 principlesTitle: How the tools are built
 appsTitle: The apps
-contactText: Email us with questions about the apps, bug reports or an idea for a tool. It goes straight to the people who build them.
+contactText: Email {email} with questions about the apps, bug reports or an idea for a tool. It goes straight to the people who build them.
