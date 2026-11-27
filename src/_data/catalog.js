@@ -27,6 +27,7 @@ export default function () {
       standalone: Boolean(app.standalone),
       features: (product.features ?? site.features).map((f) => ({
         ...f,
+        title: f.title.replaceAll("{app}", app.name),
         text: f.text.replaceAll("{app}", app.name),
       })),
       specs: product.specs ?? [

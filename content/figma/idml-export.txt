@@ -2,3 +2,18 @@ name: IDML Export
 tagline: Figma layouts, ready for InDesign.
 description: IDML Export rebuilds your Figma frames as IDML files that open in InDesign. You can set RGB or CMYK, bleed, pagination, overprint and paragraph styles.
 price: US$7 a month
+
+# highlights
+// The cards on its page, in place of the default ones (content/site.txt features). From its panel notes (src/_lib/panels/idml-export.js).
+
+## Brand colours to CMYK
+Brand colours in RGB are mapped to CMYK swatches and saved in a client profile. The next job picks them up by name.
+
+## Overprint for InDesign
+Set overprint on the fills or strokes of shapes and text in Figma, and it carries across to InDesign.
+
+## Hi-res links
+Connect a folder on your Mac. Images whose layer names match a JPEG, PNG, PSD, AI, EPS or PDF in it link to that file instead of Figma's copy.
+
+## Support from the people who wrote it
+Questions and bug reports go straight to the developers, at support@monochromesystems.com.au.
